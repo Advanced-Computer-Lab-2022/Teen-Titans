@@ -1,0 +1,11 @@
+const express = require('express')
+const dotenv = require('dotenv').config({ path: 'backend/.env'})
+const dbConnection = require('./configuration/db')
+const countryRoute = require('./routes/countryRoute')
+port = process.env.PORT || 5000
+dbConnection()
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: false}))
+app.use('/',countryRoute)
+app.listen(port, () => console.log(`server started on ${port}`))
