@@ -7,8 +7,8 @@ const adminSchema = mongoose.Schema({
     },
     password: {
         type : String,
-        required : true
+        // required : true
     }
 })
 
-module.exports = mongoose.model('admin', adminSchema)
+module.exports = mongoose.model('Admin', adminSchema)
