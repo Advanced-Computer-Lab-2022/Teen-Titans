@@ -15,29 +15,18 @@ const selectedUser  =asyncHandler(async   (req,res) => {
         addCorporateTrainee()
 })
 
-// const addAdmin = asyncHandler(async (req,res) => {
-//     if(!req.body.text) {
-//         res.status(400)
-//         throw new Error("Please enter username and password")
-//     } 
-//     else {
-//         const admin = await adminModel.create({
-//             username: req.body.username,
-//             password: req.body.password
-//         })
-//         res.json(admin)
-//     }
-// })
+
 
 const addAdmin =asyncHandler(async   (req,res) => {
-        if(!req.body.text) {
+    console.log(req.body)
+        if(!req.body) {
             res.status(400)
             throw new Error("Please enter username and password")
         } 
         else {
             const admin = await Admin.create({
-                username: req.body.text,
-                password: req.body.text
+                username: req.body.username,
+                password: req.body.password
             })
             res.status(200).json(admin)
         }
@@ -49,7 +38,7 @@ const addAdmin =asyncHandler(async   (req,res) => {
 
 
 const addInstructor = asyncHandler(async (req,res) => {
-    if(!req.body.text) {
+    if(!req.body) {
         res.status(400)
         throw new Error("Please enter username and password")
     } 
@@ -63,7 +52,7 @@ const addInstructor = asyncHandler(async (req,res) => {
 })
 
 const addCorporateTrainee = asyncHandler(async (req,res) => {
-    if(!req.body.text) {
+    if(!req.body) {
         res.status(400)
         throw new Error("Please enter username and password")
     } 
@@ -76,4 +65,4 @@ const addCorporateTrainee = asyncHandler(async (req,res) => {
     }
 })
 
-module.exports = {selectedUser,addAdmin}
+module.exports = {selectedUser,addAdmin,addInstructor,addCorporateTrainee}

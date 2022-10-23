@@ -37,7 +37,9 @@ const courseSchema = mongoose.Schema({
             required: true
         }
     },
-    subtitle: [{
+    subtitle:
+    
+     [{
         hours: {
             type: String,
             required: true
