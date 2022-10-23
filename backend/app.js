@@ -2,7 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv').config({ path: 'backend/.env'})
 const dbConnection = require('./configuration/db')
 const countryRoute = require('./routes/countryRoute')
-port = process.env.PORT || 5000
+port = process.env.PORT || 8000
 dbConnection()
 const app = express()
 app.use(express.json())
