@@ -36,13 +36,13 @@ const addAdmin =asyncHandler(async   (req,res) => {
         } 
         else {
             const admin = await Admin.create({
-                username: req.body.text,
-                password: req.body.text
+                username: req.body.username,
+                password: req.body.password
             })
             res.status(200).json(admin)
         }
-    // res.status(200).json({message:'adding admin'})
-    //     }
+     res.status(200).json(admin)
+         
     })
 
 
@@ -76,4 +76,4 @@ const addCorporateTrainee = asyncHandler(async (req,res) => {
     }
 })
 
-module.exports = {selectedUser,addAdmin}
+module.exports = {selectedUser,addAdmin,addCorporateTrainee,addInstructor}
