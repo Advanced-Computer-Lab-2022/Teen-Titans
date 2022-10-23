@@ -20,11 +20,11 @@ const addAdmin = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error("Please enter username and password")
     } else {
-        const admin = await adminModel.create({
-            username: req.body.username,
-            password: req.body.password
-        })
-        res.json(admin)
+    const admin = await adminModel.create({
+        username: req.body.username,
+        password: req.body.password
+    })
+    res.json(admin)
     }
 
 })
