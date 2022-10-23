@@ -6,14 +6,14 @@ const corporateTraineeModel = require('./models/corporateTraineeModel.js')
 
 //This is to know which user is chosen by the admin
 const selectedElement = ''
-const selectedUser = async () => {
+const selectedUser = asyncHandler(async () => {
     if(selectedElement == 'Admin') 
         addAdmin()
     else if(selectedElement == 'Instructor')
         addInstructor()
     else
         addCorporateTrainee()
-}
+})
 
 const addAdmin = asyncHandler(async (req,res) => {
     if(!req.body.text) {
