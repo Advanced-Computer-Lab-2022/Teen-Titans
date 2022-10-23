@@ -2,19 +2,17 @@ const mongoose = require('mongoose')
 
 const courseSchema = mongoose.Schema({
     hours: {
-        type: Number,
-        required: true
+        type: Number
     },
     rating: {
-        type: Number,
-        required: true
+        type: Number
     },
     reviews: [{
         type: String
     }],
     title: {
         type: String,
-        required: type
+        required: true
     },
     price: {
         type: Number,
@@ -24,12 +22,11 @@ const courseSchema = mongoose.Schema({
         type: Number
     },
     subject: {
-        type: String,
-        required: true
+        type: String
     },
     instructor: {
         id: {
-            type: String,
+            type: Number,
             required: true
         },
         name: {
@@ -37,7 +34,7 @@ const courseSchema = mongoose.Schema({
             required: true
         }
     },
-    subtitle: [{
+    subtitles: [{
         hours: {
             type: String,
             required: true
@@ -52,10 +49,10 @@ const courseSchema = mongoose.Schema({
                 required: true
             }
         }],
-    exercises: [{
-        type: String,
-        required: true
-    }]
+        exercises: [{
+            type: String,
+            required: true
+        }]
     }],
     shortSummary:{
         type: String,
@@ -63,17 +60,14 @@ const courseSchema = mongoose.Schema({
     },
     previewVideo: {
         url: {
-            type: String,
-            required: true
+            type: String
         },
         shortDescription: {
-            type: String,
-            required: true
+            type: String
         }
     },
     courseOutline: {
-        type: String,
-        required: true
+        type: String
     }
     
 },{
