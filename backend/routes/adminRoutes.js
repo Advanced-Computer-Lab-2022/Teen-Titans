@@ -2,10 +2,8 @@ const express = require('express')
 const path = require('path');
 const adminAddUser = express.Router()
 
-const {selectedUser,addAdmin , addCorporateTrainee, addInstructor }= require('../controller/adminController')
+const {selectedUser}= require('../controller/adminController')
 
-adminAddUser.post('/',
-addAdmin
-)
+adminAddUser.post('/',selectedUser)
 
 module.exports = adminAddUser
