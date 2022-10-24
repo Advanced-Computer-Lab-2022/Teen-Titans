@@ -4,6 +4,6 @@ const countryRouter = express.Router()
 
 const {selectedCountry} = require('../controller/countryController')
 
-countryRouter.get('/', selectedCountry);
+countryRouter.get('/:country', selectedCountry);
 
 module.exports = countryRouter
