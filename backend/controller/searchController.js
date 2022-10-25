@@ -7,8 +7,7 @@ const course = asyncHandler(async (req, res) => {
         throw new Error('Please enter a search keyword')
     }
     else {
-        const searchResults = await courseModel.find({title: req.params['searchInput']} ||
-        {instructor: req.params['searchInput']} || {subject: req.params['searchInput']})
+        const searchResults = await courseModel.find({title: req.params['searchInput']} || {instructorName: req.params['searchInput']} || {subject: req.params['searchInput']})
         console.log(req.params['searchInput']);
         res.json(searchResults)
     }
