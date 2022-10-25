@@ -2,14 +2,20 @@ const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 
 const course = asyncHandler(async (req, res) => {
-    if(!req.body) {
+    if (!req.body) {
         res.send(400)
         throw new Error('Please enter a search keyword')
     }
     else {
-        const searchResults = await courseModel.find({title: req.params['searchInput']} || {instructorName: req.params['searchInput']} || {subject: req.params['searchInput']})
+        let finalSearchResults = []
+        const searchResults = await courseModel.find({})
+        for (let course of searchResults) {
+            if (course.title == req.params['searchInput'] || course.instructorName == req.params['searchInput'] || course.subject == req.params['searchInput']) {
+                finalSearchResults.push(course)
+            }
+        }
         console.log(req.params['searchInput']);
-        res.json(searchResults)
+        res.json(finalSearchResults)
     }
 })
 
