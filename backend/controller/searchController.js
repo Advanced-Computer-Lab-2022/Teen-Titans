@@ -7,15 +7,12 @@ const course = asyncHandler(async (req, res) => {
         throw new Error('Please enter a search keyword')
     }
     else {
-        let finalSearchResults = []
-        const searchResults = await courseModel.find({})
-        for (let course of searchResults) {
-            if (course.title == req.params['searchInput'] || course.instructorName == req.params['searchInput'] || course.subject == req.params['searchInput']) {
-                finalSearchResults.push(course)
-            }
-        }
-        console.log(req.params['searchInput']);
-        res.json(finalSearchResults)
+        const searchResults = await courseModel.find({
+            $or: [{ title: { $regex: req.params['searchInput'] } },
+            { instructorName: { $regex: req.params['searchInput'] } }, { subject: { $regex: req.params['searchInput'] } }]
+        })
+        res.json(searchResults)
+
     }
 })
 

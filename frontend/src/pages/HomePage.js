@@ -1,12 +1,12 @@
 
-import Navbar from '../components/Navbar'
+import Search from '../components/Search'
 const HomePage = () => {
 
 
     return (
 
         <div className="home">
-            <Navbar />
+            <Search />
             <h2>HomePage</h2>
 
         </div>
