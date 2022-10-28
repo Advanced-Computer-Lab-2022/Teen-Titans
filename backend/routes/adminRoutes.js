@@ -4,6 +4,9 @@ const adminAddUser = express.Router()
 
 const {selectedUser}= require('../controller/adminController')
 
+
+
+
 adminAddUser.post('/',selectedUser)
 
 module.exports = adminAddUser
