@@ -15,7 +15,8 @@ const createCourse = asyncHandler(async (req,res) => {
             price: req.body.price,
             discount: 0,
             subject: '',
-            instructor: req.body.instructor,
+            instructorId: req.body.instructorId,
+            instructorName: req.body.instructorName,
             subtitles: req.body.subtitles,
             shortSummary: req.body.shortSummary,
             previwVideo: {

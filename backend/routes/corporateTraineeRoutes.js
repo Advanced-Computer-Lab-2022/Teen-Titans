@@ -1,4 +1,8 @@
-const express = require('express');
+const express = require('express')
 const path = require('path');
-const viewCoursesRouter = express.Router()
-const {getCourses,getPrices} = require('../controller/viewCoursesController')
+const corporateTraineeRouter = express.Router()
+const course = require('../controller/searchController')
+
+corporateTraineeRouter.get('/:searchInput', course)
+
+module.exports = corporateTraineeRouter

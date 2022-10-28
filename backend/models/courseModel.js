@@ -26,13 +26,12 @@ const courseSchema = mongoose.Schema({
     },
     instructorName: {
         type: String,
-       required: true
-       },
+        required: true
+    },
     instructorId: {
         type: Number,
         required: true
-        },
-    
+    },
     subtitles: [{
         hours: {
             type: String,
