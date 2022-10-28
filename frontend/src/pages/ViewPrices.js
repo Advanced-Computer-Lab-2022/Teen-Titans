@@ -1,6 +1,7 @@
 import { useEffect ,useState} from 'react'
 
 import CoursePrice from '../components/CoursePrice'
+import Search from '../components/Search'
 
 const ViewPrices = ()=>{
     const [courses,setCourses]= useState(null)
@@ -17,7 +18,9 @@ const ViewPrices = ()=>{
     },[])
 
     return(
+        
         <div className='price'>
+            <Search />
             <div className='prices'>
                 {courses && courses.map((course)=>(
                 <CoursePrice key = {course._id} course={course}/>
