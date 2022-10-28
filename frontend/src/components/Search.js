@@ -21,50 +21,44 @@
 
 // export default Navbar
 
-
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 
 
 const Search = () => {
-    const { courses, setCourses } = useState(null);
+    let query
+    const [searchResults, setSearchResults] = useState(null);
     const searchGet = async () => {
-        console.log('hi');
-        let query = document.getElementById("searchKey").value;
-        await fetch(`http://localhost:8000/search/${query}`)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        query = document.getElementById("searchKey").value;
+        const response = await fetch(`http://localhost:8000/guest/${query}`)
+        const json = await response.json()
+        if (response.ok) {
+            setSearchResults(json)
+        }
     }
+    // useEffect(() => {
+
+    // }, [query])
     return (
         <div className="col-12 mb-5">
             <div className="mb-3 col-4 mx-auto text-center">
-                <label className="form-label h4">Search</label>
                 <input
                     type="text"
-                    className="from-control"
+                    className="from-control mt-4"
                     id='searchKey'
+                    placeholder='search'
                 />
                 <button id='searchButton' onClick={() => searchGet()}>Search</button>
 
-                {/* {courses &&
-                    courses.filter(course => {
-                        if (query === '') {
-                            return course;
-                        } else if (course.title.toLowerCase().includes(query.toLowerCase())) {
-                            return course;
-                        }
-                    }).map((course, index) => (
-                        <div className="box" key={index}>
+                {/* <searchContext.Provider value={{ courses, setCourses }}></searchContext.Provider> */}
+                {searchResults &&
+                    searchResults.map((course) => (
+                        <div className="box" key={course.id}>
                             <p>{course.title}</p>
                             <p>{course.price}</p>
                             <p>{course.instructorName}</p>
                         </div>
                     ))
-                } */}
+                }
             </div>
         </div>
     )
