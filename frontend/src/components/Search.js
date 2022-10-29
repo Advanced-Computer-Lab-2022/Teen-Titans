@@ -1,5 +1,5 @@
 
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 
 
 const Search = () => {
@@ -13,7 +13,7 @@ const Search = () => {
             setSearchResults(json)
         }
     }
-    
+
     return (
         <div className="col-12 mb-5">
             <div className="mb-3 col-4 mx-auto text-center">
@@ -25,7 +25,7 @@ const Search = () => {
                 />
                 <button id='searchButton' onClick={() => searchGet()}>Search</button>
 
-                
+
                 {searchResults &&
                     searchResults.map((course) => (
                         <div className="box" key={course.id}>
