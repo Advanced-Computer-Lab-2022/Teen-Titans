@@ -2,6 +2,8 @@ import { useEffect ,useState} from 'react'
 
 import CoursePrice from '../components/CoursePrice'
 import Search from '../components/Search'
+import Subjects from '../components/Subjects';
+import './index.css';
 
 const ViewPrices = ()=>{
     const [courses,setCourses]= useState(null)
@@ -21,6 +23,8 @@ const ViewPrices = ()=>{
         
         <div className='price'>
             <Search />
+            <Subjects />
+
             <div className='prices'>
                 {courses && courses.map((course)=>(
                 <CoursePrice key = {course._id} course={course}/>
@@ -29,6 +33,16 @@ const ViewPrices = ()=>{
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
 
 
 export default ViewPrices

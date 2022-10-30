@@ -11,6 +11,7 @@ const corporateTraineeRoute = require('./routes/corporateTraineeRoutes')
 const guestRoute = require('./routes/guestRoute')
 const courseRoute = require('./routes/courseRoutes')
 const viewCoursesRoute = require('./routes/viewCoursesRoute')
+const filterCoursesRoute = require('./routes/filterCoursesRoute')
 const { errorHandler } = require('./middleware/errorMiddleWare')
 port = process.env.PORT || 8000
 dbConnection()
@@ -19,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.raw())
 app.use(cors())
-
+app.use('/getCourses',filterCoursesRoute)
 app.use('/', countryRoute)
 app.use('/course', courseRoute)
 
@@ -29,5 +30,6 @@ app.use('/individualTrainee', individualTraineeRoute)
 app.use('/corporateTrainee', corporateTraineeRoute)
 app.use('/guest', guestRoute)
 app.use('/viewCourses',viewCoursesRoute)
+
 app.use(errorHandler)
 app.listen(port, () => console.log(`server started on ${port}`))
