@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
+const course = require('./searchController')
 
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
@@ -15,7 +16,7 @@ const createCourse = asyncHandler(async (req, res) => {
             title: req.body.title,
             price: req.body.price,
             discount: 0,
-            subject: '',
+            subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
             subtitles: req.body.subtitles,
@@ -30,11 +31,45 @@ const createCourse = asyncHandler(async (req, res) => {
         const instructorCourses = instructor.courses
         instructorCourses.push({
             id: course._id,
-            title: req.body.title
+            title: req.body.title,
+            subject: req.body.subject
         })
         const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
         res.status(200).json(course)
     }
 })
 
-module.exports = { createCourse }
+const searchCourse = asyncHandler(async (req, res) => {
+    function isEqual(title, input) {
+        return title.includes(input)
+    }
+    let searchResults
+    if (!req.body) {
+        res.send(400)
+        throw new Error('Please enter a search keyword')
+    }
+    else {
+        // const instructor = await instructorModel.findById(req.body.instructorId)
+        // if (instructor.firstName.includes(req.params['searchInput']) || instructor.lastName.includes(req.params['searchInput'])) {
+        //     searchResults = instructor.courses
+        // }
+        // else {
+        //     for (let course of instructor.courses) {
+        //         if (course.title.includes(req.params['searchInput']) || course.subject.includes(req.params['searchInput'])) {
+        //             searchResults = await courseModel.find({_id: cou})
+        //         }
+        //     }
+        // }
+
+        searchResults = await courseModel.find({
+            $and: [{ instructorId: req.body.instructorId }, {
+                $or: [{ title: { $regex: req.params['searchInput'] } },
+                { instructorName: { $regex: req.params['searchInput'] } }, { subject: { $regex: req.params['searchInput'] } }]
+            }]
+        })
+        res.json(searchResults)
+
+    }
+})
+
+module.exports = { createCourse, searchCourse }
