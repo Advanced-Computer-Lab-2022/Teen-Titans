@@ -8,24 +8,31 @@ const getCourses = async (req, res) => {
 }
 
 const getPrices = async (req, res) => {
-    const prices = await courseModel.find({}, { _id: 0, title: 1, price: 1 })
+    const prices = await courseModel.find({}, { _id: 1, title: 1, price: 1 })
 
     res.status(200).json(prices)
 }
 
 const viewCourseOnHover = asyncHandler(async (req, res) => {
-    const viewCourse = await courseModel.find({ id: req.params['id'] })
+    const viewCourse = await courseModel.findById(req.params['id'])
     let subtitles = []
-    for (let subtitle of viewCourse[0].subtitles) {
-        subtitles.push(subtitle)
+    for (let subtitle of viewCourse.subtitles) {
+        let videos = []
+        for (let video of subtitle.videos) {
+            videos.push(video.shortDescription)
+        }
+        subtitles.push({
+            hours: subtitle.hours,
+            videos: videos,
+            exercises: subtitle.exercises
+        })
     }
     const courseData = {
-        title: viewCourse[0].title,
-        totalHours: viewCourse[0].hours,
-        price: viewCourse[0].price,
-        discount: 0,
-        subtitles: subtitles,
-        exercises: viewCourse[0].exercises
+        title: viewCourse.title,
+        totalHours: viewCourse.hours,
+        price: viewCourse.price,
+        discount: viewCourse.discount,
+        subtitles: subtitles
     }
     res.json(courseData)
 })
