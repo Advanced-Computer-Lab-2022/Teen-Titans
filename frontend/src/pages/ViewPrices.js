@@ -2,12 +2,12 @@ import { useEffect ,useState} from 'react'
 
 import CoursePrice from '../components/CoursePrice'
 import Search from '../components/Search'
-
+import CourseForm from '../components/CourseForm'
 const ViewPrices = ()=>{
     const [courses,setCourses]= useState(null)
     useEffect(()=>{
         const fetchPrice = async()=>{
-            const response= await fetch('viewCourses/prices')
+            const response= await fetch('guest/getPrices')
             const json = await response.json()
 
             if(response.ok){
@@ -26,6 +26,7 @@ const ViewPrices = ()=>{
                 <CoursePrice key = {course._id} course={course}/>
                ) )}
             </div>
+            <CourseForm/>
         </div>
     )
 }
