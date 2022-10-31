@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.raw())
 app.use(cors())
 
-app.use('/', countryRoute)
+// app.use('/', countryRoute)
 
 app.use('/admin', adminRoute)
 app.use('/instructor', instructorRoute)

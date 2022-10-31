@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 
-const course = asyncHandler(async (req, res) => {
+const courses = asyncHandler(async (req, res) => {
     if (!req.body) {
         res.send(400)
         throw new Error('Please enter a search keyword')
@@ -16,4 +16,4 @@ const course = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = course
+module.exports = courses

@@ -1,8 +1,8 @@
 const express = require('express')
 const path = require('path');
 const individualTraineeRouter = express.Router()
-const course = require('../controller/searchController')
+const courses = require('../controller/searchController')
 
-individualTraineeRouter.get('/:searchInput', course)
+individualTraineeRouter.get('/:searchInput', courses)
 
 module.exports = individualTraineeRouter

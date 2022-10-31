@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
-const course = require('./searchController')
 
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
@@ -89,13 +88,12 @@ const getCoursesTitles = asyncHandler(async (req, res) => {
 });
 
 
-
 const course = asyncHandler(async (req, res) => {
     const price = req.query.price
 
     const filterResults = await courseModel.find({
         $and: [{ price: price },
-        { instructorName: "roba" }]
+        { instructorName: req.params.id }]
     })
     res.json(filterResults)
 
@@ -106,7 +104,7 @@ const allcourses = asyncHandler(async (req, res) => {
 
     const filterResults = await courseModel.find(
 
-        { instructorName: "roba" }
+        { instructorName: req.params.id }
     )
     res.json(filterResults)
 
@@ -120,12 +118,29 @@ const subject = asyncHandler(async (req, res) => {
 
         ({
             $and: [{ subject: subject },
-            { instructorName: "roba" }]
+            { instructorName: req.params.id }]
         })
     )
     res.json(filterResults)
 
 
+})
+
+const instructorSearchCourse = asyncHandler(async (req, res) => {
+    let searchResults
+    if (!req.body) {
+        res.send(400)
+        throw new Error('Please enter a search keyword')
+    }
+    else {
+        searchResults = await courseModel.find({
+            $and: [{ instructorId: req.params['id'] }, {
+                $or: [{ title: { $regex: req.params['searchInput'] } },
+                { instructorName: { $regex: req.params['searchInput'] } }, { subject: { $regex: req.params['searchInput'] } }]
+            }]
+        })
+        res.json(searchResults)
+    }
 })
 
 
@@ -134,4 +149,4 @@ const subject = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject }
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse }
