@@ -9,8 +9,12 @@ const createCourse = asyncHandler(async (req, res) => {
         throw new Error("Please fill in all fields!")
     }
     else {
+        let totalHours = 0;
+        for (let subtitle of req.body.subtitles) {
+            totalHours += subtitle.hours
+        }
         const course = await courseModel.create({
-            hours: 0,
+            hours: totalHours,
             rating: 0,
             reviews: [],
             title: req.body.title,
@@ -40,27 +44,12 @@ const createCourse = asyncHandler(async (req, res) => {
 })
 
 const searchCourse = asyncHandler(async (req, res) => {
-    function isEqual(title, input) {
-        return title.includes(input)
-    }
     let searchResults
     if (!req.body) {
         res.send(400)
         throw new Error('Please enter a search keyword')
     }
     else {
-        // const instructor = await instructorModel.findById(req.body.instructorId)
-        // if (instructor.firstName.includes(req.params['searchInput']) || instructor.lastName.includes(req.params['searchInput'])) {
-        //     searchResults = instructor.courses
-        // }
-        // else {
-        //     for (let course of instructor.courses) {
-        //         if (course.title.includes(req.params['searchInput']) || course.subject.includes(req.params['searchInput'])) {
-        //             searchResults = await courseModel.find({_id: cou})
-        //         }
-        //     }
-        // }
-
         searchResults = await courseModel.find({
             $and: [{ instructorId: req.body.instructorId }, {
                 $or: [{ title: { $regex: req.params['searchInput'] } },

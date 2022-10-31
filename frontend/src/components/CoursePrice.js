@@ -1,12 +1,24 @@
 import Details from "./Details"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
+import 'tippy.js/themes/light.css';
 import React, { useEffect, useState } from "react"
+
+
+
 const CoursePrice = ({ course }) => {
-    const [id, setId] = useState('')
+    // const [id, setId] = useState('')
+    const [courseData, setCourseData] = useState(null)
+    const getDetails = async (id) => {
+        const response = await fetch(`viewCourses/${id}`)
+        const json = await response.json()
+        if (response.ok) {
+            setCourseData(json)
+        }
+    }
     const handleHover = event => {
-        console.log(event.currentTarget.id);
-        setId(event.currentTarget.id)
+        // setId(event.currentTarget.id)
+        getDetails(event.currentTarget.id)
     }
     return (
         <div className="course-price" id={course._id} onMouseEnter={handleHover}>
@@ -14,11 +26,14 @@ const CoursePrice = ({ course }) => {
                 {course.title}
             </h4>
             <p><strong>Price:</strong> {course.price}</p>
-            <Tippy content={
-                <Details courseID={id} />
-            } placement="left">
-                <button id={course._id}>Details</button>
-            </Tippy>
+            {
+                courseData &&
+                <div className="my-container">
+                    <Tippy content={<Details course={courseData}></Details>} placement='left' theme="light">
+                        <button>Details</button>
+                    </Tippy>
+                </div>
+            }
         </div>
     )
 }
