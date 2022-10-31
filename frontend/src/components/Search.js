@@ -34,7 +34,7 @@ const Search = () => {
                         <div className="box" key={course.id}>
                             <p>{course.title}</p>
                             <p>Price: {course.price * conversion_rate} {target_code}</p>
-                            <p>{course.instructorName}</p>
+                            <p>Instructor: {course.instructorName}</p>
                         </div>
                     ))
                 }

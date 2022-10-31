@@ -80,8 +80,8 @@ const PriceFilter = () => {
                 <b>Filter by Price:</b>
                 <select name="price" onChange={onfilterChange}>
                     <option value="all">All</option>
-                    <option value="two">200</option>
-                    <option value="three">300</option>
+                    <option value="two">200 USD</option>
+                    <option value="three">300 USD</option>
                 </select>
             </div>
             <div className="mb-3 col-4 mx-auto text-center">

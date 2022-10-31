@@ -10,7 +10,7 @@ const individualTraineeRoute = require('./routes/individualTraineeRoutes')
 const corporateTraineeRoute = require('./routes/corporateTraineeRoutes')
 const guestRoute = require('./routes/guestRoute')
 const viewCoursesRoute = require('./routes/viewCoursesRoute')
-const filterCoursesRoute = require('./routes/filterCoursesRoute')
+// const filterCoursesRoute = require('./routes/filterCoursesRoute')
 const { errorHandler } = require('./middleware/errorMiddleWare')
 port = process.env.PORT || 5000
 dbConnection()

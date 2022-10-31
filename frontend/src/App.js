@@ -2,9 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 //pages and components
 import Navbar from './components/Navbar';
 import ViewPrices from './pages/ViewPrices';
-import index from './index';
-
-
 //pages and components
 import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -13,8 +10,6 @@ import InstructorSearch from './components/InstructorSearch'
 import InstructorHome from "./pages/InstructorHomePage";
 import './App.css';
 import Instructor from './pages/Instructor';
-
-
 import PriceFilter from './pages/PriceFilter'
 
 function App() {
@@ -25,10 +20,7 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route
-              path='/'
-              element={<ViewPrices />}
-            />
+            <Route path='/' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
             <Route path="/homePage" element={<Home />}></Route>
@@ -38,8 +30,6 @@ function App() {
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
           </Routes>
         </div>
-
-
       </BrowserRouter>
     </div>
   );
