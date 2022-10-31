@@ -9,8 +9,10 @@ const createCourse = asyncHandler(async (req, res) => {
     }
     else {
         let totalHours = 0;
-        for (let subtitle of req.body.subtitles) {
-            totalHours += subtitle.hours
+        if (req.body.subtitles) {
+            for (let subtitle of req.body.subtitles) {
+                totalHours += subtitle.hours
+            }
         }
         const course = await courseModel.create({
             hours: totalHours,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import '../index.css'
 const Admin = () => {
     const [message, setMessage] = useState('')
     const addUser = async () => {

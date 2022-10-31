@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import CoursePrice from '../components/CoursePrice'
 import Search from '../components/Search'
 // import Subjects from '../components/Subjects';
-import './index.css';
+import '../index.css';
 import CourseForm from '../components/CourseForm'
 const ViewPrices = () => {
     const [courses, setCourses] = useState(null)
