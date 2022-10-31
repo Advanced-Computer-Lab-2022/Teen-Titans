@@ -29,7 +29,7 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     instructorId: {
-        type: Number,
+        type: String,
         required: true
     },
     subtitles: [{

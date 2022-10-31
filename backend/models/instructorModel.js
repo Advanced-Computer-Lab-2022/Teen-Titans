@@ -42,6 +42,9 @@ const instructorSchema = mongoose.Schema({
         },
         title: {
             type: String
+        },
+        subject:{
+            type: String
         }
     }]
 })

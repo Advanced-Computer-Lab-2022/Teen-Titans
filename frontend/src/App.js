@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import HomePage from "./pages/HomePage";
 import Search from './components/Search'
+import InstructorSearch from './components/InstructorSearch'
+
 function App() {
   return (
     <div className="App">
@@ -24,13 +26,12 @@ function App() {
           <Route path="/" element={<Home />}></Route>
             <Route path="/homePage" element={<HomePage />}></Route>
             <Route path="/search" element={<Search />}></Route>
+            <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
         </Routes>
       </div>
-
-        
+    
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;
