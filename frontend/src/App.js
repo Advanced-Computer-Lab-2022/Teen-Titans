@@ -6,13 +6,14 @@ import ViewCoursesPage from './pages/ViewCoursesPage';
 import ViewPrices from './pages/ViewPrices';
 import index from './index';
 
+
 //pages and components
 import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import HomePage from "./pages/HomePage";
 import Search from './components/Search'
 
-
+import PriceFilter from './pages/PriceFilter'
 
 function App() {
  
@@ -30,6 +31,7 @@ function App() {
           <Route path ="/courses" element={<index />}></Route>
             <Route path="/homePage" element={<HomePage />}></Route>
             <Route path="/search" element={<Search />}></Route>
+            <Route path="/PriceFilter" element={<PriceFilter />}></Route>
         </Routes>
       </div>
 

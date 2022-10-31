@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.raw())
 app.use(cors())
-app.use('/getCourses',filterCoursesRoute)
+
 app.use('/', countryRoute)
 app.use('/course', courseRoute)
 
