@@ -27,6 +27,8 @@ const CoursePrice = ({ course }) => {
                 {course.title}
             </h4>
             <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
+            <p><strong>course rating:</strong> {course.rating}</p>
+            <p><strong>course hours:</strong> {course.hours}</p>
             {
                 courseData &&
                 <div className="my-container">

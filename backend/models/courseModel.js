@@ -33,7 +33,10 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     subtitles: [{
-        hours: {
+        subtitleId : {
+            type: String
+        },
+        subtitleHours: {
             type: String,
             required: true
         },

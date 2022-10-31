@@ -28,6 +28,5 @@ app.use('/individualTrainee', individualTraineeRoute)
 app.use('/corporateTrainee', corporateTraineeRoute)
 app.use('/guest', guestRoute)
 app.use('/viewCourses', viewCoursesRoute)
-
 app.use(errorHandler)
 app.listen(port, () => console.log(`server started on ${port}`))

@@ -12,6 +12,8 @@ import './App.css';
 import Instructor from './pages/Instructor';
 import PriceFilter from './pages/PriceFilter'
 
+import CreateCourse from './pages/CreateCourse';
+import CourseForm from './components/CourseForm';
 function App() {
 
   return (
@@ -20,16 +22,17 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path='/' element={<ViewPrices />}></Route>
-            <Route path="/admin" element={<Admin />}></Route>
-            <Route path="/courses" element={<index />}></Route>
-            <Route path="/homePage" element={<Home />}></Route>
-            <Route path='/instructor' element={<Instructor />} />
-            <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
-            <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
-            <Route path="/PriceFilter" element={<PriceFilter />}></Route>
+            <Route
+              path='/'
+              element={<ViewPrices />}
+            />
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/homePage" element={<HomePage />}></Route>
+            <Route path="/search" element={<Search />}></Route>
           </Routes>
         </div>
+
+
       </BrowserRouter>
     </div>
   );
