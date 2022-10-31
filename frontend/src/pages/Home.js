@@ -1,45 +1,21 @@
 
-// import { useEffect,useState } from 'react'
-// import axios from 'axios';
-// import Table from '../components/Table';
-// import Subject from '../components/Subject'
-// import Filter from '../components/Filter';
 
+import PriceFilter from "../components/PriceFilter";
 
-// const base_url = '/instructor/getCoursesTitles'
-
-// const Home =()=> {
-//     const [obj, setObj] = useState({});
-//     const [sort, setSort] = useState({ sort: "price", order: "desc" });
-//     const [filterGenre, setfilterGenre] = useState([])
-  
-
-// useEffect(() =>{
-
-   
-//     const fetchCourses = async () => {
-//         try {
-//         const url=`${base_url}?subject=${filterGenre.toString()}&sort=${sort.sort},${
-//             sort.order
-//         }`
-//         const { data } = await axios.get(url);
-// 				setObj(data);
-//                 console.log(data)
-
-//             } catch (err) {
-// 				console.log(err);
-// 			}
-// 		};
-//         fetchCourses();
-//     }, [filterGenre, sort]);
-// // const response =await fetch('/instructor/getCoursesTitles?genre=${filterGenre.toString()')
-// // const json =await response.json()
-// // if(response.ok){
-// //     setCourses(json)
-// //     console.log(json)
-// // }
 
     
+
+const Home = () => {
+
+
+    return (
+
+        <div className="home">
+            <PriceFilter />
+           
+        </div>
+    )
+}
 
 
 
@@ -82,4 +58,4 @@
 
   
 
-// export default Home
+export default Home

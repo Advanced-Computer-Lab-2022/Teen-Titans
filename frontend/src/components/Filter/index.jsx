@@ -15,7 +15,7 @@ const Filter = ({ sort, setSort }) => {
 
 	return (
 		<div className={styles.container}>
-			<p className={styles.sort_by}>Filter By :</p>
+			<p className={styles.sort_by}>Sort By :</p>
 			<select
 				onChange={onSelectChange}
 				className={styles.select}

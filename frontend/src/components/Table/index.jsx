@@ -5,37 +5,26 @@ const Table = ({ courses }) => {
 		<div className={styles.container}>
 			<div className={styles.heading}>
 				<p className={styles.title_tab}>Title</p>
-				<p className={styles.genre_tab}>subjects</p>
-				<p className={styles.rating_tab}>Price</p>
+				<p className={styles.subject_tab}>subjects</p>
+				<p className={styles.price_tab}>Price</p>
 			</div>
 			{courses?.map((course) => (
-				<div className={styles.movie} key={course._id}>
+				<div className={styles.course} key={course._id}>
 					<div className={styles.title_container}>
-						{/* <img src={movie.img} alt="movie" className={styles.movie_img} /> */}
-						<p className={styles.movie_title}>
+						
+						<p className={styles.course_title}>
 							{course.title} 
 						</p>
 					</div>
-					<div className={styles.genre_container}>
-						{/* {course?.subject?.map((subject, index) => (
-							<p key={subject} className={styles.movie_genre}>
-								{subject}
-								{index !== course.subject.length - 1 && "/"}
-							</p>
-						))} */}
-						<p className={styles.movie_title}>
+					<div className={styles.subject_container}>
+						<p className={styles.subject_title}>
 							{course.subject} 
 						</p>
 						
 
 					</div>
-					<div className={styles.rating_container}>
-						{/* <img
-							src="./images/star.png"
-							alt="star"
-							className={styles.star_img}
-						/> */}
-						<p className={styles.movie_rating}>{course.price}</p>
+					<div className={styles.price_container}>
+						<p className={styles.course_price}>{course.price}</p>
 					</div>
 				</div>
 			))}

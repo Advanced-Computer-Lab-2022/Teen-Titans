@@ -1,7 +1,5 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
-const instructorModel = require('../models/instructorModel')
-// const { all } = require('../routes/instructorRoutes')
 
 const createCourse = asyncHandler(async (req,res) => {
     if(!req.body) {
@@ -34,20 +32,15 @@ const createCourse = asyncHandler(async (req,res) => {
 
 const getCoursesTitles= asyncHandler(async (req,res) => {
     try {
-		// const page = parseInt(req.query.page) - 1 || 0;
-		// const limit = parseInt(req.query.limit) || 5;
-		// const search = req.query.search || "";
+		
 		let sort = req.query.sort || "price";
 		let subject = req.query.subject || "All";
 
 		const subjectOptions = [
-			"algebra",
 			"chem",
             "bio",
             "calculus",
             "datastruc",
-            "electricity",
-            "fluid",
             "geometry"
 		];
 
@@ -67,18 +60,8 @@ const getCoursesTitles= asyncHandler(async (req,res) => {
 			.where("subject")
 			.in([...subject])
 			.sort(sortBy)
-			// .skip(page * limit)
-			// .limit(limit);
-
-		// const total = await courseModel.countDocuments({
-		// 	genre: { $in: [...genre] },
-		// 	name: { $regex: search, $options: "i" },
-		// });
-
+			
 		const response = {
-			// error: false,
-			// page: page + 1,
-			// limit,
 			subjects: subjectOptions,
 			courses,
 		};
@@ -86,14 +69,54 @@ const getCoursesTitles= asyncHandler(async (req,res) => {
 		res.status(200).json(response);
 	} catch (err) {
 		console.log(err);
-		res.status(500).json({ error: true, message: "Internal Server Error" });
+		res.status(500).json({ error: true, message: "Error" });
 	}
 });
  
     
-    // const courses = await courseModel.find({instructorName:"roba"})
 
-// res.status(200).json(courses)
+const course = asyncHandler(async (req, res) => {
+   const price = req.query.price
+  
+        const filterResults = await courseModel.find({
+            $and: [ { price: price   },
+            { instructorName:"roba" }]
+        })
+        res.json(filterResults)
+
+    
+})
+
+const allcourses= asyncHandler(async (req, res) => {
+    
+         const filterResults = await courseModel.find(
+             
+             { instructorName:"roba" }
+         )
+         res.json(filterResults)
+ 
+     
+ })
 
 
-module.exports = {createCourse,getCoursesTitles}
+ const subject= asyncHandler(async (req, res) => {
+    const subject = req.query.subject
+    const filterResults = await courseModel.find(
+     
+        ({
+            $and: [ { subject: subject   },
+            { instructorName:"roba" }]
+        })
+    )
+    res.json(filterResults)
+
+
+})
+
+
+
+
+
+
+
+module.exports = {createCourse,getCoursesTitles,course,allcourses,subject}

@@ -32,15 +32,6 @@ useEffect(() =>{
 		};
         fetchCourses();
     }, [filterGenre, sort]);
-// const response =await fetch('/instructor/getCoursesTitles?genre=${filterGenre.toString()')
-// const json =await response.json()
-// if(response.ok){
-//     setCourses(json)
-//     console.log(json)
-// }
-
-    
-
 
 
 
