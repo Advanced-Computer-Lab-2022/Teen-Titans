@@ -8,6 +8,9 @@ import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Admin from './pages/admin';
 import InstructorSearch from './components/InstructorSearch'
+import InstructorHome from "./pages/InstructorHomePage";
+import './App.css';
+import Instructor from './pages/Instructor';
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
             />
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/homePage" element={<Home />}></Route>
+            <Route path='/instructor' element={<Instructor />} />
+            <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
             <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
           </Routes>
         </div>
