@@ -4,7 +4,10 @@ import { useEffect ,useState} from 'react'
 //components
 import CourseDetails  from '../components/CourseDetails'
 
+
 const ViewCoursesPage = ()=>{
+   
+    
     const [courses,setCourses]= useState(null)
     useEffect(()=>{
         const fetchCourses= async()=>{
@@ -15,7 +18,7 @@ const ViewCoursesPage = ()=>{
                 setCourses(json)
             }
         }
-
+       
         fetchCourses()
     },[])
     return(
@@ -26,7 +29,21 @@ const ViewCoursesPage = ()=>{
                 ))}
             </div>
         </div>
+        
     )
+    
+   
+   
 }
 
+
+
+
+
+
+
+
 export default ViewCoursesPage
+
+
+
