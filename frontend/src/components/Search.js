@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 const Search = () => {
     let query
     const [searchResults, setSearchResults] = useState(null);
+    const country = JSON.parse(localStorage.getItem('country'))
+    const conversion_rate = country.conversion_rate
+    const target_code = country.target_code
     const searchGet = async () => {
         query = document.getElementById("searchKey").value;
         const response = await fetch(`/guest/${query}`)
@@ -30,7 +33,7 @@ const Search = () => {
                     searchResults.map((course) => (
                         <div className="box" key={course.id}>
                             <p>{course.title}</p>
-                            <p>{course.price}</p>
+                            <p>Price: {course.price * conversion_rate} {target_code}</p>
                             <p>{course.instructorName}</p>
                         </div>
                     ))

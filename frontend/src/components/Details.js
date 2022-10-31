@@ -42,7 +42,9 @@ import Subtitle from './subtitles';
 // }
 
 const Details = ({ course }) => {
-    console.log(course);
+    const country = JSON.parse(localStorage.getItem('country'))
+    const conversion_rate = country.conversion_rate
+    const target_code = country.target_code
     return (
         <div>
             {
@@ -52,7 +54,7 @@ const Details = ({ course }) => {
                     <h6 className='faded'>{course.totalHours} total hours</h6>
                     <h6>
                         <span className='labels'>Price: </span>
-                        <span>{course.price} EGP</span>
+                        <span>{course.price * conversion_rate} {target_code}</span>
 
                     </h6>
                     <h6>

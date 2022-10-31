@@ -7,8 +7,10 @@ import React, { useEffect, useState } from "react"
 
 
 const CoursePrice = ({ course }) => {
-    // const [id, setId] = useState('')
     const [courseData, setCourseData] = useState(null)
+    const country = JSON.parse(localStorage.getItem('country'))
+    const conversion_rate = country.conversion_rate
+    const target_code = country.target_code
     const getDetails = async (id) => {
         const response = await fetch(`viewCourses/${id}`)
         const json = await response.json()
@@ -17,7 +19,6 @@ const CoursePrice = ({ course }) => {
         }
     }
     const handleHover = event => {
-        // setId(event.currentTarget.id)
         getDetails(event.currentTarget.id)
     }
     return (
@@ -25,7 +26,7 @@ const CoursePrice = ({ course }) => {
             <h4>
                 {course.title}
             </h4>
-            <p><strong>Price:</strong> {course.price}</p>
+            <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
             {
                 courseData &&
                 <div className="my-container">

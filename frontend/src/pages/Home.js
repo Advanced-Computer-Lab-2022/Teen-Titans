@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
     const setCountry = async (countryCode) => {
-        const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/YOUR-API-KEY/pair/USD/${countryCode}`)
-        localStorage.setItem('country', conversionRate.json())
+        const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)
+        const response = await conversionRate.json()
+        console.log(response);
+        localStorage.setItem('country', JSON.stringify(response))
     }
 
     return (
