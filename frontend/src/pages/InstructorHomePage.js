@@ -1,0 +1,1 @@
+import InstructorSearch from "../components/InstructorSearch";

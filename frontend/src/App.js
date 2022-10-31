@@ -9,6 +9,8 @@ import ViewPrices from './pages/ViewPrices';
 import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Admin from './pages/admin';
+import InstructorSearch from './components/InstructorSearch'
+
 function App() {
   return (
     <div className="App">
@@ -20,8 +22,9 @@ function App() {
               path='/'
               element={<ViewPrices />}
             />
-            <Route path="/homePage" element={<Home />}></Route>
-            <Route path="/admin" element={<Admin />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/homePage" element={<HomePage />}></Route>
+            <Route path="/search" element={<Search />}></Route>
           </Routes>
         </div>
 
@@ -30,5 +33,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

@@ -5,7 +5,7 @@ const { createCourse, searchCourse } = require('../controller/instructorControll
 const course = require('../controller/searchController')
 
 instructorRouter.post('/createCourse', createCourse)
-instructorRouter.get('/myCourses/:searchInput', searchCourse)
+instructorRouter.get('/myCourses/:searchInput/:id', instructorSearchCourse)
 instructorRouter.get('/:searchInput', course)
 
 module.exports = instructorRouter

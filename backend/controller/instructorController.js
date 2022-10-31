@@ -35,30 +35,20 @@ const createCourse = asyncHandler(async (req, res) => {
         const instructorCourses = instructor.courses
         instructorCourses.push({
             id: course._id,
+            title: req.body.title
+        })
+        const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
+        const instructor = await instructorModel.findById(req.body.instructorId)
+        const instructorCourses = instructor.courses
+        instructorCourses.push({
+            id: course._id,
             title: req.body.title,
             subject: req.body.subject
         })
         const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
         res.status(200).json(course)
-    }
-})
-
-const searchCourse = asyncHandler(async (req, res) => {
-    let searchResults
-    if (!req.body) {
-        res.send(400)
-        throw new Error('Please enter a search keyword')
-    }
-    else {
-        searchResults = await courseModel.find({
-            $and: [{ instructorId: req.body.instructorId }, {
-                $or: [{ title: { $regex: req.params['searchInput'] } },
-                { instructorName: { $regex: req.params['searchInput'] } }, { subject: { $regex: req.params['searchInput'] } }]
-            }]
-        })
-        res.json(searchResults)
 
     }
 })
 
-module.exports = { createCourse, searchCourse }
+module.exports = { createCourse }
