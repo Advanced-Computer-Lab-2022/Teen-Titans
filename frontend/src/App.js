@@ -8,7 +8,6 @@ import ViewPrices from './pages/ViewPrices';
 //pages and components
 import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import HomePage from "./pages/HomePage";
 import Admin from './pages/admin';
 function App() {
   return (
