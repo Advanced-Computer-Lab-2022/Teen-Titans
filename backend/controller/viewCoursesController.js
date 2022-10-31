@@ -8,7 +8,7 @@ const getCourses = async(req,res) => {
 }
 
 const getPrices = async(req,res)=>{
-    const prices= await courseModel.find({},{_id:0,title:1, price:1})
+    const prices= await courseModel.find({},{_id:1,title:1, price:1,rating: 1,hours: 1})
 
     res.status(200).json(prices)
 }

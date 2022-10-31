@@ -26,7 +26,7 @@ const ViewPrices = ()=>{
                 <CoursePrice key = {course._id} course={course}/>
                ) )}
             </div>
-            <CourseForm/>
+          
         </div>
     )
 }
