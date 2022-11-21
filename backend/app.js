@@ -1,6 +1,6 @@
 const express = require('express')
 var cors = require('cors')
-const dotenv = require('dotenv').config({ path: '.env' })
+const dotenv = require('dotenv').config('.env' )
 const dbConnection = require('./configuration/db')
 const countryRoute = require('./routes/countryRoute')
 const adminRoute = require('./routes/adminRoutes')
