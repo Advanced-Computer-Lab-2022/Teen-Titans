@@ -2,16 +2,16 @@ const mongoose = require('mongoose')
 
 const instructorSchema = mongoose.Schema({
     username: {
-        type : String,
-        required : true
+        type: String,
+        required: true
     },
     password: {
-        type : String,
-        required : true
+        type: String,
+        required: true
     },
     email: {
         type: String
-    }, 
+    },
     firstName: {
         type: String
     },
@@ -41,6 +41,9 @@ const instructorSchema = mongoose.Schema({
             type: String
         },
         title: {
+            type: String
+        },
+        subject: {
             type: String
         }
     }]

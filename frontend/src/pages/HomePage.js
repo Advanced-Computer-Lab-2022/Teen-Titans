@@ -1,7 +1,8 @@
 
 import Search from '../components/Search'
-const HomePage = () => {
 
+
+const HomePage = () => {
 
     return (
 
@@ -10,6 +11,7 @@ const HomePage = () => {
             <h2>HomePage</h2>
 
         </div>
+       
     )
 }
 

@@ -29,7 +29,7 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     instructorId: {
-        type: Number,
+        type: String,
         required: true
     },
     subtitles: [{
@@ -39,7 +39,7 @@ const courseSchema = mongoose.Schema({
         subtitleHours: {
             type: String,
             required: true
-        }, 
+        },
         videos: [{
             url: {
                 type: String,
@@ -55,7 +55,7 @@ const courseSchema = mongoose.Schema({
             required: true
         }]
     }],
-    shortSummary:{
+    shortSummary: {
         type: String,
         required: true
     },
@@ -70,8 +70,8 @@ const courseSchema = mongoose.Schema({
     courseOutline: {
         type: String
     }
-    
-},{
+
+}, {
     timestamps: true
 })
 

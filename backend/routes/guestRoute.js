@@ -1,14 +1,14 @@
 const express = require('express')
 const path = require('path');
 const guestRouter = express.Router()
-const course = require('../controller/searchController')
+const courses = require('../controller/searchController')
 
-const {getCourses,getPrices}= require('../controller/viewCoursesController')
+const { getCourses, getPrices } = require('../controller/viewCoursesController')
 
-guestRouter.get('/getCourses',getCourses)
+guestRouter.get('/getCourses', getCourses)
 
-guestRouter.get('/getPrices',getPrices)
+guestRouter.get('/getPrices', getPrices)
 
-guestRouter.get('/:searchInput', course)
+guestRouter.get('/:searchInput', courses)
 
 module.exports = guestRouter
