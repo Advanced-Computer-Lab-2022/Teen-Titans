@@ -145,10 +145,13 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
     }
 })
 
+const changePassword = asyncHandler(async (req, res) => {
+    const instructor = await instructorModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
+    res.status(200).json({
+        message: 'Password Updated!'
+    })
+})
 
 
 
-
-
-
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse }
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse, changePassword }
