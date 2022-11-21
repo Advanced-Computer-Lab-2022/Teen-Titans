@@ -2,6 +2,29 @@ const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
 
+const editEmail = async (req,res) =>{
+     const {id}= req.params
+    // const newEmail =req.body.newEmail;
+    // try{
+    //     await instructorModel.findById(id,(error,instructorToUpdate)=>{
+    //       instructorToUpdate.email=newEmail;
+    //       instructorToUpdate.save()
+    //     })
+    // }catch(err){
+    //     console.log(err)
+    // }
+
+    // res.send("updated");
+     const instructor = await instructorModel.findOneAndUpdate({_id:id},{
+        ...req.body
+     },{new:true})
+     if(!instructor){
+        return res.status(400).json({error: 'No such instructor'})
+    }
+    res.status(200).json(instructor)
+
+}
+
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
         res.status(400)
@@ -151,4 +174,4 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse }
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail}
