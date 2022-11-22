@@ -147,9 +147,9 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
 })
 
 const changePassword = asyncHandler(async (req, res) => {
-    const user = await instructorModel.findById(req.params.id);
+    const user = await instructorModel.findById(req.body.id);
     if (user.password == req.body.oldPassword) {
-        const instructor = await instructorModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
+        const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
         res.status(200).json({
             message: 'Password Updated!'
         })
@@ -160,42 +160,42 @@ const changePassword = asyncHandler(async (req, res) => {
         })
 })
 
-const transporter = nodemailer.createTransport({
-    service: "hotmail",
-    auth: {
-        user: "knowledgeBoost@outlook.com",
-        pass: "Ta3leemMshMagani"
-    }
-})
+// const transporter = nodemailer.createTransport({
+//     service: "hotmail",
+//     auth: {
+//         user: "knowledgeBoost@outlook.com",
+//         pass: "Ta3leemMshMagani"
+//     }
+// })
 
-const forgotPassword = asyncHandler(async (req, res) => {
-    const user = await instructorModel.find({ email: req.body.email })
-    const options = {
-        from: "knowledgeBoost@outlook.com",
-        to: req.body.email,
-        subject: "Reset Password",
-        text: "Please click on the link below to rest password."
-    }
-    if (user) {
-        transporter.sendMail(options, function (err, info) {
-            if (err)
-                res.status(400).json(err)
-            else
-                res.status(200).json(info)
-        })
-    }
-    else
-        res.status(400).json({
-            message: "No user with such email!"
-        })
-})
+// const forgotPassword = asyncHandler(async (req, res) => {
+//     const user = await instructorModel.find({ email: req.body.email })
+//     const options = {
+//         from: "knowledgeBoost@outlook.com",
+//         to: req.body.email,
+//         subject: "Reset Password",
+//         text: "Please click on the link below to rest password."
+//     }
+//     if (user) {
+//         transporter.sendMail(options, function (err, info) {
+//             if (err)
+//                 res.status(400).json(err)
+//             else
+//                 res.status(200).json(info)
+//         })
+//     }
+//     else
+//         res.status(400).json({
+//             message: "No user with such email!"
+//         })
+// })
 
-const resetPassword = asyncHandler(async (req, res) => {
-    const individualTrainee = await instructorModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
-    res.status(200).json({
-        message: 'Password Reset!'
-    })
+// const resetPassword = asyncHandler(async (req, res) => {
+//     const individualTrainee = await instructorModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
+//     res.status(200).json({
+//         message: 'Password Reset!'
+//     })
 
-})
+// })
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse, changePassword, forgotPassword, resetPassword }
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse, changePassword }

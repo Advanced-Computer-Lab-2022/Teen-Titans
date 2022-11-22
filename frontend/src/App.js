@@ -15,6 +15,7 @@ import PriceFilter from './pages/PriceFilter'
 import CourseForm from './components/CourseForm';
 import ForgotPassword from './pages/forgotPassword';
 import ResetPassword from './pages/resetPassword';
+import ChangePassword from './components/changePassword';
 function App() {
 
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path='/createCourse' element={<CourseForm />}></Route>
             <Route path='/forgotPassword' element={<ForgotPassword />}></Route>
             <Route path='/resetPassword' element={<ResetPassword />}></Route>
+            <Route path='/changePassword' element={<ChangePassword />}></Route>
           </Routes>
         </div>
 
