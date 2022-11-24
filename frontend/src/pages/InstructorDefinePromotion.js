@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { useState } from "react"
 
-const EditEmail = () => {
+const DefinePromotion = () => {
     const [error, setError] = useState(null)
     const [message, setMessage] = useState('')
-    const editEmailInstructor = async () => {
+    const definePromotion = async () => {
         let id = document.getElementById('ID').value;
-        const response = await fetch(`/instructor/editEmail/${id}`, {
-          method: 'PATCH',
+        const response = await fetch(`/instructor/discount/${id}`, {
+          method: 'POST',
           body: JSON.stringify({
-            "email":document.getElementById("email").value.toString(),
+            "discount":document.getElementById("discount").value,
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -30,19 +30,19 @@ const EditEmail = () => {
 
       return(
         <div>
-            <h2>Edit email</h2>
+            <h2>Define course promotion</h2>
             <div className='d-flex flex-column'>
 
-            <label>Instructor id:</label>
+            <label>Course id:</label>
                 <input id='ID'></input>
-                <label>New email:</label>
-                <input id='email'></input>
+                <label>Discount:</label>
+                <input id='discount'></input>
                
-                <button onClick={() => editEmailInstructor()}>Edit</button>
+                <button onClick={() => definePromotion()}>Done</button>
                 
             </div>
         </div>
       )
 }
 
-export default EditEmail
+export default DefinePromotion

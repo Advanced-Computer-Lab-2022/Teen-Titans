@@ -14,6 +14,8 @@ import Instructor from './pages/Instructor';
 import PriceFilter from './pages/PriceFilter'
 import CourseForm from './components/CourseForm';
 import EditEmail from './pages/InstructorEdit';
+import EditBiography from './pages/InstructorEditBiography';
+import DefinePromotion from './pages/InstructorDefinePromotion';
 function App() {
 
   return (
@@ -32,6 +34,9 @@ function App() {
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
             <Route path='/createCourse' element={<CourseForm />}></Route>
             <Route path='/editEmail' element={<EditEmail/>}> </Route>
+            <Route path='/editBiography' element={<EditBiography/>}> </Route>
+            <Route path='/discount' element={<DefinePromotion/>}> </Route>
+
           </Routes>
         </div>
 

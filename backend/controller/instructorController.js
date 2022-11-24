@@ -2,28 +2,44 @@ const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
 
+
+const definePromotion = async(req,res)=>{
+    const {id}= req.params
+     
+     const course = await courseModel.findOneAndUpdate({_id:id},{
+        discount:req.body.discount
+     },{new:true})
+     if(!course){
+        return res.status(400).json({error: 'No such course'})
+    }
+    res.status(200).json(course)
+}
+
 const editEmail = async (req,res) =>{
      const {id}= req.params
-    // const newEmail =req.body.newEmail;
-    // try{
-    //     await instructorModel.findById(id,(error,instructorToUpdate)=>{
-    //       instructorToUpdate.email=newEmail;
-    //       instructorToUpdate.save()
-    //     })
-    // }catch(err){
-    //     console.log(err)
-    // }
-
-    // res.send("updated");
      const instructor = await instructorModel.findOneAndUpdate({_id:id},{
-        ...req.body
+       email:req.body.email
      },{new:true})
      if(!instructor){
         return res.status(400).json({error: 'No such instructor'})
     }
+    
     res.status(200).json(instructor)
 
 }
+const editBiography = async (req,res) =>{
+    const {id}= req.params
+    const instructor = await instructorModel.findOneAndUpdate({_id:id},{
+        biography:req.body.biography
+    },{new:true})
+    if(!instructor){
+       return res.status(400).json({error: 'No such instructor'})
+   }
+   
+   res.status(200).json(instructor)
+
+}
+
 
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
@@ -37,6 +53,7 @@ const createCourse = asyncHandler(async (req, res) => {
                 totalHours += subtitle.hours
             }
         }
+        
         const course = await courseModel.create({
             hours: totalHours,
             rating: 0,
@@ -174,4 +191,4 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail}
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail,editBiography,definePromotion}

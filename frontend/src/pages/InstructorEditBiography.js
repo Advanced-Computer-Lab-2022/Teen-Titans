@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { useState } from "react"
 
-const EditEmail = () => {
+const EditBiography = () => {
     const [error, setError] = useState(null)
     const [message, setMessage] = useState('')
-    const editEmailInstructor = async () => {
+    const editBiographyInstructor = async () => {
         let id = document.getElementById('ID').value;
-        const response = await fetch(`/instructor/editEmail/${id}`, {
+        const response = await fetch(`/instructor/editBiography/${id}`, {
           method: 'PATCH',
           body: JSON.stringify({
-            "email":document.getElementById("email").value.toString(),
+            "biography":document.getElementById("biography").value.toString(),
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ const EditEmail = () => {
         const json = await response.json()
     
         if (response.ok) {
-          setMessage("email edited.")
+          setMessage("biography edited.")
       }
       else {
           setMessage("error")
@@ -30,19 +30,19 @@ const EditEmail = () => {
 
       return(
         <div>
-            <h2>Edit email</h2>
+            <h2>Edit biography</h2>
             <div className='d-flex flex-column'>
 
             <label>Instructor id:</label>
                 <input id='ID'></input>
-                <label>New email:</label>
-                <input id='email'></input>
+                <label>New Biography:</label>
+                <input id='biography'></input>
                
-                <button onClick={() => editEmailInstructor()}>Edit</button>
+                <button onClick={() => editBiographyInstructor()}>Edit</button>
                 
             </div>
         </div>
       )
 }
 
-export default EditEmail
+export default EditBiography
