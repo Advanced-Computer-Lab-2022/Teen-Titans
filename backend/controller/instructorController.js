@@ -7,7 +7,10 @@ const definePromotion = async(req,res)=>{
     const {id}= req.params
      
      const course = await courseModel.findOneAndUpdate({_id:id},{
-        discount:req.body.discount
+        discount:{
+        amount:req.body.amount,
+        duration: req.body.duration
+        }
      },{new:true})
      if(!course){
         return res.status(400).json({error: 'No such course'})

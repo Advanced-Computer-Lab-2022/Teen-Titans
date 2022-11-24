@@ -18,8 +18,14 @@ const courseSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    discount: {
-        type: Number
+    discount:  {
+       amount:{
+        type: Number,
+
+       },
+       duration: {
+       type: String
+    }
     },
     subject: {
         type: String

@@ -9,7 +9,8 @@ const DefinePromotion = () => {
         const response = await fetch(`/instructor/discount/${id}`, {
           method: 'POST',
           body: JSON.stringify({
-            "discount":document.getElementById("discount").value,
+            "amount":document.getElementById("amount").value,
+            "duration": document.getElementById("duration").value.toString()
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -35,8 +36,10 @@ const DefinePromotion = () => {
 
             <label>Course id:</label>
                 <input id='ID'></input>
-                <label>Discount:</label>
-                <input id='discount'></input>
+                <label>Discount amount:</label>
+                <input id='amount'></input>
+                <label>Discount duration:</label>
+                <input id='duration'></input>
                
                 <button onClick={() => definePromotion()}>Done</button>
                 
