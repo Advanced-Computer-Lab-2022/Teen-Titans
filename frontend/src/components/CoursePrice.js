@@ -4,7 +4,7 @@ import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
 import React, { useEffect, useState } from "react"
 
-
+//
 
 const CoursePrice = ({ course }) => {
     const [courseData, setCourseData] = useState(null)
