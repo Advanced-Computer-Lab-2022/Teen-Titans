@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 
 const getCourses = async (req, res) => {
+    console.log("getcourses")
     const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1 })
 
     res.status(200).json(courses)
