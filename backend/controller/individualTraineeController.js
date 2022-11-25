@@ -1,7 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
+const courseModel = require('../models/courseModel')
+const { default: mongoose } = require('mongoose');
 const nodemailer = require('nodemailer')
-// const course = require('../models/courseModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -73,18 +74,37 @@ const signUp = asyncHandler(async (req, res) => {
 
 
 //not working properly yet.................
+
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
     const courses = findUser.enrolledCourses
     courses.push(req.body.courseId)
     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
-    const populateCourse = await individualTraineeModel.findById(req.body.id).populate("course").exec((err, result) => {
-        if (err) {
-            return res.json({ error: err })
-        }
-        res.json({ result: result })
-    });
+    if (user)
+        res.status(200).json({
+            message: 'Registration Successful!'
+        })
+    else
+        res.status(400).json({
+            message: 'Registration Unsuccessful!'
+        })
 })
 
+const viewMyCourses = asyncHandler(async (req, res) => {
+    const user = await individualTraineeModel.findById(req.query.id);
+    let enrolledCourses = user.enrolledCourses;
+    let result = []
+    if (user) {
+        for (let i = 0; i < enrolledCourses.length; i++) {
+            const courseDetails = await courseModel.findById(enrolledCourses[i].id)
+            result.push(courseDetails)
+        }
+        res.status(200).json(result)
+    }
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
+})
 
-module.exports = { changePassword, signUp, registerForCourse }
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses }

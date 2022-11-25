@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../index.css'
 const ChangePassword = () => {
     const [message, setMessage] = useState('')
+    const userId = localStorage.getItem('id')
+    const user = localStorage.getItem('user')
     const changePassword = async () => {
         if (document.getElementById("password").value == "" || document.getElementById("confirmPassword").value == "" || document.getElementById("oldPassword").value == "") {
             setMessage("Please fill all fields!")
@@ -22,20 +24,21 @@ const ChangePassword = () => {
             //         setMessage(message)
 
             //     })
-            const response = await fetch('/individualTrainee/changePassword', {
+            const response = await fetch(`${user}/changePassword`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: {
-                    id: document.getElementById("id").value,
-                    oldPassword: document.getElementById("oldPassword").value,
-                    password: document.getElementById("oldPassword").value
-                }
+                body: JSON.stringify({
+                    "id": userId,
+                    "oldPassword": document.getElementById("oldPassword").value,
+                    "password": document.getElementById("password").value
+                })
             })
+            const json = await response.json();
             if (response.ok) {
                 setMessage("Password Reset")
             }
             else {
-                setMessage("Something went wrong. Please try again!")
+                setMessage(json.message)
             }
         }
     }
@@ -43,8 +46,8 @@ const ChangePassword = () => {
         <div>
             <h2>Reset Password</h2>
             <div className='d-flex flex-column'>
-                <label>Id:</label>
-                <input id='id'></input>
+                {/* <label>Id:</label>
+                <input id='id'></input> */}
                 <label>Old Password:</label>
                 <input id='oldPassword'></input>
                 <label>New Password:</label>

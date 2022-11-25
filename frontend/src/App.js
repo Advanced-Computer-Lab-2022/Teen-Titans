@@ -16,6 +16,9 @@ import CourseForm from './components/CourseForm';
 import ForgotPassword from './pages/forgotPassword';
 import ResetPassword from './pages/resetPassword';
 import ChangePassword from './components/changePassword';
+import CorporateTrainee from './pages/CorporateTraineeHomePage';
+import IndividualTrainee from './pages/IndividualTraineeHomePage';
+import CoursesPage from './pages/CoursesPage';
 function App() {
 
   return (
@@ -30,12 +33,15 @@ function App() {
             <Route path="/homePage" element={<Home />}></Route>
             <Route path='/instructor' element={<Instructor />} />
             <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
+            <Route path='/corporateTraineeHomePage' element={<CorporateTrainee />}></Route>
+            <Route path='/individualTraineeHomePage' element={<IndividualTrainee />}></Route>
             <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
             <Route path='/createCourse' element={<CourseForm />}></Route>
             <Route path='/forgotPassword' element={<ForgotPassword />}></Route>
             <Route path='/resetPassword' element={<ResetPassword />}></Route>
             <Route path='/changePassword' element={<ChangePassword />}></Route>
+            <Route path='/course' element={<CoursesPage />}></Route>
           </Routes>
         </div>
 

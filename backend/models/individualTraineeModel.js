@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema
+const courseModel = require('./courseModel')
+const Schema = mongoose.Schema
+
 const individualTraineeSchema = mongoose.Schema({
     username: {
         type: String,
@@ -33,10 +35,7 @@ const individualTraineeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    enrolledCourses: [{
-        type: ObjectId,
-        ref: "course"
-    }]
+    enrolledCourses: [courseModel.schema]
 })
 
 module.exports = mongoose.model('individualTrainee', individualTraineeSchema)

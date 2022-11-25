@@ -11,6 +11,6 @@ const CourseDetails = ({ course }) => {
 
     )
 }
-
+//
 
 export default CourseDetails

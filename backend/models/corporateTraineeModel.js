@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+const courseModel = require('./courseModel')
+const Schema = mongoose.Schema
 const corporateTraineeSchema = mongoose.Schema({
     username: {
         type: String,
@@ -24,14 +25,7 @@ const corporateTraineeSchema = mongoose.Schema({
     country: {
         type: String
     },
-    enrolledCourses: [{
-        id: {
-            type: String
-        },
-        title: {
-            type: String
-        }
-    }]
+    enrolledCourses: [courseModel.schema]
 })
 
 module.exports = mongoose.model('corporateTrainee', corporateTraineeSchema)

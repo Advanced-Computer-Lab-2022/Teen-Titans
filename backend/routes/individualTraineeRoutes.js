@@ -13,10 +13,8 @@ individualTraineeRouter.get('/:searchInput', courses)
 
 individualTraineeRouter.patch('/changePassword', changePassword)
 
-// individualTraineeRouter.post('/forgotPassword', forgotPassword)
-
-// individualTraineeRouter.patch('/resetPassword/:id', resetPassword)
-
 individualTraineeRouter.post('/registerForCourse', registerForCourse)
+
+
 
 module.exports = individualTraineeRouter

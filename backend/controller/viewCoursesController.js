@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
-
+const individualTraineeModel = require('../models/individualTraineeModel')
 const getCourses = async (req, res) => {
     const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1 })
 
@@ -37,6 +37,10 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
     res.json(courseData)
 })
 
+const openCourse = asyncHandler(async (req, res) => {
+    const viewCourse = await courseModel.findById(req.query.id)
+    res.status(200).json(viewCourse)
+})
 
 const filterRating = asyncHandler(async (req, res) => {
     const rating = req.query.rating
@@ -79,4 +83,4 @@ const filterSubject = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover }
+module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, openCourse }
