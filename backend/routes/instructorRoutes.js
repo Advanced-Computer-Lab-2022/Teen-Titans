@@ -17,4 +17,6 @@ instructorRouter.get('/subject/:id', subject)
 instructorRouter.get('/myCourses/:searchInput/:id', instructorSearchCourse)
 instructorRouter.get('/:searchInput', courses)
 
+
+
 module.exports = instructorRouter

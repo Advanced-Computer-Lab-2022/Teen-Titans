@@ -9,11 +9,11 @@ const createCourse = asyncHandler(async (req, res) => {
     }
     else {
         let totalHours = 0;
-        if (req.body.subtitles) {
-            for (let subtitle of req.body.subtitles) {
-                totalHours += subtitle.hours
-            }
-        }
+        // if (req.body.subtitles) {
+        //     for (let subtitle of req.body.subtitles) {
+        //         totalHours += subtitle.hours
+        //     }
+        // }
         const course = await courseModel.create({
             hours: totalHours,
             rating: 0,
@@ -24,13 +24,39 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles: req.body.subtitles,
+            subtitles:{ title:req.body.subtitle,
+            exercise:{questionOne: {
+                question: "1+1=?",
+        
+                options:[{id:0,Text:"2",isCorrect:true},
+                {id:1,Text:"3",isCorrect:false},
+                {id:2,Text:"4",isCorrect:false},
+                {id:3,Text:"5",isCorrect:false},]},
+                questionTwo: { 
+                    question:"2+2=?",
+                    options:[{id:0,Text:"3",isCorrect:false},
+                    {id:1,Text:"2",isCorrect:false},
+                    {id:2,Text:"4",isCorrect:true},
+                    {id:3,Text:"0",isCorrect:false},]
+                    },
+            },
+        
+        },
+                
             shortSummary: req.body.shortSummary,
             previewVideo: {
                 url: '',
                 shortDescription: ''
             },
-            courseOutline: ''
+            courseOutline: '',
+          
+
+           
+
+
+
+
+
         })
         const instructor = await instructorModel.findById(req.body.instructorId)
         const instructorCourses = instructor.courses
@@ -145,6 +171,45 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
     }
 })
 
+
+
+const createExercise = asyncHandler(async (req, res) => {
+    if (!req.body) {
+        res.status(400)
+        throw new Error("Please fill in all fields!")
+    }
+    else {
+       
+        const exercise = await exerciseModel.create({
+            hours: totalHours,
+            rating: 0,
+            reviews: [],
+            title: req.body.title,
+            price: req.body.price,
+            discount: 0,
+            subject: req.body.subject,
+            instructorId: req.body.instructorId,
+            instructorName: req.body.instructorName,
+            subtitles: req.body.subtitles,
+            shortSummary: req.body.shortSummary,
+            previewVideo: {
+                url: '',
+                shortDescription: ''
+            },
+            courseOutline: ''
+        })
+        const instructor = await instructorModel.findById(req.body.instructorId)
+        const instructorCourses = instructor.courses
+        instructorCourses.push({
+            id: course._id,
+            title: req.body.title,
+            subject: req.body.subject
+        })
+        const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
+        res.status(200).json(course)
+
+    }
+})
 
 
 

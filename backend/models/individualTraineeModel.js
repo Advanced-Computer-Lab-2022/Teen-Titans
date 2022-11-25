@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const courseModel = require('./courseModel')
 
 const individualTraineeSchema = mongoose.Schema({
     username: {
@@ -33,16 +34,7 @@ const individualTraineeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    enrolledCourses: [{
-        id: {
-            type: String,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true
-        }
-    }]
+    enrolledCourses: [courseModel.schema]
 })
 
 module.exports = mongoose.model('individualTrainee', individualTraineeSchema)
