@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const subtitleModel = require('./subtitleModel');
+const {objectId} = mongoose.Schema;
 
 const courseSchema = mongoose.Schema({
     hours: {
@@ -19,14 +21,14 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     discount:  {
-       amount:{
-        type: Number,
-
-       },
-       duration: {
-       type: String
-    }
-    },
+        amount:{
+         type: Number,
+ 
+        },
+        duration: {
+        type: String
+     }
+     },
     subject: {
         type: String
     },
@@ -38,29 +40,8 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    subtitles: [{
-        subtitleId : {
-            type: String
-        },
-        subtitleHours: {
-            type: String,
-            required: true
-        },
-        videos: [{
-            url: {
-                type: String,
-                required: true
-            },
-            shortDescription: {
-                type: String,
-                required: true
-            }
-        }],
-        exercises: [{
-            type: String,
-            required: true
-        }]
-    }],
+    subtitles: [subtitleModel.schema]
+    ,
     shortSummary: {
         type: String,
         required: true

@@ -43,6 +43,39 @@ const editBiography = async (req,res) =>{
 
 }
 
+const createExam = asyncHandler(async(req,res)=>{
+    const {id}= req.params
+    const course = await courseModel.findOneAndUpdate({_id:id},{
+        subtitles:{
+            subtitleId:req.body.subtitleId,
+            exercise:{
+                questionOne:{
+                    question:req.body.question1,
+                    options:[{id:0,Text:req.body.Text1,isCorrect:true},
+                    {id:1,Text:req.body.Text2,isCorrect:true},
+                    {id:2,Text:req.body.Text3,isCorrect:true},
+                    {id:3,Text:req.body.Text4,isCorrect:true}]
+                    }
+
+                ,
+                questionTwo:{
+                    question:req.body.question2,
+                    options:[{id:0,Text:req.body.Text5,isCorrect:true},
+                    {id:1,Text:req.body.Text6,isCorrect:true},
+                    {id:2,Text:req.body.Text7,isCorrect:true},
+                    {id:3,Text:req.body.Text8,isCorrect:true}]
+                }
+            }
+            }
+        }
+        
+     ,{new:true})
+     if(!course){
+        return res.status(400).json({error: 'No such course'})
+    }
+    res.status(200).json(course)
+    
+})
 
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
@@ -67,7 +100,24 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles: req.body.subtitles,
+            subtitles:{ title:req.body.subtitle,
+                exercise:{questionOne: {
+                    question: "1+1=?",
+            
+                    options:[{id:0,Text:"2",isCorrect:true},
+                    {id:1,Text:"3",isCorrect:false},
+                    {id:2,Text:"4",isCorrect:false},
+                    {id:3,Text:"5",isCorrect:false},]},
+                    questionTwo: { 
+                        question:"2+2=?",
+                        options:[{id:0,Text:"3",isCorrect:false},
+                        {id:1,Text:"2",isCorrect:false},
+                        {id:2,Text:"4",isCorrect:true},
+                        {id:3,Text:"0",isCorrect:false},]
+                        },
+                },
+            
+            },
             shortSummary: req.body.shortSummary,
             previewVideo: {
                 url: '',
@@ -194,4 +244,4 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail,editBiography,definePromotion}
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail,editBiography,definePromotion,createExam}
