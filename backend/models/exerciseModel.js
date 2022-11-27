@@ -29,3 +29,4 @@ const exerciseSchema = mongoose.Schema({
     //         { id: 3, Text: String, isCorrect: Boolean }]
     // }]
 })
+module.exports = mongoose.model('exercise', exerciseSchema)
