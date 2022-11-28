@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Subtitle = ({ subtitle, courseId }) => {
     const navigate = useNavigate();
     const toexercise = () => {
-        navigate('/page', { state: subtitle.exercise });
+        navigate('/exercise', { state: subtitle.exercise });
     }
 
     return (
