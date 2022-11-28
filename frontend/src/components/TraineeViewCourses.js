@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react"
 import Details from "./Details"
 import axios from 'axios';
 import CoursesPage from "../pages/CoursesPage";
-const TraineeViewCourses = ({ id }) => {
+import {Link, useNavigate} from 'react-router-dom';
+
+
+
+ 
+
+    const TraineeViewCourses = ({ id }) => {
     // console.log(id);
     const [courseData, setCourseData] = useState(null)
     const [courseId, setCourseId] = useState(null)
@@ -11,6 +17,10 @@ const TraineeViewCourses = ({ id }) => {
     const country = JSON.parse(localStorage.getItem('country'))
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
+    const navigate = useNavigate();
+    const toexam= () => {
+        navigate('/exercise' ,{state: courseData.courseExam});
+    }
     useEffect(() => {
         const getDetails = async () => {
             console.log(user + " " + userId);
@@ -21,7 +31,7 @@ const TraineeViewCourses = ({ id }) => {
                     const json = res.data
                     if (json)
                         setCourseData(json)
-                    // console.log(json);
+                    console.log("course data "+courseData);
                 }
             )
             // }
@@ -41,6 +51,7 @@ const TraineeViewCourses = ({ id }) => {
                                 <p>Price: {course.price * conversion_rate} {target_code}</p>
                                 <p>Instructor: {course.instructorName}</p>
                                 <button onClick={() => window.location.href = `/course?courseId=${course._id}`}>View Details</button>
+                                <button  onClick={() => {toexam()}}  className='subtitles-faded'>Exam</button>
                             </div>
                         ))}
                     {/* </div> */}

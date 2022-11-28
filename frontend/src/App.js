@@ -19,8 +19,6 @@ import ChangePassword from './components/changePassword';
 import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
-import ExerciseForm from './components/ExerciseForm';
-import Exerciseform2 from './components/Exerciseform2';
 import Exercise from './pages/Exercise';
 import InstructorCourses from './pages/InstructorCourses';
 function App() {
@@ -47,6 +45,7 @@ function App() {
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/exercise' element={<Exercise />}></Route>
+          
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
 
 

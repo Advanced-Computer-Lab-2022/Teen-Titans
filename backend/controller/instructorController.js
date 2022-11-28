@@ -10,11 +10,11 @@ const createCourse = asyncHandler(async (req, res) => {
     }
     else {
         let totalHours = 0;
-        // if (req.body.subtitles) {
-        //     for (let subtitle of req.body.subtitles) {
-        //         totalHours += subtitle.hours
-        //     }
-        // }
+        if (req.body.subtitles) {
+            for (let subtitle of req.body.subtitles) {
+                totalHours += subtitle.hours
+            }
+        }
         const course = await courseModel.create({
             hours: totalHours,
             rating: 0,
@@ -25,7 +25,7 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            // subtitles:{    },
+            subtitles:[{title: req.body.subtitle1,},{title: req.body.subtitle2,}],
                 
             shortSummary: req.body.shortSummary,
             previewVideo: {

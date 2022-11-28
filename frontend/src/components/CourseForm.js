@@ -6,7 +6,9 @@ const CourseForm = () => {
   const [instructorId, setInstructorId] = useState('')
   const [instructorName, setInstructorName] = useState('')
   const [shortSummary, setShortSummary] = useState('')
-  const [subtitle, setSubtitle] = useState('');
+  const [subtitle1, setSubtitle1] = useState('');
+  const [subtitle2, setSubtitle2] = useState('');
+
   const [error, setError] = useState(null)
 
 
@@ -18,7 +20,7 @@ const CourseForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const course = { title, price, subject, instructorId, instructorName, shortSummary , subtitle}
+    const course = { title, price, subject, instructorId, instructorName, shortSummary , subtitle1,subtitle2}
 
     const response = await fetch('/instructor/createCourse', {
       method: 'POST',
@@ -39,7 +41,8 @@ const CourseForm = () => {
       setSubject('')
       setInstructorId('')
       setInstructorName('')
-       setSubtitle('')
+       setSubtitle1('')
+       setSubtitle1('')
       setShortSummary('')
       setError(null)
       console.log('new course added', json)
@@ -77,12 +80,16 @@ const CourseForm = () => {
         onChange={(e) => setInstructorName(e.target.value)}
         value={instructorName}
       />
-      <label> Course subtitle:</label>
+      <label> Course subtitle 1:</label>
       <input type="text"
-        onChange={(e) => setSubtitle(e.target.value)}
-        value={subtitle}
+        onChange={(e) => setSubtitle1(e.target.value)}
+        value={subtitle1}
       />
-      
+       <label> Course subtitle 2:</label>
+      <input type="text"
+        onChange={(e) => setSubtitle2(e.target.value)}
+        value={subtitle2}
+      />
 
 
       <label> Course shortSummary:</label>

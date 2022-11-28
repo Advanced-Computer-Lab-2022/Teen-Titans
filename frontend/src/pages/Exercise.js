@@ -1,6 +1,5 @@
-import exercise from '../components/ExerciseForm'
 import React, { useEffect, useState } from "react"
-import axios from 'axios';
+// import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 const Exercise = () => {
 
@@ -18,6 +17,7 @@ const Exercise = () => {
       const target_code = country.target_code
       const  location= useLocation();
       const exercise=location.state;
+      let text="foo"
     console.log(exercise)
       
       
@@ -204,17 +204,21 @@ const Exercise = () => {
         <div >
         <h3>{exercise?.questionOne.question} </h3>
         <ul>
-          <li>
+          <li  >
            
               <input type="radio" id="s1a" name="s1"  checked={exercise?.questionOne.options[0].isCorrect }       />
-              <label for="s1a" >{exercise?.questionOne.options[0].Text}</label>
-       
+              <label style={{backgroundColor: text === "foo" ? 'green' : "red"}} for="s1a" >{exercise?.questionOne.options[0].Text}</label>
+              </li>
+              <li>
               <input type="radio" id="s1b" name="s1"  checked={exercise?.questionOne.options[1].isCorrect} />
               <label for="s1b">{exercise?.questionOne.options[1].Text}</label>
-              
+              </li>
+              <li>
               <input type="radio" id="s1c" name="s1"  checked={exercise?.questionOne.options[2].isCorrect }
                             />
               <label for="s1c">{exercise?.questionOne.options[2].Text}</label>
+              </li>
+              <li>
               <input type="radio" id="s1d" name="s1"   checked={exercise?.questionOne.options[3].isCorrect }/>
               <label for="s1d">{exercise?.questionOne.options[3].Text}</label>
           </li>
