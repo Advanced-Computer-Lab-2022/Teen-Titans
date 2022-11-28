@@ -162,6 +162,21 @@ const allcourses = asyncHandler(async (req, res) => {
 })
 
 
+const viewInstructorRatings = asyncHandler(async (req, res) => {
+    let rating = 0
+    let reviews = []
+    const instructor = await instructorModel.findById(req.query.instructorId)
+    rating = instructor.rating
+    reviews = instructor.reviews
+    const instructorEvaluation = {
+        rating: rating,
+        reviews: reviews
+    }
+
+    console.log(instructorEvaluation);
+    res.json(instructorEvaluation)
+})
+
 const subject = asyncHandler(async (req, res) => {
     const subject = req.query.subject
     const filterResults = await courseModel.find(
@@ -260,4 +275,4 @@ const upload = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload }
+module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const courseModel = require('./courseModel')
+const ratingsModel = require('./ratingsModel')
 
 const instructorSchema = mongoose.Schema({
     username: {
@@ -34,6 +35,7 @@ const instructorSchema = mongoose.Schema({
     rating: {
         type: Number
     },
+    ratings: ratingsModel.schema,
     reviews: [{
         type: String
     }],
