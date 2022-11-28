@@ -10,7 +10,6 @@ const ExamForm = () => {
           method: 'PATCH',
           body: JSON.stringify({
             //question or question1
-            "subtitleId":document.getElementById("subtitleId").value.toString(),
             "question1": document.getElementById("question1").value.toString(),
             "answer1": document.getElementById("answer1").value.toString(),
             "Text1":document.getElementById("Text1").value.toString(),
@@ -53,10 +52,8 @@ const ExamForm = () => {
         <h2>Create Exam for a subtitle</h2>
         <div className='d-flex flex-column'>
 
-        <label>Course id:</label>
+        <label>subtitle id:</label>
             <input id='ID'></input>
-            <label>subtitle id:</label>
-            <input id='subtitleId'></input>
             <label>Question one:</label>
             <input id='question1'></input>
             <label>Answer:</label>

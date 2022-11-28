@@ -2,10 +2,7 @@ const mongoose = require('mongoose')
 const videoModel = require('./videoModel')
 const exerciseModel = require('./exerciseModel')
 const subtitleSchema = mongoose.Schema(
-    {   subtitleId:{
-        type: String
-    
-    },
+    {  
         title: {
             type: String, 
             required: true
