@@ -1,4 +1,10 @@
+import {Link, useNavigate} from 'react-router-dom';
 const Subtitle = ({ subtitle }) => {
+    const navigate = useNavigate();
+    const toexercise = () => {
+        navigate('/page' ,{state: subtitle.exercise});
+    }
+
     return (
         <div>
             <div className="onHover-details">
@@ -9,7 +15,8 @@ const Subtitle = ({ subtitle }) => {
                     ))
                 }
                 <div>
-                    <button className='subtitles-faded'>Exercises</button>
+                
+                    <button  onClick={() => {toexercise()}}  className='subtitles-faded'>Exercises</button>
                     <h6 className='subtitles-faded'>{subtitle.hours} hours</h6>
                 </div>
 

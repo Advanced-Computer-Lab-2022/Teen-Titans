@@ -18,7 +18,6 @@ const changePassword = asyncHandler(async (req, res) => {
             message: 'Old Password is incorrect!'
         })
 })
-
 const signUp = asyncHandler(async (req, res) => {
     const individualTrainee = await individualTraineeModel.create({
         username: req.body.username,
@@ -31,10 +30,8 @@ const signUp = asyncHandler(async (req, res) => {
         wallet: req.body.wallet,
         enrolledCourses: req.body.enrolledCourses
     })
-
     res.status(200).json(individualTrainee)
 })
-
 // const transporter = nodemailer.createTransport({
 //     service: "hotmail",
 //     auth: {
@@ -42,7 +39,6 @@ const signUp = asyncHandler(async (req, res) => {
 //         pass: "Ta3leemMshMagani"
 //     }
 // })
-
 // const forgotPassword = asyncHandler(async (req, res) => {
 //     const user = await individualTraineeModel.find({ email: req.body.email })
 //     const options = {
@@ -64,13 +60,11 @@ const signUp = asyncHandler(async (req, res) => {
 //             message: "No user with such email!"
 //         })
 // })
-
 // const resetPassword = asyncHandler(async (req, res) => {
 //     const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
 //     res.status(200).json({
 //         message: 'Password Reset!'
 //     })
-
 // })
 
 

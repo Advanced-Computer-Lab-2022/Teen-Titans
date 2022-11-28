@@ -105,6 +105,7 @@ const PriceFilter = () => {
                         <p>{course.instructorName}</p>
                         <b> SUBJECT:</b>
                         <p>{course.subject}</p>
+                        <button onClick={() => window.location.href = `/instructorcourse?courseId=${course._id}`}>View Details</button>
                     </div>
                 ))
             }

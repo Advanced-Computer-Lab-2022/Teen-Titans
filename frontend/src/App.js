@@ -20,6 +20,10 @@ import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
 import DisplayVideo from './components/DisplayVideo';
+import ExerciseForm from './components/ExerciseForm';
+import Exerciseform2 from './components/Exerciseform2';
+import Exercise from './pages/Exercise';
+import InstructorCourses from './pages/InstructorCourses';
 function App() {
 
   return (
@@ -44,6 +48,10 @@ function App() {
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
+            <Route path='/exercise' element={<Exercise />}></Route>
+            <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
+
+
           </Routes>
         </div>
 
