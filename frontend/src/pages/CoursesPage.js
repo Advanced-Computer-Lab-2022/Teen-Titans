@@ -7,18 +7,18 @@ const CoursesPage = () => {
     const country = JSON.parse(localStorage.getItem('country'))
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
-    console.log(courseId);
+    // console.log(courseId);
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
     useEffect(() => {
         const getDetails = async (userId) => {
-            console.log(userId);
+            // console.log(userId);
             await axios.get(`myCourse/openCourse?id=${courseId}`).then(
                 (res) => {
                     const json = res.data
                     if (json)
                         setCourse(json)
-                    console.log(json);
+                    // console.log(json);
                 }
             )
         }
@@ -38,11 +38,11 @@ const CoursesPage = () => {
                     <h5><strong>course hours:</strong> {course.hours}</h5>
                     <div>
                         <h6 className='labels'>Subtitles:</h6>
-                        {
+                        {/* {
                             course.subtitles && course.subtitles.map((subtitle) => (
                                 <Subtitle subtitle={subtitle} />
                             ))
-                        }
+                        } */}
                     </div>
                 </div>}
         </div>

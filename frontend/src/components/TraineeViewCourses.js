@@ -14,17 +14,14 @@ const TraineeViewCourses = ({ id }) => {
     useEffect(() => {
         const getDetails = async () => {
             console.log(user + " " + userId);
-            // if (user && userId) {
             console.log("hi");
             await axios.get(`users/${user}Courses?id=${id}`).then(
                 (res) => {
                     const json = res.data
                     if (json)
                         setCourseData(json)
-                    // console.log(json);
                 }
             )
-            // }
         }
         getDetails()
     }, [])

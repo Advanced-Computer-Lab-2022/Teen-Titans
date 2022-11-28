@@ -19,6 +19,7 @@ import ChangePassword from './components/changePassword';
 import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
+import DisplayVideo from './components/DisplayVideo';
 function App() {
 
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path='/resetPassword' element={<ResetPassword />}></Route>
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
+            <Route path='/watch' element={<DisplayVideo />}></Route>
           </Routes>
         </div>
 

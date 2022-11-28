@@ -2,7 +2,8 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
 const { default: mongoose } = require('mongoose');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const videoModel = require('../models/videoModel');
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -107,4 +108,46 @@ const viewMyCourses = asyncHandler(async (req, res) => {
         })
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses }
+const recursiveFunction = function (arr, x, start, end) {
+
+    // Base Condition
+    if (start > end) return false;
+
+    // Find the middle index
+    let mid = Math.floor((start + end) / 2);
+
+    // Compare mid with given key x
+    if (arr[mid] === x) return true;
+
+    // If element at mid is greater than x,
+    // search in the left half of mid
+    if (arr[mid] > x)
+        return recursiveFunction(arr, x, start, mid - 1);
+    else
+
+        // If element at mid is smaller than x,
+        // search in the right half of mid
+        return recursiveFunction(arr, x, mid + 1, end);
+}
+
+const watchVideo = asyncHandler(async (req, res) => {
+    const user = await individualTraineeModel.findById(req.query.id);
+    // let enrolledCourses = user.enrolledCourses;
+    let videoUrl = ''
+    if (user) {
+        for (let i = 0; i < user.enrolledCourses.length; i++) {
+            if (user.enrolledCourses[i].id == req.query.courseId) {
+                const video = await videoModel.findById(req.query.videoId)
+                videoUrl = video.url
+                res.status(200).json(videoUrl)
+            }
+        }
+    }
+    if (user && videoUrl == '')
+        res.status(400).json({
+            message: 'Unauthorized Access!'
+        })
+
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo }
