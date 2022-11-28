@@ -11,12 +11,43 @@ const colors = {
 
 
 function App() {
+    const [message, setMessage] = useState('')
+  const RateCourses=async()=>{
+   
+    let id=document.getElementById('ID').value;
+    const response=await fetch(`/corporateTrainee/RateCourses/${id}`,{
+      method:'POST',
+      body:JSON.stringify({
+        "rating":document.getElementById('rating').value
+      })
+    })
+    if (response.ok) {
+      setMessage("your rating is saved.")
+  }
+  }
+  const RateInstructor=async()=>{
+    
+    let id=document.getElementById('ID').value;
+    const response=await fetch(`/corporateTrainee/RateInstructor/${id}`,{
+      method:'POST',
+      body:JSON.stringify({
+        "rating":document.getElementById('rating').value
+      })
+    })
+    
+    if (response.ok) {
+      setMessage("your rating is saved.")
+  }
+  }
+
+
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0)
 
   const handleClick = value => {
     setCurrentValue(value)
+    console.log(value)
   }
 
   const handleMouseOver = newHoverValue => {
@@ -30,6 +61,12 @@ function App() {
 
   return (
     <div style={styles.container}>
+      <label>
+        courseId
+        </label>
+        <input id='ID'>
+
+        </input>
       <h2> React Ratings </h2>
       <div style={styles.stars}>
         {stars.map((_, index) => {
@@ -49,10 +86,7 @@ function App() {
           )
         })}
       </div>
-      <textarea
-        placeholder="What's your experience?"
-        style={styles.textarea}
-      />
+     
 
       <button
         style={styles.button}

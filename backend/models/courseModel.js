@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const ratingsModel = require('./ratingsModel')
 const courseSchema = mongoose.Schema({
     hours: {
         type: Number
@@ -7,6 +7,8 @@ const courseSchema = mongoose.Schema({
     rating: {
         type: Number
     },
+   
+    ratings: ratingsModel.schema,
     reviews: [{
         type: String
     }],

@@ -15,7 +15,8 @@ import Search from './components/Search'
 
 import PriceFilter from './pages/PriceFilter'
 
-import Rate from './pages/Rate';
+import IndividualTraineeHomePage from './pages/IndividualTraineeHomePage';
+import CorporateTraineeHomePage from './pages/CorporateTraineeHomePage';
 function App() {
  
   return (
@@ -33,7 +34,8 @@ function App() {
             <Route path="/homePage" element={<HomePage />}></Route>
             <Route path="/search" element={<Search />}></Route>
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
-            <Route path='/Rate' element={<Rate />}></Route>
+            <Route path='/IndividualTraineeHomePage' element={<IndividualTraineeHomePage />}></Route>
+            <Route path='/CorporateTraineeHomePage' element={<CorporateTraineeHomePage />}></Route>
         </Routes>
       </div>
 

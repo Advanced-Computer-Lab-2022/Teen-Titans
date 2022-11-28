@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const ratingsModel = require('./ratingsModel')
 const instructorSchema = mongoose.Schema({
     username: {
         type : String,
@@ -9,6 +9,7 @@ const instructorSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    ratings: ratingsModel.schema,
     email: {
         type: String
     }, 
