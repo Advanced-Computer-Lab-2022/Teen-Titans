@@ -43,27 +43,67 @@ const editBiography = async (req,res) =>{
 
 }
 
+
+
+
+
+const createCourseExam = asyncHandler(async(req,res)=>{
+    const{id}= req.params
+    const course = await courseModel.findOneAndUpdate({_id:id},{
+        courseExam:{
+            questionOne:{
+                question:req.body.question1,
+                answer: req.body.answer1,
+                options:[{id:0,Text:req.body.Text1,isCorrect:req.body.isCorrect1},
+                {id:1,Text:req.body.Text2,isCorrect:req.body.isCorrect2},
+                {id:2,Text:req.body.Text3,isCorrect:req.body.isCorrect3},
+                {id:3,Text:req.body.Text4,isCorrect:req.body.isCorrect4}]
+                }
+
+            ,
+            questionTwo:{
+                question:req.body.question2,
+                answer: req.body.answer2,
+                options:[{id:0,Text:req.body.Text5,isCorrect:req.body.isCorrect5},
+                {id:1,Text:req.body.Text6,isCorrect:req.body.isCorrect6},
+                {id:2,Text:req.body.Text7,isCorrect:req.body.isCorrect7},
+                {id:3,Text:req.body.Text8,isCorrect:req.body.isCorrect8}]
+            }
+        }
+    }
+        ,{new:true})
+        if(!course){
+           return res.status(400).json({error: 'No such course'})
+       }
+       res.status(200).json(course)
+
+})
+
+
+
 const createExam = asyncHandler(async(req,res)=>{
     const {id}= req.params
     const course = await courseModel.findOneAndUpdate({_id:id},{
         subtitles:{
-            subtitleId:req.body.subtitleId,
+            //subtitleId:req.body.subtitleId,
             exercise:{
                 questionOne:{
                     question:req.body.question1,
-                    options:[{id:0,Text:req.body.Text1,isCorrect:true},
-                    {id:1,Text:req.body.Text2,isCorrect:true},
-                    {id:2,Text:req.body.Text3,isCorrect:true},
-                    {id:3,Text:req.body.Text4,isCorrect:true}]
+                    answer: req.body.answer1,
+                    options:[{id:0,Text:req.body.Text1,isCorrect:req.body.isCorrect1},
+                    {id:1,Text:req.body.Text2,isCorrect:req.body.isCorrect2},
+                    {id:2,Text:req.body.Text3,isCorrect:req.body.isCorrect3},
+                    {id:3,Text:req.body.Text4,isCorrect:req.body.isCorrect4}]
                     }
 
                 ,
                 questionTwo:{
                     question:req.body.question2,
-                    options:[{id:0,Text:req.body.Text5,isCorrect:true},
-                    {id:1,Text:req.body.Text6,isCorrect:true},
-                    {id:2,Text:req.body.Text7,isCorrect:true},
-                    {id:3,Text:req.body.Text8,isCorrect:true}]
+                    answer: req.body.answer2,
+                    options:[{id:0,Text:req.body.Text5,isCorrect:req.body.isCorrect5},
+                    {id:1,Text:req.body.Text6,isCorrect:req.body.isCorrect6},
+                    {id:2,Text:req.body.Text7,isCorrect:req.body.isCorrect7},
+                    {id:3,Text:req.body.Text8,isCorrect:req.body.isCorrect8}]
                 }
             }
             }
@@ -244,4 +284,4 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail,editBiography,definePromotion,createExam}
+module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse ,editEmail,editBiography,definePromotion,createExam,createCourseExam}

@@ -1,16 +1,16 @@
 import { useState } from "react"
 
 
-const ExamForm = () => {
+const CourseExamForm = () => {
     const [error, setError] = useState(null)
     const [message, setMessage] = useState('')
-    const createExamForaSubtitle = async () => {
+    const createExamForaCourse = async () => {
         let id = document.getElementById('ID').value;
-        const response = await fetch(`/instructor/createExam/${id}`, {
+        const response = await fetch(`/instructor/createCourseExam/${id}`, {
           method: 'PATCH',
           body: JSON.stringify({
-            //question or question1
-            "subtitleId":document.getElementById("subtitleId").value.toString(),
+          
+            
             "question1": document.getElementById("question1").value.toString(),
             "answer1": document.getElementById("answer1").value.toString(),
             "Text1":document.getElementById("Text1").value.toString(),
@@ -50,13 +50,11 @@ const ExamForm = () => {
       }
       return(
         <div>
-        <h2>Create Exam for a subtitle</h2>
+        <h2>Create Exam for a Course</h2>
         <div className='d-flex flex-column'>
 
         <label>Course id:</label>
             <input id='ID'></input>
-            <label>subtitle id:</label>
-            <input id='subtitleId'></input>
             <label>Question one:</label>
             <input id='question1'></input>
             <label>Answer:</label>
@@ -91,11 +89,11 @@ const ExamForm = () => {
             <input id='Text8'></input>
             <input id='isCorrect8' placeholder="Please specify if this option is true or false"></input>
            
-            <button onClick={() => createExamForaSubtitle()}>create</button>
+            <button onClick={() => createExamForaCourse()}>create</button>
             
         </div>
     </div>
       )
 }
 
-export default ExamForm
+export default CourseExamForm

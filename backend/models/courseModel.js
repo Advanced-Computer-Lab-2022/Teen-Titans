@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const exerciseModel = require('./exerciseModel');
 const subtitleModel = require('./subtitleModel');
 const {objectId} = mongoose.Schema;
 
@@ -56,7 +57,9 @@ const courseSchema = mongoose.Schema({
     },
     courseOutline: {
         type: String
-    }
+    }, 
+
+    courseExam: exerciseModel.schema
 
 }, {
     timestamps: true
