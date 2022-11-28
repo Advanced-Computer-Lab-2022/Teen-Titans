@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const instructorRouter = express.Router()
-const { createCourse, getCoursesTitles, upload,allcourses, course, subject, instructorSearchCourse, changePassword } = require('../controller/instructorController')
+const { createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword } = require('../controller/instructorController')
 const courses = require('../controller/searchController')
 
 const { getCourses, getPrices } = require('../controller/viewCoursesController')
@@ -18,7 +18,6 @@ instructorRouter.get('/myCourses/:searchInput/:id', instructorSearchCourse)
 instructorRouter.get('/:searchInput', courses)
 instructorRouter.patch('/changePassword', changePassword)
 instructorRouter.post('/upload', upload)
-
 // instructorRouter.post('/forgotPassword', forgotPassword)
 // instructorRouter.patch('/resetPassword/:id', resetPassword)
 

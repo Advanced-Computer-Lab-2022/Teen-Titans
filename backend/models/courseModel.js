@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const subtitleModel = require('./subtitleModel')
 const exerciseModel = require('./exerciseModel')
 const videoModel = require('./videoModel')
+const ratingsModel = require('./ratingsModel')
 // const { ObjectId } = mongoose.Schema;
 
 const courseSchema = mongoose.Schema({
@@ -11,6 +12,7 @@ const courseSchema = mongoose.Schema({
     rating: {
         type: Number
     },
+    ratings: ratingsModel.schema,
     reviews: [{
         type: String
     }],
@@ -36,7 +38,7 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    subtitles:[subtitleModel.schema]
+    subtitles: [subtitleModel.schema]
     ,
     shortSummary: {
         type: String,

@@ -56,6 +56,13 @@ const createCourse = asyncHandler(async (req, res) => {
         }
         const course = await courseModel.create({
             hours: totalHours,
+            ratings: {
+                oneStar: 0,
+                twoStar: 0,
+                threeStar: 0,
+                fourStar: 0,
+                fiveStar: 0
+            },
             rating: 0,
             reviews: [],
             title: req.body.title,
