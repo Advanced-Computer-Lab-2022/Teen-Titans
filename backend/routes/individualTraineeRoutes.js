@@ -17,6 +17,5 @@ individualTraineeRouter.patch('/changePassword', changePassword)
 
 individualTraineeRouter.post('/registerForCourse', registerForCourse)
 
-individualTraineeRouter.get('/watch', watchVideo)
 
 module.exports = individualTraineeRouter

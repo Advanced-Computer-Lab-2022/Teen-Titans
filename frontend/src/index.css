@@ -527,3 +527,17 @@ header a {
   font-size: 16px;
   font-weight: 400;
 }
+
+.subtitles {
+  color: #1aac83;
+}
+
+.videos {
+  margin: 0px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  color: mediumaquamarine;
+  border-radius: 5px;
+  font-size: 10px;
+}

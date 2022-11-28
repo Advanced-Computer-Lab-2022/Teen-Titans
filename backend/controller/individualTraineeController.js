@@ -133,7 +133,7 @@ const watchVideo = asyncHandler(async (req, res) => {
             if (user.enrolledCourses[i].id == req.query.courseId) {
                 const video = await videoModel.findById(req.query.videoId)
                 videoUrl = video.url
-                res.status(200).json(videoUrl)
+                res.status(200).json(video)
             }
         }
     }

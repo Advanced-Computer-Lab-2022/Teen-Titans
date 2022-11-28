@@ -48,6 +48,7 @@ const createCourse = asyncHandler(async (req, res) => {
             })
             const subtitle = await subtitleModel.create({
                 title: req.body.subtitles[i].title,
+                subtitleHours: req.body.subtitles[i].hours,
                 videos: videos,
                 exercise: exercise
             })
@@ -66,18 +67,10 @@ const createCourse = asyncHandler(async (req, res) => {
             subtitles: subtitles,
             shortSummary: req.body.shortSummary,
             previewVideo: {
-                url: '',
-                shortDescription: ''
+                url: req.body.previewVideo.url,
+                shortDescription: req.body.previewVideo.shortDescription,
             },
             courseOutline: '',
-
-
-
-
-
-
-
-
         })
 
         const instructor = await instructorModel.findById(req.body.instructorId)
@@ -254,11 +247,8 @@ const upload = asyncHandler(async (req, res) => {
         throw new Error("Please fill in all fields!")
     }
     else {
-
-
         const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
         res.status(200).json(course)
-
     }
 })
 

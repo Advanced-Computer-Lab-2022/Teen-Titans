@@ -29,20 +29,20 @@ const CoursesPage = () => {
     return (
         <div className="courses-page">
             {courseId && course &&
-                <div>
-                    <h2>
+                <div className='d-flex flex-column justify-content-start align-items-start'>
+                    <h1>
                         {course.title}
-                    </h2>
-                    <h3>Instructor: {course.instructorName}</h3>
-                    <h6><strong>course rating:</strong> {course.rating}</h6>
-                    <h5><strong>course hours:</strong> {course.hours}</h5>
-                    <div>
-                        <h6 className='labels'>Subtitles:</h6>
-                        {/* {
+                    </h1>
+                    <h4>Instructor: {course.instructorName}</h4>
+                    <h6>course rating: {course.rating}</h6>
+                    <h6>course hours: {course.hours}</h6>
+                    <div className='d-flex flex-column justify-content-start align-items-start'>
+                        <h4 className='subtitles'>Subtitles:</h4>
+                        {
                             course.subtitles && course.subtitles.map((subtitle) => (
-                                <Subtitle subtitle={subtitle} />
+                                <Subtitle subtitle={subtitle} courseId={course._id} />
                             ))
-                        } */}
+                        }
                     </div>
                 </div>}
         </div>

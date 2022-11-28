@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
+const videoModel = require('../models/videoModel')
 const nodemailer = require('nodemailer')
 const subtitleModel = require('../models/subtitleModel')
 
@@ -50,27 +51,25 @@ const myCourses = asyncHandler(async (req, res) => {
         })
 })
 
-//not working
-// const exercise = asyncHandler(async (req, res) => {
-    
-//     console.log("inside exercise")
-//     console.log(req.query.subtitleId)
-//     const subtitle= await courseModel.find({subtitles:{$elemMatch:{_id:req.query.subtitleId}}})
-//     if (subtitle) {
-       
-//         console.log(" got subtitle"+subtitle)
-//         console.log(" got subtitle"+subtitle.exercise)
 
-//         res.status(200).json(subtitle)
-//     }
-//     else
-//         res.status(400).json({
-//             message: 'subtitle not found'
-//         })
-// })
+const watchVideoC = asyncHandler(async (req, res) => {
+    const user = await corporateTraineeModel.findById(req.query.id);
+    // let enrolledCourses = user.enrolledCourses;
+    let videoUrl = ''
+    if (user) {
+        for (let i = 0; i < user.enrolledCourses.length; i++) {
+            if (user.enrolledCourses[i].id == req.query.courseId) {
+                const video = await videoModel.findById(req.query.videoId)
+                videoUrl = video.url
+                res.status(200).json(video)
+            }
+        }
+    }
+    if (user && videoUrl == '')
+        res.status(400).json({
+            message: 'Unauthorized Access!'
+        })
 
+})
 
-
-
-
-module.exports = { changePassword, myCourses, registerForCourse }
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC }
