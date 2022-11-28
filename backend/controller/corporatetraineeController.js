@@ -54,7 +54,6 @@ const myCourses = asyncHandler(async (req, res) => {
 
 const watchVideoC = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.query.id);
-    // let enrolledCourses = user.enrolledCourses;
     let videoUrl = ''
     if (user) {
         for (let i = 0; i < user.enrolledCourses.length; i++) {
