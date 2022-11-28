@@ -1,5 +1,5 @@
 import React from 'react'
-import Tippy from '@tippyjs/react'
+// import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import axios from 'axios'
 import { useEffect ,useState} from 'react'
@@ -10,16 +10,36 @@ const InstructorCourses = () => {
     const target_code = country.target_code
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
-    
-  const [url, seturl] = useState('');
+    const [url, seturl] = useState('');
     const [shortDescription, setshortDescription] = useState('');
-    console.log(courseId);
-
-
+    console.log("courseId"+courseId);
     const [course, setCourse] = useState(null)
-  
+    const [error, setError] = useState(null)
 
-
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+    
+        const course = { courseId, url, shortDescription }
+    
+        const response = await fetch(`http://localhost:5000/instructor/upload`, {
+          method: 'POST',
+          body: JSON.stringify(course),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const json = await response.json()
+ 
+    
+        if (!response.ok) {
+            setError(json.error)
+          }
+    
+        if (response.ok) {
+        
+          console.log('preview video added', json)
+        }
+      }
 
 
 
@@ -89,7 +109,17 @@ const InstructorCourses = () => {
       />   
                         </div>
                     
-                </div>
+                {/* <button onClick={async () => {
+                    await axios.post(`http://localhost:5000/myCourse/addPreviewVideo?id=${courseId}`, {
+                        url: url,
+                        shortDescription: shortDescription
+                    }).then((res) => {
+                        console.log(res.data)
+                    })
+                }}>add preview video</button> */}
+
+                <button onClick={handleSubmit}>add preview video</button>
+</div>
             }
         </div>
     )

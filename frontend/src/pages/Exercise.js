@@ -1,6 +1,5 @@
-import exercise from '../components/ExerciseForm'
 import React, { useEffect, useState } from "react"
-import axios from 'axios';
+// import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 const Exercise = () => {
 
@@ -18,6 +17,7 @@ const Exercise = () => {
       const target_code = country.target_code
       const  location= useLocation();
       const exercise=location.state;
+      let text="foo"
     console.log(exercise)
       
       
@@ -32,7 +32,7 @@ const Exercise = () => {
         e.preventDefault()
         setSolution(true)
         
-        // setFinalresults(false)
+       
         
       };
         
@@ -72,10 +72,10 @@ const Exercise = () => {
            
             console.log(score)
             
-         
+            alert('Answer submitted')
       setscore(scores)
             setshowgrade(true)
-            alert('Answer submitted')
+           
            
            }
         
@@ -178,7 +178,7 @@ const Exercise = () => {
         
         {showgrade ? <div>
        <button onClick={handleSubmit2}>check grade</button>
-        {/* <button onClick={solution} >check solution</button> */}
+        <button onClick={solution} >check solution</button>
        </div>
          : null}
        
@@ -204,18 +204,22 @@ const Exercise = () => {
         <div >
         <h3>{exercise?.questionOne.question} </h3>
         <ul>
-          <li>
+          <li  >
            
               <input type="radio" id="s1a" name="s1"  checked={exercise?.questionOne.options[0].isCorrect }       />
-              <label for="s1a" >{exercise?.questionOne.options[0].Text}</label>
-       
-              <input type="radio" id="s1b" name="s1"  />
+              <label style={{backgroundColor: text === "foo" ? 'green' : "red"}} for="s1a" >{exercise?.questionOne.options[0].Text}</label>
+              </li>
+              <li>
+              <input type="radio" id="s1b" name="s1"  checked={exercise?.questionOne.options[1].isCorrect} />
               <label for="s1b">{exercise?.questionOne.options[1].Text}</label>
-              
-              <input type="radio" id="s1c" name="s1" 
+              </li>
+              <li>
+              <input type="radio" id="s1c" name="s1"  checked={exercise?.questionOne.options[2].isCorrect }
                             />
               <label for="s1c">{exercise?.questionOne.options[2].Text}</label>
-              <input type="radio" id="s1d" name="s1" />
+              </li>
+              <li>
+              <input type="radio" id="s1d" name="s1"   checked={exercise?.questionOne.options[3].isCorrect }/>
               <label for="s1d">{exercise?.questionOne.options[3].Text}</label>
           </li>
           </ul>
@@ -226,13 +230,13 @@ const Exercise = () => {
         <h3>{exercise?.questionTwo.question}</h3>
         <ul>
           <li>
-          <input type="radio" id="s2a" name="s2" />
+          <input type="radio" id="s2a" name="s2" checked={exercise?.questionTwo.options[0].isCorrect}/>
               <label for="s2a">{exercise?.questionTwo.options[0].Text} </label>
        
-              <input type="radio" id="s2b" name="s2" />
+              <input type="radio" id="s2b" name="s2"  checked={exercise?.questionTwo.options[1].isCorrect} />
               <label for="s2b">{exercise?.questionTwo.options[1].Text}</label>
        
-              <input type="radio" id="s2c" name="s2" />
+              <input type="radio" id="s2c" name="s2"  checked={exercise?.questionTwo.options[2].isCorrect} />
               <label for="s2c">{exercise?.questionTwo.options[2].Text}</label>
               <input type="radio" id="s2d" name="s2" checked= {exercise?.questionTwo.options[3].isCorrect} />
               <label for="sdc">{exercise?.questionTwo.options[3].Text}</label>
@@ -242,17 +246,23 @@ const Exercise = () => {
           </div>
        
           </div>
-        :null}
+        :
+        
+        <div>
+        {showgrade ? <div>
+          {/* <button onClick={handleSubmit2}>check grade</button> */}
+           {/* <button onClick={solution} >check solution</button> */}
+          </div>
+            : null}
+          
+          </div>
+        
+        }
        
   
        
       
         
-        {showgrade ? <div>
-       <button onClick={handleSubmit2}>check grade</button>
-        {/* <button onClick={solution} >check solution</button> */}
-       </div>
-         : null}
        
        
         

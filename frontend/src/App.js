@@ -49,6 +49,7 @@ function App() {
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
             <Route path='/exercise' element={<Exercise />}></Route>
+
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
 
 

@@ -71,7 +71,8 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles: subtitles,
+            // subtitles:{    },
+
             shortSummary: req.body.shortSummary,
             previewVideo: {
                 url: req.body.previewVideo.url,
