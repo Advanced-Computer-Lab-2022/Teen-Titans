@@ -15,6 +15,7 @@ import Search from './components/Search'
 
 import PriceFilter from './pages/PriceFilter'
 
+import Rate from './pages/Rate';
 function App() {
  
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/homePage" element={<HomePage />}></Route>
             <Route path="/search" element={<Search />}></Route>
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
+            <Route path='/Rate' element={<Rate />}></Route>
         </Routes>
       </div>
 
