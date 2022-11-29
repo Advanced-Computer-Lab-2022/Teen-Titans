@@ -25,7 +25,13 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     discount: {
-        type: Number
+        amount: {
+            type: Number,
+
+        },
+        duration: {
+            type: String
+        }
     },
     subject: {
         type: String
@@ -38,8 +44,29 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    subtitles: [subtitleModel.schema]
-    ,
+    subtitles: [{
+        subtitleId: {
+            type: String
+        },
+        subtitleHours: {
+            type: String,
+            required: true
+        },
+        videos: [{
+            url: {
+                type: String,
+                required: true
+            },
+            shortDescription: {
+                type: String,
+                required: true
+            }
+        }],
+        exercises: [{
+            type: String,
+            required: true
+        }]
+    }],
     shortSummary: {
         type: String,
         required: true

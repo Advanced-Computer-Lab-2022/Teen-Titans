@@ -22,6 +22,12 @@ import CoursesPage from './pages/CoursesPage';
 import DisplayVideo from './components/DisplayVideo';
 import Exercise from './pages/Exercise';
 import InstructorCourses from './pages/InstructorCourses';
+import DefinePromotion from './components/InstructorDefinePromotion';
+import ExamForm from './components/CreateExam';
+import CourseExamForm from './components/CreateCourseExam';
+// import EditEmail from './pages/InstructorEdit';
+// import EditBiography from './pages/InstructorEditBiography';
+// import DefinePromotion from './pages/InstructorDefinePromotion';
 function App() {
 
   return (
@@ -49,6 +55,11 @@ function App() {
             <Route path='/exercise' element={<Exercise />}></Route>
 
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
+
+
+            <Route path='/discount' element={<DefinePromotion />}></Route>
+            <Route path='/createExam' element={<ExamForm />}></Route>
+            <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
 
 
           </Routes>

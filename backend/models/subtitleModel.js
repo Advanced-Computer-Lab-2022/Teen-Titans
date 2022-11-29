@@ -4,7 +4,7 @@ const exerciseModel = require('./exerciseModel')
 const subtitleSchema = mongoose.Schema(
     {
         title: {
-            type: String, 
+            type: String,
             required: true
         },
 

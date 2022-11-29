@@ -1,11 +1,15 @@
 const express = require('express');
 const path = require('path');
 const instructorRouter = express.Router()
-const { createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings } = require('../controller/instructorController')
+const { createExam, createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings, editEmail, editBiography, definePromotion, createCourseExam } = require('../controller/instructorController')
 const courses = require('../controller/searchController')
 
 const { getCourses, getPrices } = require('../controller/viewCoursesController')
-
+instructorRouter.patch('/createCourseExam/:id', createCourseExam)
+instructorRouter.patch('/createExam/:id', createExam)
+instructorRouter.post('/discount/:id', definePromotion)
+instructorRouter.patch('/editEmail/:id', editEmail)
+instructorRouter.patch('/editBiography/:id', editBiography)
 instructorRouter.get('/getCourses', getCourses)
 instructorRouter.get('/getPrices', getPrices)
 

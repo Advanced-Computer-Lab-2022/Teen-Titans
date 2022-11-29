@@ -1,10 +1,121 @@
 const asyncHandler = require('express-async-handler')
+const { findOneAndUpdate } = require('../models/courseModel')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
-const nodemailer = require('nodemailer')
-const videoModel = require('../models/videoModel')
-const exerciseModel = require('../models/exerciseModel')
 const subtitleModel = require('../models/subtitleModel')
+
+
+const definePromotion = async (req, res) => {
+    const { id } = req.params
+
+    const course = await courseModel.findOneAndUpdate({ _id: id }, {
+        discount: {
+            amount: req.body.amount,
+            duration: req.body.duration
+        }
+    }, { new: true })
+    if (!course) {
+        return res.status(400).json({ error: 'No such course' })
+    }
+    res.status(200).json(course)
+}
+
+const editEmail = async (req, res) => {
+    const { id } = req.params
+    const instructor = await instructorModel.findOneAndUpdate({ _id: id }, {
+        email: req.body.email
+    }, { new: true })
+    if (!instructor) {
+        return res.status(400).json({ error: 'No such instructor' })
+    }
+
+    res.status(200).json(instructor)
+
+}
+const editBiography = async (req, res) => {
+    const { id } = req.params
+    const instructor = await instructorModel.findOneAndUpdate({ _id: id }, {
+        biography: req.body.biography
+    }, { new: true })
+    if (!instructor) {
+        return res.status(400).json({ error: 'No such instructor' })
+    }
+
+    res.status(200).json(instructor)
+
+}
+
+
+
+
+
+const createCourseExam = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const course = await courseModel.findOneAndUpdate({ _id: id }, {
+        courseExam: {
+            questionOne: {
+                question: req.body.question1,
+                answer: req.body.answer1,
+                options: [{ id: 0, Text: req.body.Text1, isCorrect: req.body.isCorrect1 },
+                { id: 1, Text: req.body.Text2, isCorrect: req.body.isCorrect2 },
+                { id: 2, Text: req.body.Text3, isCorrect: req.body.isCorrect3 },
+                { id: 3, Text: req.body.Text4, isCorrect: req.body.isCorrect4 }]
+            }
+
+            ,
+            questionTwo: {
+                question: req.body.question2,
+                answer: req.body.answer2,
+                options: [{ id: 0, Text: req.body.Text5, isCorrect: req.body.isCorrect5 },
+                { id: 1, Text: req.body.Text6, isCorrect: req.body.isCorrect6 },
+                { id: 2, Text: req.body.Text7, isCorrect: req.body.isCorrect7 },
+                { id: 3, Text: req.body.Text8, isCorrect: req.body.isCorrect8 }]
+            }
+        }
+    }
+        , { new: true })
+    if (!course) {
+        return res.status(400).json({ error: 'No such course' })
+    }
+    res.status(200).json(course)
+
+})
+
+
+
+const createExam = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const course = await courseModel.findOneAndUpdate({ subtitles: { $elemMatch: { _id: id } } },
+        {
+            'subtitles.$.exercise.questionOne.question': req.body.question1,
+            'subtitles.$.exercise.questionOne.answer': req.body.answer1,
+            'subtitles.$.exercise.questionOne.options': [{ id: 0, Text: req.body.Text1, isCorrect: req.body.isCorrect1 },
+            { id: 1, Text: req.body.Text2, isCorrect: req.body.isCorrect2 },
+            { id: 2, Text: req.body.Text3, isCorrect: req.body.isCorrect3 },
+            { id: 3, Text: req.body.Text4, isCorrect: req.body.isCorrect4 }],
+
+            'subtitles.$.exercise.questionTwo.question': req.body.question2,
+            'subtitles.$.exercise.questionTwo.answer': req.body.answer2,
+            'subtitles.$.exercise.questionTwo.options': [{ id: 0, Text: req.body.Text5, isCorrect: req.body.isCorrect5 },
+            { id: 1, Text: req.body.Text6, isCorrect: req.body.isCorrect6 },
+            { id: 2, Text: req.body.Text7, isCorrect: req.body.isCorrect7 },
+            { id: 3, Text: req.body.Text8, isCorrect: req.body.isCorrect8 }],
+
+
+        }
+
+
+        , { new: true })
+    if (!course) {
+        return res.status(400).json({ error: 'No such course' })
+    }
+    res.status(200).json(course)
+    const nodemailer = require('nodemailer')
+    const videoModel = require('../models/videoModel')
+    const exerciseModel = require('../models/exerciseModel')
+    const subtitleModel = require('../models/subtitleModel')
+
+})
 
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
@@ -54,6 +165,7 @@ const createCourse = asyncHandler(async (req, res) => {
             })
             subtitles.push(subtitle)
         }
+
         const course = await courseModel.create({
             hours: totalHours,
             ratings: {
@@ -71,8 +183,7 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            // subtitles:{    },
-
+            subtitles: req.body.subtitles,
             shortSummary: req.body.shortSummary,
             previewVideo: {
                 url: req.body.previewVideo.url,
@@ -276,4 +387,4 @@ const upload = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings }
+module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail, editBiography, definePromotion, createExam, createCourseExam }
