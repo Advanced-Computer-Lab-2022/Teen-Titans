@@ -6,25 +6,181 @@ const CourseForm = () => {
   const [instructorId, setInstructorId] = useState('')
   const [instructorName, setInstructorName] = useState('')
   const [shortSummary, setShortSummary] = useState('')
-  const [subtitle1, setSubtitle1] = useState('');
-  const [subtitle2, setSubtitle2] = useState('');
+  const [previewVideo, setPreviewVideo] = useState({
+    url: '',
+    shortDescription: ''
+  })
+  const [courseOutline, setCourseOutline] = useState('')
+  // const [exercise, setExercise] = useState({
+  //   questionOne: {
+  //     question: '',
+  //     options: [{ id: 0, Text: '', isCorrect: false },
+  //     { id: 1, Text: '', isCorrect: false },
+  //     { id: 2, Text: '', isCorrect: false },
+  //     { id: 3, Text: '', isCorrect: false },]
+
+
+  //   },
+  //   questionTwo: {
+  //     question: '',
+  //     options: [{ id: 0, Text: '', isCorrect: false },
+  //     { id: 1, Text: '', isCorrect: false },
+  //     { id: 2, Text: '', isCorrect: false },
+  //     { id: 3, Text: '', isCorrect: false },]
+  //   },
+  // })
+  // const [videos, setVideos] = useState({ url: "", shortDescription: "" });
+  // setExercise({
+  //   questionOne: {
+  //     "question": document.getElementById("question1").value.toString(),
+  //     "options": [{ "id": 0, "Text": document.getElementById("Text1").value.toString(), "isCorrect": document.getElementById("isCorrect1").value.toString() },
+  //     { "id": 1, "Text": document.getElementById("Text2").value.toString(), "isCorrect": document.getElementById("isCorrect2").value },
+  //     { "id": 2, "Text": document.getElementById("Text3").value.toString(), "isCorrect": document.getElementById("isCorrect3").value },
+  //     { "id": 3, "Text": document.getElementById("Text4").value.toString(), "isCorrect": document.getElementById("isCorrect4").value }]
+  //   },
+  //   questionTwo: {
+  //     "question": document.getElementById("question2").value.toString(),
+  //     "options": [{ "id": 0, "Text": document.getElementById("Text5").value.toString(), "isCorrect": document.getElementById("isCorrect5").value.toString() },
+  //     { "id": 1, "Text": document.getElementById("Text6").value.toString(), "isCorrect": document.getElementById("isCorrect6").value },
+  //     { "id": 2, "Text": document.getElementById("Text7").value.toString(), "isCorrect": document.getElementById("isCorrect7").value },
+  //     { "id": 3, "Text": document.getElementById("Text8").value.toString(), "isCorrect": document.getElementById("isCorrect8").value }]
+  //   }
+  // })
+  const [subtitles, setSubtitles] = useState([{
+    title: "", subtitleHours: "", url: "", shortDescription: "",
+    question1: '',
+    Text1: '', isCorrect1: false,
+    Text2: '', isCorrect2: false,
+    Text3: '', isCorrect3: false,
+    Text4: '', isCorrect4: false,
+    question2: '',
+    Text5: '', isCorrect5: false,
+    Text6: '', isCorrect6: false,
+    Text7: '', isCorrect7: false,
+    Text8: '', isCorrect8: false
+  }]);
 
   const [error, setError] = useState(null)
 
+  const handleSubtitleAdd = () => {
+    setSubtitles([...subtitles, {
+      title: "", subtitleHours: "", url: "", shortDescription: "",
+      question1: '',
+      Text1: '', isCorrect1: false,
+      Text2: '', isCorrect2: false,
+      Text3: '', isCorrect3: false,
+      Text4: '', isCorrect4: false,
+      question2: '',
+      Text5: '', isCorrect5: false,
+      Text6: '', isCorrect6: false,
+      Text7: '', isCorrect7: false,
+      Text8: '', isCorrect8: false
+    }]);
+  };
 
-  // const handleSubtitleAdd = () => {
-  //   setSubtitle('')
-  // }
-
+  const handleSubtitleChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...subtitles];
+    list[index][name] = value;
+    setSubtitles(list);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const subtitleArray = [{
+      title: "",
+      subtitleHours: "",
+      video: {
+        url: "",
+        shortDescription: ""
+      },
+      exercise: {
+        questionOne: {
+          question: "",
+          options: [{ Text1: "", isCorrect1: "" },
+          { Text2: "", isCorrect2: "" },
+          { Text3: "", isCorrect3: "" },
+          { Text4: "", isCorrect4: "" }]
+        },
+        questionTwo: {
+          question: "",
+          options: [{ Text1: "", isCorrect1: "" },
+          { Text2: "", isCorrect2: "" },
+          { Text3: "", isCorrect3: "" },
+          { Text4: "", isCorrect4: "" }]
+        }
+      }
+    }]
+    for (let i = 0; i < subtitles.length; i++) {
+      const title = subtitles[i].title;
+      const hours = subtitles[i].subtitleHours;
+      const videoUrl = subtitles[i].url;
+      const videoShortDescription = subtitles[i].shortDescription;
+      const question1 = subtitles[i].question1;
+      const Text1 = subtitles[i].Text1;
+      const isCorrect1 = subtitles[i].isCorrect1;
+      const Text2 = subtitles[i].Text2;
+      const isCorrect2 = subtitles[i].isCorrect2;
+      const Text3 = subtitles[i].Text3;
+      const isCorrect3 = subtitles[i].isCorrect3;
+      const Text4 = subtitles[i].Text4;
+      const isCorrect4 = subtitles[i].isCorrect4;
+      const question2 = subtitles[i].question2;
+      const Text5 = subtitles[i].Text5;
+      const isCorrect5 = subtitles[i].isCorrect5;
+      const Text6 = subtitles[i].Text6;
+      const isCorrect6 = subtitles[i].isCorrect6;
+      const Text7 = subtitles[i].Text7;
+      const isCorrect7 = subtitles[i].isCorrect7;
+      const Text8 = subtitles[i].Text8;
+      const isCorrect8 = subtitles[i].isCorrect8;
+      subtitleArray.push({
+        title: title,
+        subtitleHours: hours,
+        video: {
+          url: videoUrl,
+          shortDescription: videoShortDescription
+        },
+        exercise: {
+          questionOne: {
+            question: question1,
+            options: [{ Text1: Text1, isCorrect1: isCorrect1 },
+            { Text2: Text2, isCorrect2: isCorrect2 },
+            { Text3: Text3, isCorrect3: isCorrect3 },
+            { Text4: Text4, isCorrect4: isCorrect4 }]
+          },
+          questionTwo: {
+            question: question2,
+            options: [{ Text1: Text5, isCorrect1: isCorrect5 },
+            { Text2: Text6, isCorrect2: isCorrect6 },
+            { Text3: Text7, isCorrect3: isCorrect7 },
+            { Text4: Text8, isCorrect4: isCorrect8 }]
+          }
+        }
+      })
+    }
 
-    const course = { title, price, subject, instructorId, instructorName, shortSummary , subtitle1,subtitle2}
+    //const course = { title, price, subject, instructorId, instructorName, shortSummary, previewVideo, courseOutline }
 
+    //console.log(subtitles);
+    // console.log(exercise);
+    //console.log(course);
     const response = await fetch('/instructor/createCourse', {
       method: 'POST',
-      body: JSON.stringify(course),
+      body: JSON.stringify({
+        "title": title,
+        "price": price,
+        "subject": subject,
+        "instructorId": instructorId,
+        "instructorName": instructorName,
+        "shortSummary": shortSummary,
+        "subtitles": subtitleArray,
+        "previewVideo": {
+          "url": previewVideo.url,
+          "shortDescription": previewVideo.shortDescription
+        },
+        "courseOutline": courseOutline
+      }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -41,9 +197,25 @@ const CourseForm = () => {
       setSubject('')
       setInstructorId('')
       setInstructorName('')
-       setSubtitle1('')
-       setSubtitle1('')
       setShortSummary('')
+      setCourseOutline('')
+      setPreviewVideo({
+        url: '',
+        shortDescription: ''
+      })
+      setSubtitles([{
+        title: "", subtitleHours: "", url: "", shortDescription: "",
+        question1: '',
+        Text1: '', isCorrect1: false,
+        Text2: '', isCorrect2: false,
+        Text3: '', isCorrect3: false,
+        Text4: '', isCorrect4: false,
+        question2: '',
+        Text5: '', isCorrect5: false,
+        Text6: '', isCorrect6: false,
+        Text7: '', isCorrect7: false,
+        Text8: '', isCorrect8: false
+      }])
       setError(null)
       console.log('new course added', json)
     }
@@ -80,16 +252,104 @@ const CourseForm = () => {
         onChange={(e) => setInstructorName(e.target.value)}
         value={instructorName}
       />
-      <label> Course subtitle 1:</label>
-      <input type="text"
-        onChange={(e) => setSubtitle1(e.target.value)}
-        value={subtitle1}
-      />
-       <label> Course subtitle 2:</label>
-      <input type="text"
-        onChange={(e) => setSubtitle2(e.target.value)}
-        value={subtitle2}
-      />
+      <form>
+        <label>Subtitle:</label>
+        {
+          subtitles.map((singleSubtitle, index) => (
+            <div>
+              <div>
+                <input placeholder="title" name="title" value={singleSubtitle.title} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                <input placeholder="hours" name="subtitleHours" value={singleSubtitle.subtitleHours} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                <label>Video:</label>
+                <div>
+                  <input id="url" placeholder="url" name="url" value={singleSubtitle.url} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                  <input id="shortDescription" placeholder="short description" name="shortDescription" value={singleSubtitle.shortDescription} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                  {/* <button onClick={() => handleVideoChange(index)}>Save Video</button> */}
+                </div>
+                <label>Exercise:</label>
+                <br></br>
+                <div>
+                  <label>Question one:</label>
+                  <input id='question1' name="question1" value={singleSubtitle.question1} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div>
+                      <label>Option 1:</label>
+                      <input id='Text1' className="exercise" name="Text1" value={singleSubtitle.Text1} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect1' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect1"
+                        value={singleSubtitle.isCorrect1} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 2:</label>
+                      <input id='Text2' className="exercise" name="Text2" value={singleSubtitle.Text2} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect2' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect2"
+                        value={singleSubtitle.isCorrect2} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 3:</label>
+                      <input id='Text3' className="exercise" name="Text3" value={singleSubtitle.Text3} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect3' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect3"
+                        value={singleSubtitle.isCorrect3} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 4:</label>
+                      <input id='Text4' className="exercise" name="Text4" value={singleSubtitle.Text4} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect4' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect4"
+                        value={singleSubtitle.isCorrect4} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label>Question Two:</label>
+                  <input id='question2' name="question2" value={singleSubtitle.question2} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div>
+                      <label>Option 1:</label>
+                      <input id='Text5' className="exercise" name="Text5" value={singleSubtitle.Text5} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect5' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect5" value={singleSubtitle.isCorrect5} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 2:</label>
+                      <input id='Text6' className="exercise" name="Text6" value={singleSubtitle.Text6} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect6' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect6" value={singleSubtitle.isCorrect6} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 3:</label>
+                      <input id='Text7' className="exercise" name="Text7" value={singleSubtitle.Text7} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect7' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect7" value={singleSubtitle.isCorrect7} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                    <div>
+                      <label>Option 4:</label>
+                      <input id='Text8' className="exercise" name="Text8" value={singleSubtitle.Text8} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                      <input id='isCorrect8' placeholder="Please specify if this option is true or false" className="exercise" name="isCorrect8" value={singleSubtitle.isCorrect8} onChange={(e) => handleSubtitleChange(e, index)}></input>
+                    </div>
+                  </div>
+                </div>
+                {/* <button onClick={() => {
+                  
+                  const list = [...subtitles];
+                  list[index][exercise] = exercise;
+                  setSubtitles(list);
+                }}>Save Exercise</button> */}
+                <br></br>
+                {
+                  subtitles.length - 1 === index && (
+                    <button
+                      type="button"
+                      onClick={handleSubtitleAdd}
+                      className="add-btn"
+                    >
+                      <span>Add Subtitle</span>
+                    </button>
+                  )
+                }
+              </div>
+            </div>
+
+          ))
+        }
+
+      </form>
 
 
       <label> Course shortSummary:</label>
@@ -97,6 +357,14 @@ const CourseForm = () => {
         onChange={(e) => setShortSummary(e.target.value)}
         value={shortSummary}
       />
+      <label> Course Outline:</label>
+      <input type="text"
+        onChange={(e) => setCourseOutline(e.target.value)}
+        value={courseOutline}
+      />
+      <label> Preview Video:</label>
+      <input type="text" placeholder="url" id="previewURL" />
+      <input type="text" placeholder="short description" id="previewShortDescription" />
 
       {/* <button type="button" className="add-btn" onClick={handleSubtitleAdd}
       >      <span>add a subtitle</span>

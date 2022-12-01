@@ -18,9 +18,14 @@ const DisplayVideo = () => {
                 (res) => {
                     const json = res.data
                     let url = json.url
+                    console.log(json);
                     url = url.replace('watch?v=', 'embed/');
-                    if (json) {
+                    if (url) {
                         setVideoUrl(url)
+                        setVideo(json)
+                    }
+                    else {
+                        setVideoUrl(json.url)
                         setVideo(json)
                     }
                     // console.log(json);

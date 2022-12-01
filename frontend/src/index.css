@@ -132,6 +132,7 @@ form button {
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
+  margin: 5px;
 }
 
 div.error {

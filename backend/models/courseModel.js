@@ -44,29 +44,7 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    subtitles: [{
-        subtitleId: {
-            type: String
-        },
-        subtitleHours: {
-            type: String,
-            required: true
-        },
-        videos: [{
-            url: {
-                type: String,
-                required: true
-            },
-            shortDescription: {
-                type: String,
-                required: true
-            }
-        }],
-        exercises: [{
-            type: String,
-            required: true
-        }]
-    }],
+    subtitles: [subtitleModel.schema],
     shortSummary: {
         type: String,
         required: true

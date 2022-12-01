@@ -105,6 +105,14 @@ const PriceFilter = () => {
                         <p>{course.instructorName}</p>
                         <b> SUBJECT:</b>
                         <p>{course.subject}</p>
+                        <b> RATING:</b>
+                        <p>{course.rating}</p>
+                        <b> REVIEWS:</b>
+                        {
+                            course.reviews.map((review) => (
+                                <p>review</p>
+                            ))
+                        }
                         <button onClick={() => window.location.href = `/instructorcourse?courseId=${course._id}`}>View Details</button>
                     </div>
                 ))

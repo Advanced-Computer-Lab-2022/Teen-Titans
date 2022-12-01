@@ -116,3 +116,9 @@
 
 	background-color: white;
 }
+
+.exercise {
+	width: 300px;
+	margin: 5px;
+	font-size: 8px;
+}

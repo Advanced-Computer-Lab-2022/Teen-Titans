@@ -100,4 +100,25 @@ const RatingCourses = async (req, res) => {
 
 }
 
-module.exports = { forgotPassword, resetPassword, RatingCourses }
+const addReview = asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const review = req.body.review
+    const courseBeforeUpdate = await courseModel.findById(id)
+    let reviews = courseBeforeUpdate.reviews
+    reviews.push(review)
+    const course = await courseModel.findByIdAndUpdate(id, { reviews: reviews })
+
+    res.status(200).json(course.reviews)
+})
+
+const addInstructorReview = asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const review = req.body.review
+    const instructorBeforeUpdate = await instructorModel.findById(id)
+    let reviews = instructorBeforeUpdate.reviews
+    reviews.push(review)
+    const instructor = await instructorModel.findByIdAndUpdate(id, { reviews: reviews })
+
+    res.status(200).json(instructor.reviews)
+})
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview }

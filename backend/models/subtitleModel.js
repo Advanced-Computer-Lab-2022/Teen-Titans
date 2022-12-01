@@ -11,7 +11,7 @@ const subtitleSchema = mongoose.Schema(
         subtitleHours: {
             type: String,
         },
-        videos: [videoModel.schema],
+        video: videoModel.schema,
         exercise: exerciseModel.schema
     }
 
