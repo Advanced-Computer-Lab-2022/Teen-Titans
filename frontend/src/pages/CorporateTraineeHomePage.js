@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //import TraineeViewCourses from "../components/TraineeViewCourses";
-import App from "../components/Rate2";
+import AppRate from "../components/Rate2";
 // import axios from 'axios';
 const CorporateTrainee = () => {
     const [id, setId] = useState('');
@@ -20,7 +20,7 @@ const CorporateTrainee = () => {
             <div className="courses">
                 {/* <TraineeViewCourses key={id} id={id} /> */}
             </div>
-            <App/>
+            <AppRate/>
         </div>
     )
 }

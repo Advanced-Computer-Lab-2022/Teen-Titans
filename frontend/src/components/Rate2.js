@@ -10,7 +10,7 @@ const colors = {
 
 
 
-function App() {
+function AppRate() {
     const [message, setMessage] = useState('')
   const RateCourses=async()=>{
    
@@ -129,4 +129,4 @@ const styles = {
 
 
 
-export default App;
+export default AppRate;
