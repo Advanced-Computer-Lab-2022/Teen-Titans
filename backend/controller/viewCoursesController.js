@@ -37,7 +37,6 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
     res.json(courseData)
 })
 
-
 const filterRating = asyncHandler(async (req, res) => {
     const rating = req.query.rating
     const x = await courseModel.find({ rating: rating })
@@ -45,13 +44,10 @@ const filterRating = asyncHandler(async (req, res) => {
     if (x.length > 0) {
         console.log("hello")
         res.status(200).json(x);
-
     }
     else {
         res.status(400).json({ error: "no results" })
     }
-
-
 })
 
 const filterPrice = asyncHandler(async (req, res) => {
@@ -63,8 +59,6 @@ const filterPrice = asyncHandler(async (req, res) => {
     else {
         res.status(400).json({ error: "no results" })
     }
-
-
 })
 
 const filterSubject = asyncHandler(async (req, res) => {
@@ -76,7 +70,6 @@ const filterSubject = asyncHandler(async (req, res) => {
     else {
         res.status(400).json({ error: "no results" })
     }
-
 })
 
 module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover }

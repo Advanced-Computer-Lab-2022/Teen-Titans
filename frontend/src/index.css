@@ -10,18 +10,15 @@
   --box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
-
 body {
   color: var(--black);
   background-color: #f2f2f2;
   margin: 0;
   font-family: "Poppins";
 }
-
 header {
   background: #fff;
 }
-
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -30,25 +27,21 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
-
 header a {
   color: #333;
   text-decoration: none;
 }
-
 .pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
 }
-
 /* homepage */
 .view {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-
 .course-details {
   background: #fff;
   border-radius: 4px;
@@ -57,19 +50,16 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
-
 .course-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-
 .course-details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-
 .course-details span {
   position: absolute;
   top: 20px;
@@ -80,13 +70,11 @@ header a {
   border-radius: 50%;
   color: #333;
 }
-
 .price {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-
 .course-price {
   background: #fff;
   border-radius: 4px;
@@ -96,24 +84,20 @@ header a {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
-
 .course-price h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-
 .course-price p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-
 label,
 input {
   display: block;
 }
-
 input {
   padding: 10px;
   margin-top: 10px;
@@ -123,7 +107,6 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
 form button {
   background: var(--primary);
   border: 0;
@@ -133,7 +116,6 @@ form button {
   border-radius: 4px;
   cursor: pointer;
 }
-
 div.error {
   padding: 10px;
   background: #ffefef;
@@ -142,7 +124,6 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
-
 .InstructorSearch {
   margin-right: 15px;
   height: 40px;
@@ -154,7 +135,6 @@ div.error {
   padding-left: 5px;
   font-size: 15px;
 }
-
 /* Tooltip container */
 .tooltip {
   position: relative;
@@ -162,7 +142,6 @@ div.error {
   border-bottom: 1px dotted black;
   /* If you want dots under the hoverable text */
 }
-
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
@@ -172,19 +151,16 @@ div.error {
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
-
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
   bottom: 125%;
   left: 50%;
   margin-left: -60px;
-
   /* Fade in tooltip */
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 /* Tooltip arrow */
 .tooltip .tooltiptext::after {
   content: "";
@@ -196,19 +172,16 @@ div.error {
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
-
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
-
 .my-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-
 .my-container button {
   border: hidden;
   outline: none;
@@ -219,46 +192,37 @@ div.error {
   align-items: center;
   border-radius: 5px;
 }
-
 .onHover-details h6 {
   font-size: 12px;
 }
-
 .labels {
   color: #1aac83;
   font-size: 12px;
 }
-
 .faded {
   color: rgb(116, 116, 116);
   font-weight: 200;
 }
-
 .subtitles-faded {
   color: rgb(116, 116, 116);
   font-weight: 100;
   font-size: 10px;
 }
-
 /* google font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
-
 /* layout */
 :root {
   --primary: #1aac83;
   --error: #e7195a;
 }
-
 body {
   background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
 }
-
 header {
   background: #fff;
 }
-
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -267,25 +231,21 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
-
 header a {
   color: #333;
   text-decoration: none;
 }
-
 .pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
 }
-
 /* homepage */
 .view {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-
 .course-details {
   background: #fff;
   border-radius: 4px;
@@ -294,19 +254,16 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
-
 .course-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-
 .course-details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-
 .course-details span {
   position: absolute;
   top: 20px;
@@ -317,7 +274,6 @@ header a {
   border-radius: 50%;
   color: #333;
 }
-
 .search {
   margin-right: 15px;
   height: 40px;
@@ -329,13 +285,11 @@ header a {
   padding-left: 5px;
   font-size: 15px;
 }
-
 .price {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-
 .course-price {
   background: #fff;
   border-radius: 4px;
@@ -344,19 +298,16 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
-
 .course-price h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-
 .course-price p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-
 .container {
   margin: 10px;
   align-items: flex-start;
@@ -365,32 +316,27 @@ header a {
   background-color: white;
   border-radius: 4px;
 }
-
 .heading {
   margin: 0;
   font-size: 16px;
   margin: 10px;
   text-align: center;
 }
-
 .subjects_container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-
 .subjects {
   min-width: 90px;
   display: flex;
   align-items: center;
   margin: 2px 0;
 }
-
 .subjects_label {
   margin: 0;
   margin-left: 5px;
 }
-
 .container {
   height: 60px;
   margin: 10px;
@@ -401,12 +347,10 @@ header a {
   background-color: white;
   border-radius: 4px;
 }
-
 .sort_by {
   font-size: 16px;
   font-weight: 500;
 }
-
 .select {
   width: 80px;
   height: 30px;
@@ -417,7 +361,6 @@ header a {
   cursor: pointer;
   padding: 5px;
 }
-
 .arrow_btn {
   display: flex;
   align-items: center;
@@ -431,14 +374,12 @@ header a {
   background-color: transparent;
   cursor: pointer;
 }
-
 .up_arrow,
 .down_arrow {
   font-size: 18px;
   font-weight: bold;
   color: var(--black);
 }
-
 .heading {
   display: flex;
   align-items: center;
@@ -452,7 +393,6 @@ header a {
   background-color: white;
   border-radius: 4px;
 }
-
 .title_tab {
   font-size: 16px;
   font-weight: 600;
@@ -461,21 +401,18 @@ header a {
   text-align: left;
   margin-left: 20px;
 }
-
 .subjects_tab {
   font-size: 16px;
   font-weight: 600;
   color: var(--black);
   flex: 1;
 }
-
 .rating_tab {
   font-size: 16px;
   font-weight: 600;
   color: var(--black);
   flex: 1;
 }
-
 .course {
   display: flex;
   align-items: center;
@@ -487,42 +424,35 @@ header a {
   background-color: white;
   border-radius: 4px;
 }
-
 .course:hover {
   scale: 1.01;
 }
-
 .title_container {
   flex: 2;
   display: flex;
   align-items: center;
   object-fit: contain;
 }
-
 .course_title {
   font-size: 16px;
   font-weight: 500;
 }
-
 .subjects_container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .course_subjects {
   font-size: 16px;
   font-weight: 400;
 }
-
 .rating_container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .course_rating {
   font-size: 16px;
   font-weight: 400;

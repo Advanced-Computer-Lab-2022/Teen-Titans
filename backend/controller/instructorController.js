@@ -45,7 +45,6 @@ const createCourse = asyncHandler(async (req, res) => {
     }
 })
 
-
 const getCoursesTitles = asyncHandler(async (req, res) => {
     try {
 
@@ -71,7 +70,6 @@ const getCoursesTitles = asyncHandler(async (req, res) => {
         } else {
             sortBy[sort[0]] = "asc";
         }
-
         const courses = await courseModel.find({ instructorName: "roba" })
             .where("subject")
             .in([...subject])
@@ -81,14 +79,12 @@ const getCoursesTitles = asyncHandler(async (req, res) => {
             subjects: subjectOptions,
             courses,
         };
-
         res.status(200).json(response);
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: true, message: "Error" });
     }
 });
-
 
 const course = asyncHandler(async (req, res) => {
     const price = req.query.price
@@ -98,21 +94,16 @@ const course = asyncHandler(async (req, res) => {
         { instructorName: req.params.id }]
     })
     res.json(filterResults)
-
-
 })
 
 const allcourses = asyncHandler(async (req, res) => {
 
     const filterResults = await courseModel.find(
-
+        
         { instructorName: req.params.id }
     )
     res.json(filterResults)
-
-
 })
-
 
 const subject = asyncHandler(async (req, res) => {
     const subject = req.query.subject
@@ -124,8 +115,6 @@ const subject = asyncHandler(async (req, res) => {
         })
     )
     res.json(filterResults)
-
-
 })
 
 const instructorSearchCourse = asyncHandler(async (req, res) => {
@@ -145,10 +134,14 @@ const instructorSearchCourse = asyncHandler(async (req, res) => {
     }
 })
 
-
-
-
-
-
-
-module.exports = { createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse }
+const viewInstructorRatings = asyncHandler(async (req,res) => {
+    let rating = 0
+    let reviews = []
+    const instructor = await instructorModel.findById(req.query.instructorId)
+    rating = instructor.rating
+    reviews = instructor.reviews
+    const instructorEvaluation = {rating:rating,reviews:reviews}
+    console.log(instructorEvaluation)
+    res.json(instructorEvaluation)
+})
+module.exports = {createCourse, getCoursesTitles, course, allcourses, subject, instructorSearchCourse, viewInstructorRatings}

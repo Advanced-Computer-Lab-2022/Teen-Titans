@@ -13,6 +13,9 @@ import './index.css'
 import Instructor from './pages/Instructor';
 import PriceFilter from './pages/PriceFilter'
 import CourseForm from './components/CourseForm';
+import Copyrights from './components/Copyrights';
+import ViewInstructorRating from './components/ViewInstructorRating';
+
 function App() {
 
   return (
@@ -30,6 +33,8 @@ function App() {
             <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
             <Route path="/PriceFilter" element={<PriceFilter />}></Route>
             <Route path='/createCourse' element={<CourseForm />}></Route>
+            <Route path='/copyrights' element={<Copyrights />}></Route>
+            <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
           </Routes>
         </div>
 
