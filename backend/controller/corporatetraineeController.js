@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel')
+const nodemailer = require('nodemailer')
+const subtitleModel = require('../models/subtitleModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.body.id);
