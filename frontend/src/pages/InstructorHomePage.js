@@ -1,4 +1,6 @@
 import PriceFilter from "../components/PriceFilter";
+import ViewInstructorRating from "../components/ViewInstructorRating";
+
 import EditBiography from "../components/InstructorEditBiography";
 import EditEmail from "../components/InstructorEditEmail";
 import DefinePromotion from "../components/InstructorDefinePromotion";
@@ -16,7 +18,7 @@ const InstructorHome = () => {
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>
             <PriceFilter />
-
+            <ViewInstructorRating />
             <EditBiography />
             <EditEmail />
 

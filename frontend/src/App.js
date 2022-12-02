@@ -28,6 +28,9 @@ import CourseExamForm from './components/CreateCourseExam';
 // import EditEmail from './pages/InstructorEdit';
 // import EditBiography from './pages/InstructorEditBiography';
 // import DefinePromotion from './pages/InstructorDefinePromotion';
+import Copyrights from './components/Copyrights';
+import ViewInstructorRating from './components/ViewInstructorRating';
+
 function App() {
 
   return (
@@ -62,6 +65,8 @@ function App() {
             <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
 
 
+            <Route path='/copyrights' element={<Copyrights />}></Route>
+            <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
           </Routes>
         </div>
 
