@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path');
 const myCoursesRouter = express.Router()
-const { watchVideoC } = require('../controller/corporatetraineeController');
+const { watchVideoC } = require('../controller/corporateTraineeController');
 const { openCourse } = require('../controller/viewCoursesController')
 const { watchVideo } = require('../controller/individualTraineeController')
 

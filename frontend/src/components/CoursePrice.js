@@ -3,8 +3,7 @@ import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
 import React, { useEffect, useState } from "react"
-
-//
+import axios from 'axios';
 
 const CoursePrice = ({ course }) => {
     const [courseData, setCourseData] = useState(null)
@@ -12,11 +11,24 @@ const CoursePrice = ({ course }) => {
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
     const getDetails = async (id) => {
-        const response = await fetch(`viewCourses/${id}`)
-        const json = await response.json()
-        if (response.ok) {
-            setCourseData(json)
-        }
+        // console.log(id);
+        // const response = await fetch(`viewCourses/onHover?id=${id}`)
+        // const json = await response.json()
+        // console.log(json);
+        // setCourseData(await json)
+        // console.log(await courseData);
+
+        await axios.get(`viewCourses/onHover?id=${id}`).then(
+            (res) => {
+                const json = res.data
+                console.log(json);
+                if (json) {
+                    setCourseData(json)
+                    console.log(courseData);
+                }
+                // console.log(json);
+            }
+        )
     }
     const handleHover = event => {
         getDetails(event.currentTarget.id)

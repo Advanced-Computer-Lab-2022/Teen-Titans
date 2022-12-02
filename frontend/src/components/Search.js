@@ -10,10 +10,11 @@ const Search = () => {
     const target_code = country.target_code
     const searchGet = async () => {
         query = document.getElementById("searchKey").value;
-        const response = await fetch(`/guest/${query}`)
+        const response = await fetch(`/search?searchInput=${query}`)
         const json = await response.json()
         if (response.ok) {
             setSearchResults(json)
+            console.log(searchResults);
         }
     }
 

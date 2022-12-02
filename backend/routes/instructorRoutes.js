@@ -23,8 +23,6 @@ instructorRouter.get('/:searchInput', courses)
 instructorRouter.patch('/changePassword', changePassword)
 instructorRouter.post('/upload', upload)
 instructorRouter.get('/viewInstructorRatings', viewInstructorRatings)
-// instructorRouter.post('/forgotPassword', forgotPassword)
-// instructorRouter.patch('/resetPassword/:id', resetPassword)
 
 
 

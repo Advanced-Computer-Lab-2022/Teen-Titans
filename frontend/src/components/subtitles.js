@@ -9,11 +9,7 @@ const Subtitle = ({ subtitle, courseId }) => {
         <div>
             <div className="onHover-details d-flex flex-column justify-content-start align-items-start">
                 <h3>{subtitle.title}</h3>
-                {
-                    subtitle.videos.map((video) => (
-                        <button className='videos' onClick={() => window.location.href = `/watch?videoId=${video._id}&courseId=${courseId}`}>{video.shortDescription}</button>
-                    ))
-                }
+                <button className='videos' onClick={() => window.location.href = `/watch?videoId=${subtitle.video._id}&courseId=${courseId}`}>{subtitle.video.shortDescription}</button>
                 <div>
 
                     <button onClick={() => { toexercise() }} className='subtitles-faded'>Exercises</button>

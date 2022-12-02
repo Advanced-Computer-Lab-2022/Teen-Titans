@@ -1,9 +1,9 @@
 const asyncHandler = require('express-async-handler')
-const { findOneAndUpdate } = require('../models/courseModel')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
+const exerciseModel = require('../models/exerciseModel')
 
 const definePromotion = async (req, res) => {
     const { id } = req.params
@@ -45,10 +45,6 @@ const editBiography = async (req, res) => {
 
 }
 
-
-
-
-
 const createCourseExam = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findOneAndUpdate({ _id: id }, {
@@ -81,8 +77,6 @@ const createCourseExam = asyncHandler(async (req, res) => {
 
 })
 
-
-
 const createExam = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findOneAndUpdate({ subtitles: { $elemMatch: { _id: id } } },
@@ -110,10 +104,6 @@ const createExam = asyncHandler(async (req, res) => {
         return res.status(400).json({ error: 'No such course' })
     }
     res.status(200).json(course)
-    const nodemailer = require('nodemailer')
-    const videoModel = require('../models/videoModel')
-    const exerciseModel = require('../models/exerciseModel')
-    const subtitleModel = require('../models/subtitleModel')
 
 })
 
@@ -129,6 +119,10 @@ const createCourse = asyncHandler(async (req, res) => {
                 totalHours += subtitle.hours
             }
         }
+        const previewVideo = await videoModel.create({
+            url: req.body.previewVideo.url,
+            shortDescription: req.body.previewVideo.shortDescription
+        })
         let subtitles = []
         for (let i = 0; i < req.body.subtitles.length; i++) {
             // let videos = []
@@ -166,6 +160,25 @@ const createCourse = asyncHandler(async (req, res) => {
             subtitles.push(subtitle)
         }
 
+        const exercise = await exerciseModel.create({
+            questionOne: {
+                question: req.body.exercise.questionOne.question,
+                options: [
+                    { id: 0, Text: req.body.exercise.questionOne.Text1, isCorrect: req.body.exercise.questionOne.isCorrect1 },
+                    { id: 1, Text: req.body.exercise.questionOne.Text2, isCorrect: req.body.exercise.questionOne.isCorrect2 },
+                    { id: 2, Text: req.body.exercise.questionOne.Text3, isCorrect: req.body.exercise.questionOne.isCorrect3 },
+                    { id: 3, Text: req.body.exercise.questionOne.Text4, isCorrect: req.body.exercise.questionOne.isCorrect4 }]
+            },
+            questionTwo: {
+                question: req.body.exercise.questionTwo.question,
+                options: [
+                    { id: 0, Text: req.body.exercise.questionTwo.Text1, isCorrect: req.body.exercise.questionTwo.isCorrect1 },
+                    { id: 1, Text: req.body.exercise.questionTwo.Text2, isCorrect: req.body.exercise.questionTwo.isCorrect2 },
+                    { id: 2, Text: req.body.exercise.questionTwo.Text3, isCorrect: req.body.exercise.questionTwo.isCorrect3 },
+                    { id: 3, Text: req.body.exercise.questionTwo.Text4, isCorrect: req.body.exercise.questionTwo.isCorrect4 }]
+            },
+        })
+
         const course = await courseModel.create({
             hours: totalHours,
             ratings: {
@@ -185,11 +198,9 @@ const createCourse = asyncHandler(async (req, res) => {
             instructorName: req.body.instructorName,
             subtitles: subtitles,
             shortSummary: req.body.shortSummary,
-            previewVideo: {
-                url: req.body.previewVideo.url,
-                shortDescription: req.body.previewVideo.shortDescription,
-            },
+            previewVideo: previewVideo,
             courseOutline: req.body.courseOutline,
+            exercise: exercise
         })
 
         const instructor = await instructorModel.findById(req.body.instructorId)
@@ -200,8 +211,6 @@ const createCourse = asyncHandler(async (req, res) => {
 
     }
 })
-
-
 
 const course = asyncHandler(async (req, res) => {
     const price = req.query.price
@@ -225,7 +234,6 @@ const allcourses = asyncHandler(async (req, res) => {
 
 
 })
-
 
 const viewInstructorRatings = asyncHandler(async (req, res) => {
     let rating = 0
@@ -286,44 +294,6 @@ const changePassword = asyncHandler(async (req, res) => {
             message: 'Old Password is incorrect!'
         })
 })
-
-// const transporter = nodemailer.createTransport({
-//     service: "hotmail",
-//     auth: {
-//         user: "knowledgeBoost@outlook.com",
-//         pass: "Ta3leemMshMagani"
-//     }
-// })
-
-// const forgotPassword = asyncHandler(async (req, res) => {
-//     const user = await instructorModel.find({ email: req.body.email })
-//     const options = {
-//         from: "knowledgeBoost@outlook.com",
-//         to: req.body.email,
-//         subject: "Reset Password",
-//         text: "Please click on the link below to rest password."
-//     }
-//     if (user) {
-//         transporter.sendMail(options, function (err, info) {
-//             if (err)
-//                 res.status(400).json(err)
-//             else
-//                 res.status(200).json(info)
-//         })
-//     }
-//     else
-//         res.status(400).json({
-//             message: "No user with such email!"
-//         })
-// })
-
-// const resetPassword = asyncHandler(async (req, res) => {
-//     const individualTrainee = await instructorModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
-//     res.status(200).json({
-//         message: 'Password Reset!'
-//     })
-// })
-
 
 
 const upload = asyncHandler(async (req, res) => {

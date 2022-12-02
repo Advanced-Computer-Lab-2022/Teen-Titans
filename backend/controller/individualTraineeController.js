@@ -1,8 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
-const { default: mongoose } = require('mongoose');
-const nodemailer = require('nodemailer');
 const videoModel = require('../models/videoModel');
 
 const changePassword = asyncHandler(async (req, res) => {
@@ -32,40 +30,7 @@ const signUp = asyncHandler(async (req, res) => {
     })
     res.status(200).json(individualTrainee)
 })
-// const transporter = nodemailer.createTransport({
-//     service: "hotmail",
-//     auth: {
-//         user: "knowledgeBoost@outlook.com",
-//         pass: "Ta3leemMshMagani"
-//     }
-// })
-// const forgotPassword = asyncHandler(async (req, res) => {
-//     const user = await individualTraineeModel.find({ email: req.body.email })
-//     const options = {
-//         from: "knowledgeBoost@outlook.com",
-//         to: req.body.email,
-//         subject: "Reset Password",
-//         text: "Please click on the link below to rest password."
-//     }
-//     if (user) {
-//         transporter.sendMail(options, function (err, info) {
-//             if (err)
-//                 res.status(400).json(err)
-//             else
-//                 res.status(200).json(info)
-//         })
-//     }
-//     else
-//         res.status(400).json({
-//             message: "No user with such email!"
-//         })
-// })
-// const resetPassword = asyncHandler(async (req, res) => {
-//     const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.params.id, { password: req.body.password })
-//     res.status(200).json({
-//         message: 'Password Reset!'
-//     })
-// })
+
 
 
 //not working properly yet.................
