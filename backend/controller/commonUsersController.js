@@ -100,6 +100,33 @@ const RatingCourses = async (req, res) => {
 
 }
 
+const RatingInstructor = async (req, res) => {
+    const id = req.query.id
+    const rating1 = req.body.rating
+    const instructorBeforeUpdate = await instructorModel.findById(id)
+    let ratings = instructorBeforeUpdate.ratings
+    if (rating1 == 1) {
+        ratings.oneStar++
+    }
+    else if (rating1 == 2) {
+        ratings.twoStar++
+    }
+    else if (rating1 == 3) {
+        ratings.threeStar++
+    }
+    else if (rating1 == 4) {
+        ratings.fourStar++
+    }
+    else if (rating1 == 5) {
+        ratings.fiveStar++
+    }
+    const avgRating = (5 * ratings.fiveStar + 4 * ratings.fourStar + 3 * ratings.threeStar + 2 * ratings.twoStar + 1 * ratings.oneStar) / (ratings.fiveStar + ratings.fourStar + ratings.threeStar + ratings.twoStar + ratings.oneStar)
+    const instructor = await instructorModel.findByIdAndUpdate(id, { ratings: ratings, rating: avgRating })
+
+    res.status(200).json(instructor.ratings)
+
+}
+
 const addReview = asyncHandler(async (req, res) => {
     const id = req.query.id
     const review = req.body.review
@@ -121,4 +148,4 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview }
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }

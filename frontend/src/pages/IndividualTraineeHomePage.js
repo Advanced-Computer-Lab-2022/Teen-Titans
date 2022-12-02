@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TraineeViewCourses from '../components/TraineeViewCourses'
+import AppRate from "../components/Rate";
 const IndividualTrainee = () => {
     const [id, setId] = useState('');
     const saveId = () => {
@@ -15,6 +16,7 @@ const IndividualTrainee = () => {
             <div className="courses">
                 <TraineeViewCourses key={id} id={id} />
             </div>
+            <AppRate />
         </div>
     )
 }

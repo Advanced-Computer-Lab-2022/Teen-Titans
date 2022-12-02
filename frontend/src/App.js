@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 //pages and components
 import Navbar from './components/Navbar';
 import ViewPrices from './pages/ViewPrices';
-//pages and components
 import Home from "./pages/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Admin from './pages/admin';
@@ -25,9 +24,6 @@ import InstructorCourses from './pages/InstructorCourses';
 import DefinePromotion from './components/InstructorDefinePromotion';
 import ExamForm from './components/CreateExam';
 import CourseExamForm from './components/CreateCourseExam';
-// import EditEmail from './pages/InstructorEdit';
-// import EditBiography from './pages/InstructorEditBiography';
-// import DefinePromotion from './pages/InstructorDefinePromotion';
 import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
 
@@ -56,15 +52,10 @@ function App() {
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
             <Route path='/exercise' element={<Exercise />}></Route>
-
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
-
-
             <Route path='/discount' element={<DefinePromotion />}></Route>
             <Route path='/createExam' element={<ExamForm />}></Route>
             <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
-
-
             <Route path='/copyrights' element={<Copyrights />}></Route>
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
           </Routes>

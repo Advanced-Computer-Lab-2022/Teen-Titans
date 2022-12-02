@@ -116,7 +116,7 @@ const createCourse = asyncHandler(async (req, res) => {
         let totalHours = 0;
         if (req.body.subtitles) {
             for (let subtitle of req.body.subtitles) {
-                totalHours += subtitle.hours
+                totalHours += parseInt(subtitle.hours, 10)
             }
         }
         const previewVideo = await videoModel.create({

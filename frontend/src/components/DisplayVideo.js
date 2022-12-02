@@ -12,6 +12,9 @@ const DisplayVideo = () => {
     const [video, setVideo] = useState(null)
     const [videoUrl, setVideoUrl] = useState('')
     useEffect(() => {
+        console.log(videoId);
+        console.log(courseId);
+        console.log(userId);
         const getDetails = async (videoId) => {
             // console.log(userId);
             await axios.get(`myCourse/${user}/watch?id=${userId}&videoId=${videoId}&courseId=${courseId}`).then(

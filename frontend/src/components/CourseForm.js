@@ -21,23 +21,6 @@ const CourseForm = () => {
     Text7: '', isCorrect7: false,
     Text8: '', isCorrect8: false
   })
-  //const [videos, setVideos] = useState({ url: "", shortDescription: "" });
-  // setExercise({
-  //   questionOne: {
-  //     "question": document.getElementById("question1").value.toString(),
-  //     "options": [{ "id": 0, "Text": document.getElementById("Text1").value.toString(), "isCorrect": document.getElementById("isCorrect1").value.toString() },
-  //     { "id": 1, "Text": document.getElementById("Text2").value.toString(), "isCorrect": document.getElementById("isCorrect2").value },
-  //     { "id": 2, "Text": document.getElementById("Text3").value.toString(), "isCorrect": document.getElementById("isCorrect3").value },
-  //     { "id": 3, "Text": document.getElementById("Text4").value.toString(), "isCorrect": document.getElementById("isCorrect4").value }]
-  //   },
-  //   questionTwo: {
-  //     "question": document.getElementById("question2").value.toString(),
-  //     "options": [{ "id": 0, "Text": document.getElementById("Text5").value.toString(), "isCorrect": document.getElementById("isCorrect5").value.toString() },
-  //     { "id": 1, "Text": document.getElementById("Text6").value.toString(), "isCorrect": document.getElementById("isCorrect6").value },
-  //     { "id": 2, "Text": document.getElementById("Text7").value.toString(), "isCorrect": document.getElementById("isCorrect7").value },
-  //     { "id": 3, "Text": document.getElementById("Text8").value.toString(), "isCorrect": document.getElementById("isCorrect8").value }]
-  //   }
-  // })
   const [subtitles, setSubtitles] = useState([{
     title: "", subtitleHours: "", url: "", shortDescription: "",
     question1: '',
@@ -77,40 +60,9 @@ const CourseForm = () => {
     setSubtitles(list);
   };
 
-  // const handlePreviewVideoChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const preview = previewVideo;
-  //   preview.name = value;
-  //   setPreviewVideo(preview)
-  // }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const subtitleArray = [
-      //   {
-      //   "title": "",
-      //   "subtitleHours": "",
-      //   "video": {
-      //     "url": "",
-      //     "shortDescription": ""
-      //   },
-      //   "exercise": {
-      //     "questionOne": {
-      //       "question": "",
-      //       "options": [{ "Text1": "", "isCorrect1": "" },
-      //       { "Text2": "", "isCorrect2": "" },
-      //       { "Text3": "", "isCorrect3": "" },
-      //       { "Text4": "", "isCorrect4": "" }]
-      //     },
-      //     "questionTwo": {
-      //       "question": "",
-      //       "options": [{ "Text1": "", "isCorrect1": "" },
-      //       { "Text2": "", "isCorrect2": "" },
-      //       { "Text3": "", "isCorrect3": "" },
-      //       { "Text4": "", "isCorrect4": "" }]
-      //     }
-      //   }
-      // }
-    ]
+    const subtitleArray = []
     for (let i = 0; i < subtitles.length; i++) {
       const title = subtitles[i].title;
       const hours = subtitles[i].subtitleHours;
@@ -160,12 +112,6 @@ const CourseForm = () => {
       })
     }
 
-    //const course = { title, price, subject, instructorId, instructorName, shortSummary, previewVideo, courseOutline }
-
-    //console.log(subtitles);
-    // console.log(exercise);
-    //console.log(course);
-
     console.log(subtitleArray);
     const response = await fetch('/instructor/createCourse', {
       method: 'POST',
@@ -182,7 +128,22 @@ const CourseForm = () => {
           "shortDescription": previewVideoShortDescription
         },
         "courseOutline": courseOutline,
-        "exercise": exercise
+        "exercise": {
+          "questionOne": {
+            "question": exercise.question1,
+            "options": [{ "Text1": exercise.Text1, "isCorrect1": exercise.isCorrect1 },
+            { "Text2": exercise.Text2, "isCorrect2": exercise.isCorrect2 },
+            { "Text3": exercise.Text3, "isCorrect3": exercise.isCorrect3 },
+            { "Text4": exercise.Text4, "isCorrect4": exercise.isCorrect4 }]
+          },
+          "questionTwo": {
+            "question": exercise.question2,
+            "options": [{ "Text1": exercise.Text5, "isCorrect1": exercise.isCorrect5 },
+            { "Text2": exercise.Text6, "isCorrect2": exercise.isCorrect6 },
+            { "Text3": exercise.Text7, "isCorrect3": exercise.isCorrect7 },
+            { "Text4": exercise.Text8, "isCorrect4": exercise.isCorrect8 }]
+          }
+        }
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -417,7 +378,7 @@ const CourseForm = () => {
 
       <div>
         <label>Question two:</label>
-        <input id='question1' name="question1" value={exercise.question2} onChange={(e) => setExercise({ ...exercise, question2: e.target.value })}></input>
+        <input id='question2' name="question2" value={exercise.question2} onChange={(e) => setExercise({ ...exercise, question2: e.target.value })}></input>
         <div className="d-flex justify-content-center align-items-center">
           <div>
             <label>Option 1:</label>

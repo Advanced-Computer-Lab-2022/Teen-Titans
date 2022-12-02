@@ -11,13 +11,6 @@ const CoursePrice = ({ course }) => {
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
     const getDetails = async (id) => {
-        // console.log(id);
-        // const response = await fetch(`viewCourses/onHover?id=${id}`)
-        // const json = await response.json()
-        // console.log(json);
-        // setCourseData(await json)
-        // console.log(await courseData);
-
         await axios.get(`viewCourses/onHover?id=${id}`).then(
             (res) => {
                 const json = res.data
@@ -26,7 +19,6 @@ const CoursePrice = ({ course }) => {
                     setCourseData(json)
                     console.log(courseData);
                 }
-                // console.log(json);
             }
         )
     }
@@ -42,7 +34,6 @@ const CoursePrice = ({ course }) => {
             <p><strong>course rating:</strong> {course.rating}</p>
             <p><strong>course hours:</strong> {course.hours}</p>
             {
-                courseData &&
                 <div className="my-container">
                     <Tippy content={<Details course={courseData}></Details>} placement='left' theme="light">
                         <button>Details</button>

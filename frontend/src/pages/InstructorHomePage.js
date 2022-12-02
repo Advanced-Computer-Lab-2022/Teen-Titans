@@ -17,8 +17,11 @@ const InstructorHome = () => {
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>
+            {
+                id &&
+                <ViewInstructorRating id={id} />
+            }
             <PriceFilter />
-            <ViewInstructorRating />
             <EditBiography />
             <EditEmail />
 
