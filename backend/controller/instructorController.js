@@ -283,7 +283,6 @@ const viewInstructorRatings = asyncHandler(async (req, res) => {
         reviews: reviews
     }
 
-    console.log(instructorEvaluation);
     res.json(instructorEvaluation)
 })
 

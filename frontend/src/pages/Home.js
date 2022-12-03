@@ -22,7 +22,10 @@ const Home = () => {
                 <option value="USD">United States of America</option>
             </select>
             <br></br>
-            <button type="submit" onClick={() => { setCountry(document.getElementById('countries').value.toString()) }}>Submit</button>
+            <button type="submit" onClick={() => {
+                setCountry(document.getElementById('countries').value.toString());
+                window.location.href = `/homePage`
+            }}>Submit</button>
         </div>
     )
 }

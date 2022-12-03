@@ -15,9 +15,11 @@ const ResetPassword = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "id": JSON.parse(localStorage.getItem('id')),
+                    "user": localStorage.getItem('user'),
                     "password": document.getElementById("password").value
                 })
             })
+            console.log(JSON.parse(localStorage.getItem('id')));
             if (response.ok) {
                 setMessage("Password Reset")
             }

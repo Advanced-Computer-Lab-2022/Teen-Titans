@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 
-const Search = () => {
+const Search = ({ courses }) => {
     let query
     const [searchResults, setSearchResults] = useState(null);
     const country = JSON.parse(localStorage.getItem('country'))
@@ -26,6 +26,7 @@ const Search = () => {
                     className="from-control mt-4"
                     id='searchKey'
                     placeholder='search'
+                // onChange={(e) => setSearch(e.target.value)}
                 />
                 <button id='searchButton' onClick={() => searchGet()}>Search</button>
 

@@ -35,10 +35,10 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path='/' element={<ViewPrices />}></Route>
+            <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
-            <Route path="/homePage" element={<Home />}></Route>
+            <Route path="/" element={<Home />}></Route>
             <Route path='/instructor' element={<Instructor />} />
             <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
             <Route path='/corporateTraineeHomePage' element={<CorporateTrainee />}></Route>
