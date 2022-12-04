@@ -4,7 +4,7 @@ const Subtitle = ({ subtitle, courseId }) => {
     const toexercise = () => {
         navigate('/exercise', { state: subtitle.exercise });
     }
-    console.log(subtitle);
+    // console.log(subtitle);
     return (
         <div>
             <div className="onHover-details d-flex flex-column justify-content-start align-items-start">

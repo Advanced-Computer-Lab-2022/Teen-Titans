@@ -31,14 +31,37 @@ const selectedUser = asyncHandler(async (req, res) => {
         else if (selectedElement == 'Instructor') {
             const instructor = await instructorModel.create({
                 username: req.body.username,
-                password: req.body.password
+                password: req.body.password,
+                email: '',
+                firstName: '',
+                lastName: '',
+                gender: '',
+                country: '',
+                biography: '',
+                moneyOwed: 0,
+                rating: 0,
+                ratings: {
+                    oneStar: 0,
+                    twoStar: 0,
+                    threeStar: 0,
+                    fourStar: 0,
+                    fiveStar: 0,
+                },
+                reviews: [],
+                courses: []
             })
             res.status(200).json(instructor)
         }
         else {
             const corporateTrainee = await corporateTraineeModel.create({
                 username: req.body.username,
-                password: req.body.password
+                password: req.body.password,
+                email: '',
+                firstName: '',
+                lastName: '',
+                gender: '',
+                country: '',
+                enrolledCourses: []
             })
             res.status(200).json(corporateTrainee)
         }

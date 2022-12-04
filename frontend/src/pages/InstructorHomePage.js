@@ -19,13 +19,13 @@ const InstructorHome = () => {
             <button onClick={() => saveId()}>Save</button>
             {
                 id &&
-                <ViewInstructorRating id={id} />
+                <div>
+                    <ViewInstructorRating id={id} />
+                    <PriceFilter />
+                    <EditBiography id={id} />
+                    <EditEmail id={id} />
+                </div>
             }
-            <PriceFilter />
-            <EditBiography />
-            <EditEmail />
-
-
 
         </div>
     )

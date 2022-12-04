@@ -124,6 +124,7 @@ const RatingCourses = async (req, res) => {
 const RatingInstructor = async (req, res) => {
     const id = req.query.id
     const rating1 = req.body.rating
+    // console.log("id: " + id + " rating: " + rating1);
     const instructorBeforeUpdate = await instructorModel.findById(id)
     let ratings = instructorBeforeUpdate.ratings
     if (rating1 == 1) {
