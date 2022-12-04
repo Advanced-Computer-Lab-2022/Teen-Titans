@@ -2,7 +2,6 @@ const asyncHandler = require('express-async-handler')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
-const subtitleModel = require('../models/subtitleModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.body.id);
@@ -49,12 +48,4 @@ const myCourses = asyncHandler(async (req, res) => {
             message: 'User not found'
         })
 })
-
-
-
-
-
-
-
-
 module.exports = { changePassword, myCourses, registerForCourse }
