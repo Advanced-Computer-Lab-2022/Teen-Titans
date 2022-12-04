@@ -22,8 +22,6 @@ const InstructorSearch = ({ setInstructorSearch }) => {
             }
         }
     }
-
-
     return (
         <div>
             <h2>Search Course</h2>
@@ -46,9 +44,6 @@ const InstructorSearch = ({ setInstructorSearch }) => {
                 ))
             }
         </div>
-
-
     );
 }
 export default InstructorSearch;
-

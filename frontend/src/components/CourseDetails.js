@@ -9,8 +9,8 @@ const CourseDetails = ({ course }) => {
             <p><strong>course hours:</strong> {course.hours}</p>
         </div>
 
-    )
+    )   
 }
-
+//
 
 export default CourseDetails

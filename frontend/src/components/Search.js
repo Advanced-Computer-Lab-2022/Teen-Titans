@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 
-const Search = () => {
+const Search = ({ courses }) => {
     let query
     const [searchResults, setSearchResults] = useState(null);
     const country = JSON.parse(localStorage.getItem('country'))
@@ -10,10 +10,11 @@ const Search = () => {
     const target_code = country.target_code
     const searchGet = async () => {
         query = document.getElementById("searchKey").value;
-        const response = await fetch(`/guest/${query}`)
+        const response = await fetch(`/search?searchInput=${query}`)
         const json = await response.json()
         if (response.ok) {
             setSearchResults(json)
+            console.log(searchResults);
         }
     }
 
@@ -25,6 +26,7 @@ const Search = () => {
                     className="from-control mt-4"
                     id='searchKey'
                     placeholder='search'
+                // onChange={(e) => setSearch(e.target.value)}
                 />
                 <button id='searchButton' onClick={() => searchGet()}>Search</button>
 

@@ -1,0 +1,10 @@
+const express = require('express');
+const path = require('path');
+const instructorRouter2 = express.Router()
+const { createCourse, getCoursesTitles, allcourses, course, subject, instructorSearchCourse,
+viewInstructorRatings } = require('../controller/instructorController')
+
+
+instructorRouter2.get('/viewInstructorRatings', viewInstructorRatings)
+
+module.exports = instructorRouter2

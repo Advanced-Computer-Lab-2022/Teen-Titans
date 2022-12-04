@@ -7,6 +7,7 @@ import '../index.css';
 import CourseForm from '../components/CourseForm'
 const ViewPrices = () => {
     const [courses, setCourses] = useState(null)
+    // const [search, setSearch] = useState('');
     useEffect(() => {
         const fetchPrice = async () => {
             const response = await fetch('guest/getPrices')
