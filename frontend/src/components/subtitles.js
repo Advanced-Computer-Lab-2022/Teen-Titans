@@ -1,23 +1,22 @@
-import {Link, useNavigate} from 'react-router-dom';
-const Subtitle = ({ subtitle }) => {
+import { Link, useNavigate } from 'react-router-dom';
+const Subtitle = ({ subtitle, courseId }) => {
     const navigate = useNavigate();
     const toexercise = () => {
-        navigate('/exercise' ,{state: subtitle.exercise});
+        navigate('/exercise', { state: subtitle.exercise });
     }
-
+    console.log(subtitle);
     return (
         <div>
-            <div className="onHover-details">
+            <div className="onHover-details d-flex flex-column justify-content-start align-items-start">
                 <h3>{subtitle.title}</h3>
                 {
-                    subtitle.videos.map((video) => (
-                        <h6>{video}</h6>
-                    ))
+                    subtitle.video &&
+                    <button className='videos' onClick={() => window.location.href = `/watch?videoId=${subtitle.video._id}&courseId=${courseId}`}>{subtitle.video.shortDescription}</button>
                 }
                 <div>
-                
-                    <button  onClick={() => {toexercise()}}  className='subtitles-faded'>Exercises</button>
-                    <h6 className='subtitles-faded'>{subtitle.hours} hours</h6>
+
+                    <button onClick={() => { toexercise() }} className='subtitles-faded'>Exercises</button>
+                    <h6 className='subtitles-faded'>{subtitle.subtitleHours} hours</h6>
                 </div>
 
             </div>

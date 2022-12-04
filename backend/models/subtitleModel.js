@@ -4,14 +4,14 @@ const exerciseModel = require('./exerciseModel')
 const subtitleSchema = mongoose.Schema(
     {
         title: {
-            type: String, 
+            type: String,
             required: true
         },
 
         subtitleHours: {
             type: String,
         },
-        videos: videoModel.schema,
+        video: videoModel.schema,
         exercise: exerciseModel.schema
     }
 

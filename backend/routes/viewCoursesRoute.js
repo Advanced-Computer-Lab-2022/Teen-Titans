@@ -9,7 +9,7 @@ viewCoursesRouter.get('/filterPrice', filterPrice)
 viewCoursesRouter.get('/filterRating', filterRating)
 viewCoursesRouter.get('/', getCourses)
 viewCoursesRouter.get('/prices', getPrices)
-viewCoursesRouter.get('/:id', viewCourseOnHover)
+viewCoursesRouter.get('/onHover', viewCourseOnHover)
 
 
 module.exports = viewCoursesRouter

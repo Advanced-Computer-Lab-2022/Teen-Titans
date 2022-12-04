@@ -4,7 +4,7 @@ const searchRouter = express.Router()
 const courses = require('../controller/searchController')
 
 
-searchRouter.get('/:searchInput', courses)
+searchRouter.get('/', courses)
 
 
 module.exports = searchRouter

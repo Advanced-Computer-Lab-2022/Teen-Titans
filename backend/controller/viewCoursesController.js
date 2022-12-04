@@ -15,17 +15,18 @@ const getPrices = async (req, res) => {
 }
 
 const viewCourseOnHover = asyncHandler(async (req, res) => {
-    const viewCourse = await courseModel.findById(req.params['id'])
+    const viewCourse = await courseModel.findById(req.query.id)
     let subtitles = []
     for (let subtitle of viewCourse.subtitles) {
-        let videos = []
-        for (let video of subtitle.videos) {
-            videos.push(video.shortDescription)
-        }
+        // let videos = []
+        // for (let video of subtitle.videos) {
+        //     videos.push(video.shortDescription)
+        // }
         subtitles.push({
+            title: subtitle.title,
             hours: subtitle.hours,
-            videos: videos,
-            exercises: subtitle.exercises
+            video: subtitle.video,
+            exercise: subtitle.exercise
         })
     }
     const courseData = {
@@ -50,13 +51,10 @@ const filterRating = asyncHandler(async (req, res) => {
     if (x.length > 0) {
         console.log("hello")
         res.status(200).json(x);
-
     }
     else {
         res.status(400).json({ error: "no results" })
     }
-
-
 })
 
 const filterPrice = asyncHandler(async (req, res) => {
@@ -68,8 +66,6 @@ const filterPrice = asyncHandler(async (req, res) => {
     else {
         res.status(400).json({ error: "no results" })
     }
-
-
 })
 
 const filterSubject = asyncHandler(async (req, res) => {
@@ -81,7 +77,6 @@ const filterSubject = asyncHandler(async (req, res) => {
     else {
         res.status(400).json({ error: "no results" })
     }
-
 })
 
 module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, openCourse }

@@ -7,18 +7,18 @@ const CoursesPage = () => {
     const country = JSON.parse(localStorage.getItem('country'))
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
-    console.log(courseId);
+    // console.log(courseId);
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
     useEffect(() => {
         const getDetails = async (userId) => {
-            console.log(userId);
+            // console.log(userId);
             await axios.get(`myCourse/openCourse?id=${courseId}`).then(
                 (res) => {
                     const json = res.data
                     if (json)
                         setCourse(json)
-                    console.log(json);
+                    // console.log(json);
                 }
             )
         }
@@ -29,18 +29,18 @@ const CoursesPage = () => {
     return (
         <div className="courses-page">
             {courseId && course &&
-                <div>
-                    <h2>
+                <div className='d-flex flex-column justify-content-start align-items-start'>
+                    <h1>
                         {course.title}
-                    </h2>
-                    <h3>Instructor: {course.instructorName}</h3>
-                    <h6><strong>course rating:</strong> {course.rating}</h6>
-                    <h5><strong>course hours:</strong> {course.hours}</h5>
-                    <div>
-                        <h6 className='labels'>Subtitles:</h6>
+                    </h1>
+                    <h4>Instructor: {course.instructorName}</h4>
+                    <h6>course rating: {course.rating}</h6>
+                    <h6>course hours: {course.hours}</h6>
+                    <div className='d-flex flex-column justify-content-start align-items-start'>
+                        <h4 className='subtitles'>Subtitles:</h4>
                         {
                             course.subtitles && course.subtitles.map((subtitle) => (
-                                <Subtitle subtitle={subtitle} />
+                                <Subtitle subtitle={subtitle} courseId={course._id} />
                             ))
                         }
                     </div>

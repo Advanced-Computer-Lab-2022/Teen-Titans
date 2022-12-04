@@ -1,7 +1,9 @@
 const asyncHandler = require('express-async-handler')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
+const videoModel = require('../models/videoModel')
 const nodemailer = require('nodemailer')
+const subtitleModel = require('../models/subtitleModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.body.id);
@@ -48,4 +50,25 @@ const myCourses = asyncHandler(async (req, res) => {
             message: 'User not found'
         })
 })
-module.exports = { changePassword, myCourses, registerForCourse }
+
+
+const watchVideoC = asyncHandler(async (req, res) => {
+    const user = await corporateTraineeModel.findById(req.query.id);
+    let videoUrl = ''
+    if (user) {
+        for (let i = 0; i < user.enrolledCourses.length; i++) {
+            if (user.enrolledCourses[i].id == req.query.courseId) {
+                const video = await videoModel.findById(req.query.videoId)
+                videoUrl = video.url
+                res.status(200).json(video)
+            }
+        }
+    }
+    if (user && videoUrl == '')
+        res.status(400).json({
+            message: 'Unauthorized Access!'
+        })
+
+})
+
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC }

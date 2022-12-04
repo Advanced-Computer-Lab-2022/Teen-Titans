@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const instructorModel = require('../models/instructorModel')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
+const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport({
@@ -45,32 +46,127 @@ const forgotPassword = asyncHandler(async (req, res) => {
 })
 
 const resetPassword = asyncHandler(async (req, res) => {
-    let user;
-    user = await individualTraineeModel.exists({ id: req.body.id })
-    if (user) {
+    if (req.body.user == "individualTrainee") {
         const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
         res.status(200).json({
             message: 'Password Reset!'
         })
     }
-    else {
-        user = await corporateTraineeModel.exists({ id: req.body.id })
-        if (user) {
-            const corporateTrainee = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-            res.status(200).json({
-                message: 'Password Reset!'
-            })
-        }
-        else {
-            user = await instructorModel.find({ id: req.body.id })
-            const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-            res.status(200).json({
-                message: 'Password Reset!'
-            })
-        }
+    else if (req.body.user == "corporateTrainee") {
+        const corporateTrainee = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+        res.status(200).json({
+            message: 'Password Reset!'
+        })
     }
+    else if (req.body.user == "instructor") {
+        const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+        res.status(200).json({
+            message: 'Password Reset!'
+        })
+    }
+    else
+        res.status(400).json({ message: "User not found!" })
+    //let user;
+    // console.log("are we here?");
+    // user = await individualTraineeModel.exists({ id: req.body.id })
+    // if (user) {
+    //     const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+    //     res.status(200).json({
+    //         message: 'Password Reset!'
+    //     })
+    // }
+    // else {
+    //     user = await corporateTraineeModel.exists({ id: req.body.id })
+    //     if (user) {
+    //         const corporateTrainee = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+    //         res.status(200).json({
+    //             message: 'Password Reset!'
+    //         })
+    //     }
+    //     else {
+    //         user = await instructorModel.find({ id: req.body.id })
+    //         const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+    //         res.status(200).json({
+    //             message: 'Password Reset!'
+    //         })
+    //     }
+    // }
 
 })
 
+const RatingCourses = async (req, res) => {
+    const id = req.query.id
+    const rating1 = req.body.rating
+    const courseBeforeUpdate = await courseModel.findById(id)
+    let ratings = courseBeforeUpdate.ratings
+    if (rating1 == 1) {
+        ratings.oneStar++
+    }
+    else if (rating1 == 2) {
+        ratings.twoStar++
+    }
+    else if (rating1 == 3) {
+        ratings.threeStar++
+    }
+    else if (rating1 == 4) {
+        ratings.fourStar++
+    }
+    else if (rating1 == 5) {
+        ratings.fiveStar++
+    }
+    const avgRating = (5 * ratings.fiveStar + 4 * ratings.fourStar + 3 * ratings.threeStar + 2 * ratings.twoStar + 1 * ratings.oneStar) / (ratings.fiveStar + ratings.fourStar + ratings.threeStar + ratings.twoStar + ratings.oneStar)
+    const course = await courseModel.findByIdAndUpdate(id, { ratings: ratings, rating: avgRating })
 
-module.exports = { forgotPassword, resetPassword }
+    res.status(200).json(course.ratings)
+
+}
+
+const RatingInstructor = async (req, res) => {
+    const id = req.query.id
+    const rating1 = req.body.rating
+    const instructorBeforeUpdate = await instructorModel.findById(id)
+    let ratings = instructorBeforeUpdate.ratings
+    if (rating1 == 1) {
+        ratings.oneStar++
+    }
+    else if (rating1 == 2) {
+        ratings.twoStar++
+    }
+    else if (rating1 == 3) {
+        ratings.threeStar++
+    }
+    else if (rating1 == 4) {
+        ratings.fourStar++
+    }
+    else if (rating1 == 5) {
+        ratings.fiveStar++
+    }
+    const avgRating = (5 * ratings.fiveStar + 4 * ratings.fourStar + 3 * ratings.threeStar + 2 * ratings.twoStar + 1 * ratings.oneStar) / (ratings.fiveStar + ratings.fourStar + ratings.threeStar + ratings.twoStar + ratings.oneStar)
+    const instructor = await instructorModel.findByIdAndUpdate(id, { ratings: ratings, rating: avgRating })
+
+    res.status(200).json(instructor.ratings)
+
+}
+
+const addReview = asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const review = req.body.review
+    const courseBeforeUpdate = await courseModel.findById(id)
+    let reviews = courseBeforeUpdate.reviews
+    reviews.push(review)
+    const course = await courseModel.findByIdAndUpdate(id, { reviews: reviews })
+
+    res.status(200).json(course.reviews)
+})
+
+const addInstructorReview = asyncHandler(async (req, res) => {
+    const id = req.query.id
+    const review = req.body.review
+    const instructorBeforeUpdate = await instructorModel.findById(id)
+    let reviews = instructorBeforeUpdate.reviews
+    reviews.push(review)
+    const instructor = await instructorModel.findByIdAndUpdate(id, { reviews: reviews })
+
+    res.status(200).json(instructor.reviews)
+})
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }
