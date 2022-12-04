@@ -2,7 +2,9 @@ const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
 const nodemailer = require('nodemailer')
-
+const videoModel = require('../models/videoModel')
+const exerciseModel = require('../models/exerciseModel')
+const subtitleModel = require('../models/subtitleModel')
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
         res.status(400)
@@ -15,8 +17,51 @@ const createCourse = asyncHandler(async (req, res) => {
                 totalHours += subtitle.hours
             }
         }
+        let subtitles = []
+        for (let i = 0; i < req.body.subtitles.length; i++) {
+            // let videos = []
+            // for (let j = 0; j < req.body.subtitles[i].videos.length; j++) {
+            const video = await videoModel.create({
+                url: req.body.subtitles[i].video.url,
+                shortDescription: req.body.subtitles[i].video.shortDescription
+            })
+            //     videos.push(video)
+            // }
+            const exercise = await exerciseModel.create({
+                questionOne: {
+                    question: req.body.subtitles[i].exercise.questionOne.question,
+                    options: [
+                        { id: 0, Text: req.body.subtitles[i].exercise.questionOne.Text1, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect1 },
+                        { id: 1, Text: req.body.subtitles[i].exercise.questionOne.Text2, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect2 },
+                        { id: 2, Text: req.body.subtitles[i].exercise.questionOne.Text3, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect3 },
+                        { id: 3, Text: req.body.subtitles[i].exercise.questionOne.Text4, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect4 }]
+                },
+                questionTwo: {
+                    question: req.body.subtitles[i].exercise.questionTwo.question,
+                    options: [
+                        { id: 0, Text: req.body.subtitles[i].exercise.questionTwo.Text1, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect1 },
+                        { id: 1, Text: req.body.subtitles[i].exercise.questionTwo.Text2, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect2 },
+                        { id: 2, Text: req.body.subtitles[i].exercise.questionTwo.Text3, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect3 },
+                        { id: 3, Text: req.body.subtitles[i].exercise.questionTwo.Text4, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect4 }]
+                },
+            })
+            const subtitle = await subtitleModel.create({
+                title: req.body.subtitles[i].title,
+                subtitleHours: req.body.subtitles[i].hours,
+                video: video,
+                exercise: exercise
+            })
+            subtitles.push(subtitle)
+        }
         const course = await courseModel.create({
             hours: totalHours,
+            ratings: {
+                oneStar: 0,
+                twoStar: 0,
+                threeStar: 0,
+                fourStar: 0,
+                fiveStar: 0
+            },
             rating: 0,
             reviews: [],
             title: req.body.title,
@@ -25,36 +70,23 @@ const createCourse = asyncHandler(async (req, res) => {
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles:[{title: req.body.subtitle1,},{title: req.body.subtitle2,}],
-                
+            subtitles: subtitles,
             shortSummary: req.body.shortSummary,
             previewVideo: {
-                url: '',
-                shortDescription: ''
+                url: req.body.previewVideo.url,
+                shortDescription: req.body.previewVideo.shortDescription,
             },
-            courseOutline: '',
-          
-
-           
-
-
-
-
-
+            courseOutline: req.body.courseOutline,
         })
+
         const instructor = await instructorModel.findById(req.body.instructorId)
         const instructorCourses = instructor.courses
-        instructorCourses.push({
-            id: course._id,
-            title: req.body.title,
-            subject: req.body.subject
-        })
+        instructorCourses.push(course)
         const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
         res.status(200).json(course)
 
     }
 })
-
 
 // const getCoursesTitles = asyncHandler(async (req, res) => {
 //     try {
@@ -208,21 +240,36 @@ const changePassword = asyncHandler(async (req, res) => {
 
 
 
-const upload = asyncHandler(async (req, res) => {
-    console.log(req.body)
-    console.log("inside upload")
-    if (!req.body) {
-        res.status(400)
-        throw new Error("Please fill in all fields!")
-    }
-    else {
+// const upload = asyncHandler(async (req, res) => {
+//     console.log(req.body)
+//     console.log("inside upload")
+//     if (!req.body) {
+//         res.status(400)
+//         throw new Error("Please fill in all fields!")
+//     }
+//     else {
 
        
-        const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
-        res.status(200).json(course)
+//         const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
+//         res.status(200).json(course)
 
-    }
-})
+//     }
+// })
+// const uploadst = asyncHandler(async (req, res) => {
+//     console.log(req.body)
+//     console.log("inside uploadst")
+//     if (!req.body) {
+//         res.status(400)
+//         throw new Error("Please fill in all fields!")
+//     }
+//     else {
+
+       
+//         const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
+//         res.status(200).json(course)
+
+//     }
+// })
 
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword,upload }
+module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword }

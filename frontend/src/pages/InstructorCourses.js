@@ -3,7 +3,7 @@ import React from 'react'
 import 'tippy.js/dist/tippy.css'
 import axios from 'axios'
 import { useEffect ,useState} from 'react'
-
+import InstructorSubtitles from '../components/InstructorSubtitles'
 const InstructorCourses = () => {
     const country = JSON.parse(localStorage.getItem('country'))
     const conversion_rate = country.conversion_rate
@@ -80,21 +80,19 @@ const InstructorCourses = () => {
                         <h6 className='labels'>Subtitles:</h6>
                         {
                             course.subtitles && course.subtitles.map((subtitle) => (
-                                // <Subtitle subtitle={subtitle} />
-                                <h6>
-                               {subtitle.title}
-                            </h6>
-
+                                <InstructorSubtitles subtitle={subtitle} />
                             ))
                         }
                     </div>
+
+
                     <div>
                     <span className='labels'>videURL: </span>
                         <span>{course?.previewVideo?.url} </span>
                         <span className='labels'>video shortDescription: </span>
                         <span>{course?.previewVideo?.shortDescription} </span>
                     </div>
-                    <div>
+                    {/* <div>
                     <label>upload url</label>
       <input type="text"
         onChange={(e) => seturl(e.target.value)}
@@ -107,7 +105,7 @@ const InstructorCourses = () => {
         onChange={(e) => setshortDescription(e.target.value)}
         value={shortDescription}
       />   
-                        </div>
+                        </div> */}
                     
                 {/* <button onClick={async () => {
                     await axios.post(`http://localhost:5000/myCourse/addPreviewVideo?id=${courseId}`, {

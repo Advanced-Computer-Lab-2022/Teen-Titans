@@ -50,24 +50,8 @@ const myCourses = asyncHandler(async (req, res) => {
         })
 })
 
-//not working
-// const exercise = asyncHandler(async (req, res) => {
-    
-//     console.log("inside exercise")
-//     console.log(req.query.subtitleId)
-//     const subtitle= await courseModel.find({subtitles:{$elemMatch:{_id:req.query.subtitleId}}})
-//     if (subtitle) {
-       
-//         console.log(" got subtitle"+subtitle)
-//         console.log(" got subtitle"+subtitle.exercise)
 
-//         res.status(200).json(subtitle)
-//     }
-//     else
-//         res.status(400).json({
-//             message: 'subtitle not found'
-//         })
-// })
+
 
 
 
