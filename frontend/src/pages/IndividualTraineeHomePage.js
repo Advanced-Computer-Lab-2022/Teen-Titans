@@ -16,7 +16,7 @@ const IndividualTrainee = () => {
             <div className="courses">
                 <TraineeViewCourses key={id} id={id} />
             </div>
-            <AppRate />
+            {/* <AppRate /> */}
         </div>
     )
 }

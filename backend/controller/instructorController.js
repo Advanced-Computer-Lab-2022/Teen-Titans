@@ -113,6 +113,7 @@ const createCourse = asyncHandler(async (req, res) => {
         throw new Error("Please fill in all fields!")
     }
     else {
+        // console.log(req.body.exercise);
         let totalHours = 0;
         if (req.body.subtitles) {
             for (let subtitle of req.body.subtitles) {
@@ -137,18 +138,18 @@ const createCourse = asyncHandler(async (req, res) => {
                 questionOne: {
                     question: req.body.subtitles[i].exercise.questionOne.question,
                     options: [
-                        { id: 0, Text: req.body.subtitles[i].exercise.questionOne.Text1, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect1 },
-                        { id: 1, Text: req.body.subtitles[i].exercise.questionOne.Text2, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect2 },
-                        { id: 2, Text: req.body.subtitles[i].exercise.questionOne.Text3, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect3 },
-                        { id: 3, Text: req.body.subtitles[i].exercise.questionOne.Text4, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect4 }]
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text1, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect1 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text2, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect2 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text3, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect3 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text4, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect4 }]
                 },
                 questionTwo: {
                     question: req.body.subtitles[i].exercise.questionTwo.question,
                     options: [
-                        { id: 0, Text: req.body.subtitles[i].exercise.questionTwo.Text1, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect1 },
-                        { id: 1, Text: req.body.subtitles[i].exercise.questionTwo.Text2, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect2 },
-                        { id: 2, Text: req.body.subtitles[i].exercise.questionTwo.Text3, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect3 },
-                        { id: 3, Text: req.body.subtitles[i].exercise.questionTwo.Text4, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect4 }]
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text1, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect1 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text2, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect2 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text3, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect3 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text4, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect4 }]
                 },
             })
             const subtitle = await subtitleModel.create({
@@ -164,18 +165,18 @@ const createCourse = asyncHandler(async (req, res) => {
             questionOne: {
                 question: req.body.exercise.questionOne.question,
                 options: [
-                    { id: 0, Text: req.body.exercise.questionOne.Text1, isCorrect: req.body.exercise.questionOne.isCorrect1 },
-                    { id: 1, Text: req.body.exercise.questionOne.Text2, isCorrect: req.body.exercise.questionOne.isCorrect2 },
-                    { id: 2, Text: req.body.exercise.questionOne.Text3, isCorrect: req.body.exercise.questionOne.isCorrect3 },
-                    { id: 3, Text: req.body.exercise.questionOne.Text4, isCorrect: req.body.exercise.questionOne.isCorrect4 }]
+                    { Text: req.body.exercise.questionOne.Text1, isCorrect: req.body.exercise.questionOne.isCorrect1 },
+                    { Text: req.body.exercise.questionOne.Text2, isCorrect: req.body.exercise.questionOne.isCorrect2 },
+                    { Text: req.body.exercise.questionOne.Text3, isCorrect: req.body.exercise.questionOne.isCorrect3 },
+                    { Text: req.body.exercise.questionOne.Text4, isCorrect: req.body.exercise.questionOne.isCorrect4 }]
             },
             questionTwo: {
                 question: req.body.exercise.questionTwo.question,
                 options: [
-                    { id: 0, Text: req.body.exercise.questionTwo.Text1, isCorrect: req.body.exercise.questionTwo.isCorrect1 },
-                    { id: 1, Text: req.body.exercise.questionTwo.Text2, isCorrect: req.body.exercise.questionTwo.isCorrect2 },
-                    { id: 2, Text: req.body.exercise.questionTwo.Text3, isCorrect: req.body.exercise.questionTwo.isCorrect3 },
-                    { id: 3, Text: req.body.exercise.questionTwo.Text4, isCorrect: req.body.exercise.questionTwo.isCorrect4 }]
+                    { Text: req.body.exercise.questionTwo.Text1, isCorrect: req.body.exercise.questionTwo.isCorrect1 },
+                    { Text: req.body.exercise.questionTwo.Text2, isCorrect: req.body.exercise.questionTwo.isCorrect2 },
+                    { Text: req.body.exercise.questionTwo.Text3, isCorrect: req.body.exercise.questionTwo.isCorrect3 },
+                    { Text: req.body.exercise.questionTwo.Text4, isCorrect: req.body.exercise.questionTwo.isCorrect4 }]
             },
         })
 

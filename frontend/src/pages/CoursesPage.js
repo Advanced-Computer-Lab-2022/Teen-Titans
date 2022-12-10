@@ -1,6 +1,7 @@
 import Subtitle from '../components/subtitles';
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
+import AppRate from '../components/Rate';
 const CoursesPage = () => {
 
     const [course, setCourse] = useState(null)
@@ -18,7 +19,7 @@ const CoursesPage = () => {
                     const json = res.data
                     if (json)
                         setCourse(json)
-                    // console.log(json);
+                    // console.log(json.instructorId);
                 }
             )
         }
@@ -44,7 +45,9 @@ const CoursesPage = () => {
                             ))
                         }
                     </div>
-                </div>}
+                    <AppRate courseId={courseId} instructorId={course.instructorId} />
+                </div>
+            }
         </div>
 
     )

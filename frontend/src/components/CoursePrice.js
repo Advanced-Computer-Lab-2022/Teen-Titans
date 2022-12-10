@@ -17,7 +17,7 @@ const CoursePrice = ({ course }) => {
                 console.log(json);
                 if (json) {
                     setCourseData(json)
-                    console.log(courseData);
+                    // console.log(courseData);
                 }
             }
         )
