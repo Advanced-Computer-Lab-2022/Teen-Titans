@@ -3,7 +3,7 @@ const { findOneAndUpdate } = require('../models/courseModel')
 const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
-
+const videoModel = require('../models/videoModel')
 
 const definePromotion = async(req,res)=>{
     const {id}= req.params
@@ -125,41 +125,75 @@ const createCourse = asyncHandler(async (req, res) => {
             }
         }
         
-        const course = await courseModel.create({
+        const course = new course({
             hours: totalHours,
             rating: 0,
             reviews: [],
             title: req.body.title,
             price: req.body.price,
-            discount: 0,
+            discount: {
+                amount: req.body.amount,
+                duration:req.body.duration
+            },
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles:{ title:req.body.subtitle,
-                exercise:{questionOne: {
-                    question: "1+1=?",
+
+           subtitles:[],
+
+
+           
+
+
+            // subtitles:{ title:req.body.subtitle,
+            //     exercise:{questionOne: {
+            //         question: "1+1=?",
             
-                    options:[{id:0,Text:"2",isCorrect:true},
-                    {id:1,Text:"3",isCorrect:false},
-                    {id:2,Text:"4",isCorrect:false},
-                    {id:3,Text:"5",isCorrect:false},]},
-                    questionTwo: { 
-                        question:"2+2=?",
-                        options:[{id:0,Text:"3",isCorrect:false},
-                        {id:1,Text:"2",isCorrect:false},
-                        {id:2,Text:"4",isCorrect:true},
-                        {id:3,Text:"0",isCorrect:false},]
-                        },
-                },
+            //         options:[{id:0,Text:"2",isCorrect:true},
+            //         {id:1,Text:"3",isCorrect:false},
+            //         {id:2,Text:"4",isCorrect:false},
+            //         {id:3,Text:"5",isCorrect:false},]},
+            //         questionTwo: { 
+            //             question:"2+2=?",
+            //             options:[{id:0,Text:"3",isCorrect:false},
+            //             {id:1,Text:"2",isCorrect:false},
+            //             {id:2,Text:"4",isCorrect:true},
+            //             {id:3,Text:"0",isCorrect:false},]
+            //             },
+            //     },
             
-            },
+            // },
             shortSummary: req.body.shortSummary,
             previewVideo: {
                 url: '',
                 shortDescription: ''
             },
-            courseOutline: ''
-        })
+            courseOutline: '',
+            courseExam:{
+                questionOne:{
+                    question:req.body.question1,
+                    answer: req.body.answer1,
+                    options:[{id:0,Text:req.body.Text1,isCorrect:req.body.isCorrect1},
+                    {id:1,Text:req.body.Text2,isCorrect:req.body.isCorrect2},
+                    {id:2,Text:req.body.Text3,isCorrect:req.body.isCorrect3},
+                    {id:3,Text:req.body.Text4,isCorrect:req.body.isCorrect4}]
+                    }
+    
+                ,
+                questionTwo:{
+                    question:req.body.question2,
+                    answer: req.body.answer2,
+                    options:[{id:0,Text:req.body.Text5,isCorrect:req.body.isCorrect5},
+                    {id:1,Text:req.body.Text6,isCorrect:req.body.isCorrect6},
+                    {id:2,Text:req.body.Text7,isCorrect:req.body.isCorrect7},
+                    {id:3,Text:req.body.Text8,isCorrect:req.body.isCorrect8}]
+                }
+            }
+        });
+
+        const createCourse = await course.save();
+
+
         const instructor = await instructorModel.findById(req.body.instructorId)
         const instructorCourses = instructor.courses
         instructorCourses.push({
