@@ -17,15 +17,12 @@ const PriceFilter = () => {
             }
         }
     };
-
-
     const onfilterChange = async (event) => {
 
         if (event.target.value === "two") {
             let price = 200
             const response = await fetch(`/instructor/${document.getElementById('instructorName').value}/?price=${price}`);
             const json = await response.json()
-
 
             if (response.ok) {
                 setfilterResults(json)
@@ -105,13 +102,19 @@ const PriceFilter = () => {
                         <p>{course.instructorName}</p>
                         <b> SUBJECT:</b>
                         <p>{course.subject}</p>
+                        <b> RATING:</b>
+                        <p>{course.rating}</p>
+                        <b> REVIEWS:</b>
+                        {
+                            course.reviews.map((review) => (
+                                <p>review</p>
+                            ))
+                        }
+                        <button onClick={() => window.location.href = `/instructorcourse?courseId=${course._id}`}>View Details</button>
                     </div>
                 ))
             }
         </div>
     )
 }
-
-
-
 export default PriceFilter;

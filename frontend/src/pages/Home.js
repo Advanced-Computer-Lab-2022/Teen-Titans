@@ -4,8 +4,9 @@ const Home = () => {
     const setCountry = async (countryCode) => {
         const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)
         const response = await conversionRate.json()
-        console.log(response);
+        // console.log(response);
         localStorage.setItem('country', JSON.stringify(response))
+        window.location.href = `/homePage`
     }
 
     return (
@@ -22,7 +23,9 @@ const Home = () => {
                 <option value="USD">United States of America</option>
             </select>
             <br></br>
-            <button type="submit" onClick={() => { setCountry(document.getElementById('countries').value.toString()) }}>Submit</button>
+            <button type="submit" onClick={() => {
+                setCountry(document.getElementById('countries').value.toString())
+            }}>Submit</button>
         </div>
     )
 }

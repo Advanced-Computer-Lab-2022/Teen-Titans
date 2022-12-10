@@ -8,10 +8,12 @@ const courses = asyncHandler(async (req, res) => {
     }
     else {
         const searchResults = await courseModel.find({
-            $or: [{ title: { $regex: req.params['searchInput'] } },
-            { instructorName: { $regex: req.params['searchInput'] } }, { subject: { $regex: req.params['searchInput'] } }]
+            $or: [{ title: { $regex: req.query.searchInput } },
+            { instructorName: { $regex: req.query.searchInput } }, { subject: { $regex: req.query.searchInput } }]
         })
-        res.json(searchResults)
+        if (searchResults) {
+            res.status(200).json(searchResults)
+        }
 
     }
 })
