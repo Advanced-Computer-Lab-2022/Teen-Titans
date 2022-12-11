@@ -37,8 +37,15 @@ const signUp = asyncHandler(async (req, res) => {
 
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
+    const course = await courseModel.findById(req.body.courseId);
     const courses = findUser.enrolledCourses
-    courses.push(req.body.courseId)
+    courses.push({
+        course: course,
+        videosSeen: [],
+        numberComplete: 0,
+        percentageComplete: 0
+    })
+    // console.log(courses);
     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
@@ -56,7 +63,7 @@ const viewMyCourses = asyncHandler(async (req, res) => {
     let result = []
     if (user) {
         for (let i = 0; i < enrolledCourses.length; i++) {
-            const courseDetails = await courseModel.findById(enrolledCourses[i].id)
+            const courseDetails = await courseModel.findById(enrolledCourses[i].course.id)
             result.push(courseDetails)
         }
         res.status(200).json(result)
@@ -95,7 +102,7 @@ const watchVideo = asyncHandler(async (req, res) => {
     let videoUrl = ''
     if (user) {
         for (let i = 0; i < user.enrolledCourses.length; i++) {
-            if (user.enrolledCourses[i].id == req.query.courseId) {
+            if (user.enrolledCourses[i].course.id == req.query.courseId) {
                 const video = await videoModel.findById(req.query.videoId)
                 videoUrl = video.url
                 res.status(200).json(video)
@@ -109,4 +116,33 @@ const watchVideo = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo }
+const videoSeen = asyncHandler(async (req, res) => {
+    const trainee = await individualTraineeModel.findById(req.query.id)
+    let enrolledCourses = trainee.enrolledCourses
+    for (let i = 0; i < enrolledCourses.length; i++) {
+        if (enrolledCourses[i].course.id == req.body.courseId && enrolledCourses[i].videosSeen.includes(req.body.videoId))
+            res.status(200).json({
+                message: "Video already seen!"
+            })
+        else if (enrolledCourses[i].course.id == req.body.courseId && !enrolledCourses[i].videosSeen.includes(req.body.videoId)) {
+            const numberOfSubtitles = enrolledCourses[i].course.subtitles.length
+            const numberComplete = enrolledCourses[i].numberComplete + 1
+            const percentageComplete = (numberComplete * 100) / numberOfSubtitles
+            enrolledCourses[i].percentageComplete = percentageComplete
+            enrolledCourses[i].numberComplete = numberComplete
+            enrolledCourses[i].videosSeen.push(req.body.videoId)
+            const updatedTrainee = await individualTraineeModel.findByIdAndUpdate(req.query.id, { enrolledCourses: enrolledCourses })
+            if (updatedTrainee)
+                res.status(200).json({
+                    message: "Video seen!"
+                })
+            else
+                res.status(400).json({
+                    message: "Something went wrong!"
+                })
+        }
+    }
+
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen }

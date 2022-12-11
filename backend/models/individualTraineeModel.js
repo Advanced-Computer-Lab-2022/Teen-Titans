@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const courseModel = require('./courseModel')
+const enrolledCourses = require('./enrolledCourses')
+const videoModel = require('./videoModel')
 const Schema = mongoose.Schema
 
 const individualTraineeSchema = mongoose.Schema({
@@ -35,7 +37,12 @@ const individualTraineeSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    enrolledCourses: [courseModel.schema]
+    enrolledCourses: [{
+        course: courseModel.schema,
+        videosSeen: [{ type: String }],
+        numberComplete: { type: Number },
+        percentageComplete: { type: Number }
+    }]
 })
 
 module.exports = mongoose.model('individualTrainee', individualTraineeSchema)

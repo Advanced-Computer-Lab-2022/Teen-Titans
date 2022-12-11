@@ -25,7 +25,12 @@ const corporateTraineeSchema = mongoose.Schema({
     country: {
         type: String
     },
-    enrolledCourses: [courseModel.schema]
+    enrolledCourses: [{
+        course: courseModel.schema,
+        videosSeen: [{ type: String }],
+        numberComplete: { type: Number },
+        percentageComplete: { type: Number }
+    }]
 })
 
 module.exports = mongoose.model('corporateTrainee', corporateTraineeSchema)
