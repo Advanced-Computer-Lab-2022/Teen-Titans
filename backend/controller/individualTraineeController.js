@@ -109,4 +109,19 @@ const watchVideo = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo }
+const watchPreviewVideo = asyncHandler(async (req, res) => {
+    //const user = await individualTraineeModel.findById(req.query.id);
+    // let enrolledCourses = user.enrolledCourses;
+    let videoUrl = ''
+    const course = await courseModel.findById(req.query.courseId)
+        const video =course.previewVideo
+        videoUrl = video.url
+        VideoShortDescription = video.shortDescription
+        res.status(200).json(video)
+    
+    
+
+})
+
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo,watchPreviewVideo }

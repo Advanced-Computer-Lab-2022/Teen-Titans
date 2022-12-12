@@ -19,6 +19,7 @@ import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
 import DisplayVideo from './components/DisplayVideo';
+import DisplayPreviewVideo from './components/DisplayPreviewVideo';
 import Exercise from './pages/Exercise';
 import InstructorCourses from './pages/InstructorCourses';
 import DefinePromotion from './components/InstructorDefinePromotion';
@@ -51,6 +52,8 @@ function App() {
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
+            <Route path='/watchVideo' element={<DisplayPreviewVideo />}></Route>
+
             <Route path='/exercise' element={<Exercise />}></Route>
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
             <Route path='/discount' element={<DefinePromotion />}></Route>

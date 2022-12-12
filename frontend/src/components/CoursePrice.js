@@ -1,4 +1,5 @@
 import Details from "./Details"
+import DisplayPreviewVideo from "./DisplayPreviewVideo"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
@@ -33,14 +34,35 @@ const CoursePrice = ({ course }) => {
             <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
             <p><strong>course rating:</strong> {course.rating}</p>
             <p><strong>course hours:</strong> {course.hours}</p>
+            <p><strong>course outline:</strong> {course.courseOutline}</p>
+            <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
+
             {
                 <div className="my-container">
                     <Tippy content={<Details course={courseData}></Details>} placement='left' theme="light">
                         <button>Details</button>
+                        
                     </Tippy>
+                   
+                </div>
+
+              
+            }
+            {
+                <div> 
+
+                    {/* <DisplayPreviewVideo courseId={course._id}>  */}
+                        {/* <DisplayPreviewVideo courseId={course._id}></DisplayPreviewVideo> */}
+                     {/* </DisplayPreviewVideo>  */}
                 </div>
             }
+            
+             
+
+            
         </div>
+
+       
     )
 }
 

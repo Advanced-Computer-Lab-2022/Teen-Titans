@@ -4,7 +4,6 @@ const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
 const exerciseModel = require('../models/exerciseModel')
-const videoModel = require('../models/videoModel')
 const definePromotion = async (req, res) => {
     const { id } = req.params
 
