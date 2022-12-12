@@ -48,7 +48,7 @@ const TraineeViewCourses = ({ id }) => {
                                 <h4>{course.title}</h4>
                                 <p>Price: {course.price * conversion_rate} {target_code}</p>
                                 <p>Instructor: {course.instructorName}</p>
-                                <button onClick={() => window.location.href = `/course?courseId=${course._id}`}>View Details</button>
+                                <button onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>View Details</button>
                                 <button onClick={() => { toexam() }} className='subtitles-faded'>Exam</button>
                             </div>
                         ))}

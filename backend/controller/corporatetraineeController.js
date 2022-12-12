@@ -57,6 +57,22 @@ const myCourses = asyncHandler(async (req, res) => {
         })
 })
 
+const openCourseC = asyncHandler(async (req, res) => {
+    const trainee = await corporateTraineeModel.findById(req.query.id)
+    let viewCourse;
+    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+            viewCourse = trainee.enrolledCourses[i]
+            res.status(200).json(viewCourse)
+        }
+    }
+    if (!viewCourse)
+        res.status(400).json({
+            message: "Course not found!"
+        })
+
+})
+
 
 const watchVideoC = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.query.id);
@@ -106,4 +122,4 @@ const videoSeenC = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC }
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC, openCourseC }

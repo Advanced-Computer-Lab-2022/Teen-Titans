@@ -74,6 +74,22 @@ const viewMyCourses = asyncHandler(async (req, res) => {
         })
 })
 
+const openCourse = asyncHandler(async (req, res) => {
+    const trainee = await individualTraineeModel.findById(req.query.id)
+    let viewCourse;
+    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+            viewCourse = trainee.enrolledCourses[i]
+            res.status(200).json(viewCourse)
+        }
+    }
+    if (!viewCourse)
+        res.status(400).json({
+            message: "Course not found!"
+        })
+
+})
+
 const recursiveFunction = function (arr, x, start, end) {
 
     // Base Condition
@@ -145,4 +161,4 @@ const videoSeen = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen }
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse }

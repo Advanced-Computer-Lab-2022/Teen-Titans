@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import React, { useEffect, useState } from "react"
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/youtube'
 
 import axios from 'axios';
 
@@ -15,25 +15,23 @@ const DisplayVideo = () => {
     const [videoUrl, setVideoUrl] = useState('')
     const [seen, setSeen] = useState(false)
     const watchedVideo = async () => {
-        if (seen) {
-            console.log(seen);
-            await axios.patch(`myCourse/${user}/seen?id=${userId}`, {
-                courseId: courseId,
-                videoId: videoId
-            })
-        }
+
+        await axios.patch(`myCourse/${user}/seen?id=${userId}`, {
+            courseId: courseId,
+            videoId: videoId
+        })
     }
     useEffect(() => {
-        console.log(videoId);
-        console.log(courseId);
-        console.log(userId);
+        // console.log(videoId);
+        // console.log(courseId);
+        // console.log(userId);
         const getDetails = async (videoId) => {
             // console.log(userId);
             await axios.get(`myCourse/${user}/watch?id=${userId}&videoId=${videoId}&courseId=${courseId}`).then(
                 (res) => {
                     const json = res.data
                     let url = json.url
-                    console.log(json);
+                    // console.log(json);
                     url = url.replace('watch?v=', 'embed/');
                     if (url) {
                         setVideoUrl(url)
@@ -62,13 +60,15 @@ const DisplayVideo = () => {
                     <br></br>
                     <div className='player-wrapper'>
                         <ReactPlayer
+                            sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation allow-presentation"
                             className='react-player'
+                            allowFullScreen
                             url={videoUrl}
                             width='100%'
                             height='100%'
-                            controls='true'
-                            playing='false'
-                            onEnded={() => { setSeen(true); watchedVideo() }}
+                            controls
+                            autoPlay={false}
+                            onEnded={() => { watchedVideo() }}
                         />
                     </div>
                 </div>
