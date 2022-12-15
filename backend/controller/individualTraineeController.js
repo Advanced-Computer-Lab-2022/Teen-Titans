@@ -150,7 +150,7 @@ const videoSeen = asyncHandler(async (req, res) => {
             const updatedTrainee = await individualTraineeModel.findByIdAndUpdate(req.query.id, { enrolledCourses: enrolledCourses })
             if (updatedTrainee)
                 res.status(200).json({
-                    message: "Video seen!"
+                    updatedTrainee
                 })
             else
                 res.status(400).json({
@@ -161,4 +161,26 @@ const videoSeen = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse }
+const requestRefund = asyncHandler(async (req, res) => {
+    const trainee = await individualTraineeModel.findById(req.query.id)
+    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+            if (trainee.enrolledCourses[i].percentageComplete < 50) {
+                res.status(200).json({
+                    message: "Your request has been received. The course refund will be added to your wallet shortly."
+                })
+            }
+            else {
+                res.status(200).json({
+                    message: "You have completed more than 50% of the course. Therefore, a refund is not possible."
+                })
+            }
+        }
+    }
+    if (!trainee)
+        res.status(400).json({
+            message: "Something went wrong!"
+        })
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }

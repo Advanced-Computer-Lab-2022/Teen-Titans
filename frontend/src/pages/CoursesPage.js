@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react"
 import ReactPlayer from 'react-player/youtube'
 import axios from 'axios';
 import AppRate from '../components/Rate';
+import TextEditor from '../components/TextEditor';
+import jsPDF from 'jspdf';
 import "bootstrap/js/src/collapse.js";
 import { Link, useNavigate } from 'react-router-dom';
 const CoursesPage = () => {
@@ -13,33 +15,64 @@ const CoursesPage = () => {
     const courseId = params.get('courseId');
     const userId = params.get('userId');
     const user = params.get('user')
+    const [video, setVideo] = useState(null)
     const [videoUrl, setVideoUrl] = useState('')
-    // console.log(courseId);
-    const conversion_rate = country.conversion_rate
-    const target_code = country.target_code
+    const [percentage, setPercentage] = useState(0)
+    // const conversion_rate = country.conversion_rate
+    // const target_code = country.target_code
+    const [notes, setNotes] = useState("");
+    const getNotes = (text) => {
+        const notes = text.replace(/(<([^>]+)>)/ig, '');
+        setNotes(notes);
+        console.log(notes);
+    };
 
+    const generateNotesPDF = () => {
+        const doc = new jsPDF();
+        doc.text(notes, 10, 10);
+
+        doc.setFont("courier")
+
+        doc.setFontSize(50)
+
+        // doc.text("There is more text", 10, 50);
+
+        doc.save("Notes.pdf");
+    }
+
+    const watchedVideo = async () => {
+        if (video) {
+            console.log(video);
+            await axios.patch(`myCourse/${user}/seen?id=${userId}`, {
+                courseId: courseId,
+                videoId: video
+            }).then(
+                (res) => {
+                    const json = res.data
+                    if (json)
+                        setPercentage(json.percentageComplete)
+                }
+            )
+        }
+    }
     const navigate = useNavigate();
     const toexercise = (subtitle) => {
         navigate('/exercise', { state: subtitle.exercise });
     }
     useEffect(() => {
         const getDetails = async () => {
-            // console.log(user);
-            console.log(userId);
-            console.log(courseId);
-
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
                 (res) => {
                     const json = res.data
-                    if (json)
+                    if (json) {
                         setCourse(json)
-                    console.log(json);
+                        setPercentage(json.percentageComplete)
+                    }
                 }
             )
         }
-
         getDetails()
-    }, [videoUrl])
+    }, [percentage, course])
 
     return (
         <div>
@@ -59,6 +92,10 @@ const CoursesPage = () => {
                                 // height='100%'
                                 controls
                                 autoPlay={false}
+                                onEnded={() => {
+                                    if (video)
+                                        watchedVideo()
+                                }}
                             />
                         </div>
                         <div className='d-flex'>
@@ -88,10 +125,26 @@ const CoursesPage = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className='d-flex flex-column'>
+                                <p>
+                                    <a className="btn" data-bs-toggle="collapse" href="#notes" role="button" aria-expanded="false" aria-controls="notes">
+                                        Write Notes
+                                    </a>
+                                </p>
+                                <div className="collapse" id="notes">
+                                    <div className="card card-body">
+                                        <TextEditor initialValue="" getValue={getNotes} />
+                                        <button onClick={generateNotesPDF}>Download Notes</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='col-4'>
-                        <div>Percentage of the course completed: {course.percentageComplete}%</div>
+                        <div>Percentage of the course completed:</div>
+                        <div className="progress">
+                            <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
+                        </div>
                         <h4 className='subtitles'>Subtitles:</h4>
                         {
                             course.course.subtitles && course.course.subtitles.map((subtitle) => (
@@ -100,7 +153,12 @@ const CoursesPage = () => {
                                         <h3>{subtitle.title}</h3>
                                         {
                                             subtitle.video &&
-                                            <button className='videos' onClick={() => setVideoUrl(subtitle.video.url)}>{subtitle.video.shortDescription}</button>
+                                            <button className='videos' onClick={() => {
+                                                if (subtitle.video) {
+                                                    setVideoUrl(subtitle.video.url);
+                                                    setVideo(subtitle.video._id)
+                                                }
+                                            }}>{subtitle.video.shortDescription}</button>
                                         }
                                         <div>
 

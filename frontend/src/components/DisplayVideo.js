@@ -15,7 +15,6 @@ const DisplayVideo = () => {
     const [videoUrl, setVideoUrl] = useState('')
     const [seen, setSeen] = useState(false)
     const watchedVideo = async () => {
-
         await axios.patch(`myCourse/${user}/seen?id=${userId}`, {
             courseId: courseId,
             videoId: videoId

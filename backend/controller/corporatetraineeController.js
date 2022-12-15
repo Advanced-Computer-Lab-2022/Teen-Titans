@@ -111,7 +111,7 @@ const videoSeenC = asyncHandler(async (req, res) => {
             const updatedTrainee = await corporateTraineeModel.findByIdAndUpdate(req.query.id, { enrolledCourses: enrolledCourses })
             if (updatedTrainee)
                 res.status(200).json({
-                    message: "Video seen!"
+                    updatedTrainee
                 })
             else
                 res.status(400).json({
