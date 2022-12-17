@@ -94,7 +94,8 @@
 }
 
 .trainee-courses {
-	width: 100%;
+	width: 25%;
+	float: right;
 }
 
 
@@ -121,4 +122,9 @@
 	width: 300px;
 	margin: 5px;
 	font-size: 8px;
+}
+
+
+.search{
+	float:right;
 }

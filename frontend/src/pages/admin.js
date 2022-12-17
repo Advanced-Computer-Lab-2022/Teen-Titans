@@ -1,7 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import '../index.css'
+import {  useNavigate } from 'react-router-dom';
+
 const Admin = () => {
     const [message, setMessage] = useState('')
+    const [requests, setRequests] = useState(null)
+
+    const navigate = useNavigate();
+    const torequests = () => {
+        navigate('/requests',{ state: requests });
+    }
+    useEffect(()=>{
+                const fetchRequests= async()=>{
+                    const response = await fetch(`http://localhost:5000/admin/getRequests`)
+                    const json= await response.json()
+        
+                    if(response.ok){
+                        setRequests(json)
+                        console.log("rquests back in admin",json)
+                    }
+                }
+                fetchRequests()  },[])
+    
     const addUser = async () => {
         if (document.getElementById("username").value == "" || document.getElementById("password").value == "") {
             setMessage("Please enter all fields!")
@@ -42,6 +62,8 @@ const Admin = () => {
                 <button onClick={() => addUser()}>Add</button>
                 <span>{message}</span>
             </div>
+            <br></br>
+            <button onClick={() =>{ torequests() }}>View Requests</button>
         </div>
     )
 }

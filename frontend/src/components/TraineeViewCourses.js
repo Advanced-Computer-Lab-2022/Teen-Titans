@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import Details from "./Details"
+// import Details from "./Details"
 import axios from 'axios';
-import CoursesPage from "../pages/CoursesPage";
+// import CoursesPage from "../pages/CoursesPage";
 import { Link, useNavigate } from 'react-router-dom';
-
+import CorporateTraineeSearch from "./CorporateTraineeSearch";
 
 
 
@@ -39,6 +39,9 @@ const TraineeViewCourses = ({ id }) => {
 
     return (
         <div className="content">
+            <div className="search">
+                { <CorporateTraineeSearch id={id} /> }
+                </div>
             {id &&
                 <div className="trainee-courses">
                     {/* <div className='courses'> */}
@@ -55,6 +58,7 @@ const TraineeViewCourses = ({ id }) => {
                     {/* </div> */}
                 </div>
             }
+            
         </div >
     )
 }

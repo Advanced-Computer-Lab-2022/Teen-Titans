@@ -11,4 +11,5 @@ corporateTraineeRouter.get('/getPrices', getPrices)
 corporateTraineeRouter.patch('/changePassword', changePassword)
 corporateTraineeRouter.post('/registerForCourse', registerForCourse)
 corporateTraineeRouter.get('/:searchInput', courses)
+
 module.exports = corporateTraineeRouter

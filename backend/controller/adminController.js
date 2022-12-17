@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Admin = require('../models/adminModel')
 const instructorModel = require('../models/instructorModel.js')
 const corporateTraineeModel = require('../models/corporateTraineeModel.js')
+const requestModel = require('../models/requestModel.js')
 
 
 //This is to know which user is chosen by the admin
@@ -68,4 +69,22 @@ const selectedUser = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { selectedUser }
+const getRequests = asyncHandler(async (req, res) => {
+    const requests = await requestModel.find({})
+    res.status(200).json(requests)
+})
+
+
+const getTrainee = asyncHandler(async (req, res) => {
+    const user = await corporateTraineeModel.findById(req.query.traineeid);
+    if (user)
+    res.status(200).json(user)
+else
+    res.status(400).json({
+        message: 'user not found!'
+    })
+
+  
+   
+})
+module.exports = { selectedUser,getRequests ,getTrainee}

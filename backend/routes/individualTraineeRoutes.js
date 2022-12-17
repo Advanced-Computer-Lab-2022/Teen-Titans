@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const individualTraineeRouter = express.Router()
 const courses = require('../controller/searchController')
-const { changePassword, registerForCourse } = require('../controller/individualTraineeController')
+const { changePassword, registerForCourse, viewWallet } = require('../controller/individualTraineeController')
 const { getCourses, getPrices } = require('../controller/viewCoursesController');
 // const { exercise } = require('../controller/corporatetraineeController');
 

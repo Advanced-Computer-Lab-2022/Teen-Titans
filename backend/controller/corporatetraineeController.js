@@ -4,6 +4,7 @@ const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel')
 const nodemailer = require('nodemailer')
 const subtitleModel = require('../models/subtitleModel')
+const requestModel = require('../models/requestModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.body.id);
@@ -71,4 +72,49 @@ const watchVideoC = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC }
+
+
+const checkAccess = asyncHandler(async (req, res) => {
+    console.log("inside check access");
+    const user = await corporateTraineeModel.findById(req
+        .query.traineeId);
+  
+   if(user){
+    // console.log(user);
+    let enrolledCourses = user.enrolledCourses;
+    for (let i = 0; i < user.enrolledCourses.length; i++) {
+        if (user.enrolledCourses[i].id == req.query.courseId) {
+          
+            res.status(200).json(user)
+        }
+      
+}
+
+res.status(400).json({
+    message: 'Unauthorized Access!'
+})
+}
+console.log(res.status);
+})
+
+
+const requestAccess = asyncHandler(async (req, res) => {
+    console.log("inside request access");
+    const request = await requestModel.create({userid:req.query.traineeId,
+        courseid:req.query.courseId,status:"pending"});
+    if(request){
+        res.status(200).json({
+            message: 'Request Sent!',request
+        })
+    }
+    else
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+})
+
+
+
+    
+
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, checkAccess, requestAccess }

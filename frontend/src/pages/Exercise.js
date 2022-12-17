@@ -17,7 +17,6 @@ const Exercise = () => {
   const target_code = country.target_code
   const location = useLocation();
   const exercise = location.state;
-  let text = "foo"
   console.log(exercise)
 
 

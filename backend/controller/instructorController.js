@@ -213,46 +213,46 @@ const createCourse = asyncHandler(async (req, res) => {
     }
 })
 
-const getCoursesTitles = asyncHandler(async (req, res) => {
-    try {
+// const getCoursesTitles = asyncHandler(async (req, res) => {
+//     try {
 
-        let sort = req.query.sort || "price";
-        let subject = req.query.subject || "All";
+//         let sort = req.query.sort || "price";
+//         let subject = req.query.subject || "All";
 
-        const subjectOptions = [
-            "chem",
-            "bio",
-            "calculus",
-            "datastruc",
-            "geometry"
-        ];
+//         const subjectOptions = [
+//             "chem",
+//             "bio",
+//             "calculus",
+//             "datastruc",
+//             "geometry"
+//         ];
 
-        subject === "All"
-            ? (subject = [...subjectOptions])
-            : (subject = req.query.subject.split(","));
-        req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+//         subject === "All"
+//             ? (subject = [...subjectOptions])
+//             : (subject = req.query.subject.split(","));
+//         req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
 
-        let sortBy = {};
-        if (sort[1]) {
-            sortBy[sort[0]] = sort[1];
-        } else {
-            sortBy[sort[0]] = "asc";
-        }
-        const courses = await courseModel.find({ instructorName: "roba" })
-            .where("subject")
-            .in([...subject])
-            .sort(sortBy)
+//         let sortBy = {};
+//         if (sort[1]) {
+//             sortBy[sort[0]] = sort[1];
+//         } else {
+//             sortBy[sort[0]] = "asc";
+//         }
+//         const courses = await courseModel.find({ instructorName: "roba" })
+//             .where("subject")
+//             .in([...subject])
+//             .sort(sortBy)
 
-        const response = {
-            subjects: subjectOptions,
-            courses,
-        };
-        res.status(200).json(response);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: true, message: "Error" });
-    }
-});
+//         const response = {
+//             subjects: subjectOptions,
+//             courses,
+//         };
+//         res.status(200).json(response);
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ error: true, message: "Error" });
+//     }
+// });
 
 
 const course = asyncHandler(async (req, res) => {

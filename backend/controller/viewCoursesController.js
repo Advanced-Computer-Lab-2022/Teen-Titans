@@ -40,7 +40,7 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
 })
 
 const openCourse = asyncHandler(async (req, res) => {
-    const viewCourse = await courseModel.findById(req.query.id)
+    const viewCourse = await courseModel.findById(req.query.courseid)
     res.status(200).json(viewCourse)
 })
 

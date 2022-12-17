@@ -23,7 +23,7 @@ const signUp = asyncHandler(async (req, res) => {
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        gender: req.body.wallet,
+        gender: req.body.gender,
         country: req.body.country,
         wallet: req.body.wallet,
         enrolledCourses: req.body.enrolledCourses
@@ -109,4 +109,22 @@ const watchVideo = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo }
+
+
+const viewWallet = asyncHandler(async (req, res) => {
+    console.log("in view wallet");
+    console.log(req.query.id);
+    const user = await individualTraineeModel.findById(req
+        .query.id);
+        
+    if (user){
+    console.log(user.wallet);
+        res.status(200).json(user.wallet)
+    }
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, viewWallet }
