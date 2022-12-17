@@ -4,7 +4,30 @@ const instructorModel = require('../models/instructorModel')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
+const Binary = require('mongodb').Binary;
+// const PDFDocument = require('pdfkit');
+const fs = require("fs");
 
+const { jsPDF } = require("jspdf"); // will automatically load the node version
+
+const options = {
+    format: "A3",
+    orientation: "portrait",
+    border: "10mm",
+    header: {
+        height: "45mm",
+        contents: '<div style="text-align: center;">Author: Shyam Hajare</div>'
+    },
+    footer: {
+        height: "28mm",
+        contents: {
+            first: 'Cover page',
+            2: 'Second page', // Any page number is working. 1-based index
+            default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
+            last: 'Last Page'
+        }
+    }
+};
 const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
@@ -12,6 +35,55 @@ const transporter = nodemailer.createTransport({
         pass: "Ta3leemMshMagani"
     }
 })
+
+const generateCertificate = async (req, res) => {
+    // const doc = new PDFDocument();
+    // doc
+    //     .font('fonts/PalatinoBold.ttf')
+    //     .fontSize(25)
+    //     .text('Some text with an embedded font!', 100, 100);
+
+    // doc.end()
+    // const stream = res.writeHead(200, {
+    //     'Content-Type': 'application/pdf',
+    //     'Content-Disposition': 'attachment;filename=certificate.pdf'
+    // })
+    let trainee;
+    if (req.query.user === "corporateTrainee")
+        trainee = await corporateTraineeModel.findById(req.query.id)
+    else
+        trainee = await individualTraineeModel.findById(req.query.id)
+    const course = await courseModel.findById(req.query.courseId)
+    const doc = new jsPDF();
+    doc.text(`This certificate goes to ${trainee.firstName} for completing the ${course.title} course`, 10, 10);
+    // let insert_data = {};
+    // insert_data.file_data = Binary(doc);
+    //doc.save("certificate.pdf")
+    const options = {
+        from: "knowledgeBoost@outlook.com",
+        to: trainee.email,
+        subject: "Certificate of Completion",
+        text: `Congratulations ${trainee.firstName}!
+                Here is your certificate.`,
+        attachments: [{
+            filename: "certificate.pdf", path: "../certificate.pdf"
+        }]
+    }
+    if (trainee) {
+        transporter.sendMail(options, function (err, info) {
+            if (err) {
+                // fs.unlinkSync(doc.path());
+                // console.log("Delete File successfully.");
+                res.status(400).json(err)
+            }
+            else {
+                // fs.unlinkSync(doc.path());
+                // console.log("Delete File successfully.");
+                res.status(200).json(trainee)
+            }
+        })
+    }
+}
 
 const forgotPassword = asyncHandler(async (req, res) => {
     const individualTrainee = await individualTraineeModel.exists({ email: req.body.email })
@@ -170,4 +242,4 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificate }

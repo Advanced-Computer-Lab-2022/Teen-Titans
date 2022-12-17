@@ -1,18 +1,17 @@
-
 const mongoose = require('mongoose')
 
 const requestSchema = mongoose.Schema({
-    userid: {
+    userId: {
         type: String
     },
-    courseid: {
+    courseId: {
         type: String
     },
     status: {
         type: String
     },
-    type:{
-        type:String
+    type: {
+        type: String
     }
 })
 
