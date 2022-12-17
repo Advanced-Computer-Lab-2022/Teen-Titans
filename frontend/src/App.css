@@ -128,3 +128,12 @@
 	justify-content: flex-start;
 	flex-direction: column;
 }
+
+.danger {
+	/* top: 10px; */
+	border: none;
+	background-color: rgb(255, 240, 240);
+	padding: 5px 10px;
+	color: red;
+	border-radius: 5px;
+}

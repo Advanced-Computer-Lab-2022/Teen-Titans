@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel');
+const requestModel = require('../models/requestModel')
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -37,10 +38,12 @@ const signUp = asyncHandler(async (req, res) => {
 
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
-    const course = await courseModel.findById(req.body.courseId);
+    const findCourse = await courseModel.findById(req.body.courseId);
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
     const courses = findUser.enrolledCourses
     courses.push({
-        course: course,
+        course: updatedCourse,
         videosSeen: [],
         numberComplete: 0,
         percentageComplete: 0
@@ -162,25 +165,42 @@ const videoSeen = asyncHandler(async (req, res) => {
 })
 
 const requestRefund = asyncHandler(async (req, res) => {
-    const trainee = await individualTraineeModel.findById(req.query.id)
-    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
-        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
-            if (trainee.enrolledCourses[i].percentageComplete < 50) {
-                res.status(200).json({
-                    message: "Your request has been received. The course refund will be added to your wallet shortly."
-                })
-            }
-            else {
-                res.status(200).json({
-                    message: "You have completed more than 50% of the course. Therefore, a refund is not possible."
-                })
+    const checkRequests = await requestModel.findOne({
+        userId: req.query.id,
+        courseId: req.query.courseId,
+    })
+    if (checkRequests) {
+        res.status(200).json({
+            message: `Request was already made and it is now ${checkRequests.status}.`
+        })
+    }
+    else {
+        const trainee = await individualTraineeModel.findById(req.query.id)
+        for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+            if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+                if (trainee.enrolledCourses[i].percentageComplete < 50) {
+                    const request = await requestModel.create({
+                        userId: req.query.id,
+                        courseId: req.query.courseId,
+                        status: "pending",
+                        type: "refund"
+                    })
+                    res.status(200).json({
+                        message: "Your request has been received. The course refund will be added to your wallet shortly."
+                    })
+                }
+                else {
+                    res.status(200).json({
+                        message: "You have completed more than 50% of the course. Therefore, a refund is not possible."
+                    })
+                }
             }
         }
+        if (!trainee)
+            res.status(400).json({
+                message: "Something went wrong!"
+            })
     }
-    if (!trainee)
-        res.status(400).json({
-            message: "Something went wrong!"
-        })
 })
 
 module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }

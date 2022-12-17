@@ -201,7 +201,8 @@ const createCourse = asyncHandler(async (req, res) => {
             shortSummary: req.body.shortSummary,
             previewVideo: previewVideo,
             courseOutline: req.body.courseOutline,
-            exercise: exercise
+            exercise: exercise,
+            numberOfEnrolledStudents: 0
         })
 
         const instructor = await instructorModel.findById(req.body.instructorId)

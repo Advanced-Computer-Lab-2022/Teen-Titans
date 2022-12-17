@@ -55,6 +55,17 @@ const CoursesPage = () => {
             )
         }
     }
+    const requestRefund = async () => {
+        await axios.get(`/individual/requestRefund?id=${userId}&courseId=${courseId}`).then(
+            (res) => {
+                const json = res.data
+                if (json) {
+                    console.log(json);
+                    alert(json.message)
+                }
+            }
+        )
+    }
     const navigate = useNavigate();
     const toexercise = (subtitle) => {
         navigate('/exercise', { state: subtitle.exercise });
@@ -141,9 +152,19 @@ const CoursesPage = () => {
                         </div>
                     </div>
                     <div className='col-4'>
-                        <div>Percentage of the course completed:</div>
-                        <div className="progress">
-                            <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
+                        <div className='d-flex justify-content-between'>
+                            <div>
+                                <div>Percentage of the course completed:</div>
+                                <div className="progress">
+                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
+                                    {
+                                        course.percentageComplete === 100
+                                    }
+                                </div>
+                            </div>
+                            <div>
+                                <button className='danger' onClick={() => requestRefund()}>Drop Course</button>
+                            </div>
                         </div>
                         <h4 className='subtitles'>Subtitles:</h4>
                         {
