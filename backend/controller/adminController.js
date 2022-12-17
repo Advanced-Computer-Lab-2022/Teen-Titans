@@ -70,7 +70,7 @@ const selectedUser = asyncHandler(async (req, res) => {
 })
 
 const getRequests = asyncHandler(async (req, res) => {
-    const requests = await requestModel.find({})
+    const requests = await requestModel.find({type: "corporate"})
     res.status(200).json(requests)
 })
 

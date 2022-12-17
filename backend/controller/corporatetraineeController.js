@@ -101,7 +101,7 @@ console.log(res.status);
 const requestAccess = asyncHandler(async (req, res) => {
     console.log("inside request access");
     const request = await requestModel.create({userid:req.query.traineeId,
-        courseid:req.query.courseId,status:"pending"});
+        courseid:req.query.courseId,status:"pending",type:"corporate"});
     if(request){
         res.status(200).json({
             message: 'Request Sent!',request

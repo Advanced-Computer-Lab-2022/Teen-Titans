@@ -11,6 +11,9 @@ const requestSchema = mongoose.Schema({
     status: {
         type: String
     },
+    type:{
+        type:String
+    }
 })
 
 module.exports = mongoose.model('request', requestSchema)
