@@ -36,7 +36,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-const generateCertificate = async (req, res) => {
+const generateCertificateByEmail = async (req, res) => {
     // const doc = new PDFDocument();
     // doc
     //     .font('fonts/PalatinoBold.ttf')
@@ -54,8 +54,8 @@ const generateCertificate = async (req, res) => {
     else
         trainee = await individualTraineeModel.findById(req.query.id)
     const course = await courseModel.findById(req.query.courseId)
-    const doc = new jsPDF();
-    doc.text(`This certificate goes to ${trainee.firstName} for completing the ${course.title} course`, 10, 10);
+    // const doc = new jsPDF();
+    // doc.text(`This certificate goes to ${trainee.firstName} for completing the ${course.title} course`, 10, 10);
     // let insert_data = {};
     // insert_data.file_data = Binary(doc);
     //doc.save("certificate.pdf")
@@ -66,7 +66,7 @@ const generateCertificate = async (req, res) => {
         text: `Congratulations ${trainee.firstName}!
                 Here is your certificate.`,
         attachments: [{
-            filename: "certificate.pdf", path: "../certificate.pdf"
+            path: req.body.pdfToSend
         }]
     }
     if (trainee) {
@@ -84,6 +84,27 @@ const generateCertificate = async (req, res) => {
         })
     }
 }
+
+const generateCertificate = asyncHandler(async (req, res) => {
+    let trainee;
+    if (req.query.user === "corporateTrainee")
+        trainee = await corporateTraineeModel.findById(req.query.id)
+    else
+        trainee = await individualTraineeModel.findById(req.query.id)
+    const course = await courseModel.findById(req.query.courseId)
+    if (course) {
+        res.status(200).json({
+            name: `${trainee.firstName} ${trainee.lastName}`,
+            course: `Has completed the ${course.title} course.`,
+            instructor: course.instructorName
+        })
+    }
+    else {
+        res.status(400).json({
+            message: `Something went wrong!`
+        })
+    }
+})
 
 const forgotPassword = asyncHandler(async (req, res) => {
     const individualTrainee = await individualTraineeModel.exists({ email: req.body.email })
@@ -242,4 +263,4 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificate }
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificateByEmail, generateCertificate }
