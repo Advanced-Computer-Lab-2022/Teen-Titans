@@ -82,5 +82,9 @@ const watchPreviewVideo = asyncHandler(async (req, res) => {
     
 
 })
+const viewMostPopularCourses = asyncHandler(async(req,res)=>{
+    const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1 ,price:1,numberOfEnrolledStudents:1}).sort({numberOfEnrolledStudents:-1}).limit(5)
+    res.status(200).json(popularCourses)
+})
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC,watchPreviewVideo }
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC,watchPreviewVideo,viewMostPopularCourses }

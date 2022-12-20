@@ -170,4 +170,11 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
+
+//view most popular courses??????
+const viewMostPopularCourses = asyncHandler(async (req,res)=>{
+
+}
+)
+
 module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }

@@ -3,9 +3,9 @@ const courseModel = require('../models/courseModel')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const getCourses = async (req, res) => {
     console.log("getcourses")
-    const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1 })
+    const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1,price:1,courseOutline:1 })
 
-    res.status(200).json(courses)
+    res.json(courses)
 }
 
 const getPrices = async (req, res) => {

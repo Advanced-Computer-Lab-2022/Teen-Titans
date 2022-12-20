@@ -4,20 +4,73 @@ const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
 const exerciseModel = require('../models/exerciseModel')
-const definePromotion = async (req, res) => {
-    const { id } = req.params
+// const definePromotion = async (req, res) => {
+//     const { id } = req.params
 
-    const course = await courseModel.findOneAndUpdate({ _id: id }, {
-        discount: {
-            amount: req.body.amount,
-            duration: req.body.duration
+//     const course = await courseModel.findOneAndUpdate({ _id: id }, {
+//         discount: {
+//             amount: req.body.amount,
+//             duration: req.body.duration,
+          
+//         },
+//         price : price - price*(amount/100)
+//     }, { new: true })
+//     if (!course) {
+//         return res.status(400).json({ error: 'No such course' })
+//     }
+//     res.status(200).json(course)
+// }
+const definePromotion = asyncHandler(async (req, res) => {
+    const { courseId } = req.params
+    const course = await courseModel.findById( courseId )
+    //let coursePrice = course.price
+    if(course.discount.amount!=0){
+        return res.status(400).json({ error: 'There is already a discount applied' })
+    }
+   else{
+       let courseEndDate = req.body.endDate
+       courseEndDate = courseEndDate+'T00:00:00.000+00:00'
+        const course1 = await courseModel.findOneAndUpdate({ _id: courseId }, {
+            discount: {
+                amount: req.body.amount,
+                //startDate: req.body.startDate,
+                endDate: courseEndDate
+               
+            },
+        }, { new: true })
+
+
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let currentDate = `${year}-${month}-${day}`;
+        // "17-6-2022"
+        console.log(course1.discount.endDate)
+         currentDate= currentDate+'T00:00:00.000+00:00'
+         if(endDate<currentDate){
+            return res.status(400).json({ error: 'invalid end date' })
+         }
+         console.log(currentDate); 
+        if(currentDate>course1.discount.endDate){
+            const course2 = await courseModel.findOneAndUpdate({_id:id},{
+
+                amount:0,
+                endDate: ""
+               })
         }
-    }, { new: true })
+    
+        res.status(200).json(course)  
+  }
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }
-    res.status(200).json(course)
-}
+    //res.status(200).json(course)
+})
+
 
 const editEmail = async (req, res) => {
     const { id } = req.params
@@ -179,7 +232,7 @@ const createCourse = asyncHandler(async (req, res) => {
             },
         })
 
-        const course = new course({
+        const course = await courseModel.create({
             hours: totalHours,
             ratings: {
                 oneStar: 0,
@@ -193,59 +246,19 @@ const createCourse = asyncHandler(async (req, res) => {
             title: req.body.title,
             price: req.body.price,
             discount: {
-                amount: req.body.amount,
-                duration:req.body.duration
+                amount:0,
+                endDate: ""
             },
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
-            subtitles:{ title:req.body.subtitle,
-                exercise:{questionOne: {
-                    question: "1+1=?",
-            
-                    options:[{id:0,Text:"2",isCorrect:true},
-                    {id:1,Text:"3",isCorrect:false},
-                    {id:2,Text:"4",isCorrect:false},
-                    {id:3,Text:"5",isCorrect:false},]},
-                    questionTwo: { 
-                        question:"2+2=?",
-                        options:[{id:0,Text:"3",isCorrect:false},
-                        {id:1,Text:"2",isCorrect:false},
-                        {id:2,Text:"4",isCorrect:true},
-                        {id:3,Text:"0",isCorrect:false},]
-                        },
-                },
-            
-            },
+            subtitles: subtitles,
             shortSummary: req.body.shortSummary,
             previewVideo: previewVideo,
             courseOutline: req.body.courseOutline,
             exercise: exercise,
-            courseExam:{
-                questionOne:{
-                    question:req.body.question1,
-                    answer: req.body.answer1,
-                    options:[{id:0,Text:req.body.Text1,isCorrect:req.body.isCorrect1},
-                    {id:1,Text:req.body.Text2,isCorrect:req.body.isCorrect2},
-                    {id:2,Text:req.body.Text3,isCorrect:req.body.isCorrect3},
-                    {id:3,Text:req.body.Text4,isCorrect:req.body.isCorrect4}]
-                    }
-    
-                ,
-                questionTwo:{
-                    question:req.body.question2,
-                    answer: req.body.answer2,
-                    options:[{id:0,Text:req.body.Text5,isCorrect:req.body.isCorrect5},
-                    {id:1,Text:req.body.Text6,isCorrect:req.body.isCorrect6},
-                    {id:2,Text:req.body.Text7,isCorrect:req.body.isCorrect7},
-                    {id:3,Text:req.body.Text8,isCorrect:req.body.isCorrect8}]
-                }
-            }
-        });
-
-        const createCourse = await course.save();
-
-
+            numberOfEnrolledStudents:0
+        })
 
         const instructor = await instructorModel.findById(req.body.instructorId)
         const instructorCourses = instructor.courses
@@ -255,7 +268,6 @@ const createCourse = asyncHandler(async (req, res) => {
 
     }
 })
-
 const getCoursesTitles = asyncHandler(async (req, res) => {
     try {
 

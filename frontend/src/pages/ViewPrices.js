@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 
 import CoursePrice from '../components/CoursePrice'
 import Search from '../components/Search'
+import PopularCourses from '../components/PopularCourses'
 // import Subjects from '../components/Subjects';
 import '../index.css';
 import CourseForm from '../components/CourseForm'
+import ViewCoursesPage from './ViewCoursesPage';
 const ViewPrices = () => {
     const [courses, setCourses] = useState(null)
     // const [search, setSearch] = useState('');
@@ -27,9 +29,13 @@ const ViewPrices = () => {
             <div className='prices'>
                 {courses && courses.map((course) => (
                     <CoursePrice key={course._id} course={course} />
-                ))}
-            </div>
+                 
 
+                ))}
+                  
+            </div>
+          
+            <ViewCoursesPage/>
         </div>
     )
 }

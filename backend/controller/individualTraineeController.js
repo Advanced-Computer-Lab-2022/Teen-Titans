@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel');
+const { db } = require('../models/videoModel');
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -37,8 +38,25 @@ const signUp = asyncHandler(async (req, res) => {
 
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
-    const courses = findUser.enrolledCourses
-    courses.push(req.body.courseId)
+    const courseId = req.body.courseId
+    const course = await courseModel.findById(courseId)
+    let newEnrolled = course.numberOfEnrolledStudents;
+    console.log(newEnrolled);
+    newEnrolled++;
+
+   console.log(newEnrolled);
+   //course.numberOfEnrolledStudents = newEnrolled;
+  
+   const course1 = await courseModel.findByIdAndUpdate(courseId,{numberOfEnrolledStudents:newEnrolled}, {new: true})
+   console.log(course.numberOfEnrolledStudents);
+   const courses = findUser.enrolledCourses
+    courses.push({
+        course: course,
+        videosSeen: [],
+        numberComplete: 0,
+        percentageComplete: 0
+    })
+    // console.log(courses);
     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
@@ -123,5 +141,16 @@ const watchPreviewVideo = asyncHandler(async (req, res) => {
 
 })
 
+// view most popular courses
+const viewMostPopularCourses = asyncHandler(async(req,res)=>{
+    const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1 ,price:1,numberOfEnrolledStudents:1}).sort({numberOfEnrolledStudents:-1}).limit(5)
+    res.status(200).json(popularCourses)
+})
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo,watchPreviewVideo }
+
+
+//enter credit card info
+
+
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo,watchPreviewVideo,viewMostPopularCourses }

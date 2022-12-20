@@ -39,7 +39,7 @@ const EditBiography = ({ id }) => {
         <input id='biography'></input>
 
         <button onClick={() => editBiographyInstructor()}>Edit</button>
-
+        <span>{message}</span>
       </div>
     </div>
   )

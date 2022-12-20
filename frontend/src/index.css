@@ -75,7 +75,7 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-.course-price {
+.course-price  {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -83,6 +83,7 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
+ 
 }
 .course-price h4 {
   margin: 0 0 10px 0;
@@ -93,6 +94,7 @@ header a {
   margin: 0;
   font-size: 0.9em;
   color: #555;
+ 
 }
 label,
 input {
@@ -291,13 +293,16 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-.course-price {
-  background: #fff;
+
+.course-price  {
+  margin: auto;
+  background:  white;
   border-radius: 4px;
   margin: 20px auto;
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+
 }
 .course-price h4 {
   margin: 0 0 10px 0;
@@ -317,6 +322,7 @@ header a {
   background-color: white;
   border-radius: 4px;
 }
+
 .heading {
   margin: 0;
   font-size: 16px;
@@ -345,7 +351,7 @@ header a {
   align-items: center;
   justify-content: center;
   box-shadow: var(--box-shadow);
-  background-color: white;
+  background-color:white;
   border-radius: 4px;
 }
 .sort_by {

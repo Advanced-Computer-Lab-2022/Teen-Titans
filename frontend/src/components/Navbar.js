@@ -7,7 +7,7 @@ const Navbar = () => {
             <div className="container">
                 <Link to="/">
                     <h1>
-                        Home Page
+                        Knowledge Boost
                     </h1>
                 </Link>
                 <button onClick={() => window.location.href = `/changePassword`}>Account</button>

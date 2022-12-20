@@ -39,7 +39,7 @@ const EditEmail = ({ id }) => {
         <input id='email'></input>
 
         <button onClick={() => editEmailInstructor()}>Edit</button>
-
+        <span>{message}</span>
       </div>
     </div>
   )

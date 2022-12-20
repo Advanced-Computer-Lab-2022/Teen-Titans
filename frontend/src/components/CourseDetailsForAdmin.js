@@ -8,7 +8,7 @@ const CourseDetails = ({ course }) => {
   
    
         <div className="course-details">
-           <h4> Popular!</h4>
+          
             <h4>
            
 
@@ -18,6 +18,7 @@ const CourseDetails = ({ course }) => {
             <p><strong>course rating:</strong> {course.rating}</p>
             <p><strong>course hours:</strong> {course.hours}</p>
             <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
+            <button onClick={() => window.location.href = `/discount?courseId=${course._id}`}>Define promotion</button>
 
         </div>
 

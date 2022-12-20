@@ -27,6 +27,8 @@ import ExamForm from './components/CreateExam';
 import CourseExamForm from './components/CreateCourseExam';
 import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
+import CreditCardForm from './components/CreditCard';
+import AdminDiscount from './components/AdminDiscount';
 
 function App() {
 
@@ -61,6 +63,15 @@ function App() {
             <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
             <Route path='/copyrights' element={<Copyrights />}></Route>
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
+            <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
+
+     {/* <body>
+      <div id="root">
+      <Route path='/pay' element={<CreditCardForm />}></Route>
+      </div>
+     </body> */}
+
+            <Route path='/pay' element={<CreditCardForm />}></Route>
           </Routes>
         </div>
 

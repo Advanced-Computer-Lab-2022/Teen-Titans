@@ -11,7 +11,7 @@ const ViewCoursesPage = ()=>{
     const [courses,setCourses]= useState(null)
     useEffect(()=>{
         const fetchCourses= async()=>{
-            const response = await fetch('/viewCourses')
+            const response = await fetch('individualTrainee/viewPopularCourses')
             const json= await response.json()
 
             if(response.ok){
