@@ -24,7 +24,7 @@ const signUp = asyncHandler(async (req, res) => {
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        gender: req.body.wallet,
+        gender: req.body.gender,
         country: req.body.country,
         wallet: req.body.wallet,
         enrolledCourses: req.body.enrolledCourses

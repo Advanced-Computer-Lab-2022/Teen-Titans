@@ -1,5 +1,5 @@
 const TippySubtitles = ({ subtitle }) => {
-    console.log(subtitle);
+    // console.log(subtitle);
     return (
         <div>
             <div className="onHover-details d-flex flex-column justify-content-start align-items-start">

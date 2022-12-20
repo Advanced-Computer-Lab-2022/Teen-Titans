@@ -19,29 +19,27 @@ const Search = ({ courses }) => {
     }
 
     return (
-        <div className="col-12 mb-5">
-            <div className="mb-3 col-4 mx-auto text-center">
-                <input
-                    type="text"
-                    className="from-control mt-4"
-                    id='searchKey'
-                    placeholder='search'
-                // onChange={(e) => setSearch(e.target.value)}
-                />
-                <button id='searchButton' onClick={() => searchGet()}>Search</button>
-
-
-                {searchResults &&
-                    searchResults.map((course) => (
-                        <div className="box" key={course.id}>
-                            <p>{course.title}</p>
-                            <p>Price: {course.price * conversion_rate} {target_code}</p>
-                            <p>Instructor: {course.instructorName}</p>
-                        </div>
-                    ))
-                }
-            </div>
+        // <div className="col-12 mb-5">
+        <div className="mb-3 col-4 mx-auto text-center">
+            <input
+                type="text"
+                className="from-control mt-4"
+                id='searchKey'
+                placeholder='search'
+            // onChange={(e) => setSearch(e.target.value)}
+            />
+            <button id='searchButton' onClick={() => searchGet()}>Search</button>
+            {searchResults &&
+                searchResults.map((course) => (
+                    <div className="box" key={course.id}>
+                        <p>{course.title}</p>
+                        <p>Price: {course.price * conversion_rate} {target_code}</p>
+                        <p>Instructor: {course.instructorName}</p>
+                    </div>
+                ))
+            }
         </div>
+        // </div>
     )
 }
 export default Search

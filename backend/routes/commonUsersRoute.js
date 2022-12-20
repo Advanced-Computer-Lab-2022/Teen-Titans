@@ -13,7 +13,7 @@ commonUsersRouter.patch('/review', addReview)
 commonUsersRouter.patch('/instructorReview', addInstructorReview)
 commonUsersRouter.patch('/rateCourse', RatingCourses)
 commonUsersRouter.patch('/rateInstructor', RatingInstructor)
-commonUsersRouter.get('/getCertificateByEmail', generateCertificateByEmail)
+commonUsersRouter.post('/getCertificateByEmail', generateCertificateByEmail)
 commonUsersRouter.get('/getCertificate', generateCertificate)
 
 module.exports = commonUsersRouter

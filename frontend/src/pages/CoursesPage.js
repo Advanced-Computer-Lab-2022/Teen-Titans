@@ -9,6 +9,7 @@ import "bootstrap/js/src/collapse.js";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Icon from 'react-bootstrap-icons';
+import { EditorState, ContentState, convertToRaw, convertFromHTML, } from 'draft-js';
 // import { BsFillGearFill } from "react-bootstrap-icons";
 const CoursesPage = () => {
 
@@ -24,24 +25,33 @@ const CoursesPage = () => {
     // const conversion_rate = country.conversion_rate
     // const target_code = country.target_code
     const [notes, setNotes] = useState(``);
-    const getNotes = (text) => {
-        const notes = text.replace(/(<([^>]+)>)/ig, '');
+    const getNotes = (notes) => {
+        // const notes = text.replace(/(<([^>]+)>)/ig, '');
         setNotes(notes);
-        console.log(notes);
+        // console.log(notes);
     };
 
     const generateNotesPDF = () => {
-        const doc = new jsPDF();
-        // const content = notes.innerHTML
-        doc.text(notes, 10, 10);
+        // console.log("hi");
+        // const doc = new jsPDF();
+        // const content = convertFromHTML(notes)
+        // doc.text(content, 10, 10);
 
-        doc.setFont("courier")
+        // doc.setFont("courier")
 
-        doc.setFontSize(50)
+        // doc.setFontSize(50)
 
         // doc.text("There is more text", 10, 50);
 
-        doc.save("Notes.pdf");
+        // doc.save("Notes.pdf");
+
+        const blob = new Blob(notes, { type: "text/plain" });
+        console.log(notes);
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "Notes.txt";
+        link.href = url;
+        link.click();
     }
 
     const watchedVideo = async () => {
