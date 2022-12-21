@@ -14,7 +14,7 @@ const CoursePrice = ({ course }) => {
         await axios.get(`viewCourses/onHover?id=${id}`).then(
             (res) => {
                 const json = res.data
-                console.log(json);
+                // console.log(json);
                 if (json) {
                     setCourseData(json)
                     // console.log(courseData);
@@ -34,8 +34,9 @@ const CoursePrice = ({ course }) => {
             <p><strong>course rating:</strong> {course.rating}</p>
             <p><strong>course hours:</strong> {course.hours}</p>
             {
+                courseData &&
                 <div className="my-container">
-                    <Tippy content={<Details course={courseData}></Details>} placement='left' theme="light">
+                    <Tippy content={<Details course={courseData} key={courseData.id}></Details>} placement='left' theme="light">
                         <button>Details</button>
                     </Tippy>
                 </div>

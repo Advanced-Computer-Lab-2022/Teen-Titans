@@ -5,10 +5,24 @@ const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
 const Binary = require('mongodb').Binary;
-// const PDFDocument = require('pdfkit');
+const PDFDocument = require('pdfkit');
 const fs = require("fs");
+const { jsPDF } = require("jspdf");
 
-const { jsPDF } = require("jspdf"); // will automatically load the node version
+const multer = require('multer');
+// const upload = multer({ dest: os.tmpdir() });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'assets')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+const upload = multer({ storage: storage });
+
 
 const options = {
     format: "A3",
@@ -36,29 +50,14 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-const generateCertificate = async (req, res) => {
-    // const doc = new PDFDocument();
-    // doc
-    //     .font('fonts/PalatinoBold.ttf')
-    //     .fontSize(25)
-    //     .text('Some text with an embedded font!', 100, 100);
-
-    // doc.end()
-    // const stream = res.writeHead(200, {
-    //     'Content-Type': 'application/pdf',
-    //     'Content-Disposition': 'attachment;filename=certificate.pdf'
-    // })
+const generateCertificateByEmail = async (req, res) => {
+    const pdfToSend = req.files.file.data
     let trainee;
     if (req.query.user === "corporateTrainee")
         trainee = await corporateTraineeModel.findById(req.query.id)
     else
         trainee = await individualTraineeModel.findById(req.query.id)
     const course = await courseModel.findById(req.query.courseId)
-    const doc = new jsPDF();
-    doc.text(`This certificate goes to ${trainee.firstName} for completing the ${course.title} course`, 10, 10);
-    // let insert_data = {};
-    // insert_data.file_data = Binary(doc);
-    //doc.save("certificate.pdf")
     const options = {
         from: "knowledgeBoost@outlook.com",
         to: trainee.email,
@@ -66,24 +65,46 @@ const generateCertificate = async (req, res) => {
         text: `Congratulations ${trainee.firstName}!
                 Here is your certificate.`,
         attachments: [{
-            filename: "certificate.pdf", path: "../certificate.pdf"
+            filename: 'Certificate.pdf',
+            content: pdfToSend,
+            contentType: 'application/pdf',
+            encoding: 'base64'
         }]
     }
     if (trainee) {
         transporter.sendMail(options, function (err, info) {
             if (err) {
-                // fs.unlinkSync(doc.path());
-                // console.log("Delete File successfully.");
                 res.status(400).json(err)
             }
             else {
-                // fs.unlinkSync(doc.path());
-                // console.log("Delete File successfully.");
-                res.status(200).json(trainee)
+                res.status(200).json({
+                    message: 'Email Sent!'
+                })
             }
         })
     }
 }
+
+const generateCertificate = asyncHandler(async (req, res) => {
+    let trainee;
+    if (req.query.user === "corporateTrainee")
+        trainee = await corporateTraineeModel.findById(req.query.id)
+    else
+        trainee = await individualTraineeModel.findById(req.query.id)
+    const course = await courseModel.findById(req.query.courseId)
+    if (course) {
+        res.status(200).json({
+            name: `${trainee.firstName} ${trainee.lastName}`,
+            course: `Has completed the ${course.title} course.`,
+            instructor: course.instructorName
+        })
+    }
+    else {
+        res.status(400).json({
+            message: `Something went wrong!`
+        })
+    }
+})
 
 const forgotPassword = asyncHandler(async (req, res) => {
     const individualTrainee = await individualTraineeModel.exists({ email: req.body.email })
@@ -242,4 +263,4 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificate }
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificateByEmail, generateCertificate }

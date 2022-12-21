@@ -1,5 +1,7 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 var cors = require('cors')
+const fileupload = require("express-fileupload");
 const dotenv = require('dotenv').config('.env')
 const dbConnection = require('./configuration/db')
 const countryRoute = require('./routes/countryRoute')
@@ -19,7 +21,11 @@ port = process.env.PORT || 5000
 dbConnection()
 const app = express()
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(fileupload());
+// app.use(express.urlencoded({ extended: false }))
+// app.use(bodyParser.json({ limit: '10mb', extended: true }))
+// app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.raw())
 app.use(cors())
 
