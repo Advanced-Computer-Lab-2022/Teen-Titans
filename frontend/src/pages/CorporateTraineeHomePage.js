@@ -1,26 +1,38 @@
 import { useEffect, useState } from "react";
-//import TraineeViewCourses from "../components/TraineeViewCourses";
-import AppRate from "../components/Rate2";
-// import axios from 'axios';
+import TraineeViewCourses from "../components/TraineeViewCourses";
+// import AppRate from "../components/Rate";
+// import Search from "../components/Search";
+import CorporateTraineeSearch from "../components/CorporateTraineeSearch";
 const CorporateTrainee = () => {
     const [id, setId] = useState('');
-   
-     
     const saveId = () => {
         setId(document.getElementById("id").value)
         localStorage.setItem('id', id)
         localStorage.setItem('user', "corporateTrainee")
+     
+        
     }
     return (
+
+
+        
         <div className="home">
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>
+
+            
+                <br></br>
+                <br></br>
             {/* <button onClick={getDetails()}>View Courses</button> */}
-            <div className="courses">
-                {/* <TraineeViewCourses key={id} id={id} /> */}
+            <div className="courses" >
+                <h1>My Courses</h1>
+                <TraineeViewCourses key={id} id={id} />
             </div>
-            <AppRate/>
+            {/* <AppRate /> */}
+
+
+            
         </div>
     )
 }

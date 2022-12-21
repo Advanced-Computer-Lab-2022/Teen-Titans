@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
+const subtitleModel = require('./subtitleModel')
+const exerciseModel = require('./exerciseModel')
+const videoModel = require('./videoModel')
 const ratingsModel = require('./ratingsModel')
+// const { ObjectId } = mongoose.Schema;
+
 const courseSchema = mongoose.Schema({
     hours: {
         type: Number
@@ -7,7 +12,6 @@ const courseSchema = mongoose.Schema({
     rating: {
         type: Number
     },
-   
     ratings: ratingsModel.schema,
     reviews: [{
         type: String
@@ -21,7 +25,13 @@ const courseSchema = mongoose.Schema({
         required: true
     },
     discount: {
-        type: Number
+        amount: {
+            type: Number,
+
+        },
+        duration: {
+            type: String
+        }
     },
     subject: {
         type: String
@@ -34,43 +44,21 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    subtitles: [{
-        hours: {
-            type: String,
-            required: true
-        }, 
-        videos: [{
-            url: {
-                type: String,
-                required: true
-            },
-            shortDescription: {
-                type: String,
-                required: true
-            }
-        }],
-        exercises: [{
-            type: String,
-            required: true
-        }]
-    }],
-    shortSummary:{
+    subtitles: [subtitleModel.schema],
+    shortSummary: {
         type: String,
         required: true
     },
-    previewVideo: {
-        url: {
-            type: String
-        },
-        shortDescription: {
-            type: String
-        }
-    },
+    previewVideo: videoModel.schema,
     courseOutline: {
         type: String
+    },
+    exercise: exerciseModel.schema,
+    numberOfEnrolledStudents: {
+        type: Number
     }
-    
-},{
+
+}, {
     timestamps: true
 })
 

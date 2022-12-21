@@ -1,0 +1,157 @@
+.App {
+	text-align: center;
+}
+
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.wrapper {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: var(--box-shadow);
+	/* display: flex; */
+	/* flex-direction: column; */
+	/* overflow: hidden; */
+	background-color: white;
+}
+
+.container button {
+	border-top: none;
+	border-bottom: none;
+	border-width: 1px;
+	background-color: white;
+	height: 100%;
+}
+
+.head {
+	display: flex;
+	align-content: center;
+	height: 80px;
+	background-color: black;
+	justify-content: space-between;
+}
+
+.logo {
+	width: 100px;
+	object-fit: contain;
+	margin-left: 15px;
+}
+
+.body {
+	height: 500px;
+	display: flex;
+}
+
+.table_container {
+	flex: 3;
+	position: relative;
+}
+
+.filter_container {
+	flex: 1;
+}
+
+.trainee-courses {
+	width: 25%;
+	float: right;
+}
+
+
+
+.home button {
+	margin: 10px;
+	border: none;
+	background-color: aliceblue;
+	padding: 5px 15px;
+	color: mediumaquamarine;
+	border-radius: 5px;
+}
+
+.display-courses {
+	width: 100%;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: var(--box-shadow);
+
+	background-color: white;
+}
+
+.exercise {
+	width: 300px;
+	margin: 5px;
+	font-size: 8px;
+}
+
+
+.search{
+	float:right;
+}
+
+.course-details1 {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+.danger {
+	/* top: 10px; */
+	border: none;
+	background-color: rgb(255, 240, 240);
+	padding: 5px 10px;
+	color: red;
+	border-radius: 5px;
+}
+.btn2 {
+	border: none;
+	background-color: aliceblue;
+	padding: 5px 15px;
+	color: mediumaquamarine;
+	border-radius: 5px;
+}
+
+.wallet{
+	float:left;
+}
+

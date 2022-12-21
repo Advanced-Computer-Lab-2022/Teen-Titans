@@ -1,8 +1,10 @@
 const asyncHandler = require('express-async-handler')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
-//const nodemailer = require('nodemailer')
-const courseModel=require('../models/courseModel')
-const instructorModel=require('../models/instructorModel')
+const courseModel = require('../models/courseModel')
+const videoModel = require('../models/videoModel')
+const nodemailer = require('nodemailer')
+const subtitleModel = require('../models/subtitleModel')
+
 const changePassword = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.body.id);
     if (user.password == req.body.oldPassword) {
@@ -17,62 +19,56 @@ const changePassword = asyncHandler(async (req, res) => {
         })
 })
 
-const RatingCourses = async (req, res) => {
-    const id = req.query.id
-    const rating1 = req.body.rating
-    const courseBeforeUpdate = await courseModel.findById(id)
-    let ratings = courseBeforeUpdate.ratings
-    if (rating1 == 1) {
-        ratings.oneStar++
-    }
-    else if (rating1 == 2) {
-        ratings.twoStar++
-    }
-    else if (rating1 == 3) {
-        ratings.threeStar++
-    }
-    else if (rating1 == 4) {
-        ratings.fourStar++
-    }
-    else if (rating1 == 5) {
-        ratings.fiveStar++
-    }
-    const avgRating = (5 * ratings.fiveStar + 4 * ratings.fourStar + 3 * ratings.threeStar + 2 * ratings.twoStar + 1 * ratings.oneStar) / (ratings.fiveStar + ratings.fourStar + ratings.threeStar + ratings.twoStar + ratings.oneStar)
-    const course = await courseModel.findByIdAndUpdate(id, { ratings: ratings, rating: avgRating })
+const registerForCourse = asyncHandler(async (req, res) => {
+    const findUser = await corporateTraineeModel.findById(req.body.id);
+    const courses = findUser.enrolledCourses
+    courses.push(req.body.courseId)
+    const user = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
+    if (user)
+        res.status(200).json({
+            message: 'Registration Successful!'
+        })
+    else
+        res.status(400).json({
+            message: 'Registration Unsuccessful!'
+        })
+})
 
-    res.status(200).json(course.ratings)
-
-}
-  
-const RatingInstructor = async(req,res)=>{
-    const id = req.query.id
-    const rating1 = req.body.rating
-    const instructorBeforeUpdate = await instructorModel.findById(id)
-    let ratings = instructorBeforeUpdate.ratings
-    if (rating1 == 1) {
-        ratings.oneStar++
+const myCourses = asyncHandler(async (req, res) => {
+    const user = await corporateTraineeModel.findById(req.query.id);
+    let enrolledCourses = user.enrolledCourses;
+    let result = []
+    if (user) {
+        for (let i = 0; i < enrolledCourses.length; i++) {
+            const courseDetails = await courseModel.findById(enrolledCourses[i].id)
+            result.push(courseDetails)
+        }
+        res.status(200).json(result)
     }
-    else if (rating1 == 2) {
-        ratings.twoStar++
-    }
-    else if (rating1 == 3) {
-        ratings.threeStar++
-    }
-    else if (rating1 == 4) {
-        ratings.fourStar++
-    }
-    else if (rating1 == 5) {
-        ratings.fiveStar++
-    }
-    const avgRating = (5 * ratings.fiveStar + 4 * ratings.fourStar + 3 * ratings.threeStar + 2 * ratings.twoStar + 1 * ratings.oneStar) / (ratings.fiveStar + ratings.fourStar + ratings.threeStar + ratings.twoStar + ratings.oneStar)
-    const instructor = await instructorModel.findByIdAndUpdate(id, { ratings: ratings, rating: avgRating })
-
-    res.status(200).json(instructor.ratings)
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
+})
 
 
+const watchVideoC = asyncHandler(async (req, res) => {
+    const user = await corporateTraineeModel.findById(req.query.id);
+    let videoUrl = ''
+    if (user) {
+        for (let i = 0; i < user.enrolledCourses.length; i++) {
+            if (user.enrolledCourses[i].id == req.query.courseId) {
+                const video = await videoModel.findById(req.query.videoId)
+                videoUrl = video.url
+                res.status(200).json(video)
+            }
+        }
+    }
+    if (user && videoUrl == '')
+        res.status(400).json({
+            message: 'Unauthorized Access!'
+        })
 
-}
+})
 
-
-
-module.exports = { changePassword ,RatingCourses,RatingInstructor}
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC }
