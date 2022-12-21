@@ -15,4 +15,6 @@ individualTraineeRouter.patch('/changePassword', changePassword)
 
 individualTraineeRouter.post('/registerForCourse', registerForCourse)
 
+
+
 module.exports = individualTraineeRouter

@@ -39,7 +39,7 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
     res.json(courseData)
 })
 
-const openCourse = asyncHandler(async (req, res) => {
+const opencourse = asyncHandler(async (req, res) => {
     const viewCourse = await courseModel.findById(req.query.courseid)
     res.status(200).json(viewCourse)
 })
@@ -79,4 +79,4 @@ const filterSubject = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, openCourse }
+module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, opencourse }

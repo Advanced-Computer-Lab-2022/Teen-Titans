@@ -66,7 +66,7 @@ const viewMyCourses = asyncHandler(async (req, res) => {
     let result = []
     if (user) {
         for (let i = 0; i < enrolledCourses.length; i++) {
-            const courseDetails = await courseModel.findById(enrolledCourses[i].course.id)
+            const courseDetails = await courseModel.findById(enrolledCourses[i].course .id)
             result.push(courseDetails)
         }
         res.status(200).json(result)
@@ -78,6 +78,7 @@ const viewMyCourses = asyncHandler(async (req, res) => {
 })
 
 const openCourse = asyncHandler(async (req, res) => {
+    console.log(req.query.id,"id backedn");
     const trainee = await individualTraineeModel.findById(req.query.id)
     let viewCourse;
     for (let i = 0; i < trainee.enrolledCourses.length; i++) {
@@ -90,8 +91,11 @@ const openCourse = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: "Course not found!"
         })
-
 })
+
+
+
+
 
 const recursiveFunction = function (arr, x, start, end) {
 
@@ -153,7 +157,7 @@ const viewWallet = asyncHandler(async (req, res) => {
         })
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, viewWallet }
+// module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, viewWallet }
 const videoSeen = asyncHandler(async (req, res) => {
     const trainee = await individualTraineeModel.findById(req.query.id)
     let enrolledCourses = trainee.enrolledCourses
@@ -222,4 +226,29 @@ const requestRefund = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }
+const Refund = asyncHandler(async (req, res) => {
+    const user = await individualTraineeModel.findById(req.body.id)
+    const wallet = user.wallet
+    const newWallet = wallet + req.body.amount
+    const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { wallet: newWallet })
+//   await individualTraineeModel.findByIdAndDelete(req.body.id, { enrolledCourses: req.body. })
+let enrolledCourses = user.enrolledCourses;
+result=[]
+if (user) {
+    for (let i = 0; i < enrolledCourses.length; i++) {
+        if(enrolledCourses[i].course.id == req.body.courseId){
+        }
+        else{
+        result.push(enrolledCourses[i])
+        }
+    }
+    await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: result })
+}
+
+    res.status(200).json({
+        message: 'Wallet Updated!',individualTrainee
+    })
+
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund, viewWallet ,Refund}

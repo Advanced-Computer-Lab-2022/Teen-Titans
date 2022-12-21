@@ -27,6 +27,7 @@ import CourseExamForm from './components/CreateCourseExam';
 import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
 import Requests from './pages/Requests';
+import Refunds from './pages/Refunds';
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
             <Route path='/copyrights' element={<Copyrights />}></Route>
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
             <Route path='/requests' element={<Requests />}></Route>
+            <Route path='/refunds' element={<Refunds />}></Route>
           </Routes>
         </div>
 

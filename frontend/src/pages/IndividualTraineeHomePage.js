@@ -6,6 +6,10 @@ import axios from 'axios';
 const IndividualTrainee = () => {
     const [id, setId] = useState('');
    const [Wallet,setWallet]= useState(-1)
+   const country = JSON.parse(localStorage.getItem('country'))
+const conversion_rate = country.conversion_rate
+const target_code = country.target_code
+
     const saveId = () => {
         setId(document.getElementById("id").value)
         localStorage.setItem('id', id)
@@ -27,7 +31,7 @@ console.log("id " + id);
                         const json = res.data
                        
                         console.log( "json" ,json);
-                            setWallet(json)
+                            setWallet(Math.round(json))
                             console.log("wallet data " + Wallet);
                     
                 }
@@ -43,13 +47,17 @@ console.log("id " + id);
             <input id='id'></input>
             <button onClick={() =>saveId()}>Save</button>
       
-            <div className="courses">
+
+            <div className="courses" >
+                <h1>My Courses</h1>
                 <TraineeViewCourses key={id} id={id} />
             </div>
+
+
             {/* <AppRate /> */}
             <div className="wallet">
                 <h3>Wallet</h3>
-                <h4>{Wallet}</h4>
+                <h4>{Wallet} {target_code}</h4>
               
               
             </div>

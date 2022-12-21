@@ -5,10 +5,16 @@ import {  useNavigate } from 'react-router-dom';
 const Admin = () => {
     const [message, setMessage] = useState('')
     const [requests, setRequests] = useState(null)
+    const [refunds, setRefunds] = useState(null)
+
 
     const navigate = useNavigate();
     const torequests = () => {
         navigate('/requests',{ state: requests });
+    }
+
+    const torefundrequests = () => {
+        navigate('/refunds',{ state: refunds });
     }
     useEffect(()=>{
                 const fetchRequests= async()=>{
@@ -20,7 +26,17 @@ const Admin = () => {
                         console.log("rquests back in admin",json)
                     }
                 }
-                fetchRequests()  },[])
+                const fetchRefunds= async()=>{
+                    const response = await fetch(`http://localhost:5000/admin/getRefunds`)
+                    const json= await response.json()
+        
+                    if(response.ok){
+                        setRefunds(json)
+                        console.log("refunds back in admin",json)
+                    }
+                }
+                fetchRequests() 
+                fetchRefunds() },[])
     
     const addUser = async () => {
         if (document.getElementById("username").value == "" || document.getElementById("password").value == "") {
@@ -63,7 +79,9 @@ const Admin = () => {
                 <span>{message}</span>
             </div>
             <br></br>
-            <button onClick={() =>{ torequests() }}>View Requests</button>
+            <button onClick={() =>{ torequests() }}> Course Access Requests</button>
+            <br></br>
+            <button onClick={() =>{ torefundrequests() }}> Refund Requests</button>
         </div>
     )
 }

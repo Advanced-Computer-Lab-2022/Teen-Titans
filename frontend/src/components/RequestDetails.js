@@ -4,7 +4,7 @@ import { useEffect,useState } from "react";
 
 const RequestDetails = (request)=>{
     console.log("request IN REQUEST DETAILSPAGE",request);
-    console.log("course id",request.request.courseid);
+    console.log("course id",request.request.courseId);
 const [course,setCourse]= useState(null)
 const [user,setUser]= useState(null)
 const [error,setError]= useState(null)
@@ -13,7 +13,7 @@ const [show,setShow]= useState(true)
      
     const fetchCourse= async()=>{
         
-        const response = await fetch(`http://localhost:5000/myCourse/openCourse?courseid=${request.request.courseid}`)
+        const response = await fetch(`http://localhost:5000/myCourse/openCourse?courseid=${request.request.courseId}`)
         const json= await response.json()
        
 
@@ -24,7 +24,7 @@ const [show,setShow]= useState(true)
         }
     }
         const fetchUser= async()=>{
-            const response = await fetch(`http://localhost:5000/admin/getTrainee?traineeid=${request.request.userid}`)
+            const response = await fetch(`http://localhost:5000/admin/getTrainee?traineeid=${request.request.userId}`)
             const json= await response.json()
 
             if(response.ok){
@@ -43,8 +43,8 @@ const Accept= async()=>{
     const response = await fetch(`http://localhost:5000/corporateTrainee/registerForCourse`, {
         method: 'POST',
         body: JSON.stringify({
-          "id": request.request.userid,
-          "courseId": request.request.courseid,
+          "id": request.request.userId,
+          "courseId": request.request.courseId,
          
           
           }
@@ -71,7 +71,7 @@ const Accept= async()=>{
 
     return(
         <div className='request'>
-          {setShow?
+          {show?
           <div>
             <h3>Request by</h3>
             <p> Corporate Trainee User Name: {user?.username}</p>

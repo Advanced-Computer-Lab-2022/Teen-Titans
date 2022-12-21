@@ -1,4 +1,4 @@
-import Subtitle from '../components/subtitles';
+// import Subtitle from '../components/subtitles';
 import React, { useEffect, useState } from "react"
 import ReactPlayer from 'react-player/youtube'
 import axios from 'axios';
@@ -74,16 +74,22 @@ const CoursesPage = () => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
                 (res) => {
+                    console.log("ho");
+                    console.log(user);
+                    console.log(userId);
+                    console.log(courseId);
                     const json = res.data
                     if (json) {
                         setCourse(json)
                         setPercentage(json.percentageComplete)
+                        console.log(json);
                     }
                 }
             )
+           
         }
         getDetails()
-    }, [percentage, course])
+    }, [])
 
     return (
         <div>
@@ -91,14 +97,14 @@ const CoursesPage = () => {
                 <div className='row row-cols-2'>
                     <div className='col-8 course-details1'>
                         <h1>
-                            {course.title}
+                            {course?.title}
                         </h1>
                         <div className='player-wrapper'>
                             <ReactPlayer
                                 sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation allow-presentation"
                                 className='react-player'
                                 allowFullScreen
-                                url={videoUrl || course.course.previewVideo.url}
+                                url={videoUrl || course?.course?.previewVideo.url}
                                 width='100%'
                                 // height='100%'
                                 controls
@@ -118,9 +124,9 @@ const CoursesPage = () => {
                                 </p>
                                 <div className="collapse" id="collapseExample">
                                     <div className="card card-body">
-                                        <h4>Instructor: {course.course.instructorName}</h4>
-                                        <h6>course rating: {course.course.rating}</h6>
-                                        <h6>course hours: {course.course.hours}</h6>
+                                        <h4>Instructor: {course?.course?.instructorName}</h4>
+                                        <h6>course rating: {course?.course?.rating}</h6>
+                                        <h6>course hours: {course?.course?.hours}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +138,7 @@ const CoursesPage = () => {
                                 </p>
                                 <div className="collapse" id="collapseExample2">
                                     <div className="card card-body">
-                                        <AppRate courseId={courseId} instructorId={course.course.instructorId} />
+                                        <AppRate courseId={courseId} instructorId={course?.course?.instructorId} />
                                     </div>
                                 </div>
                             </div>
@@ -168,23 +174,23 @@ const CoursesPage = () => {
                         </div>
                         <h4 className='subtitles'>Subtitles:</h4>
                         {
-                            course.course.subtitles && course.course.subtitles.map((subtitle) => (
+                            course?.course?.subtitles && course?.course?.subtitles.map((subtitle) => (
                                 <div>
                                     <div className="onHover-details d-flex flex-column justify-content-start align-items-start">
-                                        <h3>{subtitle.title}</h3>
+                                        <h3>{subtitle?.title}</h3>
                                         {
-                                            subtitle.video &&
+                                            subtitle?.video &&
                                             <button className='videos' onClick={() => {
-                                                if (subtitle.video) {
-                                                    setVideoUrl(subtitle.video.url);
-                                                    setVideo(subtitle.video._id)
+                                                if (subtitle?.video) {
+                                                    setVideoUrl(subtitle?.video.url);
+                                                    setVideo(subtitle?.video._id)
                                                 }
-                                            }}>{subtitle.video.shortDescription}</button>
+                                            }}>{subtitle?.video?.shortDescription}</button>
                                         }
                                         <div>
 
                                             <button onClick={() => { toexercise(subtitle) }} className='subtitles-faded'>Exercises</button>
-                                            <h6 className='subtitles-faded'>{subtitle.subtitleHours} hours</h6>
+                                            <h6 className='subtitles-faded'>{subtitle?.subtitleHours} hours</h6>
                                         </div>
 
                                     </div>

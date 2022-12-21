@@ -9,6 +9,10 @@ const CorporateTraineeSearch = ({ id }) => {
     const country = JSON.parse(localStorage.getItem('country'))
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
+    const userId = localStorage.getItem('id')
+    const user = localStorage.getItem('user')
+    console.log("id", id);
+    console.log("user", user);
 
     const searchGet = async () => {
         query = document.getElementById("searchKey").value;
@@ -73,14 +77,15 @@ console.log("response",response);
 
                 {searchResults &&
                     searchResults.map((course) => ( 
-                        <div className="display-courses" key={course.id}  onClick={() => checkAccess(course._id) }>
+                        <div className="courses" key={course.id}  onClick={() => checkAccess(course._id) }>
                             <p>{course.title}</p>
                             <p>Price: {course.price * conversion_rate} {target_code}</p>
                             <p>Instructor: {course.instructorName}</p>
                          
                                 {showRequest ?
                                 <button onClick={() => requestAccess(course._id)}>Request Access</button>
-                                  : <button onClick={() => window.location.href = `/course?courseId=${course._id}`} >Open Course</button>}
+                                  :   <button onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>View Details</button>
+                                }
                         </div>
                      
                       

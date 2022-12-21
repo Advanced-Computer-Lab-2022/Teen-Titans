@@ -9,7 +9,6 @@ import CorporateTraineeSearch from "./CorporateTraineeSearch";
 
 
 const TraineeViewCourses = ({ id }) => {
-    // console.log(id);
     const [courseData, setCourseData] = useState(null)
     const [courseId, setCourseId] = useState(null)
     const userId = localStorage.getItem('id')
@@ -24,11 +23,14 @@ const TraineeViewCourses = ({ id }) => {
     useEffect(() => {
         const getDetails = async () => {
             console.log(user + " " + userId);
-            console.log("hi");
+            console.log(id+"id");
+            console.log(userId,"userid")
+
             await axios.get(`users/${user}Courses?id=${id}`).then(
                 (res) => {
                     const json = res.data
                     if (json)
+                    console.log(json,"json");
                         setCourseData(json)
                     console.log("course data " + courseData);
                 }
@@ -48,9 +50,9 @@ const TraineeViewCourses = ({ id }) => {
                     {courseData &&
                         courseData.map((course) => (
                             <div className="display-courses" key={course.id}>
-                                <h4>{course.title}</h4>
-                                <p>Price: {course.price * conversion_rate} {target_code}</p>
-                                <p>Instructor: {course.instructorName}</p>
+                                <h4>{course?.title}</h4>
+                                <p>Price: {course?.price * conversion_rate} {target_code}</p>
+                                <p>Instructor: {course?.instructorName}</p>
                                 <button onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>View Details</button>
                                 <button onClick={() => { toexam() }} className='subtitles-faded'>Exam</button>
                             </div>

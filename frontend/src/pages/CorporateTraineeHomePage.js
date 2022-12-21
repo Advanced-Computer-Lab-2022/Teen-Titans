@@ -9,6 +9,8 @@ const CorporateTrainee = () => {
         setId(document.getElementById("id").value)
         localStorage.setItem('id', id)
         localStorage.setItem('user', "corporateTrainee")
+     
+        
     }
     return (
 

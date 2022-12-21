@@ -51,21 +51,21 @@ const Details = ({ course }) => {
             {
                 course &&
                 <div className='onHover-details'>
-                    <h5>{course.title}</h5>
-                    <h6 className='faded'>{course.hours} total hours</h6>
+                    <h5>{course?.title}</h5>
+                    <h6 className='faded'>{course?.hours} total hours</h6>
                     <h6>
                         <span className='labels'>Price: </span>
-                        <span>{course.price * conversion_rate} {target_code}</span>
+                        <span>{course?.price * conversion_rate} {target_code}</span>
 
                     </h6>
                     <h6>
                         <span className='labels'>Discount: </span>
-                        <span>{course.discount.amount} % for {course.discount.duration} days</span>
+                        <span>{course?.discount.amount} % for {course?.discount.duration} days</span>
                     </h6>
                     <div>
                         <h6 className='labels'>Subtitles:</h6>
                         {
-                            course.subtitles && course.subtitles.map((subtitle) => (
+                            course?.subtitles && course?.subtitles.map((subtitle) => (
                                 <TippySubtitles subtitle={subtitle} />
                             ))
                         }
