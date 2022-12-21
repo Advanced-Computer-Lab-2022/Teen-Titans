@@ -85,7 +85,7 @@ const CoursesPage = () => {
                     if (json) {
                         setCourse(json)
                         setPercentage(json.percentageComplete)
-                        console.log(json);
+                        console.log(json,"json");
                     }
                 }
             )

@@ -143,3 +143,15 @@
 	color: red;
 	border-radius: 5px;
 }
+.btn2 {
+	border: none;
+	background-color: aliceblue;
+	padding: 5px 15px;
+	color: mediumaquamarine;
+	border-radius: 5px;
+}
+
+.wallet{
+	float:left;
+}
+
