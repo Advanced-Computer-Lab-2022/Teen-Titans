@@ -4,6 +4,8 @@ const instructorModel = require('../models/instructorModel.js')
 const corporateTraineeModel = require('../models/corporateTraineeModel.js')
 const requestModel = require('../models/requestModel.js')
 const individualTraineeModel = require('../models/individualTraineeModel.js')
+const reportModel = require('../models/reportModel.js')
+const { request } = require('express')
 
 
 //This is to know which user is chosen by the admin
@@ -71,7 +73,7 @@ const selectedUser = asyncHandler(async (req, res) => {
 })
 
 const getRequests = asyncHandler(async (req, res) => {
-    const requests = await requestModel.find({type: "corporate"})
+    const requests = await requestModel.find({type: "corporate",status: "pending"})
     res.status(200).json(requests)
 })
 
@@ -80,6 +82,10 @@ const getRefunds = asyncHandler(async (req, res) => {
     res.status(200).json(requests)
 })
 
+const getReports = asyncHandler(async (req, res) => {
+    const reports = await reportModel.find()
+    res.status(200).json(reports)
+})
 
 
 const getTrainee = asyncHandler(async (req, res) => {
@@ -108,5 +114,25 @@ else
     })
 })
 
+const getInstructor= asyncHandler(async (req, res) => {
+    const user = await instructorModel.findById(req.query.traineeid);
+    if (user)
+    res.status(200).json(user)
+else
+    res.status(400).json({
+        message: 'user not found!'
+    })
+})
 
-module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee}
+const changeStatus = asyncHandler(async (req, res) => {
+    // console.log("inside changestatus",req.body.id)
+    const request = await requestModel
+        .findByIdAndUpdate(req.body.id,{status: "resolved"});
+        
+    if (request) {
+// console.log(request)
+        res.status(200).json(request)
+    }
+})
+
+module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee,getReports,getInstructor,changeStatus}

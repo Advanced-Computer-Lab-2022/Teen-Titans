@@ -15,7 +15,7 @@ commonUsersRouter.patch('/rateCourse', RatingCourses)
 commonUsersRouter.patch('/rateInstructor', RatingInstructor)
 commonUsersRouter.post('/getCertificateByEmail', generateCertificateByEmail)
 commonUsersRouter.get('/getCertificate', generateCertificate)
-commonUsersRouter.get('/CheckAcceshts', checkAccess)
+commonUsersRouter.get('/checkAccess', checkAccess)
 commonUsersRouter.post('/requestAccess', requestAccess)
 
 

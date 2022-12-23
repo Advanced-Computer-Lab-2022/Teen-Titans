@@ -4,7 +4,7 @@ const adminAddUser = express.Router()
 
 const{ getCourses,getPrices} = require('../controller/viewCoursesController')
 
-const { selectedUser,getRequests,getTrainee,getRefunds, getIndividualTrainee } = require('../controller/adminController');
+const { selectedUser,getRequests,getTrainee,getRefunds, getIndividualTrainee,getReports, getInstructor,changeStatus } = require('../controller/adminController');
 
 
 adminAddUser.post('/addUser', selectedUser)
@@ -19,7 +19,16 @@ adminAddUser.get('/getTrainee',getTrainee)
 
 adminAddUser.get('/getRefunds',getRefunds)
 
+adminAddUser.get('/getReports',getReports)
+
+
 adminAddUser.get('/getindividualTrainee',getIndividualTrainee)
+
+adminAddUser.get('/getInstructor',getInstructor)
+
+adminAddUser.post('/changeStatus',changeStatus)
+
+
 
 
 

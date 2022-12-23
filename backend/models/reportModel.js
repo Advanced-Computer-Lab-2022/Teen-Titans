@@ -2,10 +2,13 @@
 const mongoose = require('mongoose')
 
 const reportSchema = mongoose.Schema({
-    userid: {
+    userId: {
         type: Number
     },
-    courseid: {
+    user:{
+    type: String
+    },
+    courseId: {
         type: Number
     },
     type: {

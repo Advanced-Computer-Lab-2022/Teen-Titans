@@ -20,20 +20,38 @@ const changePassword = asyncHandler(async (req, res) => {
         })
 })
 
+
+
 const registerForCourse = asyncHandler(async (req, res) => {
+    console.log('inside register for course')
+    console.log(req.body.id,"id")
+    console.log(req.body.courseId,"course id")
     const findUser = await corporateTraineeModel.findById(req.body.id);
+    const findCourse = await courseModel.findById(req.body.courseId);
+   // console.log(findCourse,"find course")
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { new: true });
     const courses = findUser.enrolledCourses
-    courses.push(req.body.courseId)
+    courses.push({
+        course: updatedCourse,
+        videosSeen: [],
+        numberComplete: 0,
+        percentageComplete: 0
+    })
+    // console.log(courses);
     const user = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
-            message: 'Registration Successful!'
+            message: 'Registration Successful!',updatedCourse
         })
     else
         res.status(400).json({
             message: 'Registration Unsuccessful!'
         })
 })
+
+
+
 const openCourseC = asyncHandler(async (req, res) => {
     const trainee = await corporateTraineeModel.findById(req.query.id)
     console.log("id  backend" ,req.query.id)
@@ -93,14 +111,13 @@ const watchVideoC = asyncHandler(async (req, res) => {
 
 const checkAccess = asyncHandler(async (req, res) => {
     console.log("inside check access");
-    const user = await corporateTraineeModel.findById(req
-        .query.traineeId);
+    const user = await corporateTraineeModel.findById(req.query.traineeId);
   
    if(user){
     // console.log(user);
     let enrolledCourses = user.enrolledCourses;
     for (let i = 0; i < user.enrolledCourses.length; i++) {
-        if (user.enrolledCourses[i].id == req.query.courseId) {
+        if (user.enrolledCourses[i].course.id == req.query.courseId) {
           
             res.status(200).json(user)
         }
@@ -111,7 +128,6 @@ res.status(400).json({
     message: 'Unauthorized Access!'
 })
 }
-console.log(res.status);
 })
 
 
