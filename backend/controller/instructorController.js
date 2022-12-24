@@ -4,39 +4,32 @@ const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
 const exerciseModel = require('../models/exerciseModel')
-// const definePromotion = async (req, res) => {
-//     const { id } = req.params
 
-//     const course = await courseModel.findOneAndUpdate({ _id: id }, {
-//         discount: {
-//             amount: req.body.amount,
-//             duration: req.body.duration,
-          
-//         },
-//         price : price - price*(amount/100)
-//     }, { new: true })
-//     if (!course) {
-//         return res.status(400).json({ error: 'No such course' })
-//     }
-//     res.status(200).json(course)
-// }
 const definePromotion = asyncHandler(async (req, res) => {
-    const { courseId } = req.params
-    const course = await courseModel.findById( courseId )
-    //let coursePrice = course.price
-    if(course.discount.amount!=0){
-        return res.status(400).json({ error: 'There is already a discount applied' })
-    }
-   else{
+    const { id } = req.params
+    const course = await courseModel.findById( id )
+    let coursePrice = course.price
+//     if(course.discount.amount!=0){
+//         return res.status(400).json({ error: 'There is already a discount applied' })
+//     }
+//    else{
        let courseEndDate = req.body.endDate
        courseEndDate = courseEndDate+'T00:00:00.000+00:00'
-        const course1 = await courseModel.findOneAndUpdate({ _id: courseId }, {
+        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
             discount: {
                 amount: req.body.amount,
                 //startDate: req.body.startDate,
                 endDate: courseEndDate
                
             },
+        }, { new: true })
+
+        let discountAmount = req.body.amount
+        const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
+           
+               price : coursePrice - coursePrice*(discountAmount/100)
+               
+            ,
         }, { new: true })
 
 
@@ -51,24 +44,22 @@ const definePromotion = asyncHandler(async (req, res) => {
         // "17-6-2022"
         console.log(course1.discount.endDate)
          currentDate= currentDate+'T00:00:00.000+00:00'
-         if(endDate<currentDate){
-            return res.status(400).json({ error: 'invalid end date' })
-         }
          console.log(currentDate); 
         if(currentDate>course1.discount.endDate){
-            const course2 = await courseModel.findOneAndUpdate({_id:id},{
+            const course3 = await courseModel.findOneAndUpdate({_id:id},{
 
                 amount:0,
-                endDate: ""
+                endDate: "",
+                price: coursePrice
                })
         }
     
-        res.status(200).json(course)  
-  }
+        
+ //  }
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }
-    //res.status(200).json(course)
+    res.status(200).json(course)
 })
 
 

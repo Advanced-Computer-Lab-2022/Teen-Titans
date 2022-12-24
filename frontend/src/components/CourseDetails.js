@@ -5,7 +5,7 @@ const CourseDetails = ({ course }) => {
     const target_code = country.target_code
     return (
        
-  
+  <div className="det">
    
         <div className="course-details">
            <h4> Popular!</h4>
@@ -20,7 +20,7 @@ const CourseDetails = ({ course }) => {
             <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
 
         </div>
-
+        </div>
     )   
 }
 //

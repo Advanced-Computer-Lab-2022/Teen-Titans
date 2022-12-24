@@ -25,7 +25,7 @@ const PopularCourses = ({  }) => {
     }, [])
    
     return (
-        <div className="course-price" >
+        <div className="prices" >
             <h2>Popular Now!</h2>
             <h4>
                 {course.title}

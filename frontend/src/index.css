@@ -249,7 +249,13 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
+.det{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+
+}
 .course-details {
+ 
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -293,15 +299,19 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
-
+.prices{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
 .course-price  {
-  margin: auto;
+ 
   background:  white;
   border-radius: 4px;
   margin: 20px auto;
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+ 
 
 }
 .course-price h4 {

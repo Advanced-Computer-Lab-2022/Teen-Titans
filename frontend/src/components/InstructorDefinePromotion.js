@@ -8,7 +8,7 @@ const DefinePromotion = () => {
     const courseId = params.get('courseId');
     const definePromotion = async () => {
         //let id = document.getElementById('ID').value;
-        const response = await fetch(`/instructor/discount/${courseId}`, {
+        const response = await fetch(`/instructor/definePromotion/${courseId}`, {
           method: 'POST',
           body: JSON.stringify({
             "amount":document.getElementById("amount").value,
