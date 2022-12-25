@@ -65,11 +65,7 @@ function App() {
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
             <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
 
-     {/* <body>
-      <div id="root">
-      <Route path='/pay' element={<CreditCardForm />}></Route>
-      </div>
-     </body> */}
+ 
 
             <Route path='/pay' element={<CreditCardForm />}></Route>
           </Routes>

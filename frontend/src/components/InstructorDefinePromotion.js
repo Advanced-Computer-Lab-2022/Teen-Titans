@@ -9,10 +9,10 @@ const DefinePromotion = () => {
     const definePromotion = async () => {
         //let id = document.getElementById('ID').value;
         const response = await fetch(`/instructor/definePromotion/${courseId}`, {
-          method: 'POST',
+          method: 'PATCH',
           body: JSON.stringify({
             "amount":document.getElementById("amount").value,
-            "endDate": document.getElementById("endDate").value
+            "endDate": document.getElementById("endDate").value  
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -23,8 +23,11 @@ const DefinePromotion = () => {
         if (response.ok) {
           setMessage("promotion defined")
       }
-      else {
-          setMessage("there is already a discount applied")
+       if(response.status.valueOf(302)) {
+          setMessage(json.error)
+      }
+       else{
+        setMessage("there is already a discount applied")
       }
     
       }

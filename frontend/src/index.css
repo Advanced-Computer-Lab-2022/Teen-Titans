@@ -301,7 +301,11 @@ header a {
 }
 .prices{
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+}
+
+.prices h2{
+  text-align: center;
 }
 .course-price  {
  

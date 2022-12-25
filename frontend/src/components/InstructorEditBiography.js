@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from "react"
-
+import { AiFillEdit } from "react-icons/ai";
 const EditBiography = ({ id }) => {
   const [error, setError] = useState(null)
   const [message, setMessage] = useState('')
@@ -30,7 +30,7 @@ const EditBiography = ({ id }) => {
 
   return (
     <div>
-      <h2>Edit biography</h2>
+      <h2>Edit biography  <AiFillEdit/></h2>
       <div className='d-flex flex-column'>
         {/* 
         <label>Instructor id:</label>

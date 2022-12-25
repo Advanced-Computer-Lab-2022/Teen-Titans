@@ -23,7 +23,8 @@ const ViewCoursesPage = ()=>{
     },[])
     return(
         <div className='view'>
-            <div className='courses'>
+           
+            <div className='prices'>
                 {courses && courses.map((course)=>(
                     <CourseDetails key={course._id} course= {course}/>
                 ))}

@@ -75,10 +75,10 @@ const definePromotion = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findById( id )
     let coursePrice = course.price
-//     if(course.discount.amount!=0){
-//         return res.status(400).json({ error: 'There is already a discount applied' })
-//     }
-//    else{
+    if(course.discount.amount!=0){
+        return res.status(400).json({ error: 'There is already a discount applied' })
+    }
+   else{
        let courseEndDate = req.body.endDate
        courseEndDate = courseEndDate+'T00:00:00.000+00:00'
         const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
@@ -121,7 +121,7 @@ const definePromotion = asyncHandler(async (req, res) => {
         }
     
         
- //  }
+  }
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }

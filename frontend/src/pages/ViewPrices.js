@@ -25,8 +25,10 @@ const ViewPrices = () => {
     return (
         <div className='price'>
             <Search />
+            <ViewCoursesPage/>
             {/* <Subjects /> */}
             <div className='prices'>
+                <h2> Courses</h2>
                 {courses && courses.map((course) => (
                     <CoursePrice key={course._id} course={course} />
                  
@@ -35,7 +37,7 @@ const ViewPrices = () => {
                   
             </div>
           
-            <ViewCoursesPage/>
+         
         </div>
     )
 }

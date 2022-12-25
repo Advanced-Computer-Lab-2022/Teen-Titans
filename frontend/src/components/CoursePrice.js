@@ -3,6 +3,7 @@ import DisplayPreviewVideo from "./DisplayPreviewVideo"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 
@@ -37,7 +38,9 @@ const CoursePrice = ({ course }) => {
             <p><strong>course hours:</strong> {course.hours}</p>
             <p><strong>course outline:</strong> {course.courseOutline}</p>
             <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
-            <button className='videos' onClick={() => window.location.href = `/pay`}>Enroll now</button>
+            <button className='videos' onClick={() => window.location.href = `/pay?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
+           
+            </button>
             {
                 <div className="my-container">
                     <Tippy content={<Details course={courseData}></Details>} placement='left' theme="light">

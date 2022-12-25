@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from "react"
-
+import { AiFillEdit } from "react-icons/ai";
 const EditEmail = ({ id }) => {
   const [error, setError] = useState(null)
   const [message, setMessage] = useState('')
@@ -30,7 +30,7 @@ const EditEmail = ({ id }) => {
 
   return (
     <div>
-      <h2>Edit email</h2>
+      <h2>Edit email <AiFillEdit/></h2>
       <div className='d-flex flex-column'>
 
         {/* <label>Instructor id:</label>

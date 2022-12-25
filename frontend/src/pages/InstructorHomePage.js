@@ -22,6 +22,7 @@ const InstructorHome = () => {
                 <div>
                     <ViewInstructorRating id={id} />
                     <PriceFilter />
+                    
                     <EditBiography id={id} />
                     <EditEmail id={id} />
                 </div>

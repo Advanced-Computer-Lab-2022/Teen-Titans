@@ -60,7 +60,7 @@ const Details = ({ course }) => {
                     </h6>
                     <h6>
                         <span className='labels'>Discount: </span>
-                        <span>{course.discount.amount} % Valid until {course.discount.duration} </span>
+                        <span>{course.discount.amount} % Valid until {course.discount.endDate} </span>
                     </h6>
                     <div>
                         <h6 className='labels'>Subtitles:</h6>

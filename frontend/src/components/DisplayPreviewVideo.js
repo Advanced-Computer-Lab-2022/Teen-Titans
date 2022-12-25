@@ -13,7 +13,7 @@ const DisplayPreviewVideo = () => {
     const [VideoShortDescription, setVideoShortDescription] = useState('')
     useEffect(() => {
       
-        //console.log(courseId);
+        console.log(courseId);
       
         const getDetails = async (courseId) => {
             // console.log(userId);
@@ -22,7 +22,7 @@ const DisplayPreviewVideo = () => {
                     const json = res.data
                     let url = json.url
                     let shortDescription = json.shortDescription
-                    console.log(json);
+                    console.log(url);
                     url = url.replace('watch?v=', 'embed/');
                     if (url) {
                         setVideoUrl(url)
@@ -34,7 +34,7 @@ const DisplayPreviewVideo = () => {
                         setVideoShortDescription(json.shortDescription)
                         setVideo(json)
                     }
-                    // console.log(json);
+                    
                 }
             )
         }
