@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react"
 import jsPDF from 'jspdf';
+import { Document, Page } from 'react-pdf';
 import compress from "compress-base64";
 import axios from 'axios';
 import FormData from 'form-data'
+import { PDFToImage } from 'react-pdf-to-image-light'
+import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+const pdfjs = require('pdfjs-dist');
+// const pdf = require('../assets/Template.pdf')
 // import * as pdf from "@grapecity/wijmo.pdf";
 // import * as wijmo from '@grapecity/wijmo';
 const CourseSettings = () => {
@@ -11,6 +17,8 @@ const CourseSettings = () => {
     const userId = params.get('userId');
     const user = params.get('user')
     const [course, setCourse] = useState(null)
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -23,7 +31,11 @@ const CourseSettings = () => {
             )
         }
         getDetails()
-    }, [course])
+    })
+
+    function onDocumentLoadSuccess({ numPages }) {
+        setNumPages(numPages);
+    }
     const requestRefund = async () => {
         await axios.get(`/individual/requestRefund?id=${userId}&courseId=${courseId}`).then(
             (res) => {
@@ -59,6 +71,7 @@ const CourseSettings = () => {
             }
         )
         doc.addImage("Template.png", 0, 0, 297, 210);
+        // doc.setFillColor('#e7d49e', 231, 212, 158)
         doc.setFontSize(40);
         doc.setTextColor(0, 0, 0);
         doc.setFont('Lato-Black', 'bold');
@@ -71,6 +84,39 @@ const CourseSettings = () => {
         doc.setFontSize(17.2);
         doc.text(instructor, 95, 172, null, null, 'center');
         doc.save("Certificate.pdf");
+    }
+
+    const readFileData = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resolve(e.target.result);
+            };
+            reader.onerror = (err) => {
+                reject(err);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const convertPdfToImages = async (file) => {
+        let images = [];
+        const data = await readFileData(file);
+        const pdf = await pdfjs.getDocument(data).promise;
+        const canvas = document.createElement("canvas");
+        for (let i = 0; i < pdf.numPages; i++) {
+            const page = await pdf.getPage(i + 1);
+            const viewport = page.getViewport({ scale: 1 });
+            const context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            await page.render({ canvasContext: context, viewport: viewport }).promise;
+            images = canvas.toDataURL()
+            images.append(canvas.toDataURL());
+        }
+        canvas.remove();
+        // console.log(image);
+        return images;
     }
 
     const sendCertificate = async () => {
@@ -109,16 +155,9 @@ const CourseSettings = () => {
         doc.setFontSize(17.2);
         doc.text(instructor, 95, 172, null, null, 'center');
         const pdfToSend = doc.output('blob', { filename: "Certificate.pdf" });
-        // console.log(pdfToSend);
-        const img = "Template.png"
         const data = new FormData();
         data.append('file', pdfToSend);
-        // let reader = new FileReader();
-        // const compressed = compress(data)
-        // for (let pair of data.entries()) {
-        //     console.log(pair[0] + ', ' + pair[1]);
-        // }
-        // console.log(data.get("file"));
+
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",

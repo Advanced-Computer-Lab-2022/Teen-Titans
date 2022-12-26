@@ -58,14 +58,19 @@ const generateCertificateByEmail = async (req, res) => {
     else
         trainee = await individualTraineeModel.findById(req.query.id)
     const course = await courseModel.findById(req.query.courseId)
+
+    // const base64Data = req.body.photo.replace(/^data:image\/jpeg;base64,/, "");
+    // const image = fs.writeFile("out.jpeg", base64Data, 'base64', function (err) {
+    //     console.log(err);
+    // });
     const options = {
         from: "knowledgeBoost@outlook.com",
         to: trainee.email,
-        subject: "Certificate of Completion",
-        text: `Congratulations ${trainee.firstName}!
+        subject: `Certificate of Completion of ${course.title}`,
+        text: `Congratulations ${trainee.firstName} for completing the ${course.title} course!
                 Here is your certificate.`,
         attachments: [{
-            filename: 'Certificate.pdf',
+            // filename: 'Certificate.pdf',
             content: pdfToSend,
             contentType: 'application/pdf',
             encoding: 'base64'
