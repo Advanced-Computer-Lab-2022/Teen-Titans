@@ -29,6 +29,8 @@ import ViewInstructorRating from './components/ViewInstructorRating';
 import CourseSettings from './pages/CourseSettings';
 import Requests from './pages/Requests';
 import Refunds from './pages/Refunds';
+import Reports from './pages/Reports';
+
 
 function App() {
 
@@ -64,6 +66,7 @@ function App() {
             <Route path='/courseSettings' element={<CourseSettings />}></Route>
             <Route path='/requests' element={<Requests />}></Route>
             <Route path='/refunds' element={<Refunds />}></Route>
+            <Route path='/reports' element={<Reports />}></Route>
           </Routes>
         </div>
 

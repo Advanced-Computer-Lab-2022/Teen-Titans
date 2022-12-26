@@ -5,6 +5,7 @@ import TraineeViewCourses from "../components/TraineeViewCourses";
 import CorporateTraineeSearch from "../components/CorporateTraineeSearch";
 const CorporateTrainee = () => {
     const [id, setId] = useState('');
+    console.log(id,"id in corporate traineehomepage");
     const saveId = () => {
         setId(document.getElementById("id").value)
         localStorage.setItem('id', id)

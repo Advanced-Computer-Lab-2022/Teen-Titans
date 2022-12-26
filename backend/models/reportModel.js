@@ -3,13 +3,13 @@ const mongoose = require('mongoose')
 
 const reportSchema = mongoose.Schema({
     userId: {
-        type: Number
+        type: String
     },
     user:{
     type: String
     },
     courseId: {
-        type: Number
+        type: String
     },
     type: {
         type: String

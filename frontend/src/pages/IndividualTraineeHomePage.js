@@ -5,7 +5,7 @@ import axios from 'axios';
 // import AppRate from "../components/Rate";
 const IndividualTrainee = () => {
     const [id, setId] = useState('');
-   const [Wallet,setWallet]= useState(-1)
+   const [Wallet,setWallet]= useState('')
    const country = JSON.parse(localStorage.getItem('country'))
 const conversion_rate = country.conversion_rate
 const target_code = country.target_code

@@ -30,6 +30,7 @@ const registerForCourse = asyncHandler(async (req, res) => {
     const findCourse = await courseModel.findById(req.body.courseId);
    // console.log(findCourse,"find course")
     const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    //numberOfStudents missing in update
     const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { new: true });
     const courses = findUser.enrolledCourses
     courses.push({

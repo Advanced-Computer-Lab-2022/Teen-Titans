@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import '../index.css'
 import {  useNavigate } from 'react-router-dom';
+import {Resource} from 'react-admin';
 
 const Admin = () => {
     const [message, setMessage] = useState('')
     const [requests, setRequests] = useState(null)
     const [refunds, setRefunds] = useState(null)
+    const [reports, setReports] = useState(null)
+
 
 
     const navigate = useNavigate();
@@ -15,6 +18,10 @@ const Admin = () => {
 
     const torefundrequests = () => {
         navigate('/refunds',{ state: refunds });
+    }
+
+    const toreports = () => {
+        navigate('/reports',{ state: reports });
     }
     useEffect(()=>{
                 const fetchRequests= async()=>{
@@ -35,6 +42,16 @@ const Admin = () => {
                         console.log("refunds back in admin",json)
                     }
                 }
+                const fetchReports= async()=>{
+                    const response = await fetch(`http://localhost:5000/admin/getReports`)
+                    const json= await response.json()
+        
+                    if(response.ok){
+                        setReports(json)
+                        console.log("reports frontend in admin",json)
+                    }
+                }
+                fetchReports()
                 fetchRequests() 
                 fetchRefunds() },[])
     
@@ -79,9 +96,13 @@ const Admin = () => {
                 <span>{message}</span>
             </div>
             <br></br>
+
+            <Resource name="Course Access Requests" onClick={() =>{ torequests() }}></Resource>
             <button onClick={() =>{ torequests() }}> Course Access Requests</button>
             <br></br>
             <button onClick={() =>{ torefundrequests() }}> Refund Requests</button>
+            <br></br>
+            <button onClick={() =>{ toreports() }}> Reports</button>
         </div>
     )
 }

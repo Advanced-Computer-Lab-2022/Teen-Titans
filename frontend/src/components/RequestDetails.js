@@ -5,6 +5,8 @@ import { useEffect,useState } from "react";
 const RequestDetails = (request)=>{
     console.log("request IN REQUEST DETAILSPAGE",request);
     console.log("course id",request.request.courseId);
+    console.log("trainee id",request.request.userId);
+    console.log("request id",request.request._id);
 const [course,setCourse]= useState(null)
 const [user,setUser]= useState(null)
 const [error,setError]= useState(null)
@@ -39,6 +41,7 @@ const [show,setShow]= useState(true)
 
 
 const Accept= async()=>{
+  
 
     const response = await fetch(`http://localhost:5000/corporateTrainee/registerForCourse`, {
         method: 'POST',
@@ -59,16 +62,27 @@ const Accept= async()=>{
       }
       if (response.ok) {
         alert('Course added successfully!')
-       
-       
-       
         setError(null)
-        console.log('new course added to corporate trainee', json)
+       // console.log('new course added to corporate trainee', json)
       }
       setShow(false)
+
+
+      const res = await fetch(`http://localhost:5000/admin/changeStatus`, {
+        method: 'POST',
+        body: JSON.stringify({
+          "id": request.request._id,
+
+  }),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+  })
+  const js = await res.json()
+  if (!res.ok) 
+    setError(js.error)
+  
 }
-
-
     return(
         <div className='request'>
           {show?
@@ -78,7 +92,8 @@ const Accept= async()=>{
             <h3>Course Title To Access:</h3>
             <p> {course?.title}</p>
             <button onClick={() => Accept()}>Accept</button>
-            <button>Reject</button>
+            
+            <button >Reject</button>
 <br></br>
 <br></br>
 </div>

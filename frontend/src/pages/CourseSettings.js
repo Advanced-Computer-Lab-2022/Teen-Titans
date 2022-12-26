@@ -11,6 +11,7 @@ const CourseSettings = () => {
     const userId = params.get('userId');
     const user = params.get('user')
     const [course, setCourse] = useState(null)
+    const [problem, setProblem] = useState(null)
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -23,7 +24,8 @@ const CourseSettings = () => {
             )
         }
         getDetails()
-    }, [course])
+    }, [])
+
     const requestRefund = async () => {
         await axios.get(`/individual/requestRefund?id=${userId}&courseId=${courseId}`).then(
             (res) => {
@@ -138,6 +140,39 @@ const CourseSettings = () => {
                 })
         }
     }
+
+
+    const Report = async () => {
+        let type;
+        if(document.getElementById("a").checked){
+            type='financial';
+        }
+        else if(document.getElementById("b").checked){
+            type='technical';
+        }
+        else{
+            type='other';
+        }
+    
+        const res= await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${type}&problem=${problem}&user=${user}`,
+            {
+                method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'  
+         }
+    },)
+
+  const json = await res.json()
+    console.log(json);
+    
+    
+     if (res.ok) {
+     alert('Report sent successfully!')
+     }
+    
+    
+}
+    
     return (
         <div>
             {
@@ -152,7 +187,28 @@ const CourseSettings = () => {
                     <br></br>
                     <button className='btn' onClick={() => sendCertificate()}>Get certificate by mail</button>
                 </div>
+                
             }
+
+<div>
+                <h1> Report A Problem :</h1>
+                <input
+                    type="text"
+                    className="from-control mt-4"
+                    id='searchKey'
+                    placeholder='please write your problem'
+                 onChange={(e) => setProblem(e.target.value)}
+                />
+            <input type="radio" id="a" name="financial"  />
+              <label for="a">Financial</label>
+              <input type="radio" id="b" name="technical"  />
+              <label for="b">Technical</label>
+              <input type="radio" id="c" name="other"  />
+              <label for="c">Other</label>
+              <br></br>
+                <button onClick={() => Report()}> Report </button>
+            </div>
+
         </div>
     )
 }

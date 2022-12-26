@@ -4,6 +4,7 @@ const instructorModel = require('../models/instructorModel')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
+const reportModel = require('../models/reportModel')
 const Binary = require('mongodb').Binary;
 const PDFDocument = require('pdfkit');
 const fs = require("fs");
@@ -263,4 +264,17 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificateByEmail, generateCertificate }
+
+const report = asyncHandler(async (req,res)=>{
+
+    console.log("id",req.query.traineeId);
+    console.log("type",req.query.type);
+    console.log("problem",req.query.problem);
+    const report = await reportModel.create({userId:req.query.traineeId,
+        courseId:req.query.courseId,status:"pending",type:req.query.type,problem:req.query.problem,user:req.query.user});
+
+   res.status(200).json(report)
+})
+
+
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificateByEmail, generateCertificate,report }
