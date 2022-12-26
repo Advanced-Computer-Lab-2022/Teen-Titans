@@ -7,13 +7,15 @@
   --error: #e7195a;
   --black: #282828;
   --blue: #0f6fde;
+  --teal: #13292A;
+  --cream: #E7DED9;
+  --taupe: #988780;
   --box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
 body {
   color: var(--black);
-  background-color: #f2f2f2;
   margin: 0;
   font-family: "Poppins";
 }
@@ -61,7 +63,7 @@ header a {
 .course-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
-  color: var(--primary);
+  color: var(--taupe);
 }
 
 .course-details p {
@@ -82,9 +84,8 @@ header a {
 }
 
 .price {
-  /* display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px; */
+  display: flex;
+  justify-content: center;
 }
 
 .prices {
@@ -100,21 +101,21 @@ header a {
   border-width: 2px;
   padding: 20px;
   position: relative;
-  width: 300px;
+  width: 90%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
-.course-price h4 {
+.course-price h2 {
   margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--primary);
+  /* font-size: 1.2em; */
+  color: var(--taupe);
 }
 
 .course-price p {
   margin: 0;
   font-size: 0.9em;
-  color: #555;
+  color: var(--teal);
 }
 
 label,
@@ -231,8 +232,12 @@ div.error {
   font-size: 12px;
 }
 
+/* .onHover-details span{
+  color: var(--taupe);
+} */
+
 .labels {
-  color: #1aac83;
+  color: var(--taupe);
   font-size: 12px;
 }
 
@@ -256,12 +261,6 @@ div.error {
   --error: #e7195a;
 }
 
-body {
-  background: #f1f1f1;
-  margin: 0;
-  font-family: "Poppins";
-}
-
 header {
   background: #fff;
 }
@@ -280,13 +279,14 @@ header a {
   text-decoration: none;
 }
 
+/* 
 .pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
 }
 
-/* homepage */
+
 .view {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -362,7 +362,7 @@ header a {
   margin: 0;
   font-size: 0.9em;
   color: #555;
-}
+} */
 
 .container {
   margin: 10px;
@@ -548,35 +548,3 @@ header a {
   /* border-radius: 5px; */
   font-size: 15px;
 }
-
-/* 
-.controls {
-  display: flex;
-  justify-content: space-between;
-}
-
-.main-controls {
-  display: flex;
-}
-
-.control-btn-container {
-  display: flex;
-}
-
-.control-btn {
-  margin-left: 8px;
-  width: 50px;
-  height: 100%;
-}
-
-#filename-input {
-  margin-left: 10px;
-}
-
-#content {
-  padding: 20px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
-  outline: none;
-  min-height: 300px;
-  margin: 30px 0;
-} */

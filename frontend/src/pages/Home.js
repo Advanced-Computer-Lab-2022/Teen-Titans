@@ -11,10 +11,10 @@ const Home = () => {
 
     return (
         <div className="home">
-            <h2>Home</h2>
-            <label>Select your country:</label>
+            <h1 style={{ color: "var(--teal)", margin: "10px" }}>Knowledge Boost</h1>
+            <label>Please select your country:</label>
             <br></br>
-            <select name="countries" id="countries">
+            <select name="countries" id="countries" style={{ color: "var(--teal)", margin: "10px" }}>
                 <option value="EGP">Egypt</option>
                 <option value="IQD">Iraq</option>
                 <option value="EUR">Germany</option>

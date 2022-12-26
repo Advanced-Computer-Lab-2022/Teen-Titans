@@ -1,5 +1,7 @@
 .App {
 	text-align: center;
+	/* background-color: var(--cream); */
+	height: 100%;
 }
 
 
@@ -80,7 +82,7 @@
 }
 
 .body {
-	height: 500px;
+	height: 100%;
 	display: flex;
 }
 
@@ -97,14 +99,21 @@
 	width: 100%;
 }
 
-
+.home {
+	margin: 50px;
+	padding: 50px;
+	box-shadow: var(--box-shadow);
+	background-color: var(--cream);
+	color: var(--teal);
+	height: 50vh;
+}
 
 .home button {
 	margin: 10px;
 	border: none;
-	background-color: aliceblue;
+	background-color: white;
 	padding: 5px 15px;
-	color: mediumaquamarine;
+	color: var(--teal);
 	border-radius: 5px;
 }
 

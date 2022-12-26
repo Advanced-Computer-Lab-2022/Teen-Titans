@@ -52,10 +52,10 @@ const Details = ({ course }) => {
                 course &&
                 <div className='onHover-details'>
                     <h5>{course.title}</h5>
-                    <h6 className='faded'>{course.hours} total hours</h6>
+                    <h6 className='faded'>{course.totalHours} total hours</h6>
                     <h6>
                         <span className='labels'>Price: </span>
-                        <span>{course.price * conversion_rate} {target_code}</span>
+                        <span>{(course.price * conversion_rate).toFixed(2)} {target_code}</span>
 
                     </h6>
                     <h6>

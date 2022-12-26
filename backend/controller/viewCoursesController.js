@@ -24,7 +24,7 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
         // }
         subtitles.push({
             title: subtitle.title,
-            hours: subtitle.hours,
+            hours: subtitle.subtitleHours,
             video: subtitle.video,
             exercise: subtitle.exercise
         })
