@@ -2,10 +2,18 @@ import { useState } from "react"
 
 const Copyrights = () => {
     const [agree, setAgree] = useState(false);
-    const onAgree = () => {
+    const percentage = 30
+    const onAgree = (req,res) => {
         setAgree(true);
         console.log(agree);
+        res.redirect("/RegisterPage")
     }
+    const onRefuse = (req,res) => {
+        setAgree(false);
+        console.log(agree);
+        res.redirect("/InstructorHomePage")
+    }
+
     return (
         <div>
             <div className="contract-details">
@@ -18,9 +26,10 @@ const Copyrights = () => {
                     any commercial purpose whatsoever, without our express prior written permission.
                 </p>
                 <h1> KNOWLEDGE BOOST'S RIGHTS ON VIDEOS</h1>
-                <p>Knowledge Boost will take a 30% profit on each video per registered trainee</p>
+                <p>Knowledge Boost will take a {percentage}% profit on each video per registered trainee</p>
             </div>
-            <button onClick={() => window.location.href = `/`} > I agree</button>
+            <button onAgree={() => window.location.href = `/RegisterPage`} > I agree</button>
+            <button onRefuse={() => window.location.href = `/InstructorHomePage`} > I don't agree</button>
         </div>
     )
 }

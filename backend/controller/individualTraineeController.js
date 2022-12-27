@@ -2,6 +2,9 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const express = require("express");
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -16,22 +19,38 @@ const changePassword = asyncHandler(async (req, res) => {
             message: 'Old Password is incorrect!'
         })
 })
+
+// create json web token
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (name) => {
+  return jwt.sign({ name }, 'supersecret', {
+    expiresIn: maxAge
+  });
+};
+
 const signUp = asyncHandler(async (req, res) => {
-    const individualTrainee = await individualTraineeModel.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        gender: req.body.wallet,
-        country: req.body.country,
-        wallet: req.body.wallet,
-        enrolledCourses: req.body.enrolledCourses
-    })
-    res.status(200).json(individualTrainee)
+    try{
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password, salt)
+        const individualTrainee = await individualTraineeModel.create({
+            username: req.body.username,
+            password: hashedPassword,
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            gender: req.body.gender,
+            country: req.body.country,
+            wallet: req.body.wallet,
+            enrolledCourses: req.body.enrolledCourses
+        })
+        const token = createToken(user.name);
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(200).json(individualTrainee)
+    }
+    catch(error){
+        res.status(400).json({error:error.message})
+    }
 })
-
-
 
 //not working properly yet.................
 
@@ -106,7 +125,6 @@ const watchVideo = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: 'Unauthorized Access!'
         })
-
 })
 
 module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo }

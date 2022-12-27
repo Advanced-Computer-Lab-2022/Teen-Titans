@@ -4,6 +4,9 @@ const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
 const exerciseModel = require('../models/exerciseModel')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const express = require("express");
 
 const definePromotion = async (req, res) => {
     const { id } = req.params
@@ -28,9 +31,7 @@ const editEmail = async (req, res) => {
     if (!instructor) {
         return res.status(400).json({ error: 'No such instructor' })
     }
-
     res.status(200).json(instructor)
-
 }
 const editBiography = async (req, res) => {
     const { id } = req.params
@@ -40,9 +41,7 @@ const editBiography = async (req, res) => {
     if (!instructor) {
         return res.status(400).json({ error: 'No such instructor' })
     }
-
     res.status(200).json(instructor)
-
 }
 
 const createCourseExam = asyncHandler(async (req, res) => {
@@ -57,7 +56,6 @@ const createCourseExam = asyncHandler(async (req, res) => {
                 { id: 2, Text: req.body.Text3, isCorrect: req.body.isCorrect3 },
                 { id: 3, Text: req.body.Text4, isCorrect: req.body.isCorrect4 }]
             }
-
             ,
             questionTwo: {
                 question: req.body.question2,
@@ -94,11 +92,7 @@ const createExam = asyncHandler(async (req, res) => {
             { id: 1, Text: req.body.Text6, isCorrect: req.body.isCorrect6 },
             { id: 2, Text: req.body.Text7, isCorrect: req.body.isCorrect7 },
             { id: 3, Text: req.body.Text8, isCorrect: req.body.isCorrect8 }],
-
-
         }
-
-
         , { new: true })
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
@@ -160,7 +154,6 @@ const createCourse = asyncHandler(async (req, res) => {
             })
             subtitles.push(subtitle)
         }
-
         const exercise = await exerciseModel.create({
             questionOne: {
                 question: req.body.exercise.questionOne.question,
@@ -330,7 +323,6 @@ const changePassword = asyncHandler(async (req, res) => {
         })
 })
 
-
 const upload = asyncHandler(async (req, res) => {
     console.log(req.body)
     console.log("inside upload")
@@ -342,7 +334,58 @@ const upload = asyncHandler(async (req, res) => {
         const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
         res.status(200).json(course)
     }
+}) 
+
+const login = async (req, res) => {
+    // TODO: Login the user
+    
+}
+
+const logout = async (req, res) => {
+    // TODO Logout the user
+}
+
+// create json web token
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (name) => {
+  return jwt.sign({ name }, 'supersecret', {
+    expiresIn: maxAge
+  });
+};
+
+const signUp = asyncHandler(async (req, res) => {
+    try{
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const instructor = await instructorModel.create({
+            username: req.body.username,
+            password: hashedPassword,
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            gender: req.body.gender,
+        })
+        const token = createToken(user.name);
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.status(200).json(instructor)
+    }
+    catch(error){
+        res.status(400).json({error:error.message})
+    }
 })
 
+const viewMoneyOwed = asyncHandler(async (req, res) => {
+    let index;
+    let totalMoneyOwed=0;
+    const percentage = req.body.percentage
+    const instructor = await instructorModel.findById(req.query.instructorId)
+    for(index=0; index< instructor.courses.length; index++) {
+        let course = await courseModel.findById(instructor.courses[i])
+        const moneyOwed =  (course.numberOfEnrolledStudents * course.price)*(1-course.discount.amount) * (1-percentage)
+        totalMoneyOwed += moneyOwed;
+    }
+    res.json(totalMoneyOwed)
+})
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail, editBiography, definePromotion, createExam, createCourseExam }
+module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
+editBiography, definePromotion, createExam, createCourseExam, login, logout, signUp, viewMoneyOwed }

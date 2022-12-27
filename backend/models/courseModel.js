@@ -27,7 +27,6 @@ const courseSchema = mongoose.Schema({
     discount: {
         amount: {
             type: Number,
-
         },
         duration: {
             type: String
@@ -53,7 +52,10 @@ const courseSchema = mongoose.Schema({
     courseOutline: {
         type: String
     },
-    exercise: exerciseModel.schema
+    exercise: exerciseModel.schema,
+    numberOfEnrolledStudents: {
+        type: Number
+    }
 
 }, {
     timestamps: true

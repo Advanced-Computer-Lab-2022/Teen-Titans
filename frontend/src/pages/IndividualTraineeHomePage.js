@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TraineeViewCourses from '../components/TraineeViewCourses'
 import AppRate from "../components/Rate";
+import Login from "../components/Login";
+
 const IndividualTrainee = () => {
     const [id, setId] = useState('');
     const saveId = () => {
@@ -10,6 +12,7 @@ const IndividualTrainee = () => {
     }
     return (
         <div className="home">
+            <Login/>
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>

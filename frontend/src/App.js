@@ -24,8 +24,9 @@ import InstructorCourses from './pages/InstructorCourses';
 import DefinePromotion from './components/InstructorDefinePromotion';
 import ExamForm from './components/CreateExam';
 import CourseExamForm from './components/CreateCourseExam';
-import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
+import RegisterPage from './pages/RegisterPage';
+import CopyrightsPage from './pages/CopyrightsPage';
 
 function App() {
 
@@ -56,8 +57,9 @@ function App() {
             <Route path='/discount' element={<DefinePromotion />}></Route>
             <Route path='/createExam' element={<ExamForm />}></Route>
             <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
-            <Route path='/copyrights' element={<Copyrights />}></Route>
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
+            <Route path='/RegisterPage' element={<RegisterPage />}></Route>
+            <Route path='/CopyrightsPage' element={<CopyrightsPage />}></Route>
           </Routes>
         </div>
 
