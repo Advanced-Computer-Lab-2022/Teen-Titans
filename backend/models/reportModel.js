@@ -2,11 +2,11 @@
 const mongoose = require('mongoose')
 
 const reportSchema = mongoose.Schema({
-    userid: {
-        type: Number
+    userId: {
+        type: String
     },
-    courseid: {
-        type: Number
+    courseId: {
+        type: String
     },
     type: {
         type: String

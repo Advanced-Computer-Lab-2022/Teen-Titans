@@ -8,6 +8,7 @@ const Binary = require('mongodb').Binary;
 const PDFDocument = require('pdfkit');
 const fs = require("fs");
 const { jsPDF } = require("jspdf");
+const reportModel=require("../models/reportModel");
 
 const multer = require('multer');
 // const upload = multer({ dest: os.tmpdir() });
@@ -159,31 +160,8 @@ const resetPassword = asyncHandler(async (req, res) => {
     }
     else
         res.status(400).json({ message: "User not found!" })
-    //let user;
-    // console.log("are we here?");
-    // user = await individualTraineeModel.exists({ id: req.body.id })
-    // if (user) {
-    //     const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-    //     res.status(200).json({
-    //         message: 'Password Reset!'
-    //     })
-    // }
-    // else {
-    //     user = await corporateTraineeModel.exists({ id: req.body.id })
-    //     if (user) {
-    //         const corporateTrainee = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-    //         res.status(200).json({
-    //             message: 'Password Reset!'
-    //         })
-    //     }
-    //     else {
-    //         user = await instructorModel.find({ id: req.body.id })
-    //         const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-    //         res.status(200).json({
-    //             message: 'Password Reset!'
-    //         })
-    //     }
-    // }
+    
+   
 
 })
 
@@ -263,4 +241,49 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificateByEmail, generateCertificate }
+
+const report=asyncHandler(async (req,res)=>{
+
+    console.log("id",req.query.traineeId);
+    console.log("type",req.query.type);
+    console.log("problem",req.query.problem);
+    const report = await reportModel.create({userId:req.query.traineeId,
+        courseId:req.query.courseId,status:"pending",type:req.query.type,problem:req.query.problem,user:req.query.user});
+
+    if(report){
+        res.status(200).json({
+            message: 'Report Sent!'
+        })
+    }
+    else{
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+    }
+       
+})
+ 
+const getReport=asyncHandler(async (req,res)=>{
+    const id=req.query.userId
+    const report = await reportModel.find({userId:id})
+    if(report){
+        res.status(200).json(
+           report
+        )
+    }
+    else{
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+    }
+})
+
+
+
+
+
+
+
+
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor,
+     generateCertificateByEmail, generateCertificate,report,getReport }

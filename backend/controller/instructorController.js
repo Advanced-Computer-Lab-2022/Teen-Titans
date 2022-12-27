@@ -4,7 +4,7 @@ const instructorModel = require('../models/instructorModel')
 const subtitleModel = require('../models/subtitleModel')
 const videoModel = require('../models/videoModel')
 const exerciseModel = require('../models/exerciseModel')
-
+const reportModel=require("../models/reportModel");
 const definePromotion = async (req, res) => {
     const { id } = req.params
 
@@ -347,4 +347,44 @@ const upload = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail, editBiography, definePromotion, createExam, createCourseExam }
+
+const report=asyncHandler(async (req,res)=>{
+
+    console.log("id",req.query.traineeId);
+    console.log("type",req.query.type);
+    console.log("problem",req.query.problem);
+    const report = await reportModel.create({userId:req.query.traineeId,
+        courseId:req.query.courseId,status:"pending",type:req.query.type,problem:req.query.problem,user:req.query.user});
+
+    if(report){
+        res.status(200).json({
+            message: 'Report Sent!'
+        })
+    }
+    else{
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+    }
+       
+})
+const getReport=asyncHandler(async (req,res)=>{
+    const id=req.query.userId
+    const report = await reportModel.find({userId:id})
+    if(report){
+        res.status(200).json(
+           report
+        )
+    }
+    else{
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+    }
+})
+
+
+module.exports = { createCourse, course, allcourses, subject,
+     instructorSearchCourse, changePassword, upload, 
+     viewInstructorRatings, editEmail, editBiography, 
+     definePromotion, createExam, createCourseExam ,report,getReport}

@@ -3,6 +3,7 @@ import jsPDF from 'jspdf';
 import compress from "compress-base64";
 import axios from 'axios';
 import FormData from 'form-data'
+import ReportDetails from "../components/ReportDetails";
 // import * as pdf from "@grapecity/wijmo.pdf";
 // import * as wijmo from '@grapecity/wijmo';
 const CourseSettings = () => {
@@ -11,6 +12,9 @@ const CourseSettings = () => {
     const userId = params.get('userId');
     const user = params.get('user')
     const [course, setCourse] = useState(null)
+    const [problem, setProblem] = useState(null)
+    const [reports,setReports]=useState([])
+
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -22,8 +26,19 @@ const CourseSettings = () => {
                 }
             )
         }
+        const getReport=async()=>{
+            await axios.get(`users/getReport?userId=${userId}`).then(
+                (res) => {
+                    const json = res.data
+                    if (json) {
+                        setReports(json)
+                    }
+                }
+            )
+        }
         getDetails()
-    }, [course])
+        getReport()
+    },[])
     const requestRefund = async () => {
         await axios.get(`/individual/requestRefund?id=${userId}&courseId=${courseId}`).then(
             (res) => {
@@ -138,6 +153,30 @@ const CourseSettings = () => {
                 })
         }
     }
+
+    const Report = async () => {
+    let type;
+    type = document.getElementById('reportType').value.toString()
+
+    const response = await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${type}&problem=${problem}&user=${user}`,
+        {
+            method: 'POST',
+           headers: {
+               'Content-Type': 'application/json'  
+     }
+},)
+        console.log("user id",userId)    
+        console.log("course id",courseId)
+        console.log("type",type)
+        console.log("problem",problem)
+      const json = await response.json()
+        console.log(json);
+        console.log(userId);
+        
+         if (response.ok) {
+         alert('Report sent successfully!')
+   }
+  }
     return (
         <div>
             {
@@ -153,7 +192,52 @@ const CourseSettings = () => {
                     <button className='btn' onClick={() => sendCertificate()}>Get certificate by mail</button>
                 </div>
             }
+
+            <div>
+                <h> Report A Problem :</h>
+                <input
+                    type="text"
+                    className="from-control mt-4"
+                    id='searchKey'
+                    placeholder='please write your problem'
+                 onChange={(e) => setProblem(e.target.value)}
+                />
+                {/* <form className="reports" >
+                <div>
+                <ul>
+                    <li>
+                        <input type="radio" id="a" name="financial" />
+                        <label for="a">Financial</label>
+                        <input type="radio" id="b" name="technical"  />
+                        <label for="b">Technical</label>
+                        <input type="radio" id="c" name="other"/>
+                        <label for="c">Other</label>
+              <br></br>
+                    </li>
+                    </ul>
+                </div>
+                </form> */}
+             <label>Select your problem type:</label>
+            <br></br>
+            <select name="reportType" id="reportType">
+                <option value="Financial">Financial</option>
+                <option value="Technical">Technical</option>
+                <option value="Other">Other</option>
+            </select>
+            
+                <button type="submit" onClick={() => Report()}> Report </button>
+            </div>
+            <div className='view'>
+            <div className='reports'>
+                {reports && reports.map((report)=>(
+                    
+                    <ReportDetails key={report._id} report={report} />
+                ))}
+            </div>
         </div>
+
+        </div>
+        
     )
 }
 

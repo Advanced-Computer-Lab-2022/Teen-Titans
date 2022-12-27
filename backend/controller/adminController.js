@@ -109,4 +109,16 @@ else
 })
 
 
-module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee}
+
+const getInstructor = asyncHandler(async (req, res) => {
+    const user = await instructorModel.findById(req.query.id);
+    if (user)
+    res.status(200).json(user)
+else
+    res.status(400).json({
+        message: 'user not found!'
+    })
+})
+
+
+module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee,getInstructor}

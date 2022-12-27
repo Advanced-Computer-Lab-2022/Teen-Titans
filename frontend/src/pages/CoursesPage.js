@@ -1,6 +1,6 @@
 // import Subtitle from '../components/subtitles';
 import React, { useEffect, useState } from "react"
-import ReactPlayer from 'react-player/youtube'
+// import ReactPlayer from 'react-player/youtube'
 import axios from 'axios';
 import AppRate from '../components/Rate';
 import TextEditor from '../components/TextEditor';
@@ -108,7 +108,7 @@ const CoursesPage = () => {
                         <div className='col-8 course-details1'>
 
                             <div className='player-wrapper'>
-                                <ReactPlayer
+                                {/* <ReactPlayer
                                     sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation allow-presentation"
                                     className='react-player'
                                     allowFullScreen
@@ -121,7 +121,7 @@ const CoursesPage = () => {
                                         if (video)
                                             watchedVideo()
                                     }}
-                                />
+                                /> */}
                             </div>
                             <div className='d-flex'>
                                 <div className='d-flex flex-column'>
