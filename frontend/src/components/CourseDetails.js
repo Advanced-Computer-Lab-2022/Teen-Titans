@@ -19,7 +19,7 @@ const CourseDetails = ({ course }) => {
             <p><strong>course hours:</strong> {course.hours}</p>
             <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
             <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
-            <button className='videos' onClick={() => window.location.href = `/pay`}>Enroll now</button>
+            <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now</button>
 
         </div>
         </div>

@@ -29,6 +29,7 @@ import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
 import CreditCardForm from './components/CreditCard';
 import AdminDiscount from './components/AdminDiscount';
+import PaymentMethod from './components/PaymentMethod';
 
 function App() {
 
@@ -66,7 +67,7 @@ function App() {
             <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
 
  
-
+            <Route path='/paymentMethod' element={<PaymentMethod />}></Route>
             <Route path='/pay' element={<CreditCardForm />}></Route>
           </Routes>
         </div>

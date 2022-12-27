@@ -36,33 +36,92 @@ const signUp = asyncHandler(async (req, res) => {
 
 //not working properly yet.................
 
+
+
+const registerForCourseUsingWallet = asyncHandler(async (req, res) => {
+    const findUser = await individualTraineeModel.findById(req.body.id);
+    const findCourse = await courseModel.findById(req.body.courseId);
+    let oldWallet = findUser.wallet;
+    if(findUser.wallet>=findCourse.price){
+    const newWallet = oldWallet - findCourse.price;
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents  }, { new: true });
+    //const updatedUser = await individualTraineeModel.findByIdAndUpdate(req.body.id,{ wallet : newWallet}, { new: true })
+    const courses = findUser.enrolledCourses
+    courses.push({
+        course: updatedCourse,
+        videosSeen: [],
+        numberComplete: 0,
+        percentageComplete: 0
+    })
+    // console.log(courses);
+    const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses, wallet:newWallet })
+    if (user)
+        res.status(200).json({
+            message: 'Registration Successful!'
+        })
+    else
+        res.status(400).json({
+            message: 'Registration Unsuccessful!'
+        })
+    }
+    else{
+
+        return res.status(400).json({ error: 'wallet not enough' })
+    }
+})
+
+
+// const registerForCourse = asyncHandler(async (req, res) => {
+//     const findUser = await individualTraineeModel.findById(req.body.id);
+//     if (!findUser){
+//         return res.status(400).json({ error: 'wrong id' })}
+//     const courseId = req.body.courseId
+//     const course = await courseModel.findById(courseId)
+//     let newEnrolled = course.numberOfEnrolledStudents;
+//     console.log(newEnrolled);
+//     newEnrolled++;
+
+//    console.log(newEnrolled);
+//    //course.numberOfEnrolledStudents = newEnrolled;
+  
+//    const course1 = await courseModel.findByIdAndUpdate(courseId,{numberOfEnrolledStudents:newEnrolled}, {new: true})
+//    console.log(course.numberOfEnrolledStudents);
+//    const courses = findUser.enrolledCourses
+//     courses.push({
+//         course: course,
+//         videosSeen: [],
+//         numberComplete: 0,
+//         percentageComplete: 0
+//     })
+//     // console.log(courses);
+//     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
+//          if (user){
+//        return res.status(200).json({ error: 'Registration successful!' })}
+  
+// })
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
-    if (!findUser){
-        return res.status(400).json({ error: 'wrong id' })}
-    const courseId = req.body.courseId
-    const course = await courseModel.findById(courseId)
-    let newEnrolled = course.numberOfEnrolledStudents;
-    console.log(newEnrolled);
-    newEnrolled++;
-
-   console.log(newEnrolled);
-   //course.numberOfEnrolledStudents = newEnrolled;
-  
-   const course1 = await courseModel.findByIdAndUpdate(courseId,{numberOfEnrolledStudents:newEnrolled}, {new: true})
-   console.log(course.numberOfEnrolledStudents);
-   const courses = findUser.enrolledCourses
+    const findCourse = await courseModel.findById(req.body.courseId);
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
+    const courses = findUser.enrolledCourses
     courses.push({
-        course: course,
+        course: updatedCourse,
         videosSeen: [],
         numberComplete: 0,
         percentageComplete: 0
     })
     // console.log(courses);
     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
-         if (user){
-       return res.status(200).json({ error: 'Registration successful!' })}
-  
+    if (user)
+        res.status(200).json({
+            message: 'Registration Successful!'
+        })
+    else
+        res.status(400).json({
+            message: 'Registration Unsuccessful!'
+        })
 })
 
 const viewMyCourses = asyncHandler(async (req, res) => {
@@ -150,4 +209,4 @@ const viewMostPopularCourses = asyncHandler(async(req,res)=>{
 
 
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo,watchPreviewVideo,viewMostPopularCourses }
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo,watchPreviewVideo,viewMostPopularCourses,registerForCourseUsingWallet}

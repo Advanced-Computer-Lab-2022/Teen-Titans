@@ -45,7 +45,7 @@ app.use('/search', searchRoute)
 //       "sk_test_51MEvkYDb3AuWuf2f5Nr1hL9La7ZYUR0Q5mv8QJ5gY2gmq74AIPoX3WqkZGK4lv3x8wFec83japfjbDkCYnr1ER2A00KlKkELBv"
 //     );
   
-//     const { amount, email, token } = req.body;
+//     const { email, token } = req.body;
   
 //     stripe.customers
 //       .create({
@@ -55,8 +55,8 @@ app.use('/search', searchRoute)
 //       })
 //       .then((customer) => {
 //         return stripe.charges.create({
-//           amount: parseFloat(amount) * 100,
-//           description: `Payment for USD ${amount}`,
+//           //amount: parseFloat(amount) * 100,
+//           //description: `Payment for USD ${amount}`,
 //           currency: "USD",
 //           customer: customer.id,
 //         });
