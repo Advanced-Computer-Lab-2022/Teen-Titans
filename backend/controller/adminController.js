@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Admin = require('../models/adminModel')
+const courseModel = require('../models/courseModel')
 const instructorModel = require('../models/instructorModel.js')
 const corporateTraineeModel = require('../models/corporateTraineeModel.js')
 
@@ -68,4 +69,63 @@ const selectedUser = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { selectedUser }
+//define promotion
+
+const definePromotion = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const course = await courseModel.findById( id )
+    let coursePrice = course.price
+    if(course.discount.amount!=0){
+        return res.status(400).json({ error: 'There is already a discount applied' })
+    }
+   else{
+       let courseEndDate = req.body.endDate
+       courseEndDate = courseEndDate+'T00:00:00.000+00:00'
+        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
+            discount: {
+                amount: req.body.amount,
+                //startDate: req.body.startDate,
+                endDate: courseEndDate
+               
+            },
+        }, { new: true })
+
+        let discountAmount = req.body.amount
+        const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
+           
+               price : coursePrice - coursePrice*(discountAmount/100)
+               
+            ,
+        }, { new: true })
+
+
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let currentDate = `${year}-${month}-${day}`;
+        // "17-6-2022"
+        console.log(course1.discount.endDate)
+         currentDate= currentDate+'T00:00:00.000+00:00'
+         console.log(currentDate); 
+        if(currentDate>course1.discount.endDate){
+            const course3 = await courseModel.findOneAndUpdate({_id:id},{
+
+                amount:0,
+                endDate: "",
+                price: coursePrice
+               })
+        }
+    
+        
+  }
+    if (!course) {
+        return res.status(400).json({ error: 'No such course' })
+    }
+    res.status(200).json(course)
+})
+
+module.exports = { selectedUser,definePromotion }

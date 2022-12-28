@@ -2,8 +2,12 @@ const express = require('express');
 const path = require('path');
 const individualTraineeRouter = express.Router()
 const courses = require('../controller/searchController')
-const { changePassword, registerForCourse, signUp } = require('../controller/individualTraineeController')
+const { changePassword, registerForCourse, signUp, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet } = require('../controller/individualTraineeController')
 const { getCourses, getPrices } = require('../controller/viewCoursesController');
+// const { exercise } = require('../controller/corporatetraineeController');
+individualTraineeRouter.get('/viewPopularCourses', viewMostPopularCourses)
+
+individualTraineeRouter.get('/watchPreviewVideo', watchPreviewVideo)
 
 individualTraineeRouter.get('/getCourses', getCourses)
 
@@ -16,6 +20,8 @@ individualTraineeRouter.patch('/changePassword', changePassword)
 individualTraineeRouter.post('/registerForCourse', registerForCourse)
 
 individualTraineeRouter.post('/signup', signUp)
+
+individualTraineeRouter.post('/registerForCourseUsingWallet', registerForCourseUsingWallet)
 
 
 module.exports = individualTraineeRouter

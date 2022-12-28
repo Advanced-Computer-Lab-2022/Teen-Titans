@@ -8,20 +8,65 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const express = require("express");
 
-const definePromotion = async (req, res) => {
+const definePromotion = asyncHandler(async (req, res) => {
     const { id } = req.params
+    const course = await courseModel.findById(id)
+    let coursePrice = course.price
+    if (course.discount.amount != 0) {
+        return res.status(400).json({ error: 'There is already a discount applied' })
+    }
+    else {
+        let courseEndDate = req.body.endDate
+        courseEndDate = courseEndDate + 'T00:00:00.000+00:00'
+        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
+            discount: {
+                amount: req.body.amount,
+                //startDate: req.body.startDate,  fhfghg
+                endDate: courseEndDate
 
-    const course = await courseModel.findOneAndUpdate({ _id: id }, {
-        discount: {
-            amount: req.body.amount,
-            duration: req.body.duration
-        }
-    }, { new: true })
+            },
+        }, { new: true })
+
+        let discountAmount = req.body.amount
+        const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
+
+            price: coursePrice - coursePrice * (discountAmount / 100)
+
+            ,
+        }, { new: true })
+
+
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let currentDate = `${year}-${month}-${day}`;
+        // "17-6-2022"
+        console.log(course1.discount.endDate)
+        currentDate = currentDate + 'T00:00:00.000+00:00'
+        console.log(currentDate);
+        if (currentDate)
+            if (currentDate > req.body.endDate) {
+                const course3 = await courseModel.findOneAndUpdate({ _id: id }, {
+
+                    amount: 0,
+                    endDate: "",
+                    price: coursePrice
+                })
+                return res.status(302).json({ error: 'invalid date' })
+            }
+
+
+    }
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }
     res.status(200).json(course)
-}
+})
+
 
 const editEmail = async (req, res) => {
     const { id } = req.params
@@ -186,7 +231,10 @@ const createCourse = asyncHandler(async (req, res) => {
             reviews: [],
             title: req.body.title,
             price: req.body.price,
-            discount: 0,
+            discount: {
+                amount: 0,
+                endDate: ""
+            },
             subject: req.body.subject,
             instructorId: req.body.instructorId,
             instructorName: req.body.instructorName,
@@ -206,7 +254,6 @@ const createCourse = asyncHandler(async (req, res) => {
 
     }
 })
-
 const getCoursesTitles = asyncHandler(async (req, res) => {
     try {
 
@@ -335,11 +382,11 @@ const upload = asyncHandler(async (req, res) => {
         const course = await courseModel.findByIdAndUpdate(req.body.courseId, { previewVideo: { url: req.body.url, shortDescription: req.body.shortDescription } })
         res.status(200).json(course)
     }
-}) 
+})
 
 const login = async (req, res) => {
     // TODO: Login the user
-    
+
 }
 
 const logout = async (req, res) => {
@@ -349,13 +396,13 @@ const logout = async (req, res) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (name) => {
-  return jwt.sign({ name }, 'supersecret', {
-    expiresIn: maxAge
-  });
+    return jwt.sign({ name }, 'supersecret', {
+        expiresIn: maxAge
+    });
 };
 
 const signUp = asyncHandler(async (req, res) => {
-    try{
+    try {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const instructor = await instructorModel.create({
@@ -370,23 +417,25 @@ const signUp = asyncHandler(async (req, res) => {
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json(instructor)
     }
-    catch(error){
-        res.status(400).json({error:error.message})
+    catch (error) {
+        res.status(400).json({ error: error.message })
     }
 })
 
 const viewMoneyOwed = asyncHandler(async (req, res) => {
     let index;
-    let totalMoneyOwed=0;
+    let totalMoneyOwed = 0;
     const percentage = req.body.percentage
     const instructor = await instructorModel.findById(req.query.instructorId)
-    for(index=0; index< instructor.courses.length; index++) {
+    for (index = 0; index < instructor.courses.length; index++) {
         let course = await courseModel.findById(instructor.courses[i])
-        const moneyOwed =  (course.numberOfEnrolledStudents * course.price)*(1-course.discount.amount) * (1-percentage)
+        const moneyOwed = (course.numberOfEnrolledStudents * course.price) * (1 - course.discount.amount) * (1 - percentage)
         totalMoneyOwed += moneyOwed;
     }
     res.json(totalMoneyOwed)
 })
 
-module.exports = { createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
-editBiography, definePromotion, createExam, createCourseExam, login, logout, signUp, viewMoneyOwed }
+module.exports = {
+    createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
+    editBiography, definePromotion, createExam, createCourseExam, login, logout, signUp, viewMoneyOwed
+}

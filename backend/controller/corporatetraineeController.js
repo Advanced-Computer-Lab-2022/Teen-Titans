@@ -92,6 +92,22 @@ const watchVideoC = asyncHandler(async (req, res) => {
         })
 
 })
+const watchPreviewVideo = asyncHandler(async (req, res) => {
+
+    let videoUrl = ''
+    const course = await courseModel.findById(req.query.courseId)
+    const video = course.previewVideo
+    videoUrl = video.url
+    VideoShortDescription = video.shortDescription
+    res.status(200).json(video)
+
+
+
+})
+const viewMostPopularCourses = asyncHandler(async (req, res) => {
+    const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, price: 1, numberOfEnrolledStudents: 1 }).sort({ numberOfEnrolledStudents: -1 }).limit(5)
+    res.status(200).json(popularCourses)
+})
 
 const videoSeenC = asyncHandler(async (req, res) => {
     const trainee = await corporateTraineeModel.findById(req.query.id)
@@ -122,4 +138,4 @@ const videoSeenC = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC, openCourseC }
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, watchPreviewVideo, viewMostPopularCourses, videoSeenC, openCourseC }

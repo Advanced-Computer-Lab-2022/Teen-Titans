@@ -1,7 +1,9 @@
 import Details from "./Details"
+import DisplayPreviewVideo from "./DisplayPreviewVideo"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 
@@ -73,6 +75,7 @@ const CoursePrice = ({ course }) => {
 
     }
     return (
+
         <div className="course-price" id={course._id} onMouseEnter={handleHover}>
             <h2>
                 {course.title}
@@ -81,11 +84,17 @@ const CoursePrice = ({ course }) => {
                 <h5><strong>Price:</strong> {(course.price * conversion_rate).toFixed(2)} {target_code}</h5>
                 <h5><strong>course rating:</strong> {(course.rating.toFixed(2))}</h5>
                 <h5><strong>course hours:</strong> {course.hours}</h5>
+                <p><strong>course outline:</strong> {course.courseOutline}</p>
+                <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
+                <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
+
+                </button>
                 {
                     courseData &&
                     <div className="my-container">
                         <Tippy content={<Details course={courseData} key={courseData.id}></Details>} placement='left' theme="light">
                             <button>Details</button>
+
                         </Tippy>
                         {ishidden ?
                             <div>
@@ -95,10 +104,27 @@ const CoursePrice = ({ course }) => {
                                 }
                             </div>
                             : null}
+
+                    </div>
+
+
+                }
+                {
+                    <div>
+
+                        {/* <DisplayPreviewVideo courseId={course._id}>  */}
+                        {/* <DisplayPreviewVideo courseId={course._id}></DisplayPreviewVideo> */}
+                        {/* </DisplayPreviewVideo>  */}
                     </div>
                 }
+
+
+
+
             </div>
         </div>
+
+
     )
 }
 

@@ -40,8 +40,11 @@ const Admin = () => {
                 <label>Password:</label>
                 <input id='password'></input>
                 <button onClick={() => addUser()}>Add</button>
+
+
                 <span>{message}</span>
             </div>
+            <button onClick={() => window.location.href = `/viewCoursesForDiscount`}>View courses</button>
         </div>
     )
 }

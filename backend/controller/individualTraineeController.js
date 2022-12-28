@@ -6,6 +6,7 @@ const requestModel = require('../models/requestModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const express = require("express");
+const { db } = require('../models/videoModel');
 
 const changePassword = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.body.id);
@@ -55,8 +56,75 @@ const signUp = asyncHandler(async (req, res) => {
 
 //not working properly yet.................
 
+
+
+const registerForCourseUsingWallet = asyncHandler(async (req, res) => {
+    const findUser = await individualTraineeModel.findById(req.body.id);
+    const findCourse = await courseModel.findById(req.body.courseId);
+    let oldWallet = findUser.wallet;
+    if (findUser.wallet >= findCourse.price) {
+        const newWallet = oldWallet - findCourse.price;
+        const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+        const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
+        //const updatedUser = await individualTraineeModel.findByIdAndUpdate(req.body.id,{ wallet : newWallet}, { new: true })
+        const courses = findUser.enrolledCourses
+        courses.push({
+            course: updatedCourse,
+            videosSeen: [],
+            numberComplete: 0,
+            percentageComplete: 0
+        })
+        // console.log(courses);
+        const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses, wallet: newWallet })
+        if (user)
+            res.status(200).json({
+                message: 'Registration Successful!'
+            })
+        else
+            res.status(400).json({
+                message: 'Registration Unsuccessful!'
+            })
+    }
+    else {
+
+        return res.status(400).json({ error: 'wallet not enough' })
+    }
+})
+
+
+// const registerForCourse = asyncHandler(async (req, res) => {
+//     const findUser = await individualTraineeModel.findById(req.body.id);
+//     if (!findUser){
+//         return res.status(400).json({ error: 'wrong id' })}
+//     const courseId = req.body.courseId
+//     const course = await courseModel.findById(courseId)
+//     let newEnrolled = course.numberOfEnrolledStudents;
+//     console.log(newEnrolled);
+//     newEnrolled++;
+
+//    console.log(newEnrolled);
+//    //course.numberOfEnrolledStudents = newEnrolled;
+
+//    const course1 = await courseModel.findByIdAndUpdate(courseId,{numberOfEnrolledStudents:newEnrolled}, {new: true})
+//    console.log(course.numberOfEnrolledStudents);
+//    const courses = findUser.enrolledCourses
+//     courses.push({
+//         course: course,
+//         videosSeen: [],
+//         numberComplete: 0,
+//         percentageComplete: 0
+//     })
+//     // console.log(courses);
+//     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
+//          if (user){
+//        return res.status(200).json({ error: 'Registration successful!' })}
+
+// })
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
+    const findCourse = await courseModel.findById(req.body.courseId);
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
     const findCourse = await courseModel.findById(req.body.courseId);
     const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
     const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
@@ -222,3 +290,30 @@ const requestRefund = asyncHandler(async (req, res) => {
 })
 
 module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }
+const watchPreviewVideo = asyncHandler(async (req, res) => {
+    //const user = await individualTraineeModel.findById(req.query.id);
+    // let enrolledCourses = user.enrolledCourses;
+    let videoUrl = ''
+    const course = await courseModel.findById(req.query.courseId)
+    const video = course.previewVideo
+    videoUrl = video.url
+    VideoShortDescription = video.shortDescription
+    res.status(200).json(video)
+
+
+
+})
+
+// view most popular courses
+const viewMostPopularCourses = asyncHandler(async (req, res) => {
+    const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, price: 1, numberOfEnrolledStudents: 1 }).sort({ numberOfEnrolledStudents: -1 }).limit(5)
+    res.status(200).json(popularCourses)
+})
+
+
+
+//enter credit card info
+
+
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }
