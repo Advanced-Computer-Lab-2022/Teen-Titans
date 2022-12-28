@@ -275,4 +275,4 @@ const viewMostPopularCourses = asyncHandler(async (req, res) => {
 }
 )
 
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificate, generateCertificateByEmail }

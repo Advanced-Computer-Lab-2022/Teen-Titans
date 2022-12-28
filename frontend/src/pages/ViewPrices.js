@@ -42,6 +42,7 @@ const ViewPrices = () => {
                 />
             </div>
             <div className='price'>
+                <ViewCoursesPage />
                 <div className='prices'>
                     {courses && courses.filter((course) =>
                         course.title?.toLowerCase().includes(searchQuery) || course.instructorName?.toLowerCase().includes(searchQuery)

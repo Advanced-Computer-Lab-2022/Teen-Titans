@@ -125,9 +125,6 @@ const registerForCourse = asyncHandler(async (req, res) => {
     const findCourse = await courseModel.findById(req.body.courseId);
     const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
     const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
-    const findCourse = await courseModel.findById(req.body.courseId);
-    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
-    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
     const courses = findUser.enrolledCourses
     courses.push({
         course: updatedCourse,
@@ -289,7 +286,6 @@ const requestRefund = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }
 const watchPreviewVideo = asyncHandler(async (req, res) => {
     //const user = await individualTraineeModel.findById(req.query.id);
     // let enrolledCourses = user.enrolledCourses;
@@ -310,10 +306,6 @@ const viewMostPopularCourses = asyncHandler(async (req, res) => {
     res.status(200).json(popularCourses)
 })
 
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }
 
 
-//enter credit card info
-
-
-
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }
