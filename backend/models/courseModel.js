@@ -28,9 +28,12 @@ const courseSchema = mongoose.Schema({
         amount: {
             type: Number,
         },
-        duration: {
-            type: String
+        endDate: {
+            type: Date
         }
+        // duration: {
+        //     type: String
+        // }
     },
     subject: {
         type: String

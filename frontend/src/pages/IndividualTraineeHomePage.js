@@ -9,6 +9,7 @@ const IndividualTrainee = () => {
         setId(document.getElementById("id").value)
         localStorage.setItem('id', id)
         localStorage.setItem('user', "individualTrainee")
+      
     }
     return (
         <div className="home">
@@ -16,10 +17,15 @@ const IndividualTrainee = () => {
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>
-            <div className="courses">
-                <TraineeViewCourses key={id} id={id} />
-            </div>
-            {/* <AppRate /> */}
+            {/* <div className="courses">
+            </div> */}
+            {
+                id &&
+                <div>
+                <TraineeViewCourses  id={id} />
+
+                </div>
+            }
         </div>
     )
 }

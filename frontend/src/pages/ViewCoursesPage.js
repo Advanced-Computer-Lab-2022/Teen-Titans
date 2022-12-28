@@ -6,7 +6,7 @@ const ViewCoursesPage = ()=>{
     const [courses,setCourses]= useState(null)
     useEffect(()=>{
         const fetchCourses= async()=>{
-            const response = await fetch('/viewCourses')
+            const response = await fetch('individualTrainee/viewPopularCourses')
             const json= await response.json()
 
             if(response.ok){
@@ -17,7 +17,8 @@ const ViewCoursesPage = ()=>{
     },[])
     return(
         <div className='view'>
-            <div className='courses'>
+           
+            <div className='prices'>
                 {courses && courses.map((course)=>(
                     <CourseDetails key={course._id} course= {course}/>
                 ))}

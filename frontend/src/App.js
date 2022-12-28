@@ -19,6 +19,7 @@ import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
 import DisplayVideo from './components/DisplayVideo';
+import DisplayPreviewVideo from './components/DisplayPreviewVideo';
 import Exercise from './pages/Exercise';
 import InstructorCourses from './pages/InstructorCourses';
 import DefinePromotion from './components/InstructorDefinePromotion';
@@ -28,6 +29,9 @@ import ViewInstructorRating from './components/ViewInstructorRating';
 import CourseSettings from './pages/CourseSettings';
 import RegisterPage from './pages/RegisterPage';
 import CopyrightsPage from './pages/CopyrightsPage';
+import CreditCardForm from './components/CreditCard';
+import AdminDiscount from './components/AdminDiscount';
+import PaymentMethod from './components/PaymentMethod';
 
 function App() {
 
@@ -53,6 +57,8 @@ function App() {
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
+            <Route path='/watchVideo' element={<DisplayPreviewVideo />}></Route>
+
             <Route path='/exercise' element={<Exercise />}></Route>
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
             <Route path='/discount' element={<DefinePromotion />}></Route>
@@ -62,6 +68,11 @@ function App() {
             <Route path='/courseSettings' element={<CourseSettings />}></Route>
             <Route path='/RegisterPage' element={<RegisterPage />}></Route>
             <Route path='/CopyrightsPage' element={<CopyrightsPage />}></Route>
+            <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
+
+
+            <Route path='/paymentMethod' element={<PaymentMethod />}></Route>
+            <Route path='/pay' element={<CreditCardForm />}></Route>
           </Routes>
         </div>
 
