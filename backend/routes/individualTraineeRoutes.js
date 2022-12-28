@@ -4,7 +4,6 @@ const individualTraineeRouter = express.Router()
 const courses = require('../controller/searchController')
 const { changePassword, registerForCourse, signUp, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet } = require('../controller/individualTraineeController')
 const { getCourses, getPrices } = require('../controller/viewCoursesController');
-// const { exercise } = require('../controller/corporatetraineeController');
 individualTraineeRouter.get('/viewPopularCourses', viewMostPopularCourses)
 
 individualTraineeRouter.get('/watchPreviewVideo', watchPreviewVideo)

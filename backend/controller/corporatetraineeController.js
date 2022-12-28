@@ -21,14 +21,8 @@ const changePassword = asyncHandler(async (req, res) => {
 
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await corporateTraineeModel.findById(req.body.id);
-    const course = await courseModel.findById(req.body.courseId);
     const courses = findUser.enrolledCourses
-    courses.push({
-        course: course,
-        videosSeen: [],
-        numberComplete: 0,
-        percentageComplete: 0
-    })
+    courses.push(req.body.courseId)
     const user = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
@@ -46,7 +40,7 @@ const myCourses = asyncHandler(async (req, res) => {
     let result = []
     if (user) {
         for (let i = 0; i < enrolledCourses.length; i++) {
-            const courseDetails = await courseModel.findById(enrolledCourses[i].course.id)
+            const courseDetails = await courseModel.findById(enrolledCourses[i].id)
             result.push(courseDetails)
         }
         res.status(200).json(result)
@@ -57,29 +51,13 @@ const myCourses = asyncHandler(async (req, res) => {
         })
 })
 
-const openCourseC = asyncHandler(async (req, res) => {
-    const trainee = await corporateTraineeModel.findById(req.query.id)
-    let viewCourse;
-    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
-        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
-            viewCourse = trainee.enrolledCourses[i]
-            res.status(200).json(viewCourse)
-        }
-    }
-    if (!viewCourse)
-        res.status(400).json({
-            message: "Course not found!"
-        })
-
-})
-
 
 const watchVideoC = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.query.id);
     let videoUrl = ''
     if (user) {
         for (let i = 0; i < user.enrolledCourses.length; i++) {
-            if (user.enrolledCourses[i].course.id == req.query.courseId) {
+            if (user.enrolledCourses[i].id == req.query.courseId) {
                 const video = await videoModel.findById(req.query.videoId)
                 videoUrl = video.url
                 res.status(200).json(video)
@@ -103,12 +81,15 @@ const watchPreviewVideo = asyncHandler(async (req, res) => {
 
 
 
+        <<<<<<<< < Temporary merge branch 1
 })
 const viewMostPopularCourses = asyncHandler(async (req, res) => {
     const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, price: 1, numberOfEnrolledStudents: 1 }).sort({ numberOfEnrolledStudents: -1 }).limit(5)
     res.status(200).json(popularCourses)
 })
 
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, watchPreviewVideo, viewMostPopularCourses }
+=========
 const videoSeenC = asyncHandler(async (req, res) => {
     const trainee = await corporateTraineeModel.findById(req.query.id)
     let enrolledCourses = trainee.enrolledCourses
@@ -138,4 +119,5 @@ const videoSeenC = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, watchPreviewVideo, viewMostPopularCourses, videoSeenC, openCourseC }
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC, openCourseC }
+>>>>>>>>> Temporary merge branch 2

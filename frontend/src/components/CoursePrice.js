@@ -76,6 +76,7 @@ const CoursePrice = ({ course }) => {
     }
     return (
 
+
         <div className="course-price" id={course._id} onMouseEnter={handleHover}>
             <h2>
                 {course.title}
@@ -89,6 +90,11 @@ const CoursePrice = ({ course }) => {
                 <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
 
                 </button>
+                <p><strong>course outline:</strong> {course.courseOutline}</p>
+                <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
+                <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
+
+                </button>
                 {
                     courseData &&
                     <div className="my-container">
@@ -96,6 +102,17 @@ const CoursePrice = ({ course }) => {
                             <button>Details</button>
 
                         </Tippy>
+
+                    </div>
+
+
+                }
+                {
+                    <div>
+
+                        {/* <DisplayPreviewVideo courseId={course._id}>  */}
+                        {/* <DisplayPreviewVideo courseId={course._id}></DisplayPreviewVideo> */}
+                        {/* </DisplayPreviewVideo>  */}
                         {ishidden ?
                             <div>
                                 {showRequest ?

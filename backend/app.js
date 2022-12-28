@@ -1,6 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 var cors = require('cors')
+    <<<<<<<< < Temporary merge branch 1
+const logger = require('morgan');
+=========
 const fileupload = require("express-fileupload");
 const logger = require('morgan');
 const dotenv = require('dotenv').config('.env')
