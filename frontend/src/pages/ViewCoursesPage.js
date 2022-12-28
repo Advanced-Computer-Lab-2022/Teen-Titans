@@ -1,13 +1,8 @@
 import { useEffect ,useState} from 'react'
-
-
 //components
 import CourseDetails  from '../components/CourseDetails'
 
-
-const ViewCoursesPage = ()=>{
-   
-    
+const ViewCoursesPage = ()=>{  
     const [courses,setCourses]= useState(null)
     useEffect(()=>{
         const fetchCourses= async()=>{
@@ -17,8 +12,7 @@ const ViewCoursesPage = ()=>{
             if(response.ok){
                 setCourses(json)
             }
-        }
-       
+        }      
         fetchCourses()
     },[])
     return(
@@ -28,22 +22,7 @@ const ViewCoursesPage = ()=>{
                     <CourseDetails key={course._id} course= {course}/>
                 ))}
             </div>
-        </div>
-        
-    )
-    
-   
-   
+        </div>      
+    )  
 }
-
-
-
-
-
-
-
-
 export default ViewCoursesPage
-
-
-

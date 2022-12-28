@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const instructorRouter = express.Router()
-const { createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings, editEmail, editBiography, definePromotion } = require('../controller/instructorController')
+const {createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings, editEmail, editBiography,
+ definePromotion } = require('../controller/instructorController')
 const courses = require('../controller/searchController')
 const { getCourses, getPrices } = require('../controller/viewCoursesController')
 
