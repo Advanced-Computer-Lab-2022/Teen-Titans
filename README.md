@@ -9,7 +9,7 @@ registering for courses while corporate trainees are registered by the admin and
 
 
 ## Table of contents
-- [Motivation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/Doha#Motivation)
+- [Motivation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/Doha/README.md#motivation)
 - [Tools and Frameworks](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Motivation)
 - [Coding style](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Motivation)
 - [Screenshots](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Screenshots)
