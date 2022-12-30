@@ -428,11 +428,13 @@ const viewMoneyOwed = asyncHandler(async (req, res) => {
     const percentage = req.body.percentage
     const instructor = await instructorModel.findById(req.query.instructorId)
     for (index = 0; index < instructor.courses.length; index++) {
-        let course = await courseModel.findById(instructor.courses[i])
-        const moneyOwed = (course.numberOfEnrolledStudents * course.price) * (1 - course.discount.amount) * (1 - percentage)
+        let course = await courseModel.findById(instructor.courses[index])
+        let moneyOwed = (course.numberOfEnrolledStudents * course.price) * (1 - course.discount.amount) * (1 - percentage)
+        console.log(moneyOwed);
         totalMoneyOwed += moneyOwed;
     }
-    res.json(totalMoneyOwed)
+    console.log(totalMoneyOwed);
+    res.status(200).json({ totalMoneyOwed: totalMoneyOwed })
 })
 
 module.exports = {

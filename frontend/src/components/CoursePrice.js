@@ -93,7 +93,6 @@ const CoursePrice = ({ course }) => {
                     <div className="my-container">
                         <Tippy content={<Details course={courseData} key={courseData.id}></Details>} placement='left' theme="light">
                             <button>Details</button>
-
                         </Tippy>
 
                     </div>
@@ -113,8 +112,6 @@ const CoursePrice = ({ course }) => {
                 }
             </div>
         </div>
-
-
     )
 }
 

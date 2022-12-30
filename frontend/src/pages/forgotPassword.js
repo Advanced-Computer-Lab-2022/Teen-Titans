@@ -26,12 +26,12 @@ const ForgotPassword = () => {
         }
     }
     return (
-        <div>
+        <div className='login' style={{ height: "50vh" }}>
             <h2>Forgot Your Password?</h2>
-            <div className='d-flex flex-column'>
+            <div className='d-flex flex-column justify-content-center align-items-center'>
                 <label>Email:</label>
-                <input id='email'></input>
-                <button onClick={() => forgotPassword()}>Send Email</button>
+                <input id='email' style={{ width: "40%" }}></input>
+                <button className='home-button' onClick={() => forgotPassword()}>Send Email</button>
                 <span>{message}</span>
             </div>
         </div>

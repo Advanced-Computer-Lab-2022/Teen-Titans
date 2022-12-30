@@ -17,6 +17,7 @@ import { NavLink } from 'react-router-dom';
 
 const SideBar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
+    const [isLogout, setIsLogout] = useState(false);
     const userId = localStorage.getItem('id')
     const user = localStorage.getItem('user')
     const toggle = () => setIsOpen(!isOpen);
@@ -32,8 +33,8 @@ const SideBar = ({ children }) => {
             icon: <FaTh />
         },
         {
-            path: "/login",
-            name: "Log Out",
+            path: "/",
+            name: "Logout",
             icon: <FaSignOutAlt />
         }
     ]
@@ -48,10 +49,15 @@ const SideBar = ({ children }) => {
                 </div>
                 {
                     menuItem.map((item, index) => (
-                        <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                            <div className="icon">{item.icon}</div>
-                            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">{item.name}</div>
-                        </NavLink>
+                        !item.name.includes("Logout") ?
+                            <NavLink to={item.path} key={index} className="link" activeclassName="active">
+                                <div className="icon">{item.icon}</div>
+                                <div style={{ display: (isOpen) ? "block" : "none" }} className="link_text">{item.name}</div>
+                            </NavLink> :
+                            <NavLink to={item.path} key={index} className="link" activeclassName="sidebar">
+                                <div className="icon">{item.icon}</div>
+                                <div style={{ display: (isOpen) ? "block" : "none" }} className="link_text">{item.name}</div>
+                            </NavLink>
                     ))
                 }
             </div>

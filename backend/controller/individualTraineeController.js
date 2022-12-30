@@ -32,11 +32,11 @@ const createToken = (name) => {
 
 const signUp = asyncHandler(async (req, res) => {
     try {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt)
+        // const salt = await bcrypt.genSalt();
+        // const hashedPassword = await bcrypt.hash(req.body.password, salt)
         const individualTrainee = await individualTraineeModel.create({
             username: req.body.username,
-            password: hashedPassword,
+            password: req.body.password,
             email: req.body.email,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -45,7 +45,7 @@ const signUp = asyncHandler(async (req, res) => {
             wallet: req.body.wallet,
             enrolledCourses: req.body.enrolledCourses
         })
-        const token = createToken(user.name);
+        const token = createToken(individualTrainee.username);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json(individualTrainee)
     }

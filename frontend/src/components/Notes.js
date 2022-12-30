@@ -25,7 +25,7 @@ const Notes = () => {
                         setNotes(data)
                     }}
                 />
-                <button className="btn2" onClick={() => getNotes()}>Download Notes</button>
+                <button className="display-courses-btn" onClick={() => getNotes()}>Download Notes</button>
             </div>
         </div>
     );

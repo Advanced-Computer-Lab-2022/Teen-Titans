@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const instructorModel = require('../models/instructorModel.js')
 const corporateTraineeModel = require('../models/corporateTraineeModel.js')
 const individualTraineeModel = require('../models/individualTraineeModel')
+const adminModel = require('../models/adminModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
@@ -29,7 +30,12 @@ const login = async (req, res) => {
                 if (user)
                     userType = 'individualTrainee'
                 else {
-                    res.status(400).json({ message: "Incorrect username!" })
+                    user = await adminModel.findOne({ username: username })
+                    if (user)
+                        userType = 'admin'
+                    // else {
+                    //     res.status(400).json({ message: "Incorrect username!" })
+                    // }
                 }
             }
         }

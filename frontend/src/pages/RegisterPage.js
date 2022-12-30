@@ -3,11 +3,11 @@ import Copyrights from "../components/Copyrights"
 
 const RegisterPage = () => {
 
-    return(
+    return (
         <div>
-            <div className='Register page'>
-                <Copyrights/>
-                <Register/>
+            <div className='register'>
+                {/* <Copyrights/> */}
+                <Register />
             </div>
         </div>
     )

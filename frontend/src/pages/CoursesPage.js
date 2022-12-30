@@ -36,14 +36,15 @@ const CoursesPage = () => {
         }
     }
     const navigate = useNavigate();
-    const toexercise = (subtitle) => {
-        navigate('/exercise', { state: subtitle.exercise });
+    const toexercise = (exercise) => {
+        navigate('/exercise', { state: exercise });
     }
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
                 (res) => {
                     const json = res.data
+                    console.log(json);
                     if (json) {
                         setCourse(json)
                         setPercentage(json.percentageComplete)
@@ -52,15 +53,15 @@ const CoursesPage = () => {
             )
         }
         getDetails()
-    })
+    }, [])
 
     return (
         <div>
             {courseId && course &&
                 <div>
                     <div className='d-flex justify-content-between'>
-                        <h1>
-                            {course.title}
+                        <h1 style={{ color: "var(--taupe)" }}>
+                            {course.course.title}
                         </h1>
                         <Icon.GearFill style={{ cursor: "pointer" }} size={30} onClick={() => window.location.href = `/courseSettings?userId=${userId}&courseId=${courseId}&user=${user}`} />
                     </div>
@@ -128,7 +129,7 @@ const CoursesPage = () => {
                             <div>
                                 <div className='d-flex justify-content-start'>Percentage of the course completed:</div>
                                 <div className="progress">
-                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
+                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "var(--taupe)", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
                                     {
                                         course.percentageComplete === 100
                                     }
@@ -150,7 +151,7 @@ const CoursesPage = () => {
                                                 }}>{subtitle.video.shortDescription}</button>
                                             }
                                             <div>
-                                                <button onClick={() => { toexercise(subtitle) }} className='btn2'>Exercises</button>
+                                                <button onClick={() => { toexercise(subtitle.exercise) }} className='display-courses-btn' style={{ marginLeft: "0px" }}>Exercises</button>
                                             </div>
 
                                         </div>
@@ -158,6 +159,7 @@ const CoursesPage = () => {
                                     </div>
                                 ))
                             }
+                            <button className="display-courses-btn" onClick={() => { toexercise(course.course.exercise) }}>Exam</button>
                         </div>
                     </div>
                 </div>
