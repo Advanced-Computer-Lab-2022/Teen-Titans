@@ -2,9 +2,7 @@ const asyncHandler = require('express-async-handler')
 const individualTraineeModel = require('../models/individualTraineeModel')
 const courseModel = require('../models/courseModel')
 const videoModel = require('../models/videoModel');
-<<<<<<<< < Temporary merge branch 1
 const { db } = require('../models/videoModel');
-=========
 const requestModel = require('../models/requestModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
@@ -55,10 +53,6 @@ const signUp = asyncHandler(async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 })
-
-//not working properly yet.................
-
-
 
 const registerForCourseUsingWallet = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
@@ -288,7 +282,24 @@ const requestRefund = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund }
-    >>>>>>>>> Temporary merge branch 2
+const watchPreviewVideo = asyncHandler(async (req, res) => {
+    //const user = await individualTraineeModel.findById(req.query.id);
+    // let enrolledCourses = user.enrolledCourses;
+    let videoUrl = ''
+    const course = await courseModel.findById(req.query.courseId)
+    const video = course.previewVideo
+    videoUrl = video.url
+    VideoShortDescription = video.shortDescription
+    res.status(200).json(video)
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }
+
+
+})
+
+// view most popular courses
+const viewMostPopularCourses = asyncHandler(async (req, res) => {
+    const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, price: 1, numberOfEnrolledStudents: 1 }).sort({ numberOfEnrolledStudents: -1 }).limit(5)
+    res.status(200).json(popularCourses)
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }

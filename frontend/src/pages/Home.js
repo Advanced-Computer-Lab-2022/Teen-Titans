@@ -23,7 +23,7 @@ const Home = () => {
                 <option value="USD">United States of America</option>
             </select>
             <br></br>
-            <button type="submit" onClick={() => {
+            <button className="home-button" type="submit" onClick={() => {
                 setCountry(document.getElementById('countries').value.toString())
             }}>Submit</button>
         </div>

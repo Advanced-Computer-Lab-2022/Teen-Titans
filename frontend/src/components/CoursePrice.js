@@ -37,7 +37,6 @@ const CoursePrice = ({ course }) => {
                 // console.log(json);
                 if (json) {
                     setCourseData(json)
-                    // console.log(courseData);
                 }
             }
         )
@@ -88,12 +87,6 @@ const CoursePrice = ({ course }) => {
                 <p><strong>course outline:</strong> {course.courseOutline}</p>
                 <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
                 <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
-
-                </button>
-                <p><strong>course outline:</strong> {course.courseOutline}</p>
-                <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
-                <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
-
                 </button>
                 {
                     courseData &&
@@ -104,15 +97,9 @@ const CoursePrice = ({ course }) => {
                         </Tippy>
 
                     </div>
-
-
                 }
                 {
                     <div>
-
-                        {/* <DisplayPreviewVideo courseId={course._id}>  */}
-                        {/* <DisplayPreviewVideo courseId={course._id}></DisplayPreviewVideo> */}
-                        {/* </DisplayPreviewVideo>  */}
                         {ishidden ?
                             <div>
                                 {showRequest ?
@@ -120,24 +107,10 @@ const CoursePrice = ({ course }) => {
                                     : <button disabled={open || !checkAccess(course._id)} onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>Open Course</button>
                                 }
                             </div>
-                            : null}
-
-                    </div>
-
-
-                }
-                {
-                    <div>
-
-                        {/* <DisplayPreviewVideo courseId={course._id}>  */}
-                        {/* <DisplayPreviewVideo courseId={course._id}></DisplayPreviewVideo> */}
-                        {/* </DisplayPreviewVideo>  */}
+                            : null
+                        }
                     </div>
                 }
-
-
-
-
             </div>
         </div>
 

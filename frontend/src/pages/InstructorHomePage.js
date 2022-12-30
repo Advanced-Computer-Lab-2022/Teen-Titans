@@ -16,7 +16,7 @@ const InstructorHome = () => {
     }
     return (
         <div className="home">
-             <Login/>
+            {/* <Login/> */}
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>
@@ -25,9 +25,9 @@ const InstructorHome = () => {
                 <div>
                     <ViewInstructorRating id={id} />
                     <PriceFilter />
-                    
+
                     <EditBiography id={id} />
-                    <EditEmail id={id} />                
+                    <EditEmail id={id} />
                 </div>
             }
         </div>

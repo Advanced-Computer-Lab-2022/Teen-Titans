@@ -1,9 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 var cors = require('cors')
-    <<<<<<<< < Temporary merge branch 1
-const logger = require('morgan');
-=========
 const fileupload = require("express-fileupload");
 const logger = require('morgan');
 const dotenv = require('dotenv').config('.env')
@@ -20,6 +17,7 @@ const commonUsersRoute = require('./routes/commonUsersRoute')
 const guestRoute = require('./routes/guestRoute')
 const viewCoursesRoute = require('./routes/viewCoursesRoute')
 const pay = require('./routes/paymentRoute')
+const authenticationRoute = require('./routes/authenticationRoutes')
 
 const individualTraineeRoute2 = require('./routes/individualTraineeRoutes2')
 const { errorHandler } = require('./middleware/errorMiddleWare')
@@ -49,6 +47,7 @@ app.use('/guest', guestRoute)
 app.use('/viewCourses', viewCoursesRoute)
 app.use('/myCourse', myCoursesRoute)
 app.use('/search', searchRoute)
+app.use('/auth', authenticationRoute)
 
 // app.post("/api/stripe-payment", (req, res) => {
 //     const stripe = require("stripe")(

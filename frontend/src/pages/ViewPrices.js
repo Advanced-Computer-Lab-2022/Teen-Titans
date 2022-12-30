@@ -9,6 +9,7 @@ import PopularCourses from '../components/PopularCourses'
 import '../index.css';
 import CourseForm from '../components/CourseForm'
 import ViewCoursesPage from './ViewCoursesPage';
+import SideBar from '../components/SideBar/SideBar';
 const ViewPrices = () => {
     const [courses, setCourses] = useState(null)
     let query
@@ -42,15 +43,26 @@ const ViewPrices = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
-            <div className='price'>
-                <ViewCoursesPage />
-                <div className='prices'>
-                    {courses && courses.filter((course) =>
-                        course.title?.toLowerCase().includes(searchQuery) || course.instructorName?.toLowerCase().includes(searchQuery)
-                        || course.subject?.toLowerCase().includes(searchQuery)
-                    ).map((course) => (
-                        <CoursePrice key={course._id} course={course} />
-                    ))}
+            <div className='row'>
+                <div className='col-2'>
+                    <div style={{ marginTop: "5px" }}>
+                        <SideBar />
+                    </div>
+                </div>
+                <div className='col-10'>
+                    <div className='background'>
+                        <ViewCoursesPage />
+                    </div>
+                    <div className='price'>
+                        <div className='prices'>
+                            {courses && courses.filter((course) =>
+                                course.title?.toLowerCase().includes(searchQuery) || course.instructorName?.toLowerCase().includes(searchQuery)
+                                || course.subject?.toLowerCase().includes(searchQuery)
+                            ).map((course) => (
+                                <CoursePrice key={course._id} course={course} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

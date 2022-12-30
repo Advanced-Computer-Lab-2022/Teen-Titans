@@ -401,26 +401,26 @@ const createToken = (name) => {
     });
 };
 
-const signUp = asyncHandler(async (req, res) => {
-    try {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        const instructor = await instructorModel.create({
-            username: req.body.username,
-            password: hashedPassword,
-            email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            gender: req.body.gender,
-        })
-        const token = createToken(user.name);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json(instructor)
-    }
-    catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-})
+// const signUp = asyncHandler(async (req, res) => {
+//     try {
+//         const salt = await bcrypt.genSalt();
+//         const hashedPassword = await bcrypt.hash(req.body.password, salt);
+//         const instructor = await instructorModel.create({
+//             username: req.body.username,
+//             password: hashedPassword,
+//             email: req.body.email,
+//             firstName: req.body.firstName,
+//             lastName: req.body.lastName,
+//             gender: req.body.gender,
+//         })
+//         const token = createToken(user.name);
+//         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+//         res.status(200).json(instructor)
+//     }
+//     catch (error) {
+//         res.status(400).json({ error: error.message })
+//     }
+// })
 
 const viewMoneyOwed = asyncHandler(async (req, res) => {
     let index;
@@ -437,5 +437,5 @@ const viewMoneyOwed = asyncHandler(async (req, res) => {
 
 module.exports = {
     createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
-    editBiography, definePromotion, createExam, createCourseExam, login, logout, signUp, viewMoneyOwed
+    editBiography, definePromotion, createExam, createCourseExam, login, logout, viewMoneyOwed
 }

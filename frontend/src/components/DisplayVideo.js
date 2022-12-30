@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import React, { useEffect, useState } from "react"
 import ReactPlayer from 'react-player/youtube'
-
 import axios from 'axios';
 
 const DisplayVideo = () => {

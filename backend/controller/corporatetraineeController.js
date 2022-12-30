@@ -51,7 +51,6 @@ const myCourses = asyncHandler(async (req, res) => {
         })
 })
 
-
 const watchVideoC = asyncHandler(async (req, res) => {
     const user = await corporateTraineeModel.findById(req.query.id);
     let videoUrl = ''
@@ -79,17 +78,12 @@ const watchPreviewVideo = asyncHandler(async (req, res) => {
     VideoShortDescription = video.shortDescription
     res.status(200).json(video)
 
-
-
-        <<<<<<<< < Temporary merge branch 1
 })
 const viewMostPopularCourses = asyncHandler(async (req, res) => {
     const popularCourses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, price: 1, numberOfEnrolledStudents: 1 }).sort({ numberOfEnrolledStudents: -1 }).limit(5)
     res.status(200).json(popularCourses)
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, watchPreviewVideo, viewMostPopularCourses }
-=========
 const videoSeenC = asyncHandler(async (req, res) => {
     const trainee = await corporateTraineeModel.findById(req.query.id)
     let enrolledCourses = trainee.enrolledCourses
@@ -119,5 +113,23 @@ const videoSeenC = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC, openCourseC }
->>>>>>>>> Temporary merge branch 2
+const openCourseC = asyncHandler(async (req, res) => {
+    const trainee = await corporateTraineeModel.findById(req.query.id)
+    console.log("id  backend", req.query.id)
+
+    let viewCourse;
+    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+        console.log("course id ", trainee.enrolledCourses[i].course.id)
+        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+            viewCourse = trainee.enrolledCourses[i]
+            res.status(200).json(viewCourse)
+        }
+    }
+    if (!viewCourse)
+        res.status(400).json({
+            message: "Course not found!"
+        })
+
+})
+
+module.exports = { changePassword, myCourses, registerForCourse, watchVideoC, videoSeenC, openCourseC, watchPreviewVideo, viewMostPopularCourses }

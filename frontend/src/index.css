@@ -45,11 +45,11 @@ header a {
 }
 
 /* homepage */
-.view {
+/* .view {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
-}
+} */
 
 .course-details {
   background: #fff;
@@ -91,6 +91,22 @@ header a {
 .prices {
   display: grid;
   grid-template-columns: auto auto auto auto;
+}
+
+.prices2 {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.background {
+  background-color: var(--cream);
+  padding: 2px 5px;
+  margin: 5px;
+}
+
+.popularCourse {
+  display: flex;
+  /* grid-template-columns: auto auto auto auto; */
 }
 
 .course-price {
@@ -560,7 +576,7 @@ header a {
   border: none;
   background-color: rgb(255, 255, 255);
   padding: 0px;
-  color: mediumaquamarine;
+  color: var(--taupe);
   /* border-radius: 5px; */
   font-size: 15px;
 }

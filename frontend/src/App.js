@@ -32,6 +32,7 @@ import CopyrightsPage from './pages/CopyrightsPage';
 import CreditCardForm from './components/CreditCard';
 import AdminDiscount from './components/AdminDiscount';
 import PaymentMethod from './components/PaymentMethod';
+import Login from './components/Login';
 
 function App() {
 
@@ -44,7 +45,7 @@ function App() {
             <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Login />}></Route>
             <Route path='/instructor' element={<Instructor />} />
             <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
             <Route path='/corporateTraineeHomePage' element={<CorporateTrainee />}></Route>
@@ -58,7 +59,7 @@ function App() {
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
             <Route path='/watchVideo' element={<DisplayPreviewVideo />}></Route>
-
+            <Route path='/country' element={<Home />}></Route>
             <Route path='/exercise' element={<Exercise />}></Route>
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
             <Route path='/discount' element={<DefinePromotion />}></Route>
@@ -69,8 +70,6 @@ function App() {
             <Route path='/RegisterPage' element={<RegisterPage />}></Route>
             <Route path='/CopyrightsPage' element={<CopyrightsPage />}></Route>
             <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
-
-
             <Route path='/paymentMethod' element={<PaymentMethod />}></Route>
             <Route path='/pay' element={<CreditCardForm />}></Route>
           </Routes>

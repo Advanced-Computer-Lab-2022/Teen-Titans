@@ -108,7 +108,16 @@
 	height: 50vh;
 }
 
-.home button {
+.login {
+	margin: 50px;
+	padding: 50px;
+	box-shadow: var(--box-shadow);
+	background-color: var(--cream);
+	color: var(--teal);
+	height: 60vh;
+}
+
+.home-button {
 	margin: 10px;
 	border: none;
 	background-color: white;
@@ -154,4 +163,86 @@
 	padding: 5px 15px;
 	color: mediumaquamarine;
 	border-radius: 5px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+.container1 {
+	display: flex;
+	/* flex-direction: column; */
+	/* justify-content: center; */
+	/* align-items: center; */
+	/* height: 100vh; */
+	/* width: 100%; */
+	/* background: #000; */
+	/* color: #fff; */
+	/* font-family: 'Poppins', sans-serif; */
+	/* float: left;
+	left: 3px;
+	padding: 20px;
+	margin: 20px; */
+}
+
+main {
+	width: 100%;
+	padding: 20px;
+}
+
+.sidebar {
+	/* margin: 10 auto; */
+	/* align-items:left; */
+	/* margin: 0;
+padding: 0; */
+	/* float: left; */
+
+	background: #13292A;
+	color: #fff;
+	height: 100vh;
+	width: 200px;
+	transition: all 0.5s;
+}
+
+.top_section {
+	display: flex;
+	align-items: center;
+	padding: 20px 15px;
+
+}
+
+.logo {
+	font-size: 20px;
+}
+
+.bars {
+	display: flex;
+	font-size: 25px;
+	margin-left: 50px;
+}
+
+.link {
+	display: flex;
+	color: #fff;
+	padding: 10px 15px;
+	gap: 15px;
+	transition: all 0.5s;
+}
+
+.link:hover {
+	background: rgb(252, 252, 252);
+	color: #000;
+	transition: all 0.5s;
+}
+
+.active {
+	background: rgb(255, 255, 255);
+	color: #000;
+}
+
+.icon,
+.link_text {
+	font-size: 20px;
 }

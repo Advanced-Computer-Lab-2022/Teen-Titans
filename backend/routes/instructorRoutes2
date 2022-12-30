@@ -2,11 +2,11 @@ const express = require('express');
 const path = require('path');
 const instructorRouter2 = express.Router()
 const { createCourse, getCoursesTitles, allcourses, course, subject, instructorSearchCourse,
-viewInstructorRatings, signUp, viewMoneyOwed } = require('../controller/instructorController')
+    viewInstructorRatings, viewMoneyOwed } = require('../controller/instructorController')
 
 
 instructorRouter2.get('/viewInstructorRatings', viewInstructorRatings)
 instructorRouter2.get('/viewMoneyOwed', viewMoneyOwed)
-instructorRouter2.post('/signup', signUp)
+// instructorRouter2.post('/signup', signUp)
 
 module.exports = instructorRouter2

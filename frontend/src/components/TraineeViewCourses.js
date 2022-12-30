@@ -35,7 +35,7 @@ const TraineeViewCourses = ({ id }) => {
             )
         }
         getDetails()
-    }, [])
+    })
 
     return (
         <div className="content">
@@ -55,7 +55,7 @@ const TraineeViewCourses = ({ id }) => {
                     {/* </div> */}
                 </div>
             }
-        </div >
+        </div>
     )
 }
 
