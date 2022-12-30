@@ -9,7 +9,7 @@ registering for courses while corporate trainees are registered by the admin and
 
 
 ## Table of contents
-- [Motivation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Motivation)
+- [Motivation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/Doha#Motivation)
 - [Tools and Frameworks](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Motivation)
 - [Coding style](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Motivation)
 - [Screenshots](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#Screenshots)
@@ -48,86 +48,78 @@ Also, allows admins to perform CRUD operations on a course in a flexible way.
 
 These are the Installations you need to have in order to run the project 
 
-- Node JS
-- NPM
-- React JS
+- [Node JS](https://nodejs.org/en/)
+- [NPM](https://www.npmjs.com/)
+- [React JS](https://react-cn.github.io/react/downloads.html)
 - vs code or any text editor 
-- MongoDB either locally or on a cloud. You have to create .env with the dbconnectionString
+- [MongoDB](https://www.mongodb.com/docs/manual/installation/) either locally or on a cloud. You have to create .env with the dbconnectionString
 
 ## API References
 Our backend is divided into the following routes, each route has a set of APIs with different functionalities.
 
 __Admin__ 
 
-1.Defining promotion 
-- route : admin/definePromotion/:id
-- request type : PATCH
-- request body :
+1._Defining promotion_ 
+- route : `admin/definePromotion/:id`
+- request type : `PATCH`
+- request body : `{"amount": "60", "endDate":"2022-12-20"  } `                   
 - response body :
 
 2.Adding user 
-- route : admin/addUser
-- request type : POST
-- request body :
+- route : `admin/addUser`
+- request type : `POST`
+- request body : 
 - response body :
 
 3.Getting courses
-- route : admin/getCourses
-- request type : GET
-- request body :
+- route : `admin/getCourses`
+- request type : `GET`
 - response body :
 
 4.Getting prices
-- route : admin/getPrices
-- request type : GET
-- request body :
+- route : `admin/getPrices`
+- request type : `GET`
 - response body :
 
 5.Getting requests
-- route : admin/getRequests
-- request type : GET
-- request body :
+- route : `admin/getRequests`
+- request type : `GET`
 - response body :
 
 6.Getting a trainee
-- route : admin/getTrainee
-- request type : GET
-- request body :
+- route : `admin/getTrainee`
+- request type : `GET`
 - response body :
 
 7.Getting refunds
-- route : admin/getRefunds
-- request type : GET
-- request body :
+- route : `admin/getRefunds`
+- request type : `GET`
 - response body :
 
 8.Getting reports
-- route : admin/getReports
-- request type : GET
-- request body :
+- route : `admin/getReports`
+- request type : `GET`
 - response body :
 
 9.Getting individual trainees
-- route : admin/getIndividualTrainee
-- request type : GET
-- request body :
+- route : `admin/getIndividualTrainee`
+- request type : `GET`
 - response body :
 
 10.Getting instructor
-- route : admin/getInstructor
-- request type : GET
-- request body :
+- route : `admin/getInstructor`
+- request type : `GET`
 - response body :
 
 11.Changing status
-- route : admin/changeStatus
-- request type : POST
+- route : `admin/changeStatus`
+- request type : `POST`
 - request body :
 - response body :
 
 12.Update report
-- route : admin/updateReport
-- request type : POST
+- route : `admin/updateReport`
+- request type : `POST`
 - request body :
 - response body :
 
@@ -135,126 +127,124 @@ __Admin__
 __Authentication__
 
 1.logging in 
-- route : auth/login
-- request type : POST
+- route : `auth/login`
+- request type : `POST`
 - request body :
 - response body :
 
 2.logging out
-- route : auth/logout
-- request type : GET
-- request body :
+- route : `auth/logout`
+- request type : `GET`
 - response body :
 
 __Common users__
 
 1.forgetting password
-- route : users/forgotPassword
-- request type : POST
+- route : `users/forgotPassword`
+- request type : `POST`
 - request body :
 - response body :
 
 2.resetting password
-- route : users/resetPassword
-- request type : PATCH
+- route : `users/resetPassword`
+- request type : `PATCH`
 - request body :
 - response body :
 
 3.getting individual trainee courses
-- route : users/individualTraineeCourses
-- request type : GET
-- request body :
+- route : `users/individualTraineeCourses`
+- request type : `GET`
 - response body :
 
 4.getting corporate trainee courses
-- route : users/corporateTraineeCourses
-- request type : GET
+- route : `users/corporateTraineeCourses`
+- request type : `GET`
 - request body :
 - response body :
 
 5.adding a review
-- route : users/review
-- request type : PATCH
+- route : `users/review`
+- request type : `PATCH`
 - request body :
 - response body :
 
 6. adding instructor review
-- route : users/instructorReview
-- request type : PATCH
+- route : `users/instructorReview`
+- request type : `PATCH`
 - request body :
 - response body :
 
 7.rating a course
-- route : users/rateCourse
-- request type : PATCH
+- route : `users/rateCourse`
+- request type : `PATCH`
 - request body :
 - response body :
 
 8.rating an instructor 
-- route : users/rateInstructor
-- request type : PATCH
+- route : `users/rateInstructor`
+- request type : `PATCH`
 - request body :
 - response body :
 
 9.recieving a certificate by email
-- route : users/getCertificateByEmail
-- request type : POST
+- route : `users/getCertificateByEmail`
+- request type : `POST`
 - request body :
 - response body :
 
 10.getting a certificate 
-- route : users/getCertificate
-- request type : GET
+- route : `users/getCertificate`
+- request type : `GET`
 - request body :
 - response body :
 
 11. viewing user wallet
-- route : users/wallet
-- request type : GET
+- route : `users/wallet`
+- request type : `GET`
 - request body :
 - response body :
 
 12.checking access
-- route : users/checkAccess
-- request type : GET
+- route : `users/checkAccess`
+- request type : `GET`
 - request body :
 - response body :
 
 13.requesting access to a course
-- route : users/requestAccess
-- request type : POST
+- route : `users/requestAccess`
+- request type : `POST`
 - request body :
 - response body :
 
 14.a trainee reporting a problem
-- route : users/report
-- request type : POST
+- route : `users/report`
+- request type : `POST`
 - request body :
 - response body :
 
 15.getting reports
-- route : users/getReport
-- request type : GET
+- route : `users/getReport`
+- request type : `GET`
 - request body :
 - response body :
 
 __Corporate Trainee__
 
 1.viewing most popular courses
-- route : corporateTrainee/viewPopularCourses
-- request type : GET
+- route : `corporateTrainee/viewPopularCourses`
+- request type :`GET`
 - request body :
 - response body :
 
 2.watching a preview video of course
-- route : corporateTrainee/watchPreviewVideo
-- request type : GET
+- route : `corporateTrainee/watchPreviewVideo`
+- request type : `GET`
 - request body :
 - response body :
 
 3.getting courses
-- route : corporateTrainee/getCourses
-- request type : GET
+- route : `corporateTrainee/getCourses`
+- request type : `GET`
 - request body :
 - response body :
 
