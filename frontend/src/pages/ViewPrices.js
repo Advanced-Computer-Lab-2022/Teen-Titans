@@ -4,9 +4,10 @@ import CoursePrice from '../components/CoursePrice'
 import Search from '../components/Search'
 // import Subjects from '../components/Subjects';
 import '../index.css';
-import CourseForm from '../components/CourseForm'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import * as Icon from 'react-bootstrap-icons';
+// import CourseForm from '../components/CourseForm'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import * as Icon from 'react-bootstrap-icons';
+import Filter from '../components/Filter';
 const ViewPrices = () => {
     const [courses, setCourses] = useState(null)
     let query
@@ -69,6 +70,10 @@ const ViewPrices = () => {
                         </div>
                     ))
                 } */}
+              
+            </div>
+            <div className='d-flex align-items-end'>
+            <Filter></Filter>
             </div>
             <div className='price'>
                 {/* <Search /> */}

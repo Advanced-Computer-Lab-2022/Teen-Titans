@@ -77,10 +77,10 @@ const CoursesPage = () => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
                 (res) => {
-                    console.log("ho");
-                    console.log(user);
-                    console.log(userId);
-                    console.log(courseId);
+                    // console.log("ho");
+                    // console.log(user);
+                    // console.log(userId);
+                    // console.log(courseId);
                     const json = res.data
                     if (json) {
                         setCourse(json)

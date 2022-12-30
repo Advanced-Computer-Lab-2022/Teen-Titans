@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path');
 const commonUsersRouter = express.Router()
-const { forgotPassword, resetPassword, RatingCourses, addReview, RatingInstructor, addInstructorReview, generateCertificateByEmail, generateCertificate ,report} = require('../controller/commonUsersController')
+const { forgotPassword, resetPassword, RatingCourses, addReview, RatingInstructor, addInstructorReview, generateCertificateByEmail, generateCertificate ,report,getReport} = require('../controller/commonUsersController')
 const { viewMyCourses,viewWallet } = require('../controller/individualTraineeController')
 const { myCourses,checkAccess,requestAccess } = require('../controller/corporateTraineeController')
  commonUsersRouter.get('/wallet', viewWallet)
@@ -18,6 +18,7 @@ commonUsersRouter.get('/getCertificate', generateCertificate)
 commonUsersRouter.get('/checkAccess', checkAccess)
 commonUsersRouter.post('/requestAccess', requestAccess)
 commonUsersRouter.post('/report', report)
+commonUsersRouter.get('/getReport',getReport)
 
 
 

@@ -6,6 +6,7 @@ const requestModel = require('../models/requestModel.js')
 const individualTraineeModel = require('../models/individualTraineeModel.js')
 const reportModel = require('../models/reportModel.js')
 const { request } = require('express')
+const courseModel = require('../models/courseModel.js')
 
 
 //This is to know which user is chosen by the admin
@@ -78,12 +79,52 @@ const getRequests = asyncHandler(async (req, res) => {
 })
 
 const getRefunds = asyncHandler(async (req, res) => {
-    const requests = await requestModel.find({type: "refund"})
+    const requests = await requestModel.find({type: "refund",status: "pending"})
+
+    for( i =0;i<requests.length;i++){
+        const user = await individualTraineeModel.findById(requests[i].userId);
+        const course= await courseModel.findById(requests[i].courseId);
+    
+        if(user){
+            requests[i].username = user.username
+            requests[i].courseTile = course.title
+            requests[i].coursePrice = course.price
+        }
+       
+    }
     res.status(200).json(requests)
 })
 
 const getReports = asyncHandler(async (req, res) => {
     const reports = await reportModel.find()
+   
+    for( i =0;i<reports.length;i++){
+        const user = await corporateTraineeModel.findById(reports[i].userId);
+        const course= await courseModel.findById(reports[i].courseId);
+    
+        if(user){
+        reports[i].username = user.username
+        reports[i].courseTile = course.title
+        }
+        else{
+            const user = await individualTraineeModel.findById(reports[i].userId);
+            if(user){
+            reports[i].username = user.username
+            reports[i].courseTitle = course.title
+            }
+            else{
+                const user = await instructorModel.findById(reports[i].userId);
+                if(user){
+                reports[i].username = user.username
+                reports[i].courseTitle = course.title
+                }
+            }
+        }
+     
+
+
+    }
+
     res.status(200).json(reports)
 })
 
@@ -135,4 +176,14 @@ const changeStatus = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee,getReports,getInstructor,changeStatus}
+
+const updateReport = asyncHandler(async (req, res) => {
+    const report = await reportModel
+        .findByIdAndUpdate(req.body.id,{status: req.body.status}, {new: false});
+        
+    if (report) {
+        res.status(200).json(report)
+    }
+})
+
+module.exports = { selectedUser,getRequests ,getTrainee,getRefunds,getIndividualTrainee,getReports,getInstructor,changeStatus,updateReport}

@@ -84,6 +84,7 @@ console.log("response",response);
     }
 
     return (
+        <div className="course-price-container">
         <div className="course-price" id={course._id} onMouseEnter={handleHover} onClick={() => checkAccess(course._id)}>
             <h4>
                 {course.title}
@@ -100,7 +101,7 @@ console.log("response",response);
                     {ishidden ?
                     <div>
                     {showRequest ?
-                                <button disabled={sent } onClick={() => requestAccess(course._id)}>Request Access</button>
+                                <button  disabled={sent } onClick={() => requestAccess(course._id)}>Request Access</button>
                                   :   <button disabled={open || !checkAccess(course._id) }onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>Open Course</button>
                                 }
                                 </div>
@@ -109,6 +110,8 @@ console.log("response",response);
                 </div>
             }
         </div>
+                </div>
+
     )
 }
 

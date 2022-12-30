@@ -202,11 +202,16 @@ const requestRefund = asyncHandler(async (req, res) => {
         for (let i = 0; i < trainee.enrolledCourses.length; i++) {
             if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
                 if (trainee.enrolledCourses[i].percentageComplete < 50) {
+                    const course=await courseModel.findById(req.query.courseId)
                     const request = await requestModel.create({
                         userId: req.query.id,
                         courseId: req.query.courseId,
                         status: "pending",
-                        type: "refund"
+                        type: "refund",
+                        username:"",
+                        courseTitle:course.title,
+                        coursePrice:course.price
+
                     })
                     res.status(200).json({
                         message: "Your request has been received. The course refund will be added to your wallet shortly."
@@ -227,10 +232,16 @@ const requestRefund = asyncHandler(async (req, res) => {
 })
 
 const Refund = asyncHandler(async (req, res) => {
-    const user = await individualTraineeModel.findById(req.body.id)
+   console.log(" inside refund")
+    const user = await individualTraineeModel.findById(req.body.userId)
     const wallet = user.wallet
+    console.log(req.body.id," req id")
+    console.log(req.body.amount," req amount")
+
+console.log(wallet,"wallet")
     const newWallet = wallet + req.body.amount
-    const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { wallet: newWallet })
+    const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.userId, { wallet: newWallet })
+    console.log(individualTrainee.username,individualTrainee.wallet)
 //   await individualTraineeModel.findByIdAndDelete(req.body.id, { enrolledCourses: req.body. })
 let enrolledCourses = user.enrolledCourses;
 result=[]
@@ -243,10 +254,12 @@ if (user) {
         }
     }
     await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: result })
+    const request = await requestModel
+    .findByIdAndUpdate(req.body.id,{status: "resolved"});
 }
 
     res.status(200).json({
-        message: 'Wallet Updated!',individualTrainee
+        message: 'Wallet Updated!',individualTrainee,request
     })
 
 })

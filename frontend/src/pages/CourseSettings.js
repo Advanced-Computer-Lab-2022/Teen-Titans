@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react"
-import jsPDF from 'jspdf';
+import jsPDF, { TilingPattern } from 'jspdf';
 import compress from "compress-base64";
 import axios from 'axios';
 import FormData from 'form-data'
+import { RadioGroup } from '@mui/material';
+import { Radio } from '@mui/material';
+import { FormControlLabel } from '@mui/material';
+import { FormControl } from '@mui/material';
+
+import "bootstrap/js/src/collapse.js";
+
+
 // import * as pdf from "@grapecity/wijmo.pdf";
 // import * as wijmo from '@grapecity/wijmo';
-const CourseSettings = () => {
+const CourseSettings = ( username ) => {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
     const userId = params.get('userId');
     const user = params.get('user')
     const [course, setCourse] = useState(null)
     const [problem, setProblem] = useState(null)
+    const [type, setType] = useState(null)
+    const [reports, setReports] = useState(null)
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -23,7 +33,21 @@ const CourseSettings = () => {
                 }
             )
         }
+
+
+        const getReport=async()=>{
+            await axios.get(`users/getReport?userId=${userId}`).then(
+                (res) => {
+                    const json = res.data
+                    if (json) {
+                        setReports(json)
+                    }
+                }
+            )
+        }
+
         getDetails()
+        getReport()
     }, [])
 
     const requestRefund = async () => {
@@ -143,19 +167,11 @@ const CourseSettings = () => {
 
 
     const Report = async () => {
-        let type;
-        if(document.getElementById("a").checked){
-            type='financial';
-        }
-        else if(document.getElementById("b").checked){
-            type='technical';
-        }
-        else{
-            type='other';
-        }
+       
     
         const res= await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${type}&problem=${problem}&user=${user}`,
             {
+                body: JSON.stringify({course }),
                 method: 'POST',
                headers: {
                    'Content-Type': 'application/json'  
@@ -171,6 +187,18 @@ const CourseSettings = () => {
      }
     
     
+}
+//not completed
+const FollowUp = async (id) => {
+    const res= await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${type}&problem=${problem}&user=${user}`,
+    {
+        body: JSON.stringify({course }),
+        method: 'POST',
+       headers: {
+           'Content-Type': 'application/json'  
+ }
+},)
+alert('Follow up sent successfully!')
 }
     
     return (
@@ -190,26 +218,74 @@ const CourseSettings = () => {
                 
             }
 
-<div>
-                <h1> Report A Problem :</h1>
+<div className='box'>
+                <h2> Report a problem :</h2>
                 <input
+          style={{ width: "300px"}}
                     type="text"
                     className="from-control mt-4"
                     id='searchKey'
-                    placeholder='please write your problem'
+                    placeholder='Please type your problem..'
                  onChange={(e) => setProblem(e.target.value)}
                 />
-            <input type="radio" id="a" name="financial"  />
-              <label for="a">Financial</label>
-              <input type="radio" id="b" name="technical"  />
-              <label for="b">Technical</label>
-              <input type="radio" id="c" name="other"  />
-              <label for="c">Other</label>
+           
+           <FormControl>
+
+<RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+   onChange={(e) => setType(e.target.value)}
+    name="radio-buttons-group"
+>
+    <FormControlLabel value="technical" control={<Radio />} label="Technical" />
+    <FormControlLabel value="financial" control={<Radio />} label="Financial" />
+    <FormControlLabel value="other" control={<Radio />} label="Other" />
+
+</RadioGroup>
+</FormControl>
               <br></br>
                 <button onClick={() => Report()}> Report </button>
             </div>
 
+
+            
+            <div className='col-8 course-details1'>
+            <div className='d-flex flex-column'>
+                                    <p>
+                                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            My Reports
+                                        </a>
+                                    </p>
+                                    <div className="collapse" id="collapseExample">
+                                        
+                                        {reports && reports.map((report)=>(
+                                             <div className="card card-body">
+                              
+
+                                             <h4>Problem: {report.problem}</h4>
+                                             <h6>Type:{report.type}</h6>
+                                             <h6>Status:{report.status}</h6>
+                                             <button style={{top:"50%",
+       left:"65%",
+       width:"100px",
+       height:"40px",
+       position: "absolute",
+      
+       background: "teal"}}  disabled={report.status==="resolved"} onClick={()=>FollowUp(report._id)}>Follow up</button>
+                                         </div>
+                                            
+                    
+                ))}
+                                      
+                                    </div>
+                                </div>
+                                </div>
+
+
+
         </div>
+
+
+
     )
 }
 

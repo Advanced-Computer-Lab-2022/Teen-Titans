@@ -31,15 +31,16 @@ import Requests from './pages/Requests';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
 
-
+// import Sidebar from './components/SideBar/SideBar.jsx';
 function App() {
 
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        {/* <Sidebar> */}
         <div className="pages">
-          <Routes>
+          <Routes> 
             <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
@@ -70,7 +71,7 @@ function App() {
           </Routes>
         </div>
 
-
+        {/* </Sidebar> */}
       </BrowserRouter>
     </div>
   );

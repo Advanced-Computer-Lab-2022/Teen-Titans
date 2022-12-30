@@ -26,7 +26,7 @@ const registerForCourse = asyncHandler(async (req, res) => {
     console.log('inside register for course')
     console.log(req.body.id,"id")
     console.log(req.body.courseId,"course id")
-    const findUser = await corporateTraineeModel.findById(req.body.id);
+    const findUser = await corporateTraineeModel.findById(req.body.userId);
     const findCourse = await courseModel.findById(req.body.courseId);
    // console.log(findCourse,"find course")
     const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
@@ -40,7 +40,7 @@ const registerForCourse = asyncHandler(async (req, res) => {
         percentageComplete: 0
     })
     // console.log(courses);
-    const user = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
+    const user = await corporateTraineeModel.findByIdAndUpdate(req.body.userId, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
             message: 'Registration Successful!',updatedCourse
@@ -134,8 +134,11 @@ res.status(400).json({
 
 const requestAccess = asyncHandler(async (req, res) => {
     console.log("inside request access");
-    const request = await requestModel.create({userId:req.query.traineeId,
-        courseId:req.query.courseId,status:"pending",type:"corporate"});
+    
+        const course=await courseModel.findById(req.query.courseId);
+        const trainee=await corporateTraineeModel.findById(req.query.traineeId);
+        const request = await requestModel.create({userId:req.query.traineeId,
+            courseId:req.query.courseId,status:"pending",type:"corporate",courseTitle:course.title,username:trainee.username});
     if(request){
         res.status(200).json({
             message: 'Request Sent!',request

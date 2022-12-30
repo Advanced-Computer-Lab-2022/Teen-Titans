@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TraineeViewCourses from "../components/TraineeViewCourses";
 // import AppRate from "../components/Rate";
 // import Search from "../components/Search";
-import CorporateTraineeSearch from "../components/CorporateTraineeSearch";
+// import CorporateTraineeSearch from "../components/CorporateTraineeSearch";
 const CorporateTrainee = () => {
     const [id, setId] = useState('');
     console.log(id,"id in corporate traineehomepage");

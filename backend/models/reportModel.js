@@ -20,6 +20,18 @@ const reportSchema = mongoose.Schema({
     status: {
         type: String
     },
+    username: {
+        type: String
+    }
+    ,
+    courseTitle: {
+        type: String
+    }
+    ,
+    new:
+    {   type: Boolean
+
+    }
 })
 
 module.exports = mongoose.model('report', reportSchema)
