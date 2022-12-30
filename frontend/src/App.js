@@ -19,14 +19,20 @@ import CorporateTrainee from './pages/CorporateTraineeHomePage';
 import IndividualTrainee from './pages/IndividualTraineeHomePage';
 import CoursesPage from './pages/CoursesPage';
 import DisplayVideo from './components/DisplayVideo';
+import DisplayPreviewVideo from './components/DisplayPreviewVideo';
 import Exercise from './pages/Exercise';
 import InstructorCourses from './pages/InstructorCourses';
 import DefinePromotion from './components/InstructorDefinePromotion';
 import ExamForm from './components/CreateExam';
 import CourseExamForm from './components/CreateCourseExam';
-import Copyrights from './components/Copyrights';
 import ViewInstructorRating from './components/ViewInstructorRating';
 import CourseSettings from './pages/CourseSettings';
+import RegisterPage from './pages/RegisterPage';
+import CopyrightsPage from './pages/CopyrightsPage';
+import CreditCardForm from './components/CreditCard';
+import AdminDiscount from './components/AdminDiscount';
+import PaymentMethod from './components/PaymentMethod';
+import Login from './components/Login';
 import Requests from './pages/Requests';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
@@ -37,14 +43,13 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        {/* <Sidebar> */}
+        {/* <Navbar /> */}
         <div className="pages">
           <Routes> 
             <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Login />}></Route>
             <Route path='/instructor' element={<Instructor />} />
             <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
             <Route path='/corporateTraineeHomePage' element={<CorporateTrainee />}></Route>
@@ -57,14 +62,20 @@ function App() {
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
+            <Route path='/watchVideo' element={<DisplayPreviewVideo />}></Route>
+            <Route path='/country' element={<Home />}></Route>
             <Route path='/exercise' element={<Exercise />}></Route>
             <Route path='/instructorcourse' element={<InstructorCourses />}></Route>
             <Route path='/discount' element={<DefinePromotion />}></Route>
             <Route path='/createExam' element={<ExamForm />}></Route>
             <Route path='/createCourseExam' element={<CourseExamForm />}></Route>
-            <Route path='/copyrights' element={<Copyrights />}></Route>
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
             <Route path='/courseSettings' element={<CourseSettings />}></Route>
+            <Route path='/RegisterPage' element={<RegisterPage />}></Route>
+            <Route path='/CopyrightsPage' element={<CopyrightsPage />}></Route>
+            <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
+            <Route path='/paymentMethod' element={<PaymentMethod />}></Route>
+            <Route path='/pay' element={<CreditCardForm />}></Route>
             <Route path='/requests' element={<Requests />}></Route>
             <Route path='/refunds' element={<Refunds />}></Route>
             <Route path='/reports' element={<Reports />}></Route>

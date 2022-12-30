@@ -101,6 +101,8 @@ const Admin = () => {
                 <label>Password:</label>
                 <input style={{ width: "200px" }}  id='password'></input>
                 <button onClick={() => addUser()}>Add</button>
+
+
                 <span>{message}</span>
                 </div>
             </div>
@@ -111,6 +113,7 @@ const Admin = () => {
             <button onClick={() =>{ torefundrequests() }}> Refund Requests</button>
             <br></br>
             <button onClick={() =>{ toreports() }}> Reports</button> */}
+            <button onClick={() => window.location.href = `/viewCoursesForDiscount`}>View courses</button>
         </div>
     )
 }

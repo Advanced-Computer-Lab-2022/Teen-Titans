@@ -36,7 +36,7 @@ const TraineeViewCourses = ({ id }) => {
             )
         }
         getDetails()
-    }, [])
+    })
 
     return (
         <div className="content">

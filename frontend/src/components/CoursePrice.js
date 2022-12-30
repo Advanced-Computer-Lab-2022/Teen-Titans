@@ -1,7 +1,9 @@
 import Details from "./Details"
+import DisplayPreviewVideo from "./DisplayPreviewVideo"
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light.css';
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import React, { useEffect, useState } from "react"
 import axios from 'axios';
 // import CorporateTraineeSearch from "./CorporateTraineeSearch"
@@ -41,7 +43,6 @@ const get = () => {
                 // console.log(json);
                 if (json) {
                     setCourseData(json)
-                    // console.log(courseData);
                 }
             }
         )
@@ -88,29 +89,41 @@ console.log("response",response);
         <div className="course-price" id={course._id} onMouseEnter={handleHover} onClick={() => checkAccess(course._id)}>
             <h4>
                 {course.title}
-            </h4>
-            <p><strong>Price:</strong> {course.price * conversion_rate} {target_code}</p>
-            <p><strong>course rating:</strong> {course.rating}</p>
-            <p><strong>course hours:</strong> {course.hours}</p>
-            {
-                courseData &&
-                <div className="my-container">
-                    <Tippy content={<Details course={courseData} key={courseData.id}></Details>} placement='left' theme="light">
-                        <button>Details</button>
-                    </Tippy>
-                    {ishidden ?
-                    <div>
-                    {showRequest ?
-                                <button  disabled={sent } onClick={() => requestAccess(course._id)}>Request Access</button>
-                                  :   <button disabled={open || !checkAccess(course._id) }onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>Open Course</button>
-                                }
-                                </div>
-                                : null}
+            </h2>
+            <div className="d-flex flex-column align-items-start">
+                <h5><strong>Price:</strong> {(course.price * conversion_rate).toFixed(2)} {target_code}</h5>
+                <h5><strong>course rating:</strong> {(course.rating.toFixed(2))}</h5>
+                <h5><strong>course hours:</strong> {course.hours}</h5>
+                <p><strong>course outline:</strong> {course.courseOutline}</p>
+                <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
+                <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
+                </button>
+                {
+                    courseData &&
+                    <div className="my-container">
+                        <Tippy content={<Details course={courseData} key={courseData.id}></Details>} placement='left' theme="light">
+                            <button>Details</button>
 
-                </div>
-            }
+                        </Tippy>
+
+                    </div>
+                }
+                {
+                    <div>
+                        {ishidden ?
+                            <div>
+                                {showRequest ?
+                                    <button disabled={sent} onClick={() => requestAccess(course._id)}>Request Access</button>
+                                    : <button disabled={open || !checkAccess(course._id)} onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>Open Course</button>
+                                }
+                            </div>
+                            : null
+                        }
+                    </div>
+                }
+            </div>
         </div>
-                </div>
+
 
     )
 }

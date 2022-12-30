@@ -1,10 +1,22 @@
-import {  useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 import TraineeViewCourses from '../components/TraineeViewCourses'
+import AppRate from "../components/Rate";
+import Login from "../components/Login";
+
 import axios from 'axios';
 
 // import AppRate from "../components/Rate";
 const IndividualTrainee = () => {
     const [id, setId] = useState('');
+    useEffect(() => {
+        setId(localStorage.getItem("id"))
+        // console.log(id);
+    })
+    // const saveId = () => {
+    //     setId(document.getElementById("id").value)
+    //     localStorage.setItem('id', id)
+    //     localStorage.setItem('user', "individualTrainee")
+    // }
    const [Wallet,setWallet]= useState('')
    const country = JSON.parse(localStorage.getItem('country'))
 const conversion_rate = country.conversion_rate
@@ -42,27 +54,19 @@ console.log("id " + id);
       
     
     return (
-        <div className="home">
-            <label>Id:</label>
+        <div>
+            {/* <Login/> */}
+            {/* <label>Id:</label>
             <input id='id'></input>
-            <button onClick={() =>saveId()}>Save</button>
-      
-
-            <div className="courses" >
-                <h1>My Courses</h1>
-                <TraineeViewCourses key={id} id={id} />
-            </div>
-
-
-            {/* <AppRate /> */}
-            <div className="wallet">
-                <h3>Wallet</h3>
-                <h4>{Wallet} {target_code}</h4>
-              
-              
-            </div>
-           
-            
+            <button onClick={() => saveId()}>Save</button> */}
+            {/* <div className="courses">
+            </div> */}
+            {
+                id &&
+                <div>
+                    <TraineeViewCourses id={id} />
+                </div>
+            }
         </div>
     )
 }

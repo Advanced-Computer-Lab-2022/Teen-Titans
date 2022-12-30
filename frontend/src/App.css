@@ -1,5 +1,7 @@
 .App {
 	text-align: center;
+	/* background-color: var(--cream); */
+	height: 100%;
 }
 
 
@@ -81,7 +83,7 @@
 }
 
 .body {
-	height: 500px;
+	height: 100%;
 	display: flex;
 }
 
@@ -99,14 +101,30 @@
 	float: right;
 }
 
+.home {
+	margin: 50px;
+	padding: 50px;
+	box-shadow: var(--box-shadow);
+	background-color: var(--cream);
+	color: var(--teal);
+	height: 50vh;
+}
 
+.login {
+	margin: 50px;
+	padding: 50px;
+	box-shadow: var(--box-shadow);
+	background-color: var(--cream);
+	color: var(--teal);
+	height: 60vh;
+}
 
-.home button {
+.home-button {
 	margin: 10px;
 	border: none;
-	background-color: aliceblue;
+	background-color: white;
 	padding: 5px 15px;
-	color: mediumaquamarine;
+	color: var(--teal);
 	border-radius: 5px;
 }
 

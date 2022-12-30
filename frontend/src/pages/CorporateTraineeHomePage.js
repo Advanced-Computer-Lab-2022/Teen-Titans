@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import TraineeViewCourses from "../components/TraineeViewCourses";
-// import AppRate from "../components/Rate";
-// import Search from "../components/Search";
-// import CorporateTraineeSearch from "../components/CorporateTraineeSearch";
+import AppRate from "../components/Rate";
+import Login from "../components/Login";
+
 const CorporateTrainee = () => {
     const [id, setId] = useState('');
     console.log(id,"id in corporate traineehomepage");
@@ -18,6 +18,7 @@ const CorporateTrainee = () => {
 
         
         <div className="home">
+            {/* <Login/> */}
             <label>Id:</label>
             <input id='id'></input>
             <button onClick={() => saveId()}>Save</button>

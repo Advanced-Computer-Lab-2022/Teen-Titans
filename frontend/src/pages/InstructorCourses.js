@@ -29,8 +29,6 @@ const InstructorCourses = () => {
             }
         })
         const json = await response.json()
-
-
         if (!response.ok) {
             setError(json.error)
         }
@@ -40,10 +38,6 @@ const InstructorCourses = () => {
             console.log('preview video added', json)
         }
     }
-
-
-
-
     useEffect(() => {
         const getDetails = async () => {
 
@@ -56,7 +50,6 @@ const InstructorCourses = () => {
                 }
             )
         }
-
         getDetails()
     }, [])
 
@@ -70,7 +63,6 @@ const InstructorCourses = () => {
                     <h6>
                         <span className='labels'>Price: </span>
                         <span>{course.price * conversion_rate} {target_code}</span>
-
                     </h6>
                     <h6>
                         <span className='labels'>Discount: </span>
@@ -84,7 +76,6 @@ const InstructorCourses = () => {
                                 <h6>
                                     {subtitle.title}
                                 </h6>
-
                             ))
                         }
                     </div>
@@ -98,7 +89,6 @@ const InstructorCourses = () => {
                         <span>{course?.previewVideo?.shortDescription} </span>
                     </div>
                     <div>
-
                     </div>
                 </div>
             }

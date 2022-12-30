@@ -1,16 +1,13 @@
-// import Subtitle from '../components/subtitles';
-import React, { useEffect, useState } from "react"
+import Subtitle from '../components/subtitles';
+import React, { useEffect, useState, ReactPropTypes } from "react"
 import ReactPlayer from 'react-player/youtube'
 import axios from 'axios';
 import AppRate from '../components/Rate';
-import TextEditor from '../components/TextEditor';
-import jsPDF from 'jspdf';
 import "bootstrap/js/src/collapse.js";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Icon from 'react-bootstrap-icons';
-import { EditorState, ContentState, convertToRaw, convertFromHTML, } from 'draft-js';
-// import { BsFillGearFill } from "react-bootstrap-icons";
+import Notes from '../components/Notes';
 const CoursesPage = () => {
 
     const [course, setCourse] = useState(null)
@@ -22,37 +19,6 @@ const CoursesPage = () => {
     const [video, setVideo] = useState(null)
     const [videoUrl, setVideoUrl] = useState('')
     const [percentage, setPercentage] = useState(0)
-    // const conversion_rate = country.conversion_rate
-    // const target_code = country.target_code
-    const [notes, setNotes] = useState(``);
-    const getNotes = (notes) => {
-        // const notes = text.replace(/(<([^>]+)>)/ig, '');
-        setNotes(notes);
-        // console.log(notes);
-    };
-
-    const generateNotesPDF = () => {
-        // console.log("hi");
-        // const doc = new jsPDF();
-        // const content = convertFromHTML(notes)
-        // doc.text(content, 10, 10);
-
-        // doc.setFont("courier")
-
-        // doc.setFontSize(50)
-
-        // doc.text("There is more text", 10, 50);
-
-        // doc.save("Notes.pdf");
-
-        const blob = new Blob(notes, { type: "text/plain" });
-        console.log(notes);
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = "Notes.txt";
-        link.href = url;
-        link.click();
-    }
 
     const watchedVideo = async () => {
         if (video) {
@@ -158,8 +124,7 @@ const CoursesPage = () => {
                                     </p>
                                     <div className="collapse" id="notes">
                                         <div className="card card-body">
-                                            <TextEditor initialValue="" getValue={getNotes} />
-                                            <button onClick={generateNotesPDF}>Download Notes</button>
+                                            <Notes />
                                         </div>
                                     </div>
                                 </div>

@@ -4,8 +4,10 @@ const adminAddUser = express.Router()
 
 const{ getCourses,getPrices} = require('../controller/viewCoursesController')
 
-const { selectedUser,getRequests,getTrainee,getRefunds, getIndividualTrainee,getReports, getInstructor,changeStatus, updateReport} = require('../controller/adminController');
+const { selectedUser,definePromotion,getRequests,getTrainee,getRefunds, getIndividualTrainee,getReports, getInstructor,changeStatus, updateReport} = require('../controller/adminController');
 
+
+adminAddUser.patch('/definePromotion/:id',definePromotion)
 
 adminAddUser.post('/addUser', selectedUser)
 

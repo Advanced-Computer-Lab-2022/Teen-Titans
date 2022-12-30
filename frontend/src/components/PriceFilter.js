@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import DefinePromotion from './InstructorDefinePromotion';
 const PriceFilter = () => {
 
     const [filterResults, setfilterResults] = useState(null);
@@ -7,6 +8,13 @@ const PriceFilter = () => {
     const country = JSON.parse(localStorage.getItem('country'))
     const conversion_rate = country.conversion_rate
     const target_code = country.target_code
+
+
+   
+
+
+
+
     const fetchCourses = async () => {
         if (document.getElementById('instructorName').value) {
             const response = await fetch(`/instructor/all/${document.getElementById('instructorName').value}`);
@@ -109,8 +117,11 @@ const PriceFilter = () => {
                             course.reviews.map((review) => (
                                 <p>review</p>
                             ))
-                        }
+                        }  
                         <button onClick={() => window.location.href = `/instructorcourse?courseId=${course._id}`}>View Details</button>
+                        {/* <b>define promotion:</b>
+                        <DefinePromotion courseId = {course._id}/>  */}
+                        <button onClick={() => window.location.href = `/discount?courseId=${course._id}`}>Define promotion</button>
                     </div>
                 ))
             }
