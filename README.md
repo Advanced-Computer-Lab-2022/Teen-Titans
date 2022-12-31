@@ -69,7 +69,7 @@ These are the Installations you need to have in order to run the project
 ## API References
 Our backend is divided into the following routes, each route has a set of APIs with different functionalities.
 
-__Admin__ 
+## Admin 
 
 1._Defining promotion_ 
 - route : `admin/definePromotion/:id`
