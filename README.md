@@ -27,7 +27,7 @@ registering for courses while corporate trainees are registered by the admin and
   - [My Courses](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#my-courses)
   - [Search](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#search)
   - [View Courses](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#view-courses)
--[Credits](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#credits)
+- [Credits](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#credits)
 ## Motivation
 The following are the objectives of our project:
 - Master working with MERN Stack.
