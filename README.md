@@ -24,6 +24,7 @@ registering for courses while corporate trainees are registered by the admin and
   - [Guest]()
   - [Individual Trainee]()
   - [Instructor]()
+  - [My Courses]()
   - [Search]()
   - [View Courses]()
 ## Motivation
@@ -303,7 +304,7 @@ Our backend is divided into the following routes, each route has a set of APIs w
 }
 ```
 
-2.Adding user 
+2._Adding user_ 
 - route : `admin/addUser`
 - request type : `POST`
 - request body : 
@@ -343,7 +344,7 @@ Our backend is divided into the following routes, each route has a set of APIs w
 ```
 
 
-3.Getting courses
+3._Getting courses_
 - route : `admin/getCourses`
 - request type : `GET`
 - response body :
@@ -361,7 +362,7 @@ Our backend is divided into the following routes, each route has a set of APIs w
 ]
 ```
 
-4.Getting prices
+4._Getting prices_
 - route : `admin/getPrices`
 - request type : `GET`
 - response body :
@@ -388,46 +389,562 @@ Our backend is divided into the following routes, each route has a set of APIs w
 - route : `admin/getRequests`
 - request type : `GET`
 - response body :
+```
+[
+    {
+        "_id": "63aed1196435bd273b7558be",
+        "userId": "635ea3bc0fe0c0e99a739b45",
+        "courseId": "638c90909b8516a8fdfe0154",
+        "status": "pending",
+        "type": "corporate",
+        "username": "Malak",
+        "courseTitle": "Chemistry",
+        "__v": 0
+    },
+    //All other requests
+]
+```
 
 6.Getting a trainee
 - route : `admin/getTrainee`
 - request type : `GET`
+- Query params : `traineeid` , id of corporate trainee
 - response body :
+```
+{
+    "_id": "635e98e1488d06b842f53f20",
+    "username": "Haneen",
+    "password": "kobayetBiskeweet",
+    "enrolledCourses": [
+        {
+            "reviews": [],
+            "course": {
+                "hours": 3,
+                "rating": 3.5,
+                "ratings": {
+                    "oneStar": 1,
+                    "twoStar": 1,
+                    "threeStar": 1,
+                    "fourStar": 3,
+                    "fiveStar": 2,
+                    "_id": "6384e20fd26b508425abba1d"
+                },
+                "reviews": [
+                    "Great course!",
+                    "Awesome course!",
+                    "Nice course!"
+                ],
+                "title": "Physics 2",
+                "price": 700,
+                "subject": "Science",
+                "instructorName": "taymoor.beblawi",
+                "instructorId": "635ea4bb0fe0c0e99a739b4f",
+                "subtitles": [
+                    {
+                        "title": "Current",
+                        "subtitleHours": "1",
+                        "exercise": {
+                            "questionOne": {
+                                "question": "What is enegry?",
+                                "options": [
+                                    {
+                                        "id": 0,
+                                        "_id": "6384e20ed26b508425abb9eb"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "_id": "6384e20ed26b508425abb9ec"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "_id": "6384e20ed26b508425abb9ed"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "_id": "6384e20ed26b508425abb9ee"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is power",
+                                "options": [
+                                    {
+                                        "id": 0,
+                                        "_id": "6384e20ed26b508425abb9ef"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "_id": "6384e20ed26b508425abb9f0"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "_id": "6384e20ed26b508425abb9f1"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "_id": "6384e20ed26b508425abb9f2"
+                                    }
+                                ]
+                            },
+                            "_id": "6384e20ed26b508425abb9ea",
+                            "__v": 0
+                        },
+                        "_id": "6384e20ed26b508425abb9f4",
+                        "__v": 0
+                    },
+                    {
+                        "title": "Circuits",
+                        "subtitleHours": "2",
+                        "exercise": {
+                            "questionOne": {
+                                "question": "How is heat transfered in space?",
+                                "options": [
+                                    {
+                                        "id": 0,
+                                        "_id": "6384e20fd26b508425abba06"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "_id": "6384e20fd26b508425abba07"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "_id": "6384e20fd26b508425abba08"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "_id": "6384e20fd26b508425abba09"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is Stefan Boltzmann Law?",
+                                "options": [
+                                    {
+                                        "id": 0,
+                                        "_id": "6384e20fd26b508425abba0a"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "_id": "6384e20fd26b508425abba0b"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "_id": "6384e20fd26b508425abba0c"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "_id": "6384e20fd26b508425abba0d"
+                                    }
+                                ]
+                            },
+                            "_id": "6384e20fd26b508425abba05",
+                            "__v": 0
+                        },
+                        "_id": "6384e20fd26b508425abba0f",
+                        "__v": 0
+                    }
+                ],
+                "shortSummary": "Students will learn the basics of Electricity",
+                "previewVideo": {
+                    "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+                    "shortDescription": "Learn the basics of Electricity",
+                    "_id": "6384e20fd26b508425abba36"
+                },
+                "courseOutline": "",
+                "_id": "6384e20fd26b508425abba1c",
+                "createdAt": "2022-11-28T16:30:07.863Z",
+                "updatedAt": "2022-11-29T12:19:32.675Z",
+                "__v": 0
+            },
+            "videosSeen": [],
+            "numberComplete": 0,
+            "percentageComplete": 0,
+            "_id": "63ad2bd0fc359e18bb66dfdc",
+            "subtitles": []
+        }
+    ],
+    "__v": 0
+}
+or 
+message:{"user not found!"}
+```
 
 7.Getting refunds
 - route : `admin/getRefunds`
 - request type : `GET`
 - response body :
-
+```
+[
+    {
+        "_id": "639dcdc419972ba72dec9d5d",
+        "userId": "639dbc17670262e8e16f1755",
+        "courseId": "639daec6e727a37ea9493ed5",
+        "status": "pending",
+        "type": "refund",
+        "__v": 0,
+        "username": "samah.ahmad",
+        "coursePrice": 28
+    }
+]
+```
 8.Getting reports
 - route : `admin/getReports`
 - request type : `GET`
 - response body :
+```
+[
+    {
+        "_id": "63ac11ebf2f751e26f709dc5",
+        "userId": "639dbc17670262e8e16f1755",
+        "user": "individualTrainee",
+        "courseId": "639daec6e727a37ea9493ed5",
+        "type": "technical",
+        "problem": "b",
+        "status": "pending",
+        "username": "samah.ahmad",
+        "__v": 0,
+        "courseTitle": "Physics 9"
+    },
+    //All other reports
+```
 
 9.Getting individual trainees
 - route : `admin/getIndividualTrainee`
 - request type : `GET`
+- Query params : `traineeid`, id of individual trainee
 - response body :
+```
+{
+    "_id": "63af4dab01df8419cffe974e",
+    "username": "richard.geryson",
+    "password": "IamRobin",
+    "email": "ric.greyson@gmail.com",
+    "firstName": "Richard",
+    "lastName": "Greyson",
+    "gender": "Male",
+    "country": "Egypt",
+    "wallet": 0,
+    "enrolledCourses": [
+        {
+            "reviews": [],
+            "course": {
+                "hours": 3,
+                "rating": 0,
+                "ratings": {
+                    "oneStar": 0,
+                    "twoStar": 0,
+                    "threeStar": 0,
+                    "fourStar": 0,
+                    "fiveStar": 0,
+                    "_id": "639daec6e727a37ea9493ed6"
+                },
+                "reviews": [],
+                "title": "Physics 9",
+                "price": 70,
+                "discount": {
+                    "amount": 60,
+                    "endDate": "2022-12-20T00:00:00.000Z"
+                },
+                "subject": "Science",
+                "instructorName": "7amada-3ezzo",
+                "instructorId": "638c7d9fa26e15c3c3e8fa61",
+                "subtitles": [
+                    {
+                        "title": "Current",
+                        "subtitleHours": "1",
+                        "video": {
+                            "url": "https://www.youtube.com/watch?v=r-SCyD7f_zI",
+                            "shortDescription": "Ohm's Law",
+                            "_id": "639daec5e727a37ea9493e9b",
+                            "__v": 0
+                        },
+                        "exercise": {
+                            "questionOne": {
+                                "question": "What is enegry?",
+                                "options": [
+                                    {
+                                        "Text": "power per unit  time",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493e9e"
+                                    },
+                                    {
+                                        "Text": "the ability to do work",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493e9f"
+                                    },
+                                    {
+                                        "Text": "both",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea0"
+                                    },
+                                    {
+                                        "Text": "neither",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea1"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is power",
+                                "options": [
+                                    {
+                                        "Text": "energy per unit time",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493ea2"
+                                    },
+                                    {
+                                        "Text": "the ability to do work",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea3"
+                                    },
+                                    {
+                                        "Text": "both",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea4"
+                                    },
+                                    {
+                                        "Text": "neither",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea5"
+                                    }
+                                ]
+                            },
+                            "_id": "639daec5e727a37ea9493e9d",
+                            "__v": 0
+                        },
+                        "_id": "639daec5e727a37ea9493ea7",
+                        "__v": 0
+                    },
+                    {
+                        "title": "Circuits",
+                        "subtitleHours": "2",
+                        "video": {
+                            "url": "https://www.youtube.com/watch?v=CDGSYJhNylg",
+                            "shortDescription": "Series and Parallel Circuits",
+                            "_id": "639daec5e727a37ea9493eb3",
+                            "__v": 0
+                        },
+                        "exercise": {
+                            "questionOne": {
+                                "question": "How is heat transfered in space?",
+                                "options": [
+                                    {
+                                        "Text": "by radiation",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493eb6"
+                                    },
+                                    {
+                                        "Text": "by conduction",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb7"
+                                    },
+                                    {
+                                        "Text": "by convection",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb8"
+                                    },
+                                    {
+                                        "Text": "none of the answers are correct",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb9"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is Stefan Boltzmann Law?",
+                                "options": [
+                                    {
+                                        "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493eba"
+                                    },
+                                    {
+                                        "Text": "Energy per unit  time",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebb"
+                                    },
+                                    {
+                                        "Text": "Energy cannot be created nor destroyed",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebc"
+                                    },
+                                    {
+                                        "Text": "none of the answers are correct",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebd"
+                                    }
+                                ]
+                            },
+                            "_id": "639daec5e727a37ea9493eb5",
+                            "__v": 0
+                        },
+                        "_id": "639daec5e727a37ea9493ebf",
+                        "__v": 0
+                    }
+                ],
+                "shortSummary": "Students will learn the basics of Electricity",
+                "previewVideo": {
+                    "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+                    "shortDescription": "Learn the basics of Electricity",
+                    "_id": "639daec5e727a37ea9493e99",
+                    "__v": 0
+                },
+                "courseOutline": "Heat Transfer, Energy",
+                "exercise": {
+                    "questionOne": {
+                        "question": "How is heat transfered in space?",
+                        "options": [
+                            {
+                                "Text": "by radiation",
+                                "isCorrect": true,
+                                "_id": "639daec6e727a37ea9493ecc"
+                            },
+                            {
+                                "Text": "by conduction",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ecd"
+                            },
+                            {
+                                "Text": "by convection",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ece"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ecf"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is Stefan Boltzmann Law?",
+                        "options": [
+                            {
+                                "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                "isCorrect": true,
+                                "_id": "639daec6e727a37ea9493ed0"
+                            },
+                            {
+                                "Text": "Energy per unit  time",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed1"
+                            },
+                            {
+                                "Text": "Energy cannot be created nor destroyed",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed2"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed3"
+                            }
+                        ]
+                    },
+                    "_id": "639daec6e727a37ea9493ecb",
+                    "__v": 0
+                },
+                "numberOfEnrolledStudents": 12,
+                "_id": "639daec6e727a37ea9493ed5",
+                "createdAt": "2022-12-17T11:57:58.129Z",
+                "updatedAt": "2022-12-30T21:12:54.589Z",
+                "__v": 0
+            },
+            "videosSeen": [
+                "639daec5e727a37ea9493e9b"
+            ],
+            "numberComplete": 1,
+            "percentageComplete": 50,
+            "_id": "63af545601df8419cffe98b7",
+            "subtitles": []
+        }
+    ],
+    "__v": 0
+}
+or 
+{
+    "message": "user not found!"
+}
+```
 
 10.Getting instructor
 - route : `admin/getInstructor`
 - request type : `GET`
+- Query params : `traineeid` , id of instructor
 - response body :
+```
+{
+    "_id": "63557c71702f8f2b2cd1b8e1",
+    "username": "habiba",
+    "password": "pass12",
+    "reviews": [],
+    "courses": [
+        {
+            "reviews": [],
+            "title": "Networks",
+            "subtitles": [],
+            "_id": "635ee4cf84b1889973a924b4",
+            "createdAt": "2022-12-02T07:48:20.782Z",
+            "updatedAt": "2022-12-02T07:48:20.782Z"
+        },
+      //All other courses the instructor teaches 
+    ],
+    "__v": 0,
+    "email": "habiba@hotmail",
+    "biography": "hellooooo",
+    "rating": 4
+}
+```
 
-11.Changing status
+11.Changing status to resolved
 - route : `admin/changeStatus`
 - request type : `POST`
 - request body :
+```
+{
+  "id": "639dc2cc7e5aed21ae1118b2"  
+}
+```
 - response body :
+```
+{
+    "_id": "639dc2cc7e5aed21ae1118b2",
+    "userId": "639dbc17670262e8e16f1755",
+    "courseId": "639daec6e727a37ea9493ed5",
+    "status": "resolved",
+    "type": "refund",
+    "__v": 0
+}
+```
 
 12.Update report
 - route : `admin/updateReport`
 - request type : `POST`
 - request body :
+```
+{
+  "id": "63ac11ebf2f751e26f709dc5",
+  "status": "pending"  
+}
+```
 - response body :
+```
+{
+    "_id": "63ac11ebf2f751e26f709dc5",
+    "userId": "639dbc17670262e8e16f1755",
+    "user": "individualTrainee",
+    "courseId": "639daec6e727a37ea9493ed5",
+    "type": "technical",
+    "problem": "b",
+    "status": "pending",
+    "username": "",
+    "__v": 0
+}
+```
 
 
-__Authentication__
+## Authentication
 
 1.logging in 
 - route : `auth/login`
@@ -440,7 +957,7 @@ __Authentication__
 - request type : `GET`
 - response body :
 
-__Common users__
+## Common users 
 
 1.forgetting password
 - route : `users/forgotPassword`
@@ -589,32 +1106,292 @@ __Common users__
 }
 ```
 
-3.getting individual trainee courses
+3.Individual trainee getting his/her courses
 - route : `users/individualTraineeCourses`
 - request type : `GET`
+- Query params : `id` , individual trainee _id
 - response body :
+```
+[
+    {
+        "_id": "638c9fc9c5568c7dfe4e5306",
+        "hours": 3,
+        "rating": 5,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 4,
+            "_id": "638c9fc9c5568c7dfe4e5307"
+        },
+        "reviews": [],
+        "title": "Physics 6",
+        "price": 700,
+        "subject": "Science",
+        "instructorName": "7amada-3ezzo",
+        "instructorId": "638c7d9fa26e15c3c3e8fa61",
+        "subtitles": [
+            {
+                "title": "Current",
+                "subtitleHours": "1",
+                "video": {
+                    "url": "https://www.youtube.com/watch?v=r-SCyD7f_zI",
+                    "shortDescription": "Ohm's Law",
+                    "_id": "638c9fc6c5568c7dfe4e52cc",
+                    "__v": 0
+                },
+                "exercise": {
+                    "questionOne": {
+                        "question": "What is enegry?",
+                        "options": [
+                            {
+                                "Text": "power per unit  time",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52cf"
+                            },
+                            {
+                                "Text": "the ability to do work",
+                                "isCorrect": true,
+                                "_id": "638c9fc7c5568c7dfe4e52d0"
+                            },
+                            {
+                                "Text": "both",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52d1"
+                            },
+                            {
+                                "Text": "neither",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52d2"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is power",
+                        "options": [
+                            {
+                                "Text": "energy per unit time",
+                                "isCorrect": true,
+                                "_id": "638c9fc7c5568c7dfe4e52d3"
+                            },
+                            {
+                                "Text": "the ability to do work",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52d4"
+                            },
+                            {
+                                "Text": "both",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52d5"
+                            },
+                            {
+                                "Text": "neither",
+                                "isCorrect": false,
+                                "_id": "638c9fc7c5568c7dfe4e52d6"
+                            }
+                        ]
+                    },
+                    "_id": "638c9fc7c5568c7dfe4e52ce",
+                    "__v": 0
+                },
+                "_id": "638c9fc7c5568c7dfe4e52d8",
+                "__v": 0
+            },
+            {
+                "title": "Circuits",
+                "subtitleHours": "2",
+                "video": {
+                    "url": "https://www.youtube.com/watch?v=7mdc-lRrW1c&list=RDCMUCEWpbFLzoYGPfuWUMFPSaoA&index=2",
+                    "shortDescription": "Series and Parallel Circuits",
+                    "_id": "638c9fc7c5568c7dfe4e52e4",
+                    "__v": 0
+                },
+                "exercise": {
+                    "questionOne": {
+                        "question": "How is heat transfered in space?",
+                        "options": [
+                            {
+                                "Text": "by radiation",
+                                "isCorrect": true,
+                                "_id": "638c9fc8c5568c7dfe4e52e7"
+                            },
+                            {
+                                "Text": "by conduction",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52e8"
+                            },
+                            {
+                                "Text": "by convection",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52e9"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52ea"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is Stefan Boltzmann Law?",
+                        "options": [
+                            {
+                                "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                "isCorrect": true,
+                                "_id": "638c9fc8c5568c7dfe4e52eb"
+                            },
+                            {
+                                "Text": "Energy per unit  time",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52ec"
+                            },
+                            {
+                                "Text": "Energy cannot be created nor destroyed",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52ed"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "638c9fc8c5568c7dfe4e52ee"
+                            }
+                        ]
+                    },
+                    "_id": "638c9fc8c5568c7dfe4e52e6",
+                    "__v": 0
+                },
+                "_id": "638c9fc8c5568c7dfe4e52f0",
+                "__v": 0
+            }
+        ],
+        "shortSummary": "Students will learn the basics of Electricity",
+        "previewVideo": {
+            "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+            "shortDescription": "Learn the basics of Electricity",
+            "_id": "638c9fc5c5568c7dfe4e52ca",
+            "__v": 0
+        },
+        "courseOutline": "Heat Transfer, Energy",
+        "exercise": {
+            "questionOne": {
+                "question": "How is heat transfered in space?",
+                "options": [
+                    {
+                        "Text": "by radiation",
+                        "isCorrect": true,
+                        "_id": "638c9fc8c5568c7dfe4e52fd"
+                    },
+                    {
+                        "Text": "by conduction",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e52fe"
+                    },
+                    {
+                        "Text": "by convection",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e52ff"
+                    },
+                    {
+                        "Text": "none of the answers are correct",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e5300"
+                    }
+                ]
+            },
+            "questionTwo": {
+                "question": "What is Stefan Boltzmann Law?",
+                "options": [
+                    {
+                        "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                        "isCorrect": true,
+                        "_id": "638c9fc8c5568c7dfe4e5301"
+                    },
+                    {
+                        "Text": "Energy per unit  time",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e5302"
+                    },
+                    {
+                        "Text": "Energy cannot be created nor destroyed",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e5303"
+                    },
+                    {
+                        "Text": "none of the answers are correct",
+                        "isCorrect": false,
+                        "_id": "638c9fc8c5568c7dfe4e5304"
+                    }
+                ]
+            },
+            "_id": "638c9fc8c5568c7dfe4e52fc",
+            "__v": 0
+        },
+        "createdAt": "2022-12-04T13:25:29.016Z",
+        "updatedAt": "2022-12-06T11:21:19.607Z",
+        "__v": 0
+    },
+//All other courses
+]
+or 
+{
+    message: 'user not found'
+}
+```
+
 
 4.getting corporate trainee courses
 - route : `users/corporateTraineeCourses`
 - request type : `GET`
 - response body :
+```
+{
+    [ 
+        //All the trainee courses
+    ]
+    
+}
+or 
+{
+    message:'User not found'
+}
+```
 
 5.adding a review
 - route : `users/review`
 - request type : `PATCH`
+- Query params : `id`, course id
 - request body :
+```
+{
+ "review": "good course"
+}
+```
 - response body :
+```
+//All the course reviews
+```
 
 6. adding instructor review
 - route : `users/instructorReview`
 - request type : `PATCH`
+- Query params : `id`, instructor id
 - request body :
+```
+{
+ "review": "good instructor"
+}
+```
 - response body :
-
+```
+//All the instructor reviews
+```
 7.rating a course
 - route : `users/rateCourse`
 - request type : `PATCH`
+- Query params : `id`, course id
 - request body :
+
 - response body :
 
 8.rating an instructor 
@@ -638,34 +1415,91 @@ __Common users__
 11. viewing user wallet
 - route : `users/wallet`
 - request type : `GET`
-- request body :
+- Query params : `id` individual trainee id 
 - response body :
+```
+32430.781249999996
+or 
+{
+    "message": "User not found"
+}
+```
+
 
 12.checking access
 - route : `users/checkAccess`
 - request type : `GET`
-- request body :
+- Query params : `traineeId` , corporate trainee id, `courseId` course id
 - response body :
+```
+{
+    "message": "Unauthorized Access!"
+}
+or 
+//returns the user
+
+```
 
 13.requesting access to a course
 - route : `users/requestAccess`
 - request type : `POST`
-- request body :
+- Query params : `traineeId` , corporate trainee id, `courseId` course id
 - response body :
-
+```
+{
+    "message": "Request sent!"
+    
+}
+{
+    "message": "Request Failed!"
+    
+}
+or
+```
 14.a trainee reporting a problem
 - route : `users/report`
 - request type : `POST`
-- request body :
+- Query params : `traineeId` , corporate trainee id, `courseId` course id, `type` , `problem`, `user`
 - response body :
-
+```
+{
+    "userId": "63557c5b4e231354f488416c",
+    "user": "individualTrainee",
+    "courseId": "635e6eed4526c341180ace80",
+    "type": "technical",
+    "problem": "access",
+    "status": "pending",
+    "username": "",
+    "courseTitle": "",
+    "new": true,
+    "_id": "63b03516482126d099761096",
+    "__v": 0
+}
+```
 15.getting reports
 - route : `users/getReport`
 - request type : `GET`
-- request body :
+- Query params : `userId`, id of the user
 - response body :
+```
+[
+    {
+        "_id": "63b03516482126d099761096",
+        "userId": "63557c5b4e231354f488416c",
+        "user": "individualTrainee",
+        "courseId": "635e6eed4526c341180ace80",
+        "type": "technical",
+        "problem": "access",
+        "status": "pending",
+        "username": "",
+        "courseTitle": "",
+        "new": true,
+        "__v": 0
+    }
+]
+```
 
-__Corporate Trainee__
+## Corporate Trainee
 
 1.viewing most popular courses
 - route : `corporateTrainee/viewPopularCourses`
@@ -755,7 +1589,7 @@ __Corporate Trainee__
 - request body :
 - response body :
 
-__Guest__
+## Guest
 
 1.getting courses
 - route : `guest/getCourses`
@@ -834,7 +1668,7 @@ __Guest__
 }
 ```
 
-__Individual Trainee__
+## Individual Trainee
 
 1.viewing popular courses
 - route : `individualTrainee/viewPopularCourses`
@@ -943,7 +1777,7 @@ __Individual Trainee__
 - request type : `GET`
 - response body :
 
-__Instructor__
+## Instructor
 
 1.getting a course
 - route : `instructor/:id`
@@ -2822,24 +3656,36 @@ or {message: 'No such instructor' }
 - request body :
 - response body :
 
-__My Courses__
+## My Courses
 
-1.watch video
+1.individual trainee watch video
 - route : `myCourse/individualTrainee/watch`
 - request type : `GET`
-- request body :
+- Query params : `id`, individual trainee id, `courseId` course id, `videoId` video id
 - response body :
-
-2.watch video
+```
+{
+    "message": "Unauthorized Access!"
+}
+or 
+//returns the video url and short description
+```
+2.corporate trainee watch video
 - route : `myCourse/corporateTrainee/watch`
 - request type : `GET`
-- request body :
+- Query params : `id`, individual trainee id, `courseId` course id, `videoId` video id
 - response body :
-
+```
+{
+    "message": "Unauthorized Access!"
+}
+or 
+//returns the video url and short description
+```
 3.corporate trainee opening courses
 - route : `myCourse/corporateTrainee/openCourse`
 - request type : `GET`
-- request body :
+- Query params : `id`, corporate trainee id, `courseId` course id
 - response body :
 
 4.individual trainee opening courses
@@ -2860,51 +3706,481 @@ __My Courses__
 - request body :
 - response body :
 
-__Search__
+## Search
 
 1.searching 
 - route : `search/`
 - request type : `GET`
-- request body :
+- Query params : `searchInput` search crieteria
 - response body :
-
-__View Courses__
+```
+[
+    {
+        "_id": "6389adc4439a9c88fe47919d",
+        "hours": 2,
+        "rating": 0,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 0,
+            "_id": "6389adc4439a9c88fe47919e"
+        },
+        "reviews": [],
+        "title": "physics 1",
+        "price": 900,
+        "subject": "science",
+        "instructorName": "habiba",
+        "instructorId": "63557c71702f8f2b2cd1b8e1",
+        "subtitles": [
+            {
+                "title": "forces",
+                "subtitleHours": "2",
+                "video": {
+                    "url": "https://www.youtube.com/watch?v=dHjWVlfNraM",
+                    "shortDescription": "forces1",
+                    "_id": "6389adc1439a9c88fe479185",
+                    "__v": 0
+                },
+                "exercise": {
+                    "questionOne": {
+                        "question": "What is Newton's first law?",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6389adc3439a9c88fe479188"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6389adc3439a9c88fe479189"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6389adc3439a9c88fe47918a"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6389adc3439a9c88fe47918b"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is Newton's second law?",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6389adc3439a9c88fe47918c"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6389adc3439a9c88fe47918d"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6389adc3439a9c88fe47918e"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6389adc3439a9c88fe47918f"
+                            }
+                        ]
+                    },
+                    "_id": "6389adc3439a9c88fe479187",
+                    "__v": 0
+                },
+                "_id": "6389adc3439a9c88fe479191",
+                "__v": 0
+            }
+        ],
+        "shortSummary": "learn the basics of physics",
+        "previewVideo": {
+            "url": "https://www.youtube.com/watch?v=dHjWVlfNraM",
+            "shortDescription": "physics is fun...... w da kedbbbbb",
+            "_id": "6389adc4439a9c88fe4791aa"
+        },
+        "courseOutline": "forces, kinematics",
+        "createdAt": "2022-12-02T07:48:20.109Z",
+        "updatedAt": "2022-12-02T07:48:20.109Z",
+        "__v": 0
+    },
+    {
+        "discount": {
+            "amount": 0,
+            "endDate": null
+        },
+        "_id": "638f2400eb204e400fddd124",
+        "hours": 2,
+        "rating": 0,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 0,
+            "_id": "638f2400eb204e400fddd125"
+        },
+       //All courses that match the search input
+]
+```
+## View Courses
 
 1.filter courses by subject
 - route : `viewCourses/filterSubject`
 - request type : `GET`
-- request body :
+- Query params : `subject` course subject
 - response body :
+```
+{
+    "error": "no results"
+}
+or 
+[
+    {
+        "discount": 0,
+        "_id": "6383981ec15e86c073a95355",
+        "hours": 4,
+        "rating": 0,
+        "reviews": [
+            "good course"
+        ],
+        "title": "Computer Architecture",
+        "price": 700,
+        "subject": "Computer Science",
+        "instructorName": "batata",
+        "instructorId": "6360f8fd888437fde95bcad7",
+        "subtitles": [
+            {
+                "title": "Types of microprocessor architectures",
+                "videos": [
+                    {
+                        "url": "https://www.youtube.com/watch?v=QMFlF-9ji8Y",
+                        "shortDescription": "Von neumann vs Harvard",
+                        "_id": "63839815c15e86c073a9531e",
+                        "__v": 0
+                    },
+                    {
+                        "url": "https://www.youtube.com/watch?v=dcNk0urQsQM",
+                        "shortDescription": "Microprocessor vs Microcontroller",
+                        "_id": "6383981ac15e86c073a95321",
+                        "__v": 0
+                    }
+                ],
+                "exercise": {
+                    "questionOne": {
+                        "question": "What is Von Neumann",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6383981bc15e86c073a95324"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6383981bc15e86c073a95325"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6383981bc15e86c073a95326"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6383981bc15e86c073a95327"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is Harvard",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6383981bc15e86c073a95328"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6383981bc15e86c073a95329"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6383981bc15e86c073a9532a"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6383981bc15e86c073a9532b"
+                            }
+                        ]
+                    },
+                    "_id": "6383981bc15e86c073a95323",
+                    "__v": 0
+                },
+                "_id": "6383981cc15e86c073a9532d",
+                "__v": 0
+            },
+            {
+                "title": "Pipelining",
+                "videos": [
+                    {
+                        "url": "https://www.youtube.com/watch?v=zPmfprtdzCE",
+                        "shortDescription": "Pipeline Principles",
+                        "_id": "6383981cc15e86c073a9533a",
+                        "__v": 0
+                    },
+                    {
+                        "url": "https://www.youtube.com/watch?v=KkwuSG1I-fE",
+                        "shortDescription": "Pipeline Hazard",
+                        "_id": "6383981cc15e86c073a9533c",
+                        "__v": 0
+                    }
+                ],
+                "exercise": {
+                    "questionOne": {
+                        "question": "What type of hazard is RAW hazard",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6383981dc15e86c073a9533f"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6383981dc15e86c073a95340"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6383981dc15e86c073a95341"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6383981dc15e86c073a95342"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "How many pipeline stages in MIPS 32 arch",
+                        "options": [
+                            {
+                                "id": 0,
+                                "_id": "6383981dc15e86c073a95343"
+                            },
+                            {
+                                "id": 1,
+                                "_id": "6383981dc15e86c073a95344"
+                            },
+                            {
+                                "id": 2,
+                                "_id": "6383981dc15e86c073a95345"
+                            },
+                            {
+                                "id": 3,
+                                "_id": "6383981dc15e86c073a95346"
+                            }
+                        ]
+                    },
+                    "_id": "6383981dc15e86c073a9533e",
+                    "__v": 0
+                },
+                "_id": "6383981dc15e86c073a95348",
+                "__v": 0
+            }
+        ],
+        "shortSummary": "Students will learn the basic computer architecture and pipelining",
+        "previewVideo": {
+            "url": "",
+            "shortDescription": "",
+            "_id": "63b03f10cb0ac6b68a88fcb7"
+        },
+        "courseOutline": "",
+        "createdAt": "2022-11-27T17:02:22.711Z",
+        "updatedAt": "2022-12-31T12:35:46.437Z",
+        "__v": 0
+    }
+]
+```
+
 
 2.filter courses by price
 - route : `viewCourses/filterPrice`
 - request type : `GET`
-- request body :
+- Query params : `price` course price 
 - response body :
+```
+{
+    "error": "no results"
+}
+or 
+//All courses with that price 
+```
 
 3.filter courses by rating
 - route : `viewCourses/filterRating`
 - request type : `GET`
-- request body :
+- Query params : `rating` course rating 
 - response body :
+```
+{
+    "error": "no results"
+}
+or 
+//All courses with that rating 
+```
+
 
 4.getting courses
 - route : `viewCourses/`
 - request type : `GET`
-- request body :
 - response body :
+```
+[
+    {
+        "_id": "6383981ec15e86c073a95355",
+        "hours": 4,
+        "rating": 0,
+        "title": "Computer Architecture",
+        "price": 700,
+        "courseOutline": ""
+    },
+//All other courses
+```
 
 5.getting prices
 - route : `viewCourses/prices`
 - request type : `GET`
-- request body :
 - response body :
+```
+[
+    {
+        "_id": "6383981ec15e86c073a95355",
+        "hours": 4,
+        "rating": 0,
+        "title": "Computer Architecture",
+        "price": 700,
+        "previewVideo": {
+            "url": "",
+            "shortDescription": "",
+            "_id": "63b03fe5cb0ac6b68a88ff3c"
+        },
+        "courseOutline": ""
+    },
+//All other courses
+```
 
 6.viewing courses on hover
 - route : `viewCourses/onHover`
 - request type : `GET`
-- request body :
+- Query params : `id` course id
 - response body :
+```
+{
+    "title": "Computer Architecture",
+    "totalHours": 4,
+    "price": 700,
+    "discount": 0,
+    "courseOutline": "",
+    "previewVideo": {
+        "url": "",
+        "shortDescription": "",
+        "_id": "63b04049cb0ac6b68a88ff50"
+    },
+    "subtitles": [
+        {
+            "title": "Types of microprocessor architectures",
+            "exercise": {
+                "questionOne": {
+                    "question": "What is Von Neumann",
+                    "options": [
+                        {
+                            "id": 0,
+                            "_id": "6383981bc15e86c073a95324"
+                        },
+                        {
+                            "id": 1,
+                            "_id": "6383981bc15e86c073a95325"
+                        },
+                        {
+                            "id": 2,
+                            "_id": "6383981bc15e86c073a95326"
+                        },
+                        {
+                            "id": 3,
+                            "_id": "6383981bc15e86c073a95327"
+                        }
+                    ]
+                },
+                "questionTwo": {
+                    "question": "What is Harvard",
+                    "options": [
+                        {
+                            "id": 0,
+                            "_id": "6383981bc15e86c073a95328"
+                        },
+                        {
+                            "id": 1,
+                            "_id": "6383981bc15e86c073a95329"
+                        },
+                        {
+                            "id": 2,
+                            "_id": "6383981bc15e86c073a9532a"
+                        },
+                        {
+                            "id": 3,
+                            "_id": "6383981bc15e86c073a9532b"
+                        }
+                    ]
+                },
+                "_id": "6383981bc15e86c073a95323",
+                "__v": 0
+            }
+        },
+        {
+            "title": "Pipelining",
+            "exercise": {
+                "questionOne": {
+                    "question": "What type of hazard is RAW hazard",
+                    "options": [
+                        {
+                            "id": 0,
+                            "_id": "6383981dc15e86c073a9533f"
+                        },
+                        {
+                            "id": 1,
+                            "_id": "6383981dc15e86c073a95340"
+                        },
+                        {
+                            "id": 2,
+                            "_id": "6383981dc15e86c073a95341"
+                        },
+                        {
+                            "id": 3,
+                            "_id": "6383981dc15e86c073a95342"
+                        }
+                    ]
+                },
+                "questionTwo": {
+                    "question": "How many pipeline stages in MIPS 32 arch",
+                    "options": [
+                        {
+                            "id": 0,
+                            "_id": "6383981dc15e86c073a95343"
+                        },
+                        {
+                            "id": 1,
+                            "_id": "6383981dc15e86c073a95344"
+                        },
+                        {
+                            "id": 2,
+                            "_id": "6383981dc15e86c073a95345"
+                        },
+                        {
+                            "id": 3,
+                            "_id": "6383981dc15e86c073a95346"
+                        }
+                    ]
+                },
+                "_id": "6383981dc15e86c073a9533e",
+                "__v": 0
+            }
+        }
+    ]
+}
+```
 
 
 
