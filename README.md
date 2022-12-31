@@ -2011,16 +2011,48 @@ or
 ```
 
 5.searching for a course
-- route : `individualTrainee/:searchInput`
+- route : `individualTrainee/`
 - request type :`GET`
-- request body :
+- Query params : `searchInput`
 - response body :
+```
+[
+    {
+        "_id": "6389adc4439a9c88fe47919d",
+        "hours": 2,
+        "rating": 0,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 0,
+            "fourStar": 0,
+            "fiveStar": 0,
+            "_id": "6389adc4439a9c88fe47919e"
+        },
+    //all other courses that match the search input
+```
 
 6. changing password 
 - route : `individualTrainee/changePassword`
 - request type : `PATCH`
 - request body :
+```
+{
+    "id":"637b561c5454ac7c96365a0b",
+    "oldPassword":"rec2",
+    "password":"rec3"
+}
+```
 - response body :
+```
+{
+    "message": "Password Updated!"
+}
+or 
+{
+    "message": "Old Password is incorrect!"
+}
+```
 
 7.registering for a course 
 - route : `individualTrainee/registerForCourse`
@@ -2032,7 +2064,35 @@ or
 - route : `individualTrainee/signup`
 - request type : `POST`
 - request body :
+```
+{
+    "username": "batates",
+    "password": "batata123",
+    "email":"batates@gmail.com",
+    "wallet": "0",
+    "firstName":"batates",
+    "lastName":"m7amara",
+    "country":"egypt",
+    "gender": "female",
+    "enrolledCourses":[]
+}
+```
 - response body :
+```
+{
+    "username": "batates",
+    "password": "batata123",
+    "email": "batates@gmail.com",
+    "firstName": "batates",
+    "lastName": "m7amara",
+    "gender": "female",
+    "country": "egypt",
+    "wallet": 0,
+    "enrolledCourses": [],
+    "_id": "63b0927f50418272a2563335",
+    "__v": 0
+}
+```
 
 9.registring for a course using a wallet 
 - route : `individualTrainee/registerForCourseUsingWallet`
@@ -2043,33 +2103,139 @@ or
 10.requesting a refunds
 - route : `individual/requestRefund`
 - request type : `GET`
+- Query params : `id` user id , `courseId` course id
 - response body :
 
 ## Instructor
 
-1.getting a course
+1.getting a course the instructor teaches with a specific price 
 - route : `instructor/:id`
 - request type : `GET`
-- request body :
+- Parameters : `id` instructor name 
+- Query params : `price` course price 
 - response body :
+```
+[
+    {
+        "_id": "638a50c0bbf6a7900cb2091a",
+        "hours": 5,
+        "rating": 3.5,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 1,
+            "fourStar": 1,
+            "fiveStar": 0,
+            "_id": "638a50c0bbf6a7900cb2091b"
+        },
+        "reviews": [],
+        "title": "German",
+        "price": 700,
+        "subject": "Fremd Sprache",
+        "instructorName": "zeina",
+        "instructorId": "63557f56e3eb43d2942ad620",
+
+        //All other courses given by that instructor
+]
+```
 
 2.getting all courses given by instructor 
 - route : `instructor/all/:id`
 - request type : `GET`
-- request body :
+- Parameters : `id` instructor name
 - response body :
+```
+[
+    {
+        "_id": "638a50c0bbf6a7900cb2091a",
+        "hours": 5,
+        "rating": 3.5,
+        "ratings": {
+            "oneStar": 0,
+            "twoStar": 0,
+            "threeStar": 1,
+            "fourStar": 1,
+            "fiveStar": 0,
+            "_id": "638a50c0bbf6a7900cb2091b"
+        },
+        "reviews": [],
+        "title": "German",
+        "price": 700,
+        "subject": "Fremd Sprache",
+        "instructorName": "zeina",
+        "instructorId": "63557f56e3eb43d2942ad620",
 
-3.searching for a course by subject
+        //All other courses given by that instructor
+]
+```
+
+3.searching for a course given by the instructor by subject
 - route : `instructor/subject/:id`
 - request type : `GET`
-- request body :
+- Parameters : `id` instructor name
+- Query params : `subject` course subject
 - response body :
+```
+[
+    {
+        "discount": 0,
+        "_id": "6384e20fd26b508425abba1c",
+        "hours": 3,
+        "rating": 3.5,
+        "ratings": {
+            "oneStar": 1,
+            "twoStar": 1,
+            "threeStar": 1,
+            "fourStar": 3,
+            "fiveStar": 2,
+            "_id": "6384e20fd26b508425abba1d"
+        },
+        "reviews": [
+            "Great course!",
+            "Awesome course!",
+            "Nice course!"
+        ],
+        "title": "Physics 2",
+        "price": 700,
+        "subject": "Science",
+        "instructorName": "taymoor.beblawi",
+        "instructorId": "635ea4bb0fe0c0e99a739b4f",
+    //All other courses given by the instructor with that subject    
+```
+
 
 4.searching for a courses
 - route : `instructor/myCourses/:searchInput/:id`
 - request type : `GET`
-- request body :
+- Parameters : `id` instructor id , `searchInput`  
 - response body :
+```
+[
+    {
+        "discount": 0,
+        "_id": "6384e20fd26b508425abba1c",
+        "hours": 3,
+        "rating": 3.5,
+        "ratings": {
+            "oneStar": 1,
+            "twoStar": 1,
+            "threeStar": 1,
+            "fourStar": 3,
+            "fiveStar": 2,
+            "_id": "6384e20fd26b508425abba1d"
+        },
+        "reviews": [
+            "Great course!",
+            "Awesome course!",
+            "Nice course!"
+        ],
+        "title": "Physics 2",
+        "price": 700,
+        "subject": "Science",
+        "instructorName": "taymoor.beblawi",
+        "instructorId": "635ea4bb0fe0c0e99a739b4f",
+    //All other courses given by the instructor with that search input    
+```
 
 5.creating a course
 - route : `instructor/createCourse`
@@ -2412,11 +2578,14 @@ or
 }
 ```
 
-6.upload
+6.upload a preview video 
 - route : `instructor/upload`
 - request type : `POST`
-- request body :
+- Parameters : `courseId` , `url` video url, `shortDescription` video short description
 - response body :
+```
+// returns the updated course 
+```
 
 7.defining a promotion
 - route : `instructor/definePromotion/:id`
@@ -3267,9 +3436,25 @@ or {message: "no such instructor}
 9.changing password
 - route : `instructor/changePassword`
 - request type : `PATCH`
+- Parameters : `id` instructor id , `oldPassword` , `password`
 - request body :
-- response body :
-
+```
+{
+    "id": "635ea4bb0fe0c0e99a739b4f",
+    "oldPassword":"7agga-Noosa",
+    "password": "aloo"
+}
+```
+- response body : 
+```
+{
+    "message": "Password Updated!"
+}
+or 
+{
+    "message": "Old Password is incorrect!"
+}
+```
 10.edit biography 
 - route : `instructor/editBiography/:id`
 - request type : `PATCH`
@@ -3915,14 +4100,29 @@ or {message: 'No such instructor' }
 13.viewing instructor ratings
 - route : `instructorsss/viewInstructorRatings`
 - request type : `GET`
-- request body :
+- Query params : `instructorId`
 - response body :
+```
+{
+    "rating": 5,
+    "reviews": []
+}
+```
 
 14.viewing money owed
 - route : `instructorsss/viewMoneyOwed`
 - request type : `GET`
-- request body :
+- Query params : `instructorId`
+- request body : 
+```
+{
+   "percentage":"0.5"
+}
+```
 - response body :
+```
+
+```
 
 ## My Courses
 
@@ -4451,7 +4651,7 @@ or
 }
 ```
 
-## Credits
+## Credits 
 
 
 
