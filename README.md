@@ -17,6 +17,15 @@ registering for courses while corporate trainees are registered by the admin and
 - [Features](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/Doha/README.md#features)
 - [Installation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/Doha/README.md#installation)
 - [API References](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/Doha/README.md#api-references)
+  - [Admin]()
+  - [Authentication]()
+  - [Common Users]()
+  - [Corporate Trainee]()
+  - [Guest]()
+  - [Individual Trainee]()
+  - [Instructor]()
+  - [Search]()
+  - [View Courses]()
 ## Motivation
 The following are the objectives of our project:
 - Master working with MERN Stack.
