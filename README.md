@@ -10,7 +10,7 @@ registering for courses while corporate trainees are registered by the admin and
 
 ## Table of contents
 - [Motivation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#motivation)
-- [Build Status](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans#build-status)
+- [Build Status](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#build-status)
 - [Tools and Frameworks](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#tools-and-frameworks)
 - [Coding style](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#coding-style)
 - [Screenshots](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#screenshots)
