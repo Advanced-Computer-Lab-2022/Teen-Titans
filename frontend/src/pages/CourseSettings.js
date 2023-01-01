@@ -178,7 +178,7 @@ const CourseSettings = () => {
         }
     }
     return (
-        <div>
+        <div className="home">
             {
                 user === 'individualTrainee' && course && course.percentageComplete < 50 &&
                 <button className='danger' onClick={() => requestRefund()}>Drop Course</button>
@@ -187,9 +187,10 @@ const CourseSettings = () => {
                 course &&
                 course.percentageComplete === 100 &&
                 <div>
-                    <button className='btn2' onClick={() => generateCertificate()}>Download Certificate</button>
+                    <h2>Congratulations! You have completed the {course.course.title} course. Now get your certificate!</h2>
+                    <button className='home-button' onClick={() => generateCertificate()}>Download Certificate</button>
                     <br></br>
-                    <button className='btn' onClick={() => sendCertificate()}>Get certificate by mail</button>
+                    <button className='home-button' onClick={() => sendCertificate()}>Get certificate by mail</button>
                 </div>
             }
         </div>

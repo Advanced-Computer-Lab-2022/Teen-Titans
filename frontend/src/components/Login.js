@@ -30,16 +30,16 @@ const Login = () => {
                         else if (json.user.country.includes('United Arab Emirates'))
                             setCountryCode('AED')
                     }
+                    else {
+                        localStorage.setItem('user', 'admin')
+                        setCountryCode('EGP')
+                    }
                     if (json.userType === 'instructor')
                         localStorage.setItem('user', 'instructor')
                     else if (json.userType === 'corporateTrainee')
                         localStorage.setItem('user', 'corporateTrainee')
                     else if (json.userType === 'individualTrainee')
                         localStorage.setItem('user', 'individualTrainee')
-                    else if (json.userType === 'admin') {
-                        localStorage.setItem('user', 'admin')
-                        setCountryCode('EGP')
-                    }
                     localStorage.setItem('id', json.user._id)
                     // console.log(json.user._id);
                 }
@@ -63,11 +63,15 @@ const Login = () => {
 
             });
         if (countryCode) {
+            console.log("hello");
             const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)
             const response = await conversionRate.json()
             // console.log(response);
             localStorage.setItem('country', JSON.stringify(response))
-            window.location.href = `/homePage`
+            if (userType !== 'admin')
+                window.location.href = `/homePage`
+            else
+                window.location.href = `/admin`
         }
     }
     return (

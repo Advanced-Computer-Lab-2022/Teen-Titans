@@ -115,33 +115,50 @@ const Exercise = () => {
                 <h2>Question One:</h2>
                 <div >
                   <h3>{exercise?.questionOne?.question} </h3>
-                  <input type="radio" id="q1a" name="q1" value={exercise?.questionOne?.options[0]?.isCorrect} />
-                  <label >{exercise?.questionOne?.options[0]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q1a" name="q1" value={exercise?.questionOne?.options[0]?.isCorrect} />
+                    <label >{exercise?.questionOne?.options[0]?.Text}</label>
+                  </div>
 
-                  <input type="radio" id="q1b" name="q1" value={exercise?.questionOne?.options[1]?.isCorrect} />
-                  <label>{exercise?.questionOne?.options[1]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q1b" name="q1" value={exercise?.questionOne?.options[1]?.isCorrect} />
+                    <label>{exercise?.questionOne?.options[1]?.Text}</label>
+                  </div>
 
-                  <input type="radio" id="q1c" name="q1" value={exercise?.questionOne?.options[2]?.isCorrect}
-                  />
-                  <label>{exercise?.questionOne?.options[2]?.Text}</label>
-                  <input type="radio" id="q1d" name="q1" value={exercise?.questionOne?.options[3]?.isCorrect} />
-                  <label>{exercise?.questionOne?.options[3]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q1c" name="q1" value={exercise?.questionOne?.options[2]?.isCorrect} />
+                    <label>{exercise?.questionOne?.options[2]?.Text}</label>
+                  </div>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q1d" name="q1" value={exercise?.questionOne?.options[3]?.isCorrect} />
+                    <label>{exercise?.questionOne?.options[3]?.Text}</label>
+                  </div>
                 </div>
 
                 <h2>Question Two:</h2>
                 <div>
-                  <h3>{exercise?.questionTwo?.question}</h3>
-                  <input type="radio" id="q2a" name="q2" value={exercise?.questionTwo?.options[0]?.isCorrect} />
-                  <label>{exercise?.questionTwo?.options[0]?.Text}</label>
+                  <div>
+                    <h3 className="d-flex">{exercise?.questionTwo?.question}</h3>
+                  </div>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q2a" name="q2" value={exercise?.questionTwo?.options[0]?.isCorrect} />
+                    <label>{exercise?.questionTwo?.options[0]?.Text}</label>
+                  </div>
 
-                  <input type="radio" id="q2b" name="q2" value={exercise?.questionTwo?.options[1]?.isCorrect} />
-                  <label>{exercise?.questionTwo?.options[1]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q2b" name="q2" value={exercise?.questionTwo?.options[1]?.isCorrect} />
+                    <label>{exercise?.questionTwo?.options[1]?.Text}</label>
+                  </div>
 
-                  <input type="radio" id="q2c" name="q2" value={exercise?.questionTwo?.options[2]?.isCorrect} />
-                  <label>{exercise?.questionTwo?.options[2]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q2c" name="q2" value={exercise?.questionTwo?.options[2]?.isCorrect} />
+                    <label>{exercise?.questionTwo?.options[2]?.Text}</label>
+                  </div>
 
-                  <input type="radio" id="q2d" name="q2" value={exercise?.questionTwo?.options[3]?.isCorrect} />
-                  <label>{exercise?.questionTwo?.options[3]?.Text}</label>
+                  <div className="d-flex">
+                    <input style={{ width: "10px" }} type="radio" id="q2d" name="q2" value={exercise?.questionTwo?.options[3]?.isCorrect} />
+                    <label>{exercise?.questionTwo?.options[3]?.Text}</label>
+                  </div>
                 </div>
 
                 {
@@ -169,30 +186,48 @@ const Exercise = () => {
                   <h2>Question One:</h2>
                   <div >
                     <h3>{exercise?.questionOne?.question} </h3>
-                    <input type="radio" id="s1a" name="s1" checked={exercise?.questionOne?.options[0]?.isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionOne.options[0].isCorrect ? 'green' : "red" }}  >{exercise?.questionOne.options[0].Text}</label>
-                    <input type="radio" id="s1b" name="s1" checked={exercise?.questionOne?.options[1]?.isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionOne.options[1].isCorrect ? 'green' : "red" }} >{exercise?.questionOne.options[1].Text}</label>
-                    <input type="radio" id="s1c" name="s1" checked={exercise?.questionOne?.options[2]?.isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionOne.options[2].isCorrect ? 'green' : "red" }} >{exercise?.questionOne.options[2].Text}</label>
-                    <input type="radio" id="s1d" name="s1" checked={exercise?.questionOne?.options[3]?.isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionOne.options[3].isCorrect ? 'green' : "red" }} >{exercise?.questionOne.options[3].Text}</label>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s1a" name="s1" checked={exercise?.questionOne?.options[0]?.isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionOne.options[0].isCorrect ? 'var(--primary)' : 'var(--wrong)' }}  >{exercise?.questionOne.options[0].Text}</label>
+                    </div>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s1b" name="s1" checked={exercise?.questionOne?.options[1]?.isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionOne.options[1].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionOne.options[1].Text}</label>
+                    </div>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s1c" name="s1" checked={exercise?.questionOne?.options[2]?.isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionOne.options[2].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionOne.options[2].Text}</label>
+                    </div>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s1d" name="s1" checked={exercise?.questionOne?.options[3]?.isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionOne.options[3].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionOne.options[3].Text}</label>
+                    </div>
                   </div>
 
 
                   <h2>Question Two:</h2>
                   <div >
-                    <h3>{exercise?.questionTwo?.question}</h3>
-                    <input type="radio" id="s2a" name="s2" checked={exercise?.questionTwo.options[0].isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionTwo.options[0].isCorrect ? 'green' : "red" }} >{exercise?.questionTwo.options[0].Text} </label>
+                    <div>
+                      <h3 className="d-flex">{exercise?.questionTwo?.question}</h3>
+                    </div>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s2a" name="s2" checked={exercise?.questionTwo.options[0].isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionTwo.options[0].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionTwo.options[0].Text} </label>
+                    </div>
 
-                    <input type="radio" id="s2b" name="s2" checked={exercise?.questionTwo.options[1].isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionTwo.options[1].isCorrect ? 'green' : "red" }} >{exercise?.questionTwo.options[1].Text}</label>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s2b" name="s2" checked={exercise?.questionTwo.options[1].isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionTwo.options[1].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionTwo.options[1].Text}</label>
+                    </div>
 
-                    <input type="radio" id="s2c" name="s2" checked={exercise?.questionTwo.options[2].isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionTwo.options[2].isCorrect ? 'green' : "red" }} >{exercise?.questionTwo.options[2].Text}</label>
-                    <input type="radio" id="s2d" name="s2" checked={exercise?.questionTwo.options[3].isCorrect} />
-                    <label style={{ backgroundColor: exercise?.questionTwo.options[3].isCorrect ? 'green' : "red" }} >{exercise?.questionTwo.options[3].Text}</label>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s2c" name="s2" checked={exercise?.questionTwo.options[2].isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionTwo.options[2].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionTwo.options[2].Text}</label>
+                    </div>
+                    <div className="d-flex">
+                      <input style={{ width: "10px" }} type="radio" id="s2d" name="s2" checked={exercise?.questionTwo.options[3].isCorrect} />
+                      <label style={{ backgroundColor: exercise?.questionTwo.options[3].isCorrect ? 'var(--primary)' : 'var(--wrong)' }} >{exercise?.questionTwo.options[3].Text}</label>
+                    </div>
                   </div>
 
                 </div>
