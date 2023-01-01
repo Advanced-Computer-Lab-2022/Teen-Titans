@@ -4752,6 +4752,7 @@ If you're an instructor or a corporate trainee then the admin will sign you up w
 you will not be able to register for courses. 
 
 ## Credits 
+Our team (teen-titans): Haneen Mahmoud 49-2738, Doha Adel 49-7673, Roba Maged 49-4215, Habiba Yasser 49-3505, Zeina Yasser 49-3506 
 
 
 
