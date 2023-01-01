@@ -1902,7 +1902,36 @@ or
 - route : `guest/signUp`
 - request type : `POST`
 - request body :
+```
+{
+   "username":"rory",
+   "password":"123",
+   "email":"rory@gmail.com",
+   "firstName":"Rory",
+   "lastName":"Gilmore",
+   "gender":"female",
+   "country":"USA",
+   "wallet":"0",
+   "enrolledCourses":[]
+
+}
+```
 - response body :
+```
+{
+    "username": "rory",
+    "password": "123",
+    "email": "rory@gmail.com",
+    "firstName": "Rory",
+    "lastName": "Gilmore",
+    "gender": "female",
+    "country": "USA",
+    "wallet": 0,
+    "enrolledCourses": [],
+    "_id": "63b161e166456eed72f995db",
+    "__v": 0
+}
+```
 
 4.viewing popular courses
 - route : `guest/viewPopularCourses`
@@ -2105,6 +2134,28 @@ or
 - request type : `GET`
 - Query params : `id` user id , `courseId` course id
 - response body :
+```
+{
+    "message": "You have completed more than 50% of the course. Therefore, a refund is not possible."
+
+}
+or
+{
+    "message": "Your request has been received. The course refund will be added to your wallet shortly."
+
+}
+or
+{
+    "message": "Request was already made and it is now pending."
+
+}
+or
+{
+    "message": "Something went wrong!"
+
+}
+
+```
 
 ## Instructor
 
@@ -4121,7 +4172,9 @@ or {message: 'No such instructor' }
 ```
 - response body :
 ```
-
+{
+    "totalMoneyOwed": 3010
+}
 ```
 
 ## My Courses
@@ -4155,25 +4208,66 @@ or
 - request type : `GET`
 - Query params : `id`, corporate trainee id, `courseId` course id
 - response body :
+```
+{
+    "message": "Course not found!"
+}
+or 
+//returns the required course 
+```
 
 4.individual trainee opening courses
 - route : `myCourse/individualTrainee/openCourse`
 - request type : `GET`
-- request body :
+- Query params : `id`, individual trainee id, `courseId` course id
 - response body :
+```
+{
+    "message": "Course not found!"
+}
+or 
+//returns the required course 
+```
 
 5.individual trainee seeing videos
 - route : `myCourse/individualTrainee/seen`
 - request type : `PATCH`
 - Query params : `id` individual trainee id
 - request body :
+```
+{
+    "courseId":"6383981ec15e86c073a95355",
+    "videoId":"63839815c15e86c073a9531e"
+}
+```
 - response body :
+```
+{
+    "message": "Video already seen!"
+}
+or
+//returns updated trainee data
+```
 
 6.corporate trainee seeing videos
 - route : `myCourse/corporateTrainee/seen`
 - request type : `PATCH`
+- Query params : `id` corporate trainee id
 - request body :
+```
+{
+    "courseId":"6383981ec15e86c073a95355",
+    "videoId":"63839815c15e86c073a9531e"
+}
+```
 - response body :
+```
+{
+    "message": "Video already seen!"
+}
+or
+//returns updated trainee data
+```
 
 ## Search
 
