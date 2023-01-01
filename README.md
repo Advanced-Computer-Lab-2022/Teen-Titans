@@ -31,10 +31,11 @@ registering for courses while corporate trainees are registered by the admin and
 - [Credits](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#credits)
 ## Motivation
 The following are the objectives of our project:
-- Master working with MERN Stack.
-- Work using the Agile Methodology to plan out a project and develop the software.
-- Learn how to work together as a team on GitHub.
-- Learn the process of following a given set of System Requirements to develop a software
+- Help people register for online courses and get the opportunity to learn anywhere and anytime
+- Getting familiar with MERN stack.
+- Work using the Agile Methodology to plan out sprints and develop the software.
+- Learn how to use Github with its different commands and how to integrate the project as a team.
+- Learn the process of following a given set of functional and non-functional Requirements to develop a software
 
 
 ## Build Status
@@ -43,7 +44,7 @@ it sometimes has a delay beacuse the certificate pdf has a size of 11 megabytes 
 
 
 ## Tools and Frameworks
-This project is fully implemented using the MERN Stack.MERN stands for MongoDB, Express, React, Node, after the four key technologies that make up the stack.
+This project is fully implemented using the MERN Stack. MERN stands for MongoDB, Express, React, Node, after the four key technologies that make up the stack.
 
 - MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas NoSQL is used as an alternative to traditional relational databases. NoSQL databases are quite useful for working with large sets of distributed data. MongoDB is a tool that can manage document-oriented information, store or retrieve information.
 - Express is a Node. js web application server framework, designed for building single-page, multi-page, and hybrid web applications. 
