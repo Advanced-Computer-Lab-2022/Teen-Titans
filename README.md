@@ -27,6 +27,7 @@ registering for courses while corporate trainees are registered by the admin and
   - [My Courses](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#my-courses)
   - [Search](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#search)
   - [View Courses](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#view-courses)
+- [How to use](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#how-to-use)
 - [Credits](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#credits)
 ## Motivation
 The following are the objectives of our project:
@@ -4744,6 +4745,11 @@ or
     ]
 }
 ```
+
+## How to use
+If you are a user who wants to view and register for online courses then you should sign up as an individual trainee.
+If you're an instructor or a corporate trainee then the admin will sign you up with a username and a password that you can change later. However if you're not signed in 
+you will not be able to register for courses. 
 
 ## Credits 
 
