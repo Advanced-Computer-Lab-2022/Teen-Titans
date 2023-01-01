@@ -1,0 +1,18 @@
+Sprint 2 tasks distribution
+
+Haneen Mahmoud 49-2738
+requirements: 5,31,32,39
+
+Roba Maged 49-4215
+requirements: 35,36,37,38
+
+Habiba Yasser 49-3505
+requirements: 24,25,33,34
+
+Zeina Yasser 49-3506
+requirements: 17,21,28
+
+Doha Adel 49-7673
+requirements: 26,27,29,30
+
+
