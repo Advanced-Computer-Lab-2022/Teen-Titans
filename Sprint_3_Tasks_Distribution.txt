@@ -1,0 +1,17 @@
+Sprint 3 tasks distribution 
+
+Haneen Mahmoud 49-2738
+requirements:40,41,42,43,44,45
+
+Roba Maged 49-4215
+requirements:50,51,54,58,59
+
+Habiba Yasser 49-3505
+requirements:47,48,49,52,53
+
+Zeina Yasser 49-3506
+requirements:1,2,3,4,22
+
+Doha Adel 49-7673
+requirements:13,14,15,16,60
+
