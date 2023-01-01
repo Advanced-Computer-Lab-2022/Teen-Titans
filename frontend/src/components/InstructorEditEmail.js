@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { useState } from "react"
 import { AiFillEdit } from "react-icons/ai";
-const EditEmail = ({ id }) => {
+const EditEmail = ({  }) => {
+  const userId = localStorage.getItem('id')
+  const user = localStorage.getItem('user')
   const [error, setError] = useState(null)
   const [message, setMessage] = useState('')
   const editEmailInstructor = async () => {
     // let id = document.getElementById('ID').value;
-    const response = await fetch(`/instructor/editEmail/${id}`, {
+    const response = await fetch(`/instructor/editEmail/${userId}`, {
       method: 'PATCH',
       body: JSON.stringify({
         "email": document.getElementById("email").value.toString(),
@@ -35,10 +37,26 @@ const EditEmail = ({ id }) => {
 
         {/* <label>Instructor id:</label>
         <input id='ID'></input> */}
-        <label>New email:</label>
-        <input id='email'></input>
+        <label style={{
+                    width: "200px",
+                    left: "40%",
+                    width: "250px",
+                    height: "40px",
+                    position: "relative"
+                }}>New email:</label>
+        <input style={{
+                    width: "200px",
+                    left: "40%",
+                    width: "250px",
+                    height: "40px",
+                    position: "relative"
+                }}id='email'></input>
 
-        <button onClick={() => editEmailInstructor()}>Edit</button>
+        <button style={{width: "300px",
+       left:"40%",
+       width:"250px",
+       height:"40px",
+       position: "relative" }}onClick={() => editEmailInstructor()}>Edit</button>
         <span>{message}</span>
       </div>
     </div>

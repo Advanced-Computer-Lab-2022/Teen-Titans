@@ -89,9 +89,11 @@ console.log("response",response);
         <div className="course-price" id={course._id} onMouseEnter={handleHover} onClick={() => checkAccess(course._id)}>
             <h4>
                 {course.title}
-            </h2>
+            </h4>
             <div className="d-flex flex-column align-items-start">
+                {ishidden?null:
                 <h5><strong>Price:</strong> {(course.price * conversion_rate).toFixed(2)} {target_code}</h5>
+                }
                 <h5><strong>course rating:</strong> {(course.rating.toFixed(2))}</h5>
                 <h5><strong>course hours:</strong> {course.hours}</h5>
                 <p><strong>course outline:</strong> {course.courseOutline}</p>
@@ -122,6 +124,7 @@ console.log("response",response);
                     </div>
                 }
             </div>
+        </div>
         </div>
 
 

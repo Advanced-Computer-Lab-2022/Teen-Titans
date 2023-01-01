@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../index.css'
 import {  useNavigate } from 'react-router-dom';
-import Sidebar from '../components/SideBar/SideBar.jsx';
+import Sidebar from '../components/SideBar/AdminSideBar';
 const Admin = () => {
     const [message, setMessage] = useState('')
     const [requests, setRequests] = useState(null)
@@ -113,7 +113,7 @@ const Admin = () => {
             <button onClick={() =>{ torefundrequests() }}> Refund Requests</button>
             <br></br>
             <button onClick={() =>{ toreports() }}> Reports</button> */}
-            <button onClick={() => window.location.href = `/viewCoursesForDiscount`}>View courses</button>
+            {/* <button style={{ width: "100px",height:"100px" ,position:"relative",}}  onClick={() => window.location.href = `/viewCoursesForDiscount`}>View courses</button> */}
         </div>
     )
 }

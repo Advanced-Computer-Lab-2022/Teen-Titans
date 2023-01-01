@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 // import {useLocation} from 'react-router-dom'
-import Sidebar from '../components/SideBar/SideBar.jsx';
+import Sidebar from '../components/SideBar/AdminSideBar';
 
 // import RequestDetails from "../components/RequestDetails";
 

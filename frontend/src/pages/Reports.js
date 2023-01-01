@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // import {useLocation} from 'react-router-dom'
 // import ReportDetails from '../components/ReportDetails'
-import Sidebar from '../components/SideBar/SideBar.jsx';
+import Sidebar from '../components/SideBar/AdminSideBar';
 
 // import axios from 'axios';
 // import Button from '@mui/material/Button';
@@ -22,7 +22,7 @@ import { FormControl } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        // backgroundColor: theme.palette.,
         color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
@@ -125,14 +125,14 @@ const Reports = () => {
 
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell align="center">Unseen</StyledTableCell>
-                            <StyledTableCell align="center">User</StyledTableCell>
-                            <StyledTableCell align="center">Report by</StyledTableCell>
-                            <StyledTableCell align="center">Problem</StyledTableCell>
-                            <StyledTableCell align="center">Course Title</StyledTableCell>
-                            <StyledTableCell align="center">Status</StyledTableCell>
-                            <StyledTableCell align="center">Type</StyledTableCell>
-                            <StyledTableCell align="center">Actions</StyledTableCell>
+                            <StyledTableCell  style={{ background:"teal"}} align="center">Seen</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}}  align="center">User</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Report by</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Problem</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Course Title</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Status</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Type</StyledTableCell>
+                            <StyledTableCell style={{ background:"teal"}} align="center">Actions</StyledTableCell>
 
 
 

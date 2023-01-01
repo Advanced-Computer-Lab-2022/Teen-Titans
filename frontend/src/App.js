@@ -9,7 +9,7 @@ import InstructorSearch from './components/InstructorSearch'
 import InstructorHome from "./pages/InstructorHomePage";
 import './App.css';
 import './index.css'
-import Instructor from './pages/Instructor';
+import Instructor from './components/InstructorViewCourses';
 import PriceFilter from './pages/PriceFilter'
 import CourseForm from './components/CourseForm';
 import ForgotPassword from './pages/forgotPassword';
@@ -36,22 +36,22 @@ import Login from './components/Login';
 import Requests from './pages/Requests';
 import Refunds from './pages/Refunds';
 import Reports from './pages/Reports';
+import InstructorCoursesPage from './pages/InstructorCoursesPage';
 
-// import Sidebar from './components/SideBar/SideBar.jsx';
+
 function App() {
 
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Navbar /> */}
         <div className="pages">
           <Routes> 
             <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
             <Route path="/" element={<Login />}></Route>
-            <Route path='/instructor' element={<Instructor />} />
-            <Route path='/instructorHomePage' element={<InstructorHome />}></Route>
+            <Route path='/instructorHomePage' element={<Instructor />} />
+            {/* <Route path='/instructor' element={<InstructorHome />}></Route> */}
             <Route path='/corporateTraineeHomePage' element={<CorporateTrainee />}></Route>
             <Route path='/individualTraineeHomePage' element={<IndividualTrainee />}></Route>
             <Route path="/instructorSearch" element={<InstructorSearch />}></Route>
@@ -61,6 +61,7 @@ function App() {
             <Route path='/resetPassword' element={<ResetPassword />}></Route>
             <Route path='/changePassword' element={<ChangePassword />}></Route>
             <Route path='/course' element={<CoursesPage />}></Route>
+            <Route path='/Icourse' element={<InstructorCoursesPage />}></Route>
             <Route path='/watch' element={<DisplayVideo />}></Route>
             <Route path='/watchVideo' element={<DisplayPreviewVideo />}></Route>
             <Route path='/country' element={<Home />}></Route>
@@ -81,8 +82,6 @@ function App() {
             <Route path='/reports' element={<Reports />}></Route>
           </Routes>
         </div>
-
-        {/* </Sidebar> */}
       </BrowserRouter>
     </div>
   );

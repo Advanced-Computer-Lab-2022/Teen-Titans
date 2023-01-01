@@ -6,7 +6,7 @@ import {
     // FaRegChartBar,
     // FaCommentAlt,
     // FaShoppingBag,
-    // FaThList,
+    FaThList,
     FaExclamation,
     FaLockOpen,
     FaWallet,
@@ -28,9 +28,19 @@ const SideBar = ({ children }) => {
         },
         {
             path: `/${user}HomePage`,
-            name: "Dashboard",
+            name: "My Courses",
             icon: <FaTh />
         },
+        {
+            path: `/createCourse`,
+            name: "Create Course",
+            icon: <FaTh />
+        },
+        // {
+        //     path: "/viewInstructorRating",
+        //     name: "Ratings & Reviews",
+        //     icon: <FaSignOutAlt />
+        // },
         {
             path: "/login",
             name: "Log Out",

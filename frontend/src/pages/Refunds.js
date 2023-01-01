@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Sidebar from '../components/SideBar/SideBar.jsx';
+import Sidebar from '../components/SideBar/AdminSideBar';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import Box from '@mui/material/Box';
