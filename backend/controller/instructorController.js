@@ -12,20 +12,37 @@ const definePromotion = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findById(id)
     let coursePrice = course.price
+    const date = new Date();
+    console.log(date);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    // This arrangemenfjhjht can be altered based on how we want the date's format to appear.
+    let currentDate = `${year}-${month}-${day}`;
+    // "17-6-2022"
+
+    currentDate = currentDate + 'T00:00:00.000+00:00'
+    console.log("alooo" + currentDate);
+    let courseEndDate = new Date(req.body.endDate)
+    let discountDay = courseEndDate.getDate();
+    let discountMonth = courseEndDate.getMonth() + 1;
+    let discountYear = courseEndDate.getFullYear();
+    let discountDate = `${discountYear}-${discountMonth}-${discountDay}`;
+    discountDate = discountDate + 'T00:00:00.000+00:00'
     if (course.discount.amount != 0) {
         return res.status(400).json({ error: 'There is already a discount applied' })
     }
-    else {
-        let courseEndDate = req.body.endDate
-        courseEndDate = courseEndDate + 'T00:00:00.000+00:00'
-        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
-            discount: {
-                amount: req.body.amount,
-                //startDate: req.body.startDate,  fhfghg
-                endDate: courseEndDate
+    if (currentDate > discountDate) {
+        const course3 = await courseModel.findOneAndUpdate({ _id: id }, {
 
-            },
-        }, { new: true })
+            amount: 0,
+            endDate: "",
+            price: coursePrice
+        })
+        return res.status(302).json({ error: 'invalid date' })
+    }
+    else {
 
         let discountAmount = req.body.amount
         const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
@@ -34,33 +51,20 @@ const definePromotion = asyncHandler(async (req, res) => {
 
             ,
         }, { new: true })
+        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
+            discount: {
+                amount: req.body.amount,
+                //startDate: req.body.startDate,
+                endDate: courseEndDate
 
-
-        const date = new Date();
-
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-
-        // This arrangement can be altered based on how we want the date's format to appear.
-        let currentDate = `${year}-${month}-${day}`;
-        // "17-6-2022"
-        console.log(course1.discount.endDate)
-        currentDate = currentDate + 'T00:00:00.000+00:00'
-        console.log(currentDate);
-        if (currentDate)
-            if (currentDate > req.body.endDate) {
-                const course3 = await courseModel.findOneAndUpdate({ _id: id }, {
-
-                    amount: 0,
-                    endDate: "",
-                    price: coursePrice
-                })
-                return res.status(302).json({ error: 'invalid date' })
-            }
+            },
+        }, { new: true })
 
 
     }
+
+
+
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }
@@ -254,46 +258,8 @@ const createCourse = asyncHandler(async (req, res) => {
 
     }
 })
-const getCoursesTitles = asyncHandler(async (req, res) => {
-    try {
 
-        let sort = req.query.sort || "price";
-        let subject = req.query.subject || "All";
 
-        const subjectOptions = [
-            "chem",
-            "bio",
-            "calculus",
-            "datastruc",
-            "geometry"
-        ];
-
-        subject === "All"
-            ? (subject = [...subjectOptions])
-            : (subject = req.query.subject.split(","));
-        req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
-
-        let sortBy = {};
-        if (sort[1]) {
-            sortBy[sort[0]] = sort[1];
-        } else {
-            sortBy[sort[0]] = "asc";
-        }
-        const courses = await courseModel.find({ instructorName: "roba" })
-            .where("subject")
-            .in([...subject])
-            .sort(sortBy)
-
-        const response = {
-            subjects: subjectOptions,
-            courses,
-        };
-        res.status(200).json(response);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ error: true, message: "Error" });
-    }
-});
 
 const course = asyncHandler(async (req, res) => {
     const price = req.query.price
@@ -423,21 +389,41 @@ const createToken = (name) => {
 // })
 
 const viewMoneyOwed = asyncHandler(async (req, res) => {
-    let index;
+    console.log("ho")
+    let i;
     let totalMoneyOwed = 0;
-    const percentage = req.body.percentage
+    const percentage = 0.3
     const instructor = await instructorModel.findById(req.query.instructorId)
-    for (index = 0; index < instructor.courses.length; index++) {
-        let course = await courseModel.findById(instructor.courses[index])
-        let moneyOwed = (course.numberOfEnrolledStudents * course.price) * (1 - course.discount.amount) * (1 - percentage)
-        console.log(moneyOwed);
+    // console.log(instructor)
+    for (i = 0; i < instructor.courses.length; i++) {
+        let course = await courseModel.findById(instructor.courses[i].id)
+        // console.log(course,"course")
+        const moneyOwed = (course.numberOfEnrolledStudents * course.price) * (1 - course.discount.amount) * (1 - percentage)
         totalMoneyOwed += moneyOwed;
+        console.log("moneyyyyy", totalMoneyOwed)
     }
-    console.log(totalMoneyOwed);
-    res.status(200).json({ totalMoneyOwed: totalMoneyOwed })
+    res.status(200).json(totalMoneyOwed)
+})
+
+
+const ImyCourses = asyncHandler(async (req, res) => {
+    const user = await instructorModel.findById(req.query.id);
+    let courses = user.courses;
+    let result = []
+    if (user) {
+        for (let i = 0; i < courses.length; i++) {
+            const courseDetails = await courseModel.findById(courses[i]._id)
+            result.push(courseDetails)
+        }
+        res.status(200).json(result)
+    }
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
 })
 
 module.exports = {
     createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
-    editBiography, definePromotion, createExam, createCourseExam, login, logout, viewMoneyOwed
+    editBiography, definePromotion, createExam, createCourseExam, login, logout, viewMoneyOwed, ImyCourses
 }

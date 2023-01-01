@@ -6,7 +6,7 @@ import {
     // FaRegChartBar,
     // FaCommentAlt,
     // FaShoppingBag,
-    // FaThList,
+    FaThList,
     FaExclamation,
     FaLockOpen,
     FaWallet,
@@ -17,7 +17,6 @@ import { NavLink } from 'react-router-dom';
 
 const SideBar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
-    const [isLogout, setIsLogout] = useState(false);
     const userId = localStorage.getItem('id')
     const user = localStorage.getItem('user')
     const toggle = () => setIsOpen(!isOpen);
@@ -29,12 +28,22 @@ const SideBar = ({ children }) => {
         },
         {
             path: `/${user}HomePage`,
-            name: "Dashboard",
+            name: "My Courses",
             icon: <FaTh />
         },
         {
-            path: "/",
-            name: "Logout",
+            path: `/createCourse`,
+            name: "Create Course",
+            icon: <FaTh />
+        },
+        // {
+        //     path: "/viewInstructorRating",
+        //     name: "Ratings & Reviews",
+        //     icon: <FaSignOutAlt />
+        // },
+        {
+            path: "/login",
+            name: "Log Out",
             icon: <FaSignOutAlt />
         }
     ]
@@ -49,15 +58,10 @@ const SideBar = ({ children }) => {
                 </div>
                 {
                     menuItem.map((item, index) => (
-                        !item.name.includes("Logout") ?
-                            <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                                <div className="icon">{item.icon}</div>
-                                <div style={{ display: (isOpen) ? "block" : "none" }} className="link_text">{item.name}</div>
-                            </NavLink> :
-                            <NavLink to={item.path} key={index} className="link" activeclassName="sidebar">
-                                <div className="icon">{item.icon}</div>
-                                <div style={{ display: (isOpen) ? "block" : "none" }} className="link_text">{item.name}</div>
-                            </NavLink>
+                        <NavLink to={item.path} key={index} className="link" activeclassName="active">
+                            <div className="icon">{item.icon}</div>
+                            <div style={{ display: isOpen ? "block" : "none" }} className="link_text">{item.name}</div>
+                        </NavLink>
                     ))
                 }
             </div>

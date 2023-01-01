@@ -79,6 +79,8 @@ const InstructorCourses = () => {
                             ))
                         }
                     </div>
+
+
                     <div>
                         <span className='labels'>videURL: </span>
                         <span>{course?.previewVideo?.url} </span>

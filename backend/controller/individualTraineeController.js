@@ -146,7 +146,7 @@ const viewMyCourses = asyncHandler(async (req, res) => {
     let result = []
     if (user) {
         for (let i = 0; i < enrolledCourses.length; i++) {
-            const courseDetails = await courseModel.findById(enrolledCourses[i].course.id)
+            const courseDetails = await courseModel.findById(enrolledCourses[i].course .id)
             result.push(courseDetails)
         }
         res.status(200).json(result)
@@ -158,6 +158,7 @@ const viewMyCourses = asyncHandler(async (req, res) => {
 })
 
 const openCourse = asyncHandler(async (req, res) => {
+    console.log(req.query.id,"id backedn");
     const trainee = await individualTraineeModel.findById(req.query.id)
     let viewCourse;
     for (let i = 0; i < trainee.enrolledCourses.length; i++) {
@@ -170,8 +171,11 @@ const openCourse = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: "Course not found!"
         })
-
 })
+
+
+
+
 
 const recursiveFunction = function (arr, x, start, end) {
 
@@ -212,7 +216,25 @@ const watchVideo = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: 'Unauthorized Access!'
         })
+
 })
+
+const viewWallet = asyncHandler(async (req, res) => {
+    console.log("in view wallet");
+    console.log(req.query.id);
+    const user = await individualTraineeModel.findById(req
+        .query.id);
+        
+    if (user){
+    console.log(user.wallet);
+        res.status(200).json(user.wallet)
+    }
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
+})
+
 
 const videoSeen = asyncHandler(async (req, res) => {
     const trainee = await individualTraineeModel.findById(req.query.id)
@@ -258,11 +280,16 @@ const requestRefund = asyncHandler(async (req, res) => {
         for (let i = 0; i < trainee.enrolledCourses.length; i++) {
             if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
                 if (trainee.enrolledCourses[i].percentageComplete < 50) {
+                    const course=await courseModel.findById(req.query.courseId)
                     const request = await requestModel.create({
                         userId: req.query.id,
                         courseId: req.query.courseId,
                         status: "pending",
-                        type: "refund"
+                        type: "refund",
+                        username:"",
+                        courseTitle:course.title,
+                        coursePrice:course.price
+
                     })
                     res.status(200).json({
                         message: "Your request has been received. The course refund will be added to your wallet shortly."
@@ -302,4 +329,37 @@ const viewMostPopularCourses = asyncHandler(async (req, res) => {
     res.status(200).json(popularCourses)
 })
 
-module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet }
+const Refund = asyncHandler(async (req, res) => {
+   console.log(" inside refund")
+    const user = await individualTraineeModel.findById(req.body.userId)
+    const wallet = user.wallet
+    console.log(req.body.id," req id")
+    console.log(req.body.amount," req amount")
+
+console.log(wallet,"wallet")
+    const newWallet = wallet + req.body.amount
+    const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.userId, { wallet: newWallet })
+    console.log(individualTrainee.username,individualTrainee.wallet)
+//   await individualTraineeModel.findByIdAndDelete(req.body.id, { enrolledCourses: req.body. })
+let enrolledCourses = user.enrolledCourses;
+result=[]
+if (user) {
+    for (let i = 0; i < enrolledCourses.length; i++) {
+        if(enrolledCourses[i].course.id == req.body.courseId){
+        }
+        else{
+        result.push(enrolledCourses[i])
+        }
+    }
+    await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: result })
+    const request = await requestModel
+    .findByIdAndUpdate(req.body.id,{status: "resolved"});
+}
+
+    res.status(200).json({
+        message: 'Wallet Updated!',individualTrainee,request
+    })
+
+})
+
+module.exports = { changePassword, signUp, registerForCourse, viewMyCourses, watchVideo, videoSeen, openCourse, requestRefund, viewWallet ,Refund, watchPreviewVideo, viewMostPopularCourses, registerForCourseUsingWallet}

@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../index.css'
+import EditBiography from './InstructorEditBiography';
+import EditEmail from './InstructorEditEmail';
+import { AiFillEdit } from "react-icons/ai";
+
 const ChangePassword = () => {
     const [message, setMessage] = useState('')
     const userId = localStorage.getItem('id')
     const user = localStorage.getItem('user')
+    const [show, setShow] = useState(false)
+
+
+    useEffect(() => {
+        const check = async () => {
+           if(user==='instructor')
+           setShow(true)
+        }
+
+       
+        check()
+    }, [])
+
     const changePassword = async () => {
+        
         if (document.getElementById("password").value == "" || document.getElementById("confirmPassword").value == "" || document.getElementById("oldPassword").value == "") {
             setMessage("Please fill all fields!")
         }
@@ -44,19 +62,55 @@ const ChangePassword = () => {
     }
     return (
         <div>
-            <h2>Reset Password</h2>
-            <div className='d-flex flex-column'>
-                {/* <label>Id:</label>
+            <div className='login' >
+            <h2>Change Password<AiFillEdit/></h2>
+
+                <div className='d-flex flex-column'>
+                    {/* <label>Id:</label>
                 <input id='id'></input> */}
-                <label>Old Password:</label>
-                <input id='oldPassword'></input>
-                <label>New Password:</label>
-                <input id='password'></input>
-                <label>Confirm Password:</label>
-                <input id='confirmPassword'></input>
-                <button onClick={() => changePassword()}>Change</button>
-                <span>{message}</span>
+                    <label  >Old Password:</label>
+                    <input style={{
+                        width: "200px",
+                        left: "40%",
+                        width: "250px",
+                        height: "40px",
+                        position: "relative",
+                    }} id='oldPassword'></input>
+
+                    <label >New Password:</label>
+                    <input style={{
+                        width: "200px",
+                        left: "40%",
+                        width: "250px",
+                        height: "40px",
+                        position: "relative"
+                    }} id='password'></input>
+
+                    <label  >Confirm Password:</label>
+                    <input style={{
+                        width: "300px",
+                        left: "40%",
+                        width: "250px",
+                        height: "40px",
+                        position: "relative"
+                    }} id='confirmPassword'></input>
+                    <br></br>
+                    <button style={{
+                        width: "300px",
+                        left: "40%",
+                        width: "250px",
+                        height: "40px",
+                        position: "relative"
+                    }} onClick={() => changePassword()}>Change</button>
+                    <span>{message}</span>
+                </div>
             </div>
+            {setShow ?
+                <div className='login' >
+                    <EditBiography />
+                    <EditEmail />
+                </div> : null}
+
         </div>
     )
 }

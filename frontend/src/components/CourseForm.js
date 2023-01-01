@@ -150,11 +150,9 @@ const CourseForm = () => {
       }
     })
     const json = await response.json()
-
     if (!response.ok) {
       setError(json.error)
     }
-
     if (response.ok) {
       alert('Course added successfully!')
       setTitle('')
@@ -211,7 +209,6 @@ const CourseForm = () => {
         onChange={(e) => setPrice(e.target.value)}
         value={price}
         placeholder="Enter price in USD" />
-
       <label> Course subject:</label>
       <input type="text"
         onChange={(e) => setSubject(e.target.value)}
@@ -409,11 +406,6 @@ const CourseForm = () => {
       <button>Add course</button>
       {error && <div className="error">{error}</div>}
     </form>
-
   )
-
-
-
 }
-
 export default CourseForm

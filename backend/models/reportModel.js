@@ -1,21 +1,37 @@
+
 const mongoose = require('mongoose')
 
 const reportSchema = mongoose.Schema({
-    userid: {
-        type: Number
+    userId: {
+        type: String
     },
-    courseid: {
-        type: Number
+    user:{
+    type: String
+    },
+    courseId: {
+        type: String
     },
     type: {
         type: String
     },
-    problem: {
+   problem: {
         type: String
     },
     status: {
         type: String
     },
+    username: {
+        type: String
+    }
+    ,
+    courseTitle: {
+        type: String
+    }
+    ,
+    new:
+    {   type: Boolean
+
+    }
 })
 
 module.exports = mongoose.model('report', reportSchema)

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
-import Details from "./Details"
+// import Details from "./Details"
 import axios from 'axios';
-import CoursesPage from "../pages/CoursesPage";
+// import CoursesPage from "../pages/CoursesPage";
 import { Link, useNavigate } from 'react-router-dom';
 import SideBar from "./SideBar/SideBar";
-
+import CorporateTraineeSearch from "./CorporateTraineeSearch";
+import { Filter } from "react-bootstrap-icons";
 
 
 
 
 const TraineeViewCourses = ({ id }) => {
-    // console.log(id);
     const [courseData, setCourseData] = useState(null)
     const [courseId, setCourseId] = useState(null)
     const userId = localStorage.getItem('id')
@@ -28,6 +28,7 @@ const TraineeViewCourses = ({ id }) => {
             await axios.get(`users/${user}Courses?id=${id}`).then(
                 (res) => {
                     const json = res.data
+                    console.log("json", json);
                     if (json)
                         setCourseData(json)
                     // console.log(json);

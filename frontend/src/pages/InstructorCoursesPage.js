@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as Icon from 'react-bootstrap-icons';
 import Notes from '../components/Notes';
-const CoursesPage = () => {
+const InstructorCoursesPage = () => {
 
     const [course, setCourse] = useState(null)
     const country = JSON.parse(localStorage.getItem('country'))
@@ -16,8 +16,9 @@ const CoursesPage = () => {
     const courseId = params.get('courseId');
     const userId = params.get('userId');
     const user = params.get('user')
+
     const [video, setVideo] = useState(null)
-    const [videoUrl, setVideoUrl] = useState('')
+    const [videoUrl, setVideoUrl] = useState("")
     const [percentage, setPercentage] = useState(0)
 
     const watchedVideo = async () => {
@@ -36,9 +37,9 @@ const CoursesPage = () => {
         }
     }
     const navigate = useNavigate();
-    const toexercise = (exercise) => {
-        navigate('/exercise', { state: exercise });
-    }
+    // const toexercise = (subtitle) => {
+    //     navigate('/exercise', { state: subtitle.exercise });
+    // }
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -48,15 +49,14 @@ const CoursesPage = () => {
                     // console.log(userId);
                     // console.log(courseId);
                     const json = res.data
-                    console.log(json);
                     if (json) {
                         setCourse(json)
-                        setPercentage(json.percentageComplete)
-                        console.log(json, "json");
+                        // setPercentage(json.percentageComplete)
+                        console.log(json,"json");
                     }
                 }
             )
-
+           
         }
         getDetails()
     }, [])
@@ -66,8 +66,8 @@ const CoursesPage = () => {
             {courseId && course &&
                 <div>
                     <div className='d-flex justify-content-between'>
-                        <h1 style={{ color: "var(--taupe)" }}>
-                            {course.course.title}
+                        <h1>
+                            {course?.title}
                         </h1>
                         <Icon.GearFill style={{ cursor: "pointer" }} size={30} onClick={() => window.location.href = `/courseSettings?userId=${userId}&courseId=${courseId}&user=${user}`} />
                     </div>
@@ -79,7 +79,7 @@ const CoursesPage = () => {
                                     sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation allow-presentation"
                                     className='react-player'
                                     allowFullScreen
-                                    url={videoUrl || course?.course?.previewVideo.url}
+                                    url={videoUrl || course?.previewVideo.url}
                                     width='100%'
                                     // height='100%'
                                     controls
@@ -93,19 +93,19 @@ const CoursesPage = () => {
                             <div className='d-flex'>
                                 <div className='d-flex flex-column'>
                                     <p>
-                                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{backgroundColor:"Teal"}}>
                                             Course Info
                                         </a>
                                     </p>
                                     <div className="collapse" id="collapseExample">
                                         <div className="card card-body">
-                                            <h4>Instructor: {course?.course?.instructorName}</h4>
-                                            <h6>course rating: {course?.course?.rating}</h6>
-                                            <h6>course hours: {course?.course?.hours}</h6>
+                                            <h4>Instructor: {course?.instructorName}</h4>
+                                            <h6>course rating: {course?.rating}</h6>
+                                            <h6>course hours: {course?.hours}</h6>
                                         </div>
                                     </div>
                                 </div>
-                                <div className='d-flex flex-column'>
+                                {/* <div className='d-flex flex-column'>
                                     <p>
                                         <a className="btn" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
                                             Add Rating
@@ -116,8 +116,8 @@ const CoursesPage = () => {
                                             <AppRate courseId={courseId} instructorId={course?.course?.instructorId} />
                                         </div>
                                     </div>
-                                </div>
-                                <div className='d-flex flex-column'>
+                                </div> */}
+                                {/* <div className='d-flex flex-column'>
                                     <p>
                                         <a className="btn" data-bs-toggle="collapse" href="#notes" role="button" aria-expanded="false" aria-controls="notes">
                                             Write Notes
@@ -128,44 +128,45 @@ const CoursesPage = () => {
                                             <Notes />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className='col-4'>
-                            <div>
-                                <div className='d-flex justify-content-start'>Percentage of the course completed:</div>
-                                <div className="progress">
-                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "var(--taupe)", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
+                            {/* <div> */}
+                                {/* <div className='d-flex justify-content-start'>Percentage of the course completed:
+                                </div> */}
+                                {/* <div className="progress">
+                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
                                     {
                                         course.percentageComplete === 100
                                     }
-                                </div>
-                            </div>
+                                </div> */}
+                            {/* </div> */}
                             {
-                                course.course.subtitles && course.course.subtitles.map((subtitle) => (
+                                course.subtitles && course.subtitles.map((subtitle) => (
                                     <div>
                                         <div className="onHover-details d-flex flex-column justify-content-start align-items-start">
                                             <h3>{subtitle.title}</h3>
                                             <h6 className='subtitles-faded'>{subtitle.subtitleHours} hours</h6>
                                             {
                                                 subtitle.video &&
-                                                <button className='videos' onClick={() => {
+                                                <button style={{color:"teal"}} className='videos' onClick={() => {
                                                     if (subtitle.video) {
                                                         setVideoUrl(subtitle.video.url);
+                                                        console.log(subtitle.video.url)
                                                         setVideo(subtitle.video._id)
                                                     }
                                                 }}>{subtitle.video.shortDescription}</button>
                                             }
-                                            <div>
-                                                <button onClick={() => { toexercise(subtitle.exercise) }} className='display-courses-btn' style={{ marginLeft: "0px" }}>Exercises</button>
-                                            </div>
+                                            {/* <div>
+                                                <button onClick={() => { toexercise(subtitle) }} className='btn2'>Exercises</button>
+                                            </div> */}
 
                                         </div>
                                         <hr></hr>
                                     </div>
                                 ))
                             }
-                            <button className="display-courses-btn" onClick={() => { toexercise(course.course.exercise) }}>Exam</button>
                         </div>
                     </div>
                 </div>
@@ -175,4 +176,4 @@ const CoursesPage = () => {
     )
 }
 
-export default CoursesPage
+export default InstructorCoursesPage

@@ -65,7 +65,7 @@ const Details = ({ course }) => {
                     <div>
                         <h6 className='labels'>Subtitles:</h6>
                         {
-                            course.subtitles && course.subtitles.map((subtitle) => (
+                            course?.subtitles && course?.subtitles.map((subtitle) => (
                                 <TippySubtitles subtitle={subtitle} />
                             ))
                         }

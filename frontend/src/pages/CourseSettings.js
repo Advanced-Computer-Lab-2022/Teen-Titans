@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react"
 import jsPDF from 'jspdf';
 import { Document, Page } from 'react-pdf';
+import { TilingPattern } from 'jspdf';
 import compress from "compress-base64";
 import axios from 'axios';
 import FormData from 'form-data'
 import { PDFToImage } from 'react-pdf-to-image-light'
 import * as ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-const pdfjs = require('pdfjs-dist');
+
 // const pdf = require('../assets/Template.pdf')
+import { RadioGroup } from '@mui/material';
+import { Radio } from '@mui/material';
+import { FormControlLabel } from '@mui/material';
+import { FormControl } from '@mui/material';
+import "bootstrap/js/src/collapse.js";
+const pdfjs = require('pdfjs-dist');
+
 // import * as pdf from "@grapecity/wijmo.pdf";
 // import * as wijmo from '@grapecity/wijmo';
-const CourseSettings = () => {
+const CourseSettings = (username) => {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('courseId');
     const userId = params.get('userId');
@@ -19,6 +27,9 @@ const CourseSettings = () => {
     const [course, setCourse] = useState(null)
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
+    const [problem, setProblem] = useState(null)
+    const [type, setType] = useState(null)
+    const [reports, setReports] = useState(null)
     useEffect(() => {
         const getDetails = async () => {
             await axios.get(`myCourse/${user}/openCourse?id=${userId}&courseId=${courseId}`).then(
@@ -30,8 +41,26 @@ const CourseSettings = () => {
                 }
             )
         }
+
+
+        const getReport = async () => {
+            console.log(userId)
+            await axios.get(`users/getReport?userId=${userId}`).then(
+                (res) => {
+                    const json = res.data
+                    if (json) {
+                        setReports(json)
+                        console.log(reports)
+                    }
+                }
+            )
+        }
+
         getDetails()
-    })
+        getReport()
+    }, [])
+
+
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -177,6 +206,43 @@ const CourseSettings = () => {
                 })
         }
     }
+
+
+    const Report = async () => {
+
+
+        const res = await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${type}&problem=${problem}&user=${user}`,
+            {
+                body: JSON.stringify({ course }),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            },)
+
+        const json = await res.json()
+        console.log(json);
+
+
+        if (res.ok) {
+            alert('Report sent successfully!')
+        }
+
+
+    }
+    //not completed
+    const FollowUp = async (Type,Problem) => {
+        const res = await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${Type}&problem=${Problem}&user=${user}`,
+            {
+                body: JSON.stringify({ course }),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            },)
+        alert('Follow up sent successfully!')
+    }
+
     return (
         <div className="home">
             {
@@ -192,8 +258,79 @@ const CourseSettings = () => {
                     <br></br>
                     <button className='home-button' onClick={() => sendCertificate()}>Get certificate by mail</button>
                 </div>
+
             }
+
+            <div className='box'>
+                <h2> Report a problem :</h2>
+                <input
+                    style={{ width: "300px" }}
+                    type="text"
+                    className="from-control mt-4"
+                    id='searchKey'
+                    placeholder='Please type your problem..'
+                    onChange={(e) => setProblem(e.target.value)}
+                />
+
+                <FormControl>
+
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        onChange={(e) => setType(e.target.value)}
+                        name="radio-buttons-group"
+                    >
+                        <FormControlLabel value="technical" control={<Radio />} label="Technical" />
+                        <FormControlLabel value="financial" control={<Radio />} label="Financial" />
+                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+
+                    </RadioGroup>
+                </FormControl>
+                <br></br>
+                <button style={{background: "teal"}}onClick={() => Report()}> Report </button>
+            </div>
+
+
+
+            <div className='col-8 course-details1'>
+                <div className='d-flex flex-column'>
+                    <p>
+                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{color:"teal"}}>
+                            My Reports
+                        </a>
+                    </p>
+                    <div className="collapse" id="collapseExample">
+
+                        {reports && reports.map((report) => (
+                            <div className="card card-body">
+
+
+                                <h4>Problem: {report.problem}</h4>
+                                <h6>Type:{report.type}</h6>
+                                <h6>Status:{report.status}</h6>
+                                <button style={{
+                                    top: "50%",
+                                    left: "65%",
+                                    width: "100px",
+                                    height: "40px",
+                                    position: "absolute",
+
+                                    background: "teal"
+                                }} disabled={report.status === "resolved"} onClick={() => FollowUp(report.type,report.problem)}>Follow up</button>
+                            </div>
+
+
+                        ))}
+
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
+
+
+
     )
 }
 

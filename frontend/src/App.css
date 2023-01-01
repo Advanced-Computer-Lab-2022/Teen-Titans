@@ -57,6 +57,7 @@
 	/* flex-direction: column; */
 	/* overflow: hidden; */
 	background-color: white;
+	color: #13292A;
 }
 
 .container button {
@@ -96,7 +97,8 @@
 }
 
 .trainee-courses {
-	width: 100%;
+	width: 25%;
+	float: right;
 }
 
 .home {
@@ -175,6 +177,11 @@
 	font-size: 8px;
 }
 
+
+.search {
+	float: right;
+}
+
 .course-details1 {
 	display: flex;
 	justify-content: flex-start;
@@ -188,7 +195,6 @@
 	padding: 5px 10px;
 	color: red;
 	border-radius: 5px;
-	margin-bottom: 10px;
 }
 
 .btn2 {
@@ -197,6 +203,10 @@
 	padding: 5px 15px;
 	color: mediumaquamarine;
 	border-radius: 5px;
+}
+
+.wallet {
+	float: left;
 }
 
 * {
@@ -233,7 +243,7 @@ main {
 padding: 0; */
 	/* float: left; */
 
-	background: #13292A;
+	background-color: var(--cream);
 	color: #fff;
 	height: 100vh;
 	width: 200px;
@@ -248,7 +258,7 @@ padding: 0; */
 }
 
 .logo {
-	font-size: 20px;
+	font-size: 30px;
 }
 
 .bars {
@@ -266,13 +276,13 @@ padding: 0; */
 }
 
 .link:hover {
-	background: rgb(252, 252, 252);
+	background: lightskyblue;
 	color: #000;
 	transition: all 0.5s;
 }
 
 .active {
-	background: rgb(255, 255, 255);
+	background: lightskyblue;
 	color: #000;
 }
 
@@ -288,4 +298,50 @@ padding: 0; */
 	padding: 5px 15px;
 	color: var(--teal);
 	border-radius: 5px;
+}
+
+.adminadduser {
+	float: left;
+	left: 300px;
+	/* padding: 100px; */
+	/* display: flex; */
+	/* flex-direction: column;  */
+	/* justify-content: center; */
+	/* align-items: center; */
+	/* margin: 100 auto; */
+
+
+
+}
+
+.box {
+	/* position:relative; */
+	/* left: 100px;  */
+	float: left;
+
+}
+
+.reports {
+	/* position:relative; */
+	/* left: 3px;  */
+	float: left;
+	display: flex;
+
+}
+
+.requests {
+	/* position:relative; */
+	/* left: 3px;  */
+	float: left;
+	display: flex;
+	left: 0px;
+
+}
+
+.refunds {
+	position: relative;
+	left: 0px;
+	float: left;
+	display: flex;
+
 }

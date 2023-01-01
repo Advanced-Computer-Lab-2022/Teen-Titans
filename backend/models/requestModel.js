@@ -13,6 +13,18 @@ const requestSchema = mongoose.Schema({
     type: {
         type: String
     }
+    ,
+    username: {
+        type: String
+    }
+    ,
+    courseTitle: {
+        type: String
+    }
+    ,
+    coursePrice: {
+        type: Number
+    }
 })
 
 module.exports = mongoose.model('request', requestSchema)

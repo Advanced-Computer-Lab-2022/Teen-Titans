@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const courseModel = require('../models/courseModel')
 const individualTraineeModel = require('../models/individualTraineeModel')
+const instructorModel = require('../models/instructorModel')
 const getCourses = async (req, res) => {
     console.log("getcourses")
     const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, instructorName: 1, subject: 1, price: 1, courseOutline: 1 })
@@ -43,9 +44,26 @@ const viewCourseOnHover = asyncHandler(async (req, res) => {
     res.json(courseData)
 })
 
-const openCourse = asyncHandler(async (req, res) => {
-    const viewCourse = await courseModel.findById(req.query.id)
+const opencourse = asyncHandler(async (req, res) => {
+    const viewCourse = await courseModel.findById(req.query.courseId)
     res.status(200).json(viewCourse)
+//     const instructor = await instructorModel.findById(req.query.id)
+//     console.log("id  backend" ,req.query.id)
+// console.log(instructor.courses)
+//     let viewCourse;
+//     for (let i = 0; i < instructor.courses.length; i++) {
+//         console.log("course id " ,instructor.courses[i]._id)
+//         if (instructor.courses[i]._id == req.query.courseId) {
+//             console.log(courses[i].title)
+//             viewCourse = instructor.courses[i]
+//             res.status(200).json(viewCourse)
+//         }
+//     }
+//     if (!viewCourse)
+//         res.status(400).json({
+//             message: "Course not found!"
+//         })
+    
 })
 
 const filterRating = asyncHandler(async (req, res) => {
@@ -83,4 +101,4 @@ const filterSubject = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, openCourse }
+module.exports = { getCourses, getPrices, filterRating, filterPrice, filterSubject, viewCourseOnHover, opencourse }
