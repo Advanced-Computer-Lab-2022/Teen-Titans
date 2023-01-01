@@ -44,7 +44,7 @@ it sometimes has a delay beacuse the certificate pdf has a size of 11 megabytes 
 
 
 ## Tools and Frameworks
-This project is fully implemented using the MERN Stack. MERN stands for MongoDB, Express, React, Node, after the four key technologies that make up the stack.
+We used MERN stack to implement this project. MERN stands for MongoDB, Express, React, Node, after the four key technologies that make up the stack.
 
 - MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas NoSQL is used as an alternative to traditional relational databases. NoSQL databases are quite useful for working with large sets of distributed data. MongoDB is a tool that can manage document-oriented information, store or retrieve information.
 - Express is a Node. js web application server framework, designed for building single-page, multi-page, and hybrid web applications. 
