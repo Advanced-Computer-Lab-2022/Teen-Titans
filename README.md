@@ -70,7 +70,8 @@ These are the Installations you need to have in order to run the project
 - [NPM](https://www.npmjs.com/)
 - [React JS](https://react-cn.github.io/react/downloads.html)
 - vs code or any text editor 
-- [MongoDB](https://www.mongodb.com/docs/manual/installation/) either locally or on a cloud. You have to create .env with the dbconnectionString
+- [MongoDB](https://www.mongodb.com/docs/manual/installation/) either locally or on a cloud.
+- create .env file which contains the port number(5000) and the dbconnectionString.
 
 ## API References
 Our backend is divided into the following routes, each route has a set of APIs with different functionalities.
@@ -4750,7 +4751,7 @@ or
 ## How to use
 If you are a user who wants to view and register for online courses then you should sign up as an individual trainee.
 If you're an instructor or a corporate trainee then the admin will sign you up with a username and a password that you can change later. However if you're not signed in 
-you will not be able to register for courses. 
+you will not be able to register for courses. To get the project running, clone the repository and then cd to the file then open the terminal and type `cd backend` then type `nodemon app.js` to run the backend and to run the frontend `cd frontend` then type `npm start` and the browser will open your react app.
 
 ## Credits 
 Our team (teen-titans): Haneen Mahmoud 49-2738, Doha Adel 49-7673, Roba Maged 49-4215, Habiba Yasser 49-3505, Zeina Yasser 49-3506 
