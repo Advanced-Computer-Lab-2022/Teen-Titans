@@ -7,7 +7,7 @@ const requestModel = require('../models/requestModel.js')
 const individualTraineeModel = require('../models/individualTraineeModel.js')
 const reportModel = require('../models/reportModel.js')
 const { request } = require('express')
-const courseModel = require('../models/courseModel.js')
+
 
 
 //This is to know which user is chosen by the admin
@@ -76,62 +76,65 @@ const selectedUser = asyncHandler(async (req, res) => {
 
 //define promotion
 
+
 const definePromotion = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findById( id )
     let coursePrice = course.price
-    if(course.discount.amount!=0){
-        return res.status(400).json({ error: 'There is already a discount applied' })
-    }
-   else{
-       let courseEndDate = req.body.endDate
-       courseEndDate = courseEndDate+'T00:00:00.000+00:00'
-        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
-            discount: {
-                amount: req.body.amount,
-                //startDate: req.body.startDate,
-                endDate: courseEndDate
-               
-            },
-        }, { new: true })
-
-        let discountAmount = req.body.amount
-        const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
-           
-               price : coursePrice - coursePrice*(discountAmount/100)
-               
-            ,
-        }, { new: true })
-
-
         const date = new Date();
-
+        console.log(date);
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
         
-        // This arrangement can be altered based on how we want the date's format to appear.
+        // This arrangemenfjhjht can be altered based on how we want the date's format to appear.
         let currentDate = `${year}-${month}-${day}`;
         // "17-6-2022"
-        console.log(course1.discount.endDate)
+       
          currentDate= currentDate+'T00:00:00.000+00:00'
-         console.log(currentDate); 
-        if(currentDate>course1.discount.endDate){
+         console.log("alooo"+currentDate); 
+         let courseEndDate = new Date(req.body.endDate)
+         let discountDay = courseEndDate.getDate();
+         let discountMonth = courseEndDate.getMonth() +1;
+         let discountYear = courseEndDate.getFullYear();
+         let discountDate = `${discountYear}-${discountMonth}-${discountDay}`;
+            discountDate = discountDate+'T00:00:00.000+00:00'
+            console.log("aloo000" + discountDate)
+        if(currentDate>discountDate){
             const course3 = await courseModel.findOneAndUpdate({_id:id},{
 
-                amount:0,
+                amount: 0,
                 endDate: "",
                 price: coursePrice
                })
+               return res.status(302).json({ error: 'invalid date' })
+        }
+        else{
+            
+             const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
+                 discount: {
+                     amount: req.body.amount,
+                     //startDate: req.body.startDate,
+                     endDate: courseEndDate
+                    
+                 },
+             }, { new: true })
+     
+             let discountAmount = req.body.amount
+             const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
+                
+                    price : coursePrice - coursePrice*(discountAmount/100)
+                    
+                 ,
+             }, { new: true })
         }
     
-        
-  }
     if (!course) {
         return res.status(400).json({ error: 'No such course' })
     }
     res.status(200).json(course)
 })
+
 
 const getRequests = asyncHandler(async (req, res) => {
     const requests = await requestModel.find({type: "corporate",status: "pending"})
