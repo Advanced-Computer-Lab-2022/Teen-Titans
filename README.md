@@ -56,7 +56,24 @@ We used MERN stack to implement this project. MERN stands for MongoDB, Express, 
 This project is divided into two main parts, frontend and backend. Our backend is divided into routes,controllers and models. While the frontend consists of several components and pages
 
 ## Screenshots
+- Login page 
+![image](https://user-images.githubusercontent.com/54781930/210188223-0f9f1124-cb7d-4f20-9071-ae6dcff88ce1.png)
 
+- Individual Trainee homepage
+![image](https://user-images.githubusercontent.com/54781930/210188285-b13855d4-f13b-47cd-b54c-2b2ec9c83a28.png)
+
+- Instructor adding a new course 
+![image](https://user-images.githubusercontent.com/54781930/210188321-0517c639-c708-4196-8fa1-1351bab1b148.png)
+![image](https://user-images.githubusercontent.com/54781930/210188325-0f6961df-ab8a-48d9-9b45-ad8ca6accc2f.png)
+
+- Instructor change password and edit biography
+![image](https://user-images.githubusercontent.com/54781930/210188330-277bdb28-a8ab-4379-97f1-469d7da6abee.png)
+
+- Admin viewing requests 
+![image](https://user-images.githubusercontent.com/54781930/210188339-dfd2daa6-2876-46c5-8879-ae6319a6d429.png)
+
+- Admin checking reports
+![image](https://user-images.githubusercontent.com/54781930/210188345-3aed8ab5-1722-4eab-bd50-fc392806e78f.png)
 
 ## Features
 Mainly this website provides an easy way to be able to register and learn several courses that the user is interested in remotley from all around the world.
