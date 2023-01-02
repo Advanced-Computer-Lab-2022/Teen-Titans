@@ -1,5 +1,7 @@
 import { useState } from "react"
 const CourseForm = () => {
+  const userId = localStorage.getItem('id')
+  const user = localStorage.getItem('user')
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [subject, setSubject] = useState('')
@@ -119,7 +121,7 @@ const CourseForm = () => {
         "title": title,
         "price": price,
         "subject": subject,
-        "instructorId": instructorId,
+        "instructorId": userId,
         "instructorName": instructorName,
         "shortSummary": shortSummary,
         "subtitles": subtitleArray,
@@ -150,11 +152,9 @@ const CourseForm = () => {
       }
     })
     const json = await response.json()
-
     if (!response.ok) {
       setError(json.error)
     }
-
     if (response.ok) {
       alert('Course added successfully!')
       setTitle('')
@@ -198,31 +198,25 @@ const CourseForm = () => {
   return (
     //create a form 
     <form className="create" onSubmit={handleSubmit}>
-      <h3>
-        add a new course
+      <h3 style={{ color: "var(--taupe)" }}>
+        Add Course
       </h3>
-      <label>course title:</label>
+      <label>Course Title:</label>
       <input type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
-      <label> Course price:</label>
+      <label> Course Price:</label>
       <input type="number"
         onChange={(e) => setPrice(e.target.value)}
         value={price}
         placeholder="Enter price in USD" />
-
-      <label> Course subject:</label>
+      <label> Course Subject:</label>
       <input type="text"
         onChange={(e) => setSubject(e.target.value)}
         value={subject}
       />
-      <label> instructor id:</label>
-      <input type="text"
-        onChange={(e) => setInstructorId(e.target.value)}
-        value={instructorId}
-      />
-      <label> instructor name:</label>
+      <label> Your Name:</label>
       <input type="text"
         onChange={(e) => setInstructorName(e.target.value)}
         value={instructorName}
@@ -300,19 +294,13 @@ const CourseForm = () => {
                     </div>
                   </div>
                 </div>
-                {/* <button onClick={() => {
-                  
-                  const list = [...subtitles];
-                  list[index][exercise] = exercise;
-                  setSubtitles(list);
-                }}>Save Exercise</button> */}
                 <br></br>
                 {
                   subtitles.length - 1 === index && (
                     <button
                       type="button"
                       onClick={handleSubtitleAdd}
-                      className="add-btn"
+                      className="display-courses-btn"
                     >
                       <span>Add Subtitle</span>
                     </button>
@@ -327,7 +315,7 @@ const CourseForm = () => {
       </form>
 
 
-      <label> Course shortSummary:</label>
+      <label> Course Short Summary:</label>
       <input type="text"
         onChange={(e) => setShortSummary(e.target.value)}
         value={shortSummary}
@@ -406,14 +394,9 @@ const CourseForm = () => {
           </div>
         </div>
       </div>
-      <button>Add course</button>
+      <button className="display-courses-btn">Add course</button>
       {error && <div className="error">{error}</div>}
     </form>
-
   )
-
-
-
 }
-
 export default CourseForm

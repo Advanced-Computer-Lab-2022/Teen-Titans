@@ -35,6 +35,9 @@ const instructorSchema = mongoose.Schema({
     rating: {
         type: Number
     },
+    agreed: {
+        type: Boolean
+    },
     ratings: ratingsModel.schema,
     reviews: [{
         type: String

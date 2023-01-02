@@ -1,0 +1,13 @@
+import Copyrights from "../components/Copyrights";
+import React, { useState } from "react"
+const CopyrightsPage = () => {
+
+    return (
+        <div>
+            <div className="contract-details">
+                <Copyrights/>
+            </div>
+        </div>
+    )
+}
+export default CopyrightsPage

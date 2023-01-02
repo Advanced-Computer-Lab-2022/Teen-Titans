@@ -4,12 +4,136 @@ const instructorModel = require('../models/instructorModel')
 const corporateTraineeModel = require('../models/corporateTraineeModel')
 const courseModel = require('../models/courseModel')
 const nodemailer = require('nodemailer')
+const reportModel = require('../models/reportModel')
+const Binary = require('mongodb').Binary;
+const PDFDocument = require('pdfkit');
+const fs = require("fs");
+const { jsPDF } = require("jspdf");
 
+const multer = require('multer');
+const adminModel = require('../models/adminModel')
+// const upload = multer({ dest: os.tmpdir() });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'assets')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
+const options = {
+    format: "A3",
+    orientation: "portrait",
+    border: "10mm",
+    header: {
+        height: "45mm",
+        contents: '<div style="text-align: center;">Author: Shyam Hajare</div>'
+    },
+    footer: {
+        height: "28mm",
+        contents: {
+            first: 'Cover page',
+            2: 'Second page', // Any page number is working. 1-based index
+            default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
+            last: 'Last Page'
+        }
+    }
+};
 const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
         user: "knowledgeBoost@outlook.com",
         pass: "Ta3leemMshMagani"
+    }
+})
+
+const getUser = asyncHandler(async (req, res) => {
+    const individualTrainee = await individualTraineeModel.findById(req.query.id)
+    if (individualTrainee)
+        res.status(200).json(individualTrainee)
+    else {
+        const corporateTrainee = await corporateTraineeModel.findById(req.query.id)
+        if (corporateTrainee)
+            res.status(200).json(corporateTrainee)
+        else {
+            const instructor = await instructorModel.findById(req.query.id)
+            if (instructor)
+                res.status(200).json(instructor)
+            else {
+                const admin = await adminModel.findById(req.query.id)
+                if (admin)
+                    res.status(200).json(admin)
+                else
+                    res.status(400).json({ message: "User not found!" })
+            }
+
+        }
+    }
+})
+
+const generateCertificateByEmail = async (req, res) => {
+    const pdfToSend = req.files.file.data
+    let trainee;
+    if (req.query.user === "corporateTrainee")
+        trainee = await corporateTraineeModel.findById(req.query.id)
+    else
+        trainee = await individualTraineeModel.findById(req.query.id)
+    const course = await courseModel.findById(req.query.courseId)
+
+    // const base64Data = req.body.photo.replace(/^data:image\/jpeg;base64,/, "");
+    // const image = fs.writeFile("out.jpeg", base64Data, 'base64', function (err) {
+    //     console.log(err);
+    // });
+    const options = {
+        from: "knowledgeBoost@outlook.com",
+        to: trainee.email,
+        subject: `Certificate of Completion of ${course.title}`,
+        text: `Congratulations ${trainee.firstName} for completing the ${course.title} course!
+                Here is your certificate.`,
+        attachments: [{
+            // filename: 'Certificate.pdf',
+            content: pdfToSend,
+            contentType: 'application/pdf',
+            encoding: 'base64'
+        }]
+    }
+    if (trainee) {
+        transporter.sendMail(options, function (err, info) {
+            if (err) {
+                res.status(400).json(err)
+            }
+            else {
+                res.status(200).json({
+                    message: 'Email Sent!'
+                })
+            }
+        })
+    }
+}
+
+const generateCertificate = asyncHandler(async (req, res) => {
+    let trainee;
+    if (req.query.user === "corporateTrainee")
+        trainee = await corporateTraineeModel.findById(req.query.id)
+    else
+        trainee = await individualTraineeModel.findById(req.query.id)
+    const course = await courseModel.findById(req.query.courseId)
+    if (course) {
+        res.status(200).json({
+            name: `${trainee.firstName} ${trainee.lastName}`,
+            course: `Has completed the ${course.title} course.`,
+            instructor: course.instructorName
+        })
+    }
+    else {
+        res.status(400).json({
+            message: `Something went wrong!`
+        })
     }
 })
 
@@ -46,26 +170,34 @@ const forgotPassword = asyncHandler(async (req, res) => {
 })
 
 const resetPassword = asyncHandler(async (req, res) => {
-    if (req.body.user == "individualTrainee") {
-        const individualTrainee = await individualTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
+    const username = req.body.username;
+    const individualTrainee = await individualTraineeModel.findOne({ username: req.body.username })
+    if (individualTrainee) {
+        const individualTraineeUpdated = await individualTraineeModel.findByIdAndUpdate(individualTrainee.id, { password: req.body.password })
         res.status(200).json({
             message: 'Password Reset!'
         })
     }
-    else if (req.body.user == "corporateTrainee") {
-        const corporateTrainee = await corporateTraineeModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-        res.status(200).json({
-            message: 'Password Reset!'
-        })
+    else {
+        const corporateTrainee = await individualTraineeModel.findOne({ username: req.body.username })
+        if (corporateTrainee) {
+            const corporateTraineeUpdated = await corporateTraineeModel.findByIdAndUpdate(corporateTrainee.id, { password: req.body.password })
+            res.status(200).json({
+                message: 'Password Reset!'
+            })
+        }
+        else {
+            const instructor = await instructorModel.findOne({ username: req.body.username })
+            if (instructor) {
+                const instructor = await instructorModel.findByIdAndUpdate(instructor.id, { password: req.body.password })
+                res.status(200).json({
+                    message: 'Password Reset!'
+                })
+            }
+            else
+                res.status(400).json({ message: "User not found!" })
+        }
     }
-    else if (req.body.user == "instructor") {
-        const instructor = await instructorModel.findByIdAndUpdate(req.body.id, { password: req.body.password })
-        res.status(200).json({
-            message: 'Password Reset!'
-        })
-    }
-    else
-        res.status(400).json({ message: "User not found!" })
     //let user;
     // console.log("are we here?");
     // user = await individualTraineeModel.exists({ id: req.body.id })
@@ -170,4 +302,41 @@ const addInstructorReview = asyncHandler(async (req, res) => {
 
     res.status(200).json(instructor.reviews)
 })
-module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor }
+
+//view most popular courses??????
+const viewMostPopularCourses = asyncHandler(async (req, res) => {
+
+}
+)
+
+
+const report = asyncHandler(async (req, res) => {
+
+    // console.log("id",req.query.traineeId);
+    // console.log("type",req.query.type);
+    // console.log("problem",req.query.problem);
+    const report = await reportModel.create({
+        userId: req.query.traineeId,
+        courseId: req.query.courseId, status: "pending", type: req.query.type, problem: req.query.problem, user: req.query.user, username: "", courseTitle: "", new: true
+    });
+
+    res.status(200).json(report)
+})
+
+
+const getReport = asyncHandler(async (req, res) => {
+    const id = req.query.userId
+    const report = await reportModel.find({ userId: id })
+    if (report) {
+        res.status(200).json(
+            report
+        )
+    }
+    else {
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+    }
+})
+
+module.exports = { forgotPassword, resetPassword, RatingCourses, addReview, addInstructorReview, RatingInstructor, generateCertificate, generateCertificateByEmail, report, getReport, getUser }

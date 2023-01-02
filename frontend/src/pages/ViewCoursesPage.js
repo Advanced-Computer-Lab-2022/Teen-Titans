@@ -1,49 +1,26 @@
-import { useEffect ,useState} from 'react'
-
-
+import { useEffect, useState } from 'react'
 //components
-import CourseDetails  from '../components/CourseDetails'
+import CourseDetails from '../components/CourseDetails'
 
+const ViewCoursesPage = () => {
+    const [courses, setCourses] = useState(null)
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const response = await fetch('individualTrainee/viewPopularCourses')
+            const json = await response.json()
 
-const ViewCoursesPage = ()=>{
-   
-    
-    const [courses,setCourses]= useState(null)
-    useEffect(()=>{
-        const fetchCourses= async()=>{
-            const response = await fetch('/viewCourses')
-            const json= await response.json()
-
-            if(response.ok){
+            if (response.ok) {
                 setCourses(json)
             }
         }
-       
         fetchCourses()
-    },[])
-    return(
-        <div className='view'>
-            <div className='courses'>
-                {courses && courses.map((course)=>(
-                    <CourseDetails key={course._id} course= {course}/>
-                ))}
-            </div>
+    }, [])
+    return (
+        <div className='prices2'>
+            {courses && courses.map((course) => (
+                <CourseDetails key={course._id} course={course} />
+            ))}
         </div>
-        
     )
-    
-   
-   
 }
-
-
-
-
-
-
-
-
 export default ViewCoursesPage
-
-
-

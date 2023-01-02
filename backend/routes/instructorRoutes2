@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
 const instructorRouter2 = express.Router()
-const { createCourse, getCoursesTitles, allcourses, course, subject, instructorSearchCourse,
-viewInstructorRatings } = require('../controller/instructorController')
+const { createCourse, getCoursesTitles, allcourses, course, subject, instructorSearchCourse, agreeOnCopyRights,
+    viewInstructorRatings, viewMoneyOwed } = require('../controller/instructorController')
 
 
 instructorRouter2.get('/viewInstructorRatings', viewInstructorRatings)
+instructorRouter2.get('/viewMoneyOwed', viewMoneyOwed)
+// instructorRouter2.patch('/agree', agreeOnCopyRights)
+
+// instructorRouter2.post('/signup', signUp)
 
 module.exports = instructorRouter2
