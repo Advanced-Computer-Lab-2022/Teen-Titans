@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from "react"
 import { AiFillEdit } from "react-icons/ai";
-const EditBiography = ({  }) => {
+const EditBiography = ({ }) => {
   const userId = localStorage.getItem('id')
   const user = localStorage.getItem('user')
   const [error, setError] = useState(null)
@@ -32,31 +32,15 @@ const EditBiography = ({  }) => {
 
   return (
     <div>
-      <h2>Edit biography  <AiFillEdit/></h2>
-      <div className='d-flex flex-column'>
+      <h2>Edit biography  <AiFillEdit /></h2>
+      <div className='d-flex flex-column align-items-center justify-content-center'>
         {/* 
         <label>Instructor id:</label>
         <input id='ID'></input> */}
-        <label style={{
-                    width: "200px",
-                    left: "40%",
-                    width: "250px",
-                    height: "40px",
-                    position: "relative"
-                }}>New Biography:</label>
-        <input style={{
-                    width: "200px",
-                    left: "40%",
-                    width: "250px",
-                    height: "40px",
-                    position: "relative"
-                }} id='biography'></input>
+        <label>New Biography:</label>
+        <input id='biography'></input>
 
-        <button style={{width: "300px",
-       left:"40%",
-       width:"250px",
-       height:"40px",
-       position: "relative" }}onClick={() => editBiographyInstructor()}>Edit</button>
+        <button className='home-button' onClick={() => editBiographyInstructor()}>Edit</button>
         <span>{message}</span>
       </div>
     </div>

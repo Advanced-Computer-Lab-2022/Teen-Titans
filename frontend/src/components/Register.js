@@ -4,6 +4,7 @@ const Register = () => {
     const [userId, setUserId] = useState('')
     const [userType, setUserType] = useState('')
     const [countryCode, setCountryCode] = useState('')
+    const [message, setMessage] = useState('')
     const register = async () => {
         // console.log(document.getElementById('country').value.toString());
         setCountryCode(document.getElementById('country').value.toString())
@@ -40,17 +41,18 @@ const Register = () => {
                     // setUserType(json.userType)
                     localStorage.setItem('user', 'individualTrainee')
                     localStorage.setItem('id', json._id)
+                    setMessage('Registration Successful!')
                     // console.log(json.user._id);
                 }
             }
         )
-        // if (countryCode) {
-        const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)
-        const response = await conversionRate.json()
-        // console.log(response);
-        localStorage.setItem('country', JSON.stringify(response))
-        window.location.href = `/homePage`
-        // }
+        if (countryCode) {
+            const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)
+            const response = await conversionRate.json()
+            // console.log(response);
+            localStorage.setItem('country', JSON.stringify(response))
+            window.location.href = `/homePage`
+        }
     }
     return (
         <div>
@@ -102,6 +104,7 @@ const Register = () => {
                 </div>
                 <button className="home-button" onClick={() => register()} > Sign up</button>
                 {/* <a href = "/InstructorHomePage"> Log in </a> */}
+                <span>{message}</span>
             </div>
         </div>
     )

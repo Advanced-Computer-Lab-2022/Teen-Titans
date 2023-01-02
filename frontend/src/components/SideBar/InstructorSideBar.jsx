@@ -42,7 +42,7 @@ const SideBar = ({ children }) => {
         //     icon: <FaSignOutAlt />
         // },
         {
-            path: "/login",
+            path: "/",
             name: "Log Out",
             icon: <FaSignOutAlt />
         }

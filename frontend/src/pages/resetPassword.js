@@ -14,8 +14,7 @@ const ResetPassword = () => {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "id": JSON.parse(localStorage.getItem('id')),
-                    "user": localStorage.getItem('user'),
+                    "username": document.getElementById("username").value,
                     "password": document.getElementById("password").value
                 })
             })
@@ -29,14 +28,16 @@ const ResetPassword = () => {
         }
     }
     return (
-        <div>
+        <div className='register'>
             <h2>Reset Password</h2>
-            <div className='d-flex flex-column'>
+            <div className='d-flex flex-column justify-content-center align-items-center'>
+                <label>Username:</label>
+                <input id='username'></input>
                 <label>Password:</label>
                 <input id='password'></input>
                 <label>Confirm Password:</label>
                 <input id='confirmPassword'></input>
-                <button onClick={() => resetPassword()}>Reset</button>
+                <button className='home-button' onClick={() => resetPassword()}>Reset</button>
                 <span>{message}</span>
             </div>
         </div>

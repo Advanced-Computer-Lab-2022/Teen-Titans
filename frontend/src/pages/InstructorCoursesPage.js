@@ -52,11 +52,11 @@ const InstructorCoursesPage = () => {
                     if (json) {
                         setCourse(json)
                         // setPercentage(json.percentageComplete)
-                        console.log(json,"json");
+                        console.log(json, "json");
                     }
                 }
             )
-           
+
         }
         getDetails()
     }, [])
@@ -93,9 +93,9 @@ const InstructorCoursesPage = () => {
                             <div className='d-flex'>
                                 <div className='d-flex flex-column'>
                                     <p>
-                                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{backgroundColor:"Teal"}}>
+                                        <button className="display-courses-btn mt-3" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" >
                                             Course Info
-                                        </a>
+                                        </button>
                                     </p>
                                     <div className="collapse" id="collapseExample">
                                         <div className="card card-body">
@@ -105,43 +105,9 @@ const InstructorCoursesPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className='d-flex flex-column'>
-                                    <p>
-                                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
-                                            Add Rating
-                                        </a>
-                                    </p>
-                                    <div className="collapse" id="collapseExample2">
-                                        <div className="card card-body">
-                                            <AppRate courseId={courseId} instructorId={course?.course?.instructorId} />
-                                        </div>
-                                    </div>
-                                </div> */}
-                                {/* <div className='d-flex flex-column'>
-                                    <p>
-                                        <a className="btn" data-bs-toggle="collapse" href="#notes" role="button" aria-expanded="false" aria-controls="notes">
-                                            Write Notes
-                                        </a>
-                                    </p>
-                                    <div className="collapse" id="notes">
-                                        <div className="card card-body">
-                                            <Notes />
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                         <div className='col-4'>
-                            {/* <div> */}
-                                {/* <div className='d-flex justify-content-start'>Percentage of the course completed:
-                                </div> */}
-                                {/* <div className="progress">
-                                    <div className="progress-bar" role="progressbar" style={{ backgroundColor: "#1aac83", width: `${course.percentageComplete}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{course.percentageComplete}%</div>
-                                    {
-                                        course.percentageComplete === 100
-                                    }
-                                </div> */}
-                            {/* </div> */}
                             {
                                 course.subtitles && course.subtitles.map((subtitle) => (
                                     <div>
@@ -150,7 +116,7 @@ const InstructorCoursesPage = () => {
                                             <h6 className='subtitles-faded'>{subtitle.subtitleHours} hours</h6>
                                             {
                                                 subtitle.video &&
-                                                <button style={{color:"teal"}} className='videos' onClick={() => {
+                                                <button className='display-courses-btn' onClick={() => {
                                                     if (subtitle.video) {
                                                         setVideoUrl(subtitle.video.url);
                                                         console.log(subtitle.video.url)
@@ -158,9 +124,6 @@ const InstructorCoursesPage = () => {
                                                     }
                                                 }}>{subtitle.video.shortDescription}</button>
                                             }
-                                            {/* <div>
-                                                <button onClick={() => { toexercise(subtitle) }} className='btn2'>Exercises</button>
-                                            </div> */}
 
                                         </div>
                                         <hr></hr>

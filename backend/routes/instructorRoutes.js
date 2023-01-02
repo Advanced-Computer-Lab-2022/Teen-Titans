@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const instructorRouter = express.Router()
-const {createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings, editEmail, editBiography,
- definePromotion,viewMoneyOwed } = require('../controller/instructorController')
+const { createCourse, upload, allcourses, course, subject, instructorSearchCourse, changePassword, viewInstructorRatings, editEmail, editBiography, agreeOnCopyRights,
+    definePromotion, viewMoneyOwed } = require('../controller/instructorController')
 // const courses = require('../controller/searchController')
 const { getCourses, getPrices } = require('../controller/viewCoursesController')
 
@@ -20,7 +20,7 @@ instructorRouter.patch('/editEmail/:id', editEmail)
 instructorRouter.patch('/changePassword', changePassword)
 instructorRouter.patch('/editBiography/:id', editBiography)
 // instructorRouter.get('/:searchInput', courses)
-
+instructorRouter.patch('/agree', agreeOnCopyRights)
 instructorRouter.get('/getCourses', getCourses)
 instructorRouter.get('/getPrices', getPrices)
 

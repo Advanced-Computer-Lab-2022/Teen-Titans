@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from 'axios';
 const Login = () => {
     const [userId, setUserId] = useState('')
+    const [user, setUser] = useState(null)
     const [userType, setUserType] = useState('')
     const [countryCode, setCountryCode] = useState('')
     const [message, setMessage] = useState('')
@@ -14,6 +15,7 @@ const Login = () => {
                 const json = res.data
                 console.log(json);
                 if (json) {
+                    setUser(json.user)
                     setUserId(json.user.id)
                     setUserType(json.userType)
                     if (json.userType !== 'admin') {
@@ -69,10 +71,16 @@ const Login = () => {
             const response = await conversionRate.json()
             // console.log(response);
             localStorage.setItem('country', JSON.stringify(response))
-            if (userType !== 'admin')
+            if (userType !== 'admin' && userType !== 'instructor')
                 window.location.href = `/homePage`
-            else
+            else if (userType === 'admin')
                 window.location.href = `/admin`
+            else {
+                if (userType === 'instructor' && user.agreed)
+                    window.location.href = `/homePage`
+                else
+                    window.location.href = `/CopyrightsPage`
+            }
         }
         // if (countryCode &&userType === 'admin' ) {
         //     const conversionRate = await fetch(`https://v6.exchangerate-api.com/v6/aa42e1fdd9028ad01333558c/pair/USD/${countryCode}`)

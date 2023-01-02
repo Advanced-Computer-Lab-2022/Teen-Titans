@@ -18,6 +18,7 @@ function CreditCardForm() {
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get('courseId')
   const userId = localStorage.getItem('id')
+  console.log(userId);
 
   useEffect(() => {
     if (!window.document.getElementById("stripe-script")) {

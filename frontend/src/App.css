@@ -132,6 +132,15 @@
 	align-items: center; */
 }
 
+.settings {
+	margin: 50px;
+	padding: 50px;
+	box-shadow: var(--box-shadow);
+	background-color: var(--cream);
+	color: var(--teal);
+	height: 90%;
+}
+
 .register input {
 	/* width: 40%; */
 }

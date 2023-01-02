@@ -231,7 +231,7 @@ const CourseSettings = (username) => {
 
     }
     //not completed
-    const FollowUp = async (Type,Problem) => {
+    const FollowUp = async (Type, Problem) => {
         const res = await fetch(`http://localhost:5000/users/report?courseId=${courseId}&traineeId=${userId}&type=${Type}&problem=${Problem}&user=${user}`,
             {
                 body: JSON.stringify({ course }),
@@ -244,89 +244,91 @@ const CourseSettings = (username) => {
     }
 
     return (
-        <div className="home">
-            {
-                user === 'individualTrainee' && course && course.percentageComplete < 50 &&
-                <button className='danger' onClick={() => requestRefund()}>Drop Course</button>
-            }
-            {
-                course &&
-                course.percentageComplete === 100 &&
-                <div>
-                    <h2>Congratulations! You have completed the {course.course.title} course. Now get your certificate!</h2>
-                    <button className='home-button' onClick={() => generateCertificate()}>Download Certificate</button>
-                    <br></br>
-                    <button className='home-button' onClick={() => sendCertificate()}>Get certificate by mail</button>
+        <div className="settings">
+            <div className="row">
+                <div className="col-6">
+                    <div className="d-flex flex-column justify-content-start align-items-start">
+                        <div className='box'>
+                            <h2> Report a problem :</h2>
+                            <input
+                                style={{ width: "300px" }}
+                                type="text"
+                                className="from-control mt-4"
+                                id='searchKey'
+                                placeholder='Please type your problem..'
+                                onChange={(e) => setProblem(e.target.value)}
+                            />
+
+                            <FormControl>
+
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    onChange={(e) => setType(e.target.value)}
+                                    name="radio-buttons-group"
+                                >
+                                    <FormControlLabel value="technical" control={<Radio />} label="Technical" />
+                                    <FormControlLabel value="financial" control={<Radio />} label="Financial" />
+                                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+
+                                </RadioGroup>
+                            </FormControl>
+                            <br></br>
+                            <button className="home-button" onClick={() => Report()}> Report </button>
+                        </div>
+                        {
+                            user === 'individualTrainee' && course && course.percentageComplete < 50 &&
+                            <div className="box">
+                                <h2>Drop Course:</h2>
+                                <input placeholder="Please state why you are dropping this course" style={{ width: "400px" }}></input>
+                                <button className='danger' onClick={() => requestRefund()}>Drop Course</button>
+                            </div>
+                        }
+                    </div>
                 </div>
 
-            }
+                <div className='col-6 course-details1'>
+                    {
+                        course &&
+                        course.percentageComplete === 100 &&
+                        <div>
+                            <h2>Congratulations! You have completed the {course.course.title} course. Now get your certificate!</h2>
+                            <button className='home-button' onClick={() => generateCertificate()}>Download Certificate</button>
+                            <br></br>
+                            <button className='home-button' onClick={() => sendCertificate()}>Get certificate by mail</button>
+                        </div>
 
-            <div className='box'>
-                <h2> Report a problem :</h2>
-                <input
-                    style={{ width: "300px" }}
-                    type="text"
-                    className="from-control mt-4"
-                    id='searchKey'
-                    placeholder='Please type your problem..'
-                    onChange={(e) => setProblem(e.target.value)}
-                />
+                    }
+                    <div className='d-flex flex-column'>
+                        <p>
+                            <button className="home-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{ margin: "10px" }}>
+                                My Reports
+                            </button>
+                        </p>
+                        <div className="collapse" id="collapseExample">
 
-                <FormControl>
-
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        onChange={(e) => setType(e.target.value)}
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel value="technical" control={<Radio />} label="Technical" />
-                        <FormControlLabel value="financial" control={<Radio />} label="Financial" />
-                        <FormControlLabel value="other" control={<Radio />} label="Other" />
-
-                    </RadioGroup>
-                </FormControl>
-                <br></br>
-                <button style={{background: "teal"}}onClick={() => Report()}> Report </button>
-            </div>
+                            {reports && reports.map((report) => (
+                                <div className="card card-body">
 
 
-
-            <div className='col-8 course-details1'>
-                <div className='d-flex flex-column'>
-                    <p>
-                        <a className="btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style={{color:"teal"}}>
-                            My Reports
-                        </a>
-                    </p>
-                    <div className="collapse" id="collapseExample">
-
-                        {reports && reports.map((report) => (
-                            <div className="card card-body">
-
-
-                                <h4>Problem: {report.problem}</h4>
-                                <h6>Type:{report.type}</h6>
-                                <h6>Status:{report.status}</h6>
-                                <button style={{
-                                    top: "50%",
-                                    left: "65%",
-                                    width: "100px",
-                                    height: "40px",
-                                    position: "absolute",
-
-                                    background: "teal"
-                                }} disabled={report.status === "resolved"} onClick={() => FollowUp(report.type,report.problem)}>Follow up</button>
-                            </div>
+                                    <h4>Problem: {report.problem}</h4>
+                                    <h6>Type:{report.type}</h6>
+                                    <h6>Status:{report.status}</h6>
+                                    <button className="display-courses-btn" style={{
+                                        top: "50%",
+                                        left: "65%",
+                                        width: "100px",
+                                        height: "40px",
+                                        position: "absolute"
+                                    }} disabled={report.status === "resolved"} onClick={() => FollowUp(report.type, report.problem)}>Follow up</button>
+                                </div>
 
 
-                        ))}
+                            ))}
 
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
 

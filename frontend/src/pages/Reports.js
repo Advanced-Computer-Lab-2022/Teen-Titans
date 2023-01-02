@@ -31,9 +31,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 const Reports = () => {
 
-
-
-
     const [reports, setReports] = useState(null)
     // const [course,setCourse]= useState(null)
     // const [user,setUser]= useState(null)
@@ -83,59 +80,20 @@ const Reports = () => {
 
     return (
 
-
-        //    <div className='view'>
-
-        //  <Sidebar  />
-
-        //     <div className='reports'>
-        //         {reports && reports.map((report)=>(
-
-        //             <ReportDetails key={report._id} report={report} />
-        //         ))}
-        //     </div>
-        // </div>
-
-
-
-        ///table
-
-        /* 
-          1. create a button to load the blogs
-          2. map over the blogs and display them
-          */
-
         <div className="container1">
-            {/* <Box sx={{marginBottom: 2}}>
-        <Button variant="contained"
-        onClick={getBlogs}
-        margin="normal"
-        padding="normal"
-        >Load Reports</Button>
-        
-        
-        </Box> */}
-
-
             <Sidebar />
-
             <TableContainer component={Paper}>
-
                 <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
-
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell  style={{ background:"teal"}} align="center">Seen</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}}  align="center">User</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Report by</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Problem</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Course Title</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Status</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Type</StyledTableCell>
-                            <StyledTableCell style={{ background:"teal"}} align="center">Actions</StyledTableCell>
-
-
-
+                            <StyledTableCell style={{ background: "teal" }} align="center">Seen</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">User</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Report by</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Problem</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Course Title</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Status</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Type</StyledTableCell>
+                            <StyledTableCell style={{ background: "teal" }} align="center">Actions</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

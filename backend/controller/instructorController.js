@@ -423,7 +423,16 @@ const ImyCourses = asyncHandler(async (req, res) => {
         })
 })
 
+const agreeOnCopyRights = asyncHandler(async (req, res) => {
+    const user = await instructorModel.findByIdAndUpdate(req.query.id, { agreed: true });
+    if (user)
+        res.status(200).json(user)
+    else
+        res.status(400).json({ message: "Something went wrong!" })
+
+})
+
 module.exports = {
     createCourse, course, allcourses, subject, instructorSearchCourse, changePassword, upload, viewInstructorRatings, editEmail,
-    editBiography, definePromotion, createExam, createCourseExam, login, logout, viewMoneyOwed, ImyCourses
+    editBiography, definePromotion, createExam, createCourseExam, login, logout, viewMoneyOwed, ImyCourses, agreeOnCopyRights
 }

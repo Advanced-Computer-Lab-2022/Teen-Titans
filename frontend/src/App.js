@@ -28,7 +28,7 @@ import CourseExamForm from './components/CreateCourseExam';
 import ViewInstructorRating from './components/ViewInstructorRating';
 import CourseSettings from './pages/CourseSettings';
 import RegisterPage from './pages/RegisterPage';
-import CopyrightsPage from './pages/CopyrightsPage';
+import Copyrights from './components/Copyrights';
 import CreditCardForm from './components/CreditCard';
 import AdminDiscount from './components/AdminDiscount';
 import PaymentMethod from './components/PaymentMethod';
@@ -45,7 +45,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="pages">
-          <Routes> 
+          <Routes>
             <Route path='/homePage' element={<ViewPrices />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/courses" element={<index />}></Route>
@@ -73,7 +73,7 @@ function App() {
             <Route path='/viewInstructorRating' element={<ViewInstructorRating />}></Route>
             <Route path='/courseSettings' element={<CourseSettings />}></Route>
             <Route path='/RegisterPage' element={<RegisterPage />}></Route>
-            <Route path='/CopyrightsPage' element={<CopyrightsPage />}></Route>
+            <Route path='/CopyrightsPage' element={<Copyrights />}></Route>
             <Route path='/viewCoursesForDiscount' element={<AdminDiscount />}></Route>
             <Route path='/paymentMethod' element={<PaymentMethod />}></Route>
             <Route path='/pay' element={<CreditCardForm />}></Route>

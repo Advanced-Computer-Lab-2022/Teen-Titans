@@ -99,8 +99,11 @@ const CoursePrice = ({ course }) => {
                     <h5><strong>course hours:</strong> {course.hours}</h5>
                     <p><strong>course outline:</strong> {course.courseOutline}</p>
                     <button className='videos' onClick={() => window.location.href = `/watchVideo?courseId=${course._id}`}>watch a preview video</button>
-                    <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight />
-                    </button>
+                    {
+                        user.includes('individualTrainee')
+                        &&
+                        <button className='videos' onClick={() => window.location.href = `/paymentMethod?courseId=${course._id}`}>Enroll now <HiOutlineArrowLongRight /></button>
+                    }
                     {
                         courseData &&
                         <div className="my-container">
@@ -115,7 +118,7 @@ const CoursePrice = ({ course }) => {
                             {ishidden ?
                                 <div>
                                     {showRequest ?
-                                        <button disabled={sent} onClick={() => requestAccess(course._id)}>Request Access</button>
+                                        <button className="display-courses-btn" style={{ marginLeft: "0px" }} disabled={sent} onClick={() => requestAccess(course._id)}>Request Access</button>
                                         : <button disabled={open || !checkAccess(course._id)} onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>Open Course</button>
                                     }
                                 </div>

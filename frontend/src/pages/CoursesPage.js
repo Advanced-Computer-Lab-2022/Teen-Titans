@@ -59,7 +59,7 @@ const CoursesPage = () => {
 
         }
         getDetails()
-    }, [])
+    })
 
     return (
         <div>

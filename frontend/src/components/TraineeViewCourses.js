@@ -44,25 +44,25 @@ const TraineeViewCourses = ({ id }) => {
                 <SideBar />
             </div>
             <div className="col-10">
-                <div className="content">
-                    {id &&
-                        <div className="trainee-courses">
-                            {/* <div className='courses'> */}
-                            <h1>My Courses</h1>
-                            {courseData &&
-                                courseData.map((course) => (
-                                    <div className="display-courses" key={course.id}>
-                                        <h4 style={{ color: "var(--taupe)" }}>{course.title}</h4>
-                                        <p>Price: {(course.price * conversion_rate).toFixed(2)} {target_code}</p>
-                                        <p>Instructor: {course.instructorName}</p>
-                                        <button className="display-courses-btn" onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>View Details</button>
-                                        {/* <button className="display-courses-btn" onClick={() => { toexam(course.exercise) }}>Exam</button> */}
-                                    </div>
-                                ))}
-                            {/* </div> */}
-                        </div>
-                    }
-                </div>
+                {/* <div> */}
+                {id &&
+                    <div >
+                        {/* <div className='courses'> */}
+                        <h1>My Courses</h1>
+                        {courseData &&
+                            courseData.map((course) => (
+                                <div className="display-courses" key={course.id}>
+                                    <h4 style={{ color: "var(--taupe)" }}>{course.title}</h4>
+                                    <p>Price: {(course.price * conversion_rate).toFixed(2)} {target_code}</p>
+                                    <p>Instructor: {course.instructorName}</p>
+                                    <button className="display-courses-btn" onClick={() => window.location.href = `/course?user=${user}&courseId=${course._id}&userId=${userId}`}>View Details</button>
+                                    {/* <button className="display-courses-btn" onClick={() => { toexam(course.exercise) }}>Exam</button> */}
+                                </div>
+                            ))}
+                        {/* </div> */}
+                    </div>
+                }
+                {/* </div> */}
             </div>
         </div>
     )

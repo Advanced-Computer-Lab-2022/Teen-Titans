@@ -11,6 +11,7 @@ import ChangePassword from './changePassword';
 
 //import './Navbar.css'
 const Navbar = () => {
+    const user = localStorage.getItem('user')
     return (
         <header>
             <div className="container">
@@ -20,7 +21,14 @@ const Navbar = () => {
                     Knowledge Boost
                 </h1>
                 {/* </Link> */}
-                <button onClick={() => window.location.href = `/changePassword`}>Account <FiUser /></button>
+                {
+                    user &&
+                    <button onClick={() => window.location.href = `/changePassword`}>Account <FiUser /></button>
+                }
+                {
+                    !user &&
+                    <button onClick={() => window.location.href = `/`}>Login <FiUser /></button>
+                }
             </div>
         </header>
     )

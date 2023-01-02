@@ -1,5 +1,5 @@
 import Copyrights from "../components/Copyrights";
-
+import React, { useState } from "react"
 const CopyrightsPage = () => {
 
     return (
