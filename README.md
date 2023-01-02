@@ -62,7 +62,7 @@ This project is divided into two main parts, frontend and backend. Our backend i
 - Individual Trainee homepage
 ![image](https://user-images.githubusercontent.com/54781930/210188285-b13855d4-f13b-47cd-b54c-2b2ec9c83a28.png)
 
-- Instructor adding a new course 
+- adding a new course 
 ![image](https://user-images.githubusercontent.com/54781930/210188321-0517c639-c708-4196-8fa1-1351bab1b148.png)
 ![image](https://user-images.githubusercontent.com/54781930/210188325-0f6961df-ab8a-48d9-9b45-ad8ca6accc2f.png)
 
@@ -1748,6 +1748,259 @@ or
         "__v": 0
     }
 ]
+```
+16.getting a user
+- route : `users/getUser`
+- request type : `GET`
+- Query params : `id` user id
+- response body :
+```
+{
+    "_id": "63af4dab01df8419cffe974e",
+    "username": "richard.geryson",
+    "password": "IamRobin",
+    "email": "ric.greyson@gmail.com",
+    "firstName": "Richard",
+    "lastName": "Greyson",
+    "gender": "Male",
+    "country": "Egypt",
+    "wallet": 0,
+    "enrolledCourses": [
+        {
+            "course": {
+                "discount": {
+                    "amount": 60,
+                    "endDate": "2022-12-20T00:00:00.000Z"
+                },
+                "hours": 3,
+                "rating": 0,
+                "ratings": {
+                    "oneStar": 0,
+                    "twoStar": 0,
+                    "threeStar": 0,
+                    "fourStar": 0,
+                    "fiveStar": 0,
+                    "_id": "639daec6e727a37ea9493ed6"
+                },
+                "reviews": [],
+                "title": "Physics 9",
+                "price": 70,
+                "subject": "Science",
+                "instructorName": "7amada-3ezzo",
+                "instructorId": "638c7d9fa26e15c3c3e8fa61",
+                "subtitles": [
+                    {
+                        "title": "Current",
+                        "subtitleHours": "1",
+                        "video": {
+                            "url": "https://www.youtube.com/watch?v=r-SCyD7f_zI",
+                            "shortDescription": "Ohm's Law",
+                            "_id": "639daec5e727a37ea9493e9b",
+                            "__v": 0
+                        },
+                        "exercise": {
+                            "questionOne": {
+                                "question": "What is enegry?",
+                                "options": [
+                                    {
+                                        "Text": "power per unit  time",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493e9e"
+                                    },
+                                    {
+                                        "Text": "the ability to do work",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493e9f"
+                                    },
+                                    {
+                                        "Text": "both",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea0"
+                                    },
+                                    {
+                                        "Text": "neither",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea1"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is power",
+                                "options": [
+                                    {
+                                        "Text": "energy per unit time",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493ea2"
+                                    },
+                                    {
+                                        "Text": "the ability to do work",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea3"
+                                    },
+                                    {
+                                        "Text": "both",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea4"
+                                    },
+                                    {
+                                        "Text": "neither",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ea5"
+                                    }
+                                ]
+                            },
+                            "_id": "639daec5e727a37ea9493e9d",
+                            "__v": 0
+                        },
+                        "_id": "639daec5e727a37ea9493ea7",
+                        "__v": 0
+                    },
+                    {
+                        "title": "Circuits",
+                        "subtitleHours": "2",
+                        "video": {
+                            "url": "https://www.youtube.com/watch?v=CDGSYJhNylg",
+                            "shortDescription": "Series and Parallel Circuits",
+                            "_id": "639daec5e727a37ea9493eb3",
+                            "__v": 0
+                        },
+                        "exercise": {
+                            "questionOne": {
+                                "question": "How is heat transfered in space?",
+                                "options": [
+                                    {
+                                        "Text": "by radiation",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493eb6"
+                                    },
+                                    {
+                                        "Text": "by conduction",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb7"
+                                    },
+                                    {
+                                        "Text": "by convection",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb8"
+                                    },
+                                    {
+                                        "Text": "none of the answers are correct",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493eb9"
+                                    }
+                                ]
+                            },
+                            "questionTwo": {
+                                "question": "What is Stefan Boltzmann Law?",
+                                "options": [
+                                    {
+                                        "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                        "isCorrect": true,
+                                        "_id": "639daec5e727a37ea9493eba"
+                                    },
+                                    {
+                                        "Text": "Energy per unit  time",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebb"
+                                    },
+                                    {
+                                        "Text": "Energy cannot be created nor destroyed",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebc"
+                                    },
+                                    {
+                                        "Text": "none of the answers are correct",
+                                        "isCorrect": false,
+                                        "_id": "639daec5e727a37ea9493ebd"
+                                    }
+                                ]
+                            },
+                            "_id": "639daec5e727a37ea9493eb5",
+                            "__v": 0
+                        },
+                        "_id": "639daec5e727a37ea9493ebf",
+                        "__v": 0
+                    }
+                ],
+                "shortSummary": "Students will learn the basics of Electricity",
+                "previewVideo": {
+                    "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+                    "shortDescription": "Learn the basics of Electricity",
+                    "_id": "639daec5e727a37ea9493e99",
+                    "__v": 0
+                },
+                "courseOutline": "Heat Transfer, Energy",
+                "exercise": {
+                    "questionOne": {
+                        "question": "How is heat transfered in space?",
+                        "options": [
+                            {
+                                "Text": "by radiation",
+                                "isCorrect": true,
+                                "_id": "639daec6e727a37ea9493ecc"
+                            },
+                            {
+                                "Text": "by conduction",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ecd"
+                            },
+                            {
+                                "Text": "by convection",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ece"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ecf"
+                            }
+                        ]
+                    },
+                    "questionTwo": {
+                        "question": "What is Stefan Boltzmann Law?",
+                        "options": [
+                            {
+                                "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                "isCorrect": true,
+                                "_id": "639daec6e727a37ea9493ed0"
+                            },
+                            {
+                                "Text": "Energy per unit  time",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed1"
+                            },
+                            {
+                                "Text": "Energy cannot be created nor destroyed",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed2"
+                            },
+                            {
+                                "Text": "none of the answers are correct",
+                                "isCorrect": false,
+                                "_id": "639daec6e727a37ea9493ed3"
+                            }
+                        ]
+                    },
+                    "_id": "639daec6e727a37ea9493ecb",
+                    "__v": 0
+                },
+                "numberOfEnrolledStudents": 12,
+                "_id": "639daec6e727a37ea9493ed5",
+                "createdAt": "2022-12-17T11:57:58.129Z",
+                "updatedAt": "2022-12-30T21:12:54.589Z",
+                "__v": 0
+            },
+            "videosSeen": [
+                "639daec5e727a37ea9493e9b",
+                "639daec5e727a37ea9493eb3"
+            ],
+            "numberComplete": 2,
+            "percentageComplete": 100,
+            "_id": "63af545601df8419cffe98b7"
+        }
+    ],
+    "__v": 0
+}
 ```
 
 ## Corporate Trainee
@@ -4196,7 +4449,602 @@ or {message: 'No such instructor' }
     "totalMoneyOwed": 3010
 }
 ```
-
+15.Instructor agreeing on copyrights
+- route : `instructor/agree
+- request type : `patch`
+- Query params : `id` 
+- response body : 
+```
+{
+    "_id": "638c7d9fa26e15c3c3e8fa61",
+    "username": "7amada-3ezzo",
+    "password": "mamaNona",
+    "email": "7amada3ezzo123@gmail.com",
+    "firstName": "",
+    "lastName": "",
+    "gender": "",
+    "country": "Egypt",
+    "biography": "instructor",
+    "moneyOwed": 0,
+    "rating": 3.1666666666666665,
+    "ratings": {
+        "oneStar": 1,
+        "twoStar": 1,
+        "threeStar": 5,
+        "fourStar": 5,
+        "fiveStar": 0,
+        "_id": "638c7d9fa26e15c3c3e8fa62"
+    },
+    "reviews": [],
+    "courses": [
+        {
+            "hours": 2,
+            "rating": 0,
+            "ratings": {
+                "oneStar": 0,
+                "twoStar": 0,
+                "threeStar": 0,
+                "fourStar": 0,
+                "fiveStar": 0,
+                "_id": "638f2400eb204e400fddd125"
+            },
+            "reviews": [],
+            "title": "physics 7",
+            "price": 800,
+            "subject": "Science",
+            "instructorName": "7amada-3ezzo",
+            "instructorId": "638c7d9fa26e15c3c3e8fa61",
+            "subtitles": [
+                {
+                    "title": "thermodynamics",
+                    "subtitleHours": "2",
+                    "video": {
+                        "url": "https://www.youtube.com/watch?v=dHjWVlfNraM",
+                        "shortDescription": "thermodynamics part1",
+                        "_id": "638f23feeb204e400fddd102",
+                        "__v": 0
+                    },
+                    "exercise": {
+                        "questionOne": {
+                            "question": "What is Newton's first law?",
+                            "options": [
+                                {
+                                    "_id": "638f23ffeb204e400fddd105"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd106"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd107"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd108"
+                                }
+                            ]
+                        },
+                        "questionTwo": {
+                            "question": "What is Newton's second law?",
+                            "options": [
+                                {
+                                    "_id": "638f23ffeb204e400fddd109"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd10a"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd10b"
+                                },
+                                {
+                                    "_id": "638f23ffeb204e400fddd10c"
+                                }
+                            ]
+                        },
+                        "_id": "638f23ffeb204e400fddd104",
+                        "__v": 0
+                    },
+                    "_id": "638f23ffeb204e400fddd10e",
+                    "__v": 0
+                }
+            ],
+            "shortSummary": "learn physics",
+            "previewVideo": {
+                "url": "https://www.youtube.com/watch?v=dHjWVlfNraM",
+                "shortDescription": "physics is fun......",
+                "_id": "638f23feeb204e400fddd100",
+                "__v": 0
+            },
+            "courseOutline": "thermodynamics, kinematics",
+            "exercise": {
+                "questionOne": {
+                    "question": "What is Newton's first law?",
+                    "options": [
+                        {
+                            "_id": "638f2400eb204e400fddd11b"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd11c"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd11d"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd11e"
+                        }
+                    ]
+                },
+                "questionTwo": {
+                    "question": "What is Newton's second law?",
+                    "options": [
+                        {
+                            "_id": "638f2400eb204e400fddd11f"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd120"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd121"
+                        },
+                        {
+                            "_id": "638f2400eb204e400fddd122"
+                        }
+                    ]
+                },
+                "_id": "638f2400eb204e400fddd11a",
+                "__v": 0
+            },
+            "numberOfEnrolledStudents": 1,
+            "_id": "638f2400eb204e400fddd124",
+            "createdAt": "2022-12-31T10:16:39.869Z",
+            "updatedAt": "2022-12-31T10:16:39.869Z",
+            "__v": 0
+        },
+        {
+            "hours": 3,
+            "rating": 0,
+            "ratings": {
+                "oneStar": 0,
+                "twoStar": 0,
+                "threeStar": 0,
+                "fourStar": 0,
+                "fiveStar": 0,
+                "_id": "639ce5e8e1707d3cae8074a4"
+            },
+            "reviews": [],
+            "title": "Physics 8",
+            "price": 700,
+            "subject": "Science",
+            "instructorName": "7amada-3ezzo",
+            "instructorId": "638c7d9fa26e15c3c3e8fa61",
+            "subtitles": [
+                {
+                    "title": "Current",
+                    "subtitleHours": "1",
+                    "video": {
+                        "url": "https://www.youtube.com/watch?v=r-SCyD7f_zI",
+                        "shortDescription": "Ohm's Law",
+                        "_id": "639ce5e8e1707d3cae807469",
+                        "__v": 0
+                    },
+                    "exercise": {
+                        "questionOne": {
+                            "question": "What is enegry?",
+                            "options": [
+                                {
+                                    "Text": "power per unit  time",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae80746c"
+                                },
+                                {
+                                    "Text": "the ability to do work",
+                                    "isCorrect": true,
+                                    "_id": "639ce5e8e1707d3cae80746d"
+                                },
+                                {
+                                    "Text": "both",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae80746e"
+                                },
+                                {
+                                    "Text": "neither",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae80746f"
+                                }
+                            ]
+                        },
+                        "questionTwo": {
+                            "question": "What is power",
+                            "options": [
+                                {
+                                    "Text": "energy per unit time",
+                                    "isCorrect": true,
+                                    "_id": "639ce5e8e1707d3cae807470"
+                                },
+                                {
+                                    "Text": "the ability to do work",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807471"
+                                },
+                                {
+                                    "Text": "both",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807472"
+                                },
+                                {
+                                    "Text": "neither",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807473"
+                                }
+                            ]
+                        },
+                        "_id": "639ce5e8e1707d3cae80746b",
+                        "__v": 0
+                    },
+                    "_id": "639ce5e8e1707d3cae807475",
+                    "__v": 0
+                },
+                {
+                    "title": "Circuits",
+                    "subtitleHours": "2",
+                    "video": {
+                        "url": "https://www.youtube.com/watch?v=7mdc-lRrW1c&list=RDCMUCEWpbFLzoYGPfuWUMFPSaoA&index=2",
+                        "shortDescription": "Series and Parallel Circuits",
+                        "_id": "639ce5e8e1707d3cae807481",
+                        "__v": 0
+                    },
+                    "exercise": {
+                        "questionOne": {
+                            "question": "How is heat transfered in space?",
+                            "options": [
+                                {
+                                    "Text": "by radiation",
+                                    "isCorrect": true,
+                                    "_id": "639ce5e8e1707d3cae807484"
+                                },
+                                {
+                                    "Text": "by conduction",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807485"
+                                },
+                                {
+                                    "Text": "by convection",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807486"
+                                },
+                                {
+                                    "Text": "none of the answers are correct",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807487"
+                                }
+                            ]
+                        },
+                        "questionTwo": {
+                            "question": "What is Stefan Boltzmann Law?",
+                            "options": [
+                                {
+                                    "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                    "isCorrect": true,
+                                    "_id": "639ce5e8e1707d3cae807488"
+                                },
+                                {
+                                    "Text": "Energy per unit  time",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae807489"
+                                },
+                                {
+                                    "Text": "Energy cannot be created nor destroyed",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae80748a"
+                                },
+                                {
+                                    "Text": "none of the answers are correct",
+                                    "isCorrect": false,
+                                    "_id": "639ce5e8e1707d3cae80748b"
+                                }
+                            ]
+                        },
+                        "_id": "639ce5e8e1707d3cae807483",
+                        "__v": 0
+                    },
+                    "_id": "639ce5e8e1707d3cae80748d",
+                    "__v": 0
+                }
+            ],
+            "shortSummary": "Students will learn the basics of Electricity",
+            "previewVideo": {
+                "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+                "shortDescription": "Learn the basics of Electricity",
+                "_id": "639ce5e8e1707d3cae807467",
+                "__v": 0
+            },
+            "courseOutline": "Heat Transfer, Energy",
+            "exercise": {
+                "questionOne": {
+                    "question": "How is heat transfered in space?",
+                    "options": [
+                        {
+                            "Text": "by radiation",
+                            "isCorrect": true,
+                            "_id": "639ce5e8e1707d3cae80749a"
+                        },
+                        {
+                            "Text": "by conduction",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae80749b"
+                        },
+                        {
+                            "Text": "by convection",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae80749c"
+                        },
+                        {
+                            "Text": "none of the answers are correct",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae80749d"
+                        }
+                    ]
+                },
+                "questionTwo": {
+                    "question": "What is Stefan Boltzmann Law?",
+                    "options": [
+                        {
+                            "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                            "isCorrect": true,
+                            "_id": "639ce5e8e1707d3cae80749e"
+                        },
+                        {
+                            "Text": "Energy per unit  time",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae80749f"
+                        },
+                        {
+                            "Text": "Energy cannot be created nor destroyed",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae8074a0"
+                        },
+                        {
+                            "Text": "none of the answers are correct",
+                            "isCorrect": false,
+                            "_id": "639ce5e8e1707d3cae8074a1"
+                        }
+                    ]
+                },
+                "_id": "639ce5e8e1707d3cae807499",
+                "__v": 0
+            },
+            "numberOfEnrolledStudents": 0,
+            "_id": "639ce5e8e1707d3cae8074a3",
+            "createdAt": "2022-12-31T10:16:39.869Z",
+            "updatedAt": "2022-12-31T10:16:39.869Z",
+            "__v": 0
+        },
+        {
+            "discount": {
+                "amount": 0,
+                "endDate": null
+            },
+            "hours": 3,
+            "rating": 0,
+            "ratings": {
+                "oneStar": 0,
+                "twoStar": 0,
+                "threeStar": 0,
+                "fourStar": 0,
+                "fiveStar": 0,
+                "_id": "63b00c075fb95d83c0ff29e4"
+            },
+            "reviews": [],
+            "title": "Math 6",
+            "price": 700,
+            "subject": "Science",
+            "instructorName": "7amada-3ezzo",
+            "instructorId": "638c7d9fa26e15c3c3e8fa61",
+            "subtitles": [
+                {
+                    "title": "Current",
+                    "subtitleHours": "1",
+                    "video": {
+                        "url": "https://www.youtube.com/watch?v=r-SCyD7f_zI",
+                        "shortDescription": "Ohm's Law",
+                        "_id": "63b00c065fb95d83c0ff29a9",
+                        "__v": 0
+                    },
+                    "exercise": {
+                        "questionOne": {
+                            "question": "What is enegry?",
+                            "options": [
+                                {
+                                    "Text": "power per unit  time",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29ac"
+                                },
+                                {
+                                    "Text": "the ability to do work",
+                                    "isCorrect": true,
+                                    "_id": "63b00c065fb95d83c0ff29ad"
+                                },
+                                {
+                                    "Text": "both",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29ae"
+                                },
+                                {
+                                    "Text": "neither",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29af"
+                                }
+                            ]
+                        },
+                        "questionTwo": {
+                            "question": "What is power",
+                            "options": [
+                                {
+                                    "Text": "energy per unit time",
+                                    "isCorrect": true,
+                                    "_id": "63b00c065fb95d83c0ff29b0"
+                                },
+                                {
+                                    "Text": "the ability to do work",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29b1"
+                                },
+                                {
+                                    "Text": "both",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29b2"
+                                },
+                                {
+                                    "Text": "neither",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29b3"
+                                }
+                            ]
+                        },
+                        "_id": "63b00c065fb95d83c0ff29ab",
+                        "__v": 0
+                    },
+                    "_id": "63b00c065fb95d83c0ff29b5",
+                    "__v": 0
+                },
+                {
+                    "title": "Circuits",
+                    "subtitleHours": "2",
+                    "video": {
+                        "url": "https://www.youtube.com/watch?v=7mdc-lRrW1c&list=RDCMUCEWpbFLzoYGPfuWUMFPSaoA&index=2",
+                        "shortDescription": "Series and Parallel Circuits",
+                        "_id": "63b00c065fb95d83c0ff29c1",
+                        "__v": 0
+                    },
+                    "exercise": {
+                        "questionOne": {
+                            "question": "How is heat transfered in space?",
+                            "options": [
+                                {
+                                    "Text": "by radiation",
+                                    "isCorrect": true,
+                                    "_id": "63b00c065fb95d83c0ff29c4"
+                                },
+                                {
+                                    "Text": "by conduction",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29c5"
+                                },
+                                {
+                                    "Text": "by convection",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29c6"
+                                },
+                                {
+                                    "Text": "none of the answers are correct",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29c7"
+                                }
+                            ]
+                        },
+                        "questionTwo": {
+                            "question": "What is Stefan Boltzmann Law?",
+                            "options": [
+                                {
+                                    "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                                    "isCorrect": true,
+                                    "_id": "63b00c065fb95d83c0ff29c8"
+                                },
+                                {
+                                    "Text": "Energy per unit  time",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29c9"
+                                },
+                                {
+                                    "Text": "Energy cannot be created nor destroyed",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29ca"
+                                },
+                                {
+                                    "Text": "none of the answers are correct",
+                                    "isCorrect": false,
+                                    "_id": "63b00c065fb95d83c0ff29cb"
+                                }
+                            ]
+                        },
+                        "_id": "63b00c065fb95d83c0ff29c3",
+                        "__v": 0
+                    },
+                    "_id": "63b00c075fb95d83c0ff29cd",
+                    "__v": 0
+                }
+            ],
+            "shortSummary": "Students will learn the basics of Electricity",
+            "previewVideo": {
+                "url": "https://www.youtube.com/watch?v=CIv6vu9d73c",
+                "shortDescription": "Learn the basics of Electricity",
+                "_id": "63b00c065fb95d83c0ff29a7",
+                "__v": 0
+            },
+            "courseOutline": "Heat Transfer, Energy",
+            "exercise": {
+                "questionOne": {
+                    "question": "How is heat transfered in space?",
+                    "options": [
+                        {
+                            "Text": "by radiation",
+                            "isCorrect": true,
+                            "_id": "63b00c075fb95d83c0ff29da"
+                        },
+                        {
+                            "Text": "by conduction",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29db"
+                        },
+                        {
+                            "Text": "by convection",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29dc"
+                        },
+                        {
+                            "Text": "none of the answers are correct",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29dd"
+                        }
+                    ]
+                },
+                "questionTwo": {
+                    "question": "What is Stefan Boltzmann Law?",
+                    "options": [
+                        {
+                            "Text": "total radiant heat power emitted from a surface is proportional to the fourth power of its absolute temperature.",
+                            "isCorrect": true,
+                            "_id": "63b00c075fb95d83c0ff29de"
+                        },
+                        {
+                            "Text": "Energy per unit  time",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29df"
+                        },
+                        {
+                            "Text": "Energy cannot be created nor destroyed",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29e0"
+                        },
+                        {
+                            "Text": "none of the answers are correct",
+                            "isCorrect": false,
+                            "_id": "63b00c075fb95d83c0ff29e1"
+                        }
+                    ]
+                },
+                "_id": "63b00c075fb95d83c0ff29d9",
+                "__v": 0
+            },
+            "numberOfEnrolledStudents": 0,
+            "_id": "63b00c075fb95d83c0ff29e3",
+            "createdAt": "2022-12-31T10:16:39.869Z",
+            "updatedAt": "2022-12-31T10:16:39.869Z",
+            "__v": 0
+        }
+    ],
+    "__v": 0,
+    "agreed": false
+}
+```
 ## My Courses
 
 1.individual trainee watch video
