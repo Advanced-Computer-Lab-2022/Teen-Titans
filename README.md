@@ -33,9 +33,9 @@ registering for courses while corporate trainees are registered by the admin and
 The following are the objectives of our project:
 - Help people register for online courses and get the opportunity to learn anywhere and anytime
 - Getting familiar with MERN stack.
-- Work using the Agile Methodology to plan out sprints and develop the software.
-- Learn how to use Github with its different commands and how to integrate the project as a team.
-- Learn the process of following a given set of functional and non-functional Requirements to develop a software
+- Working using the Agile methodology to plan our sprints and develop the software.
+- Learn how to use Github and git with its different commands and how to integrate the project as a team.
+- Learn how to follow functional and non-functional Requirements given by a client to develop a software
 
 
 ## Build Status
@@ -53,7 +53,7 @@ We used MERN stack to implement this project. MERN stands for MongoDB, Express, 
 
 
 ## Coding style
-This project is divided into two main parts, frontend and backend. Our backend is divided into routes,controllers and models. While the frontend consists of several components and pages
+This project is divided into two main parts, frontend and backend. Our backend is divided into routes,controllers and models. While the frontend is a react app which consists of several components and pages
 
 ## Screenshots
 - Login page 
@@ -76,8 +76,8 @@ This project is divided into two main parts, frontend and backend. Our backend i
 ![image](https://user-images.githubusercontent.com/54781930/210188345-3aed8ab5-1722-4eab-bd50-fc392806e78f.png)
 
 ## Features
-Mainly this website provides an easy way to be able to register and learn several courses that the user is interested in remotley from all around the world.
-Also, allows admins to perform CRUD operations on a course in a flexible way.
+This website provides an easy way to be able to register and learn several courses that the user is interested in remotley from all around the world. The user can find  different types of courses with suitable prices.
+Also, allows the instructor to perform CRUD operations on a course and on his/her data in a flexible way.
 
 ## Installation
 
