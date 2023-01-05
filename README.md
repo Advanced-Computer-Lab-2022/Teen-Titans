@@ -13,6 +13,7 @@ registering for courses while corporate trainees are registered by the admin and
 - [Build Status](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#build-status)
 - [Tools and Frameworks](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#tools-and-frameworks)
 - [Coding style](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#coding-style)
+- [Code examples](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#code-examples)
 - [Screenshots](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#screenshots)
 - [Features](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#features)
 - [Installation](https://github.com/Advanced-Computer-Lab-2022/Teen-Titans/blob/main/README.md#installation)
@@ -54,6 +55,418 @@ We used MERN stack to implement this project. MERN stands for MongoDB, Express, 
 
 ## Coding style
 This project is divided into two main parts, frontend and backend. Our backend is divided into routes,controllers and models. While the frontend is a react app which consists of several components and pages
+
+## Code Examples
+//View courses
+const getCourses = async (req, res) => {
+    console.log("getcourses")
+    const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, instructorName: 1, subject: 1, price: 1, courseOutline: 1 })
+    res.json(courses)
+}
+
+const getPrices = async (req, res) => {
+    const prices = await courseModel.find({}, { _id: 1, title: 1, price: 1, rating: 1, hours: 1, instructorName: 1, subject: 1, courseOutline: 1, previewVideo: 1 })
+    res.status(200).json(prices)
+}
+
+const opencourse = asyncHandler(async (req, res) => {
+    const viewCourse = await courseModel.findById(req.query.courseId)
+    res.status(200).json(viewCourse)
+})
+
+//Authenitication
+
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (username) => {
+    return jwt.sign({ username }, 'supersecret', {
+        expiresIn: maxAge
+    });
+};
+
+const login = async (req, res) => {
+    let userType = ''
+    const { username, password } = req.body;
+    let user;
+    try {
+        user = await instructorModel.findOne({ username: username })
+        if (user)
+            userType = 'instructor'
+        else {
+            user = await corporateTraineeModel.findOne({ username: username })
+            if (user)
+                userType = 'corporateTrainee'
+            else {
+                user = await individualTraineeModel.findOne({ username: username })
+                if (user)
+                    userType = 'individualTrainee'
+                else {
+                    user = await adminModel.findOne({ username: username })
+                    if (user)
+                        userType = 'admin'
+                }
+            }
+        }
+        if (user) {
+            const isCorrectPassword = (password == user.password)
+            if (isCorrectPassword) {
+                const token = createToken(user.username);
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(200).json({
+                    user: user,
+                    userType: userType
+                })
+            } else {
+                res.status(400).json({ message: "Wrong Password!" })
+            }
+        } else
+            res.status(400).json({ message: "No such username!" })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const logout = async (req, res) => {
+    res.cookie('jwt', '', { httpOnly: true, maxAge: 1 });
+    res.status(200).json({ message: 'You are logged out!' })
+}
+
+//Admin
+//This is to know which user is chosen by the admin
+
+const selectedUser = asyncHandler(async (req, res) => {
+    const selectedElement = req.body.selectedElement
+    const admins = await Admin.find({ username: req.body.username })
+    const instructors = await instructorModel.find({ username: req.body.username })
+    const trainees = await corporateTraineeModel.find({ username: req.body.username })
+    if (!req.body) {
+        res.status(400)
+        throw new Error("Please enter username and password")
+    }
+    else if (admins.length != 0 || instructors.length != 0 || trainees.length != 0) {
+        res.status(400)
+        throw new Error('username exists')
+    }
+    else {
+        if (selectedElement == 'Admin') {
+            const admin = await Admin.create({
+                username: req.body.username,
+                password: req.body.password
+            })
+            res.status(200).json(admin)
+        }
+        else if (selectedElement == 'Instructor') {
+            const instructor = await instructorModel.create({
+                username: req.body.username,
+                password: req.body.password,
+                email: '',
+                firstName: '',
+                lastName: '',
+                gender: '',
+                country: 'Egypt',
+                biography: '',
+                moneyOwed: 0,
+                rating: 0,
+                agreed: false,
+                ratings: {
+                    oneStar: 0,
+                    twoStar: 0,
+                    threeStar: 0,
+                    fourStar: 0,
+                    fiveStar: 0,
+                },
+                reviews: [],
+                courses: []
+            })
+            res.status(200).json(instructor)
+        }
+        else {
+            const corporateTrainee = await corporateTraineeModel.create({
+                username: req.body.username,
+                password: req.body.password,
+                email: '',
+                firstName: '',
+                lastName: '',
+                gender: '',
+                country: 'Egypt',
+                enrolledCourses: []
+            })
+            res.status(200).json(corporateTrainee)
+        }
+    }
+})
+
+
+
+const definePromotion = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const course = await courseModel.findById(id)
+    let coursePrice = course.price
+    const date = new Date();
+    console.log(date);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let currentDate = `${year}-${month}-${day}`;
+    currentDate = currentDate + 'T00:00:00.000+00:00'
+    console.log("alooo" + currentDate);
+    let courseEndDate = new Date(req.body.endDate)
+    let discountDay = courseEndDate.getDate();
+    let discountMonth = courseEndDate.getMonth() + 1;
+    let discountYear = courseEndDate.getFullYear();
+    let discountDate = `${discountYear}-${discountMonth}-${discountDay}`;
+    discountDate = discountDate + 'T00:00:00.000+00:00'
+    console.log("aloo000" + discountDate)
+    if (currentDate > discountDate) {
+        const course3 = await courseModel.findOneAndUpdate({ _id: id }, {
+            amount: 0,
+            endDate: "",
+            price: coursePrice
+        })
+        return res.status(302).json({ error: 'invalid date' })
+    }
+    else {
+        const course1 = await courseModel.findOneAndUpdate({ _id: id }, {
+            discount: {
+                amount: req.body.amount,
+                endDate: courseEndDate
+            },
+        }, { new: true })
+        let discountAmount = req.body.amount
+        const course2 = await courseModel.findOneAndUpdate({ _id: id }, {
+            price: coursePrice - coursePrice * (discountAmount / 100),
+        }, { new: true })
+    }
+    if (!course) {
+        return res.status(400).json({ error: 'No such course' })
+    }
+    res.status(200).json(course)
+})
+
+const getRequests = asyncHandler(async (req, res) => {
+    const requests = await requestModel.find({ type: "corporate", status: "pending" })
+    res.status(200).json(requests)
+})
+
+const getRefunds = asyncHandler(async (req, res) => {
+    const requests = await requestModel.find({ type: "refund", status: "pending" })
+    for (i = 0; i < requests.length; i++) {
+        const user = await individualTraineeModel.findById(requests[i].userId);
+        const course = await courseModel.findById(requests[i].courseId);
+        if (user && course) {
+            requests[i].username = user.username
+            requests[i].courseTitle = course.title
+            requests[i].coursePrice = course.price
+        }
+    }
+    res.status(200).json(requests)
+})
+
+const getReports = asyncHandler(async (req, res) => {
+    const reports = await reportModel.find()
+    for (i = 0; i < reports.length; i++) {
+        const user = await corporateTraineeModel.findById(reports[i].userId);
+        const course = await courseModel.findById(reports[i].courseId);
+        if (user && course) {
+            reports[i].username = user.username
+            reports[i].courseTitle = course.title
+        }
+        else {
+            const user = await individualTraineeModel.findById(reports[i].userId);
+            if (user && course) {
+                reports[i].username = user.username
+                reports[i].courseTitle = course.title
+            }
+            else {
+                const user = await instructorModel.findById(reports[i].userId);
+                if (user && course) {
+                    reports[i].username = user.username
+                    reports[i].courseTitle = course.title
+                }
+            }
+        }
+    }
+    res.status(200).json(reports)
+})
+
+
+//Instructor
+const createCourse = asyncHandler(async (req, res) => {
+    if (!req.body) {
+        res.status(400)
+        throw new Error("Please fill in all fields!")
+    }
+    else {
+        let totalHours = 0;
+        if (req.body.subtitles) {
+            for (let subtitle of req.body.subtitles) {
+                totalHours += parseInt(subtitle.hours, 10)
+            }
+        }
+        const previewVideo = await videoModel.create({
+            url: req.body.previewVideo.url,
+            shortDescription: req.body.previewVideo.shortDescription
+        })
+        let subtitles = []
+        for (let i = 0; i < req.body.subtitles.length; i++) {
+            const video = await videoModel.create({
+                url: req.body.subtitles[i].video.url,
+                shortDescription: req.body.subtitles[i].video.shortDescription
+            })
+            const exercise = await exerciseModel.create({
+                questionOne: {
+                    question: req.body.subtitles[i].exercise.questionOne.question,
+                    options: [
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text1, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect1 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text2, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect2 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text3, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect3 },
+                        { Text: req.body.subtitles[i].exercise.questionOne.Text4, isCorrect: req.body.subtitles[i].exercise.questionOne.isCorrect4 }]
+                },
+                questionTwo: {
+                    question: req.body.subtitles[i].exercise.questionTwo.question,
+                    options: [
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text1, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect1 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text2, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect2 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text3, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect3 },
+                        { Text: req.body.subtitles[i].exercise.questionTwo.Text4, isCorrect: req.body.subtitles[i].exercise.questionTwo.isCorrect4 }]
+                },
+            })
+            const subtitle = await subtitleModel.create({
+                title: req.body.subtitles[i].title,
+                subtitleHours: req.body.subtitles[i].hours,
+                video: video,
+                exercise: exercise
+            })
+            subtitles.push(subtitle)
+        }
+        const exercise = await exerciseModel.create({
+            questionOne: {
+                question: req.body.exercise.questionOne.question,
+                options: [
+                    { Text: req.body.exercise.questionOne.Text1, isCorrect: req.body.exercise.questionOne.isCorrect1 },
+                    { Text: req.body.exercise.questionOne.Text2, isCorrect: req.body.exercise.questionOne.isCorrect2 },
+                    { Text: req.body.exercise.questionOne.Text3, isCorrect: req.body.exercise.questionOne.isCorrect3 },
+                    { Text: req.body.exercise.questionOne.Text4, isCorrect: req.body.exercise.questionOne.isCorrect4 }]
+            },
+            questionTwo: {
+                question: req.body.exercise.questionTwo.question,
+                options: [
+                    { Text: req.body.exercise.questionTwo.Text1, isCorrect: req.body.exercise.questionTwo.isCorrect1 },
+                    { Text: req.body.exercise.questionTwo.Text2, isCorrect: req.body.exercise.questionTwo.isCorrect2 },
+                    { Text: req.body.exercise.questionTwo.Text3, isCorrect: req.body.exercise.questionTwo.isCorrect3 },
+                    { Text: req.body.exercise.questionTwo.Text4, isCorrect: req.body.exercise.questionTwo.isCorrect4 }]
+            },
+        })
+        const course = await courseModel.create({
+            hours: totalHours,
+            ratings: {
+                oneStar: 0,
+                twoStar: 0,
+                threeStar: 0,
+                fourStar: 0,
+                fiveStar: 0
+            },
+            rating: 0,
+            reviews: [],
+            title: req.body.title,
+            price: req.body.price,
+            discount: {
+                amount: 0,
+                endDate: ""
+            },
+            subject: req.body.subject,
+            instructorId: req.body.instructorId,
+            instructorName: req.body.instructorName,
+            subtitles: subtitles,
+            shortSummary: req.body.shortSummary,
+            previewVideo: previewVideo,
+            courseOutline: req.body.courseOutline,
+            exercise: exercise,
+            numberOfEnrolledStudents: 0
+        })
+        const instructor = await instructorModel.findById(req.body.instructorId)
+        const instructorCourses = instructor.courses
+        instructorCourses.push(course)
+        const updatedInstructor = await instructorModel.findByIdAndUpdate(req.body.instructorId, { courses: instructorCourses })
+        res.status(200).json(course)
+    }
+})
+
+//individualTrainee
+const registerForCourse = asyncHandler(async (req, res) => {
+    const findUser = await individualTraineeModel.findById(req.body.id);
+    const findCourse = await courseModel.findById(req.body.courseId);
+    const numberOfStudents = findCourse.numberOfEnrolledStudents + 1;
+    const updatedCourse = await courseModel.findByIdAndUpdate(req.body.courseId, { numberOfEnrolledStudents: numberOfStudents }, { new: true });
+    const courses = findUser.enrolledCourses
+    courses.push({
+        course: updatedCourse,
+        videosSeen: [],
+        numberComplete: 0,
+        percentageComplete: 0
+    })
+    // console.log(courses);
+    const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
+    if (user)
+        res.status(200).json({
+            message: 'Registration Successful!'
+        })
+    else
+        res.status(400).json({
+            message: 'Registration Unsuccessful!'
+        })
+})
+
+//corporateTrainee
+const requestAccess = asyncHandler(async (req, res) => {
+    console.log("inside request access");
+        const course=await courseModel.findById(req.query.courseId);
+        const trainee=await corporateTraineeModel.findById(req.query.traineeId);
+        const request = await requestModel.create({userId:req.query.traineeId,
+            courseId:req.query.courseId,status:"pending",type:"corporate",courseTitle:course.title,username:trainee.username});
+    if(request){
+        res.status(200).json({
+            message: 'Request Sent!',request
+        })
+    }
+    else
+        res.status(400).json({
+            message: 'Request Failed!'
+        })
+})
+
+//corporateTrainee and individualTrainee
+const viewMyCourses = asyncHandler(async (req, res) => {
+    const user = await individualTraineeModel.findById(req.query.id);
+    let enrolledCourses = user.enrolledCourses;
+    let result = []
+    if (user) {
+        for (let i = 0; i < enrolledCourses.length; i++) {
+            const courseDetails = await courseModel.findById(enrolledCourses[i].course.id)
+            result.push(courseDetails)
+        }
+        res.status(200).json(result)
+    }
+    else
+        res.status(400).json({
+            message: 'User not found'
+        })
+})
+
+const openCourse = asyncHandler(async (req, res) => {
+    console.log(req.query.id, "id backedn");
+    const trainee = await individualTraineeModel.findById(req.query.id)
+    let viewCourse;
+    for (let i = 0; i < trainee.enrolledCourses.length; i++) {
+        if (trainee.enrolledCourses[i].course.id == req.query.courseId) {
+            viewCourse = trainee.enrolledCourses[i]
+            res.status(200).json(viewCourse)
+        }
+    }
+    if (!viewCourse)
+        res.status(400).json({
+            message: "Course not found!"
+        })
+})
 
 ## Screenshots
 - Login page 
