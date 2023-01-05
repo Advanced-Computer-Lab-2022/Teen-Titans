@@ -6042,7 +6042,12 @@ If you're an instructor or a corporate trainee then the admin will sign you up w
 you will not be able to register for courses. To get the project running, clone the repository and then cd to the file then open the terminal and type `cd backend` then type `nodemon app.js` to run the backend and to run the frontend `cd frontend` then type `npm start` and the browser will open your react app.
 
 ## Credits 
-Our team (teen-titans): Haneen Mahmoud 49-2738, Doha Adel 49-7673, Roba Maged 49-4215, Habiba Yasser 49-3505, Zeina Yasser 49-3506 
+- https://www.youtube.com/watch?v=IathdVB65Lw
+- https://www.youtube.com/watch?v=98BzS5Oz5E4&list=PL4cUxeGkcC9iJ_KkrkBZWZRHVwnzLIoUE
+- https://www.youtube.com/watch?v=-0exw-9YJBo&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm
+- https://www.youtube.com/watch?v=XRt34VBPInE
+- https://www.youtube.com/watch?v=4pLWpfaMe4I&t=39s
+- https://www.youtube.com/watch?v=7KDRqBpT8NA
 
 
 
