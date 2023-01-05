@@ -57,32 +57,36 @@ We used MERN stack to implement this project. MERN stands for MongoDB, Express, 
 This project is divided into two main parts, frontend and backend. Our backend is divided into routes,controllers and models. While the frontend is a react app which consists of several components and pages
 
 ## Code Examples
-//View courses
+- View courses
+```
 const getCourses = async (req, res) => {
     console.log("getcourses")
     const courses = await courseModel.find({}, { _id: 1, rating: 1, hours: 1, title: 1, instructorName: 1, subject: 1, price: 1, courseOutline: 1 })
     res.json(courses)
 }
-
+```
+```
 const getPrices = async (req, res) => {
     const prices = await courseModel.find({}, { _id: 1, title: 1, price: 1, rating: 1, hours: 1, instructorName: 1, subject: 1, courseOutline: 1, previewVideo: 1 })
     res.status(200).json(prices)
 }
-
+```
+```
 const opencourse = asyncHandler(async (req, res) => {
     const viewCourse = await courseModel.findById(req.query.courseId)
     res.status(200).json(viewCourse)
 })
-
-//Authenitication
-
+```
+- Authenitication
+```
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (username) => {
     return jwt.sign({ username }, 'supersecret', {
         expiresIn: maxAge
     });
 };
-
+```
+```
 const login = async (req, res) => {
     let userType = ''
     const { username, password } = req.body;
@@ -124,15 +128,16 @@ const login = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
-
+```
+```
 const logout = async (req, res) => {
     res.cookie('jwt', '', { httpOnly: true, maxAge: 1 });
     res.status(200).json({ message: 'You are logged out!' })
 }
-
-//Admin
+```
+- Admin
 //This is to know which user is chosen by the admin
-
+```
 const selectedUser = asyncHandler(async (req, res) => {
     const selectedElement = req.body.selectedElement
     const admins = await Admin.find({ username: req.body.username })
@@ -194,9 +199,8 @@ const selectedUser = asyncHandler(async (req, res) => {
         }
     }
 })
-
-
-
+```
+```
 const definePromotion = asyncHandler(async (req, res) => {
     const { id } = req.params
     const course = await courseModel.findById(id)
@@ -241,12 +245,14 @@ const definePromotion = asyncHandler(async (req, res) => {
     }
     res.status(200).json(course)
 })
-
+```
+```
 const getRequests = asyncHandler(async (req, res) => {
     const requests = await requestModel.find({ type: "corporate", status: "pending" })
     res.status(200).json(requests)
 })
-
+```
+```
 const getRefunds = asyncHandler(async (req, res) => {
     const requests = await requestModel.find({ type: "refund", status: "pending" })
     for (i = 0; i < requests.length; i++) {
@@ -260,7 +266,8 @@ const getRefunds = asyncHandler(async (req, res) => {
     }
     res.status(200).json(requests)
 })
-
+```
+```
 const getReports = asyncHandler(async (req, res) => {
     const reports = await reportModel.find()
     for (i = 0; i < reports.length; i++) {
@@ -287,9 +294,9 @@ const getReports = asyncHandler(async (req, res) => {
     }
     res.status(200).json(reports)
 })
-
-
-//Instructor
+```
+- Instructor
+```
 const createCourse = asyncHandler(async (req, res) => {
     if (!req.body) {
         res.status(400)
@@ -390,8 +397,9 @@ const createCourse = asyncHandler(async (req, res) => {
         res.status(200).json(course)
     }
 })
-
-//individualTrainee
+```
+- individualTrainee
+```
 const registerForCourse = asyncHandler(async (req, res) => {
     const findUser = await individualTraineeModel.findById(req.body.id);
     const findCourse = await courseModel.findById(req.body.courseId);
@@ -404,7 +412,6 @@ const registerForCourse = asyncHandler(async (req, res) => {
         numberComplete: 0,
         percentageComplete: 0
     })
-    // console.log(courses);
     const user = await individualTraineeModel.findByIdAndUpdate(req.body.id, { enrolledCourses: courses })
     if (user)
         res.status(200).json({
@@ -415,8 +422,9 @@ const registerForCourse = asyncHandler(async (req, res) => {
             message: 'Registration Unsuccessful!'
         })
 })
-
-//corporateTrainee
+```
+- corporateTrainee
+```
 const requestAccess = asyncHandler(async (req, res) => {
     console.log("inside request access");
         const course=await courseModel.findById(req.query.courseId);
@@ -433,8 +441,9 @@ const requestAccess = asyncHandler(async (req, res) => {
             message: 'Request Failed!'
         })
 })
-
-//corporateTrainee and individualTrainee
+```
+- corporateTrainee and individualTrainee
+```
 const viewMyCourses = asyncHandler(async (req, res) => {
     const user = await individualTraineeModel.findById(req.query.id);
     let enrolledCourses = user.enrolledCourses;
@@ -451,7 +460,8 @@ const viewMyCourses = asyncHandler(async (req, res) => {
             message: 'User not found'
         })
 })
-
+```
+```
 const openCourse = asyncHandler(async (req, res) => {
     console.log(req.query.id, "id backedn");
     const trainee = await individualTraineeModel.findById(req.query.id)
@@ -467,7 +477,7 @@ const openCourse = asyncHandler(async (req, res) => {
             message: "Course not found!"
         })
 })
-
+```
 ## Screenshots
 - Login page 
 ![image](https://user-images.githubusercontent.com/54781930/210188223-0f9f1124-cb7d-4f20-9071-ae6dcff88ce1.png)
